@@ -1,11 +1,14 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "coffee.waffle.emcutils.mixin",
+  "package": "coffee.waffle.emcutils.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "ClientLoginNetworkHandlerMixin",
+    "ClientPlayNetworkHandlerMixin"
   ],
   "client": [
+    "ChatScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

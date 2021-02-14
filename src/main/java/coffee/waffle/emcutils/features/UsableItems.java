@@ -1,5 +1,6 @@
 package coffee.waffle.emcutils.features;
 
+import coffee.waffle.emcutils.utils.Util;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -13,18 +14,20 @@ import net.minecraft.util.Formatting;
 public class UsableItems {
     public static void onInitialize() {
         ItemTooltipCallback.EVENT.register(((itemStack, tooltipContext, list) -> {
-            if (isUsableItemWithCooldown(itemStack)) {
-                list.add(new LiteralText(""));
+            if (Util.IS_ON_EMC) {
+                if (isUsableItemWithCooldown(itemStack)) {
+                    list.add(new LiteralText(""));
 
-                long untilUsable = getSecondsUntilUsable(itemStack);
+                    long untilUsable = getSecondsUntilUsable(itemStack);
 
-                if (untilUsable > 0) {
-                    list.add(new LiteralText("Usable in: " + formatTime(untilUsable, 1)).formatted(Formatting.RED));
-                } else {
-                    list.add(new LiteralText("Can be used now").formatted(Formatting.GREEN));
+                    if (untilUsable > 0) {
+                        list.add(new LiteralText("Usable in: " + formatTime(untilUsable, 1)).formatted(Formatting.RED));
+                    } else {
+                        list.add(new LiteralText("Can be used now").formatted(Formatting.GREEN));
+                    }
+
+                    itemStack.getItem().appendTooltip(itemStack, MinecraftClient.getInstance().world, list, tooltipContext);
                 }
-
-                itemStack.getItem().appendTooltip(itemStack, MinecraftClient.getInstance().world, list, tooltipContext);
             }
         }));
     }
