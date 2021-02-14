@@ -1,20 +1,20 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "emcutils",
   "version": "${version}",
 
   "name": "Empire Minecraft Utilities",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "description": "A collection of various utilities for the Empire Minecraft server.",
   "authors": [
-    "Me!"
+    "GreenMeanie"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
+    "homepage": "",
     "sources": "https://github.com/MrFrydae/Empire-Minecraft-Utilities"
   },
 
-  "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "license": "MIT",
+  "icon": "icon.png",
 
   "environment": "*",
   "entrypoints": {
@@ -23,15 +23,12 @@
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "emcutils.mixins.json"
   ],
 
   "depends": {
     "fabricloader": ">=0.7.4",
     "fabric": "*",
     "minecraft": "1.16.x"
-  },
-  "suggests": {
-    "another-mod": "*"
   }
 }

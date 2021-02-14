@@ -1,9 +1,7 @@
-# Fabric Example Mod
+# Empire Minecraft Utilities
 
-## Setup
+A collection of small utilities for players of [Empire Minecraft](https://ref.emc.gs/GreenMeanie). Currently includes chat channel buttons above the hotbar (credits to Giselbaer and WitherDoggie for the idea), and easier viewing of temporary items.  
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
+Licensed under the MIT License.
 
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+Modrinth page for downloads: https://modrinth.com/mod/emcutils
