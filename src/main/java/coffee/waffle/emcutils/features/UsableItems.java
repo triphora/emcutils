@@ -11,7 +11,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 
 public class UsableItems {
-    public void onInitialize() {
+    public static void onInitialize() {
         ItemTooltipCallback.EVENT.register(((itemStack, tooltipContext, list) -> {
             if (isUsableItemWithCooldown(itemStack)) {
                 list.add(new LiteralText(""));
@@ -29,7 +29,7 @@ public class UsableItems {
         }));
     }
 
-    private boolean isUsableItemWithCooldown(ItemStack item) {
+    private static boolean isUsableItemWithCooldown(ItemStack item) {
         if (item != null && item.getTag() != null) {
             if (item.getTag().get("display") != null) {
                 String displayString = item.getTag().get("display").toString();
@@ -63,7 +63,7 @@ public class UsableItems {
         return false;
     }
 
-    private long getSecondsUntilUsable(ItemStack item) {
+    private static long getSecondsUntilUsable(ItemStack item) {
         if (item != null && item.getTag() != null) {
             if (item.getTag().get("display") != null) {
                 String displayString = item.getTag().get("display").toString();
