@@ -43,7 +43,7 @@ public class Util {
     private static void checkIfOnEmpire(ClientLoginNetworkHandler handler) {
         String serverHost = handler.getConnection().getAddress().toString().split("/")[0];
 
-        IS_ON_EMC = serverHost.matches("(.*).emc.gs");
+        IS_ON_EMC = serverHost.matches("(.*).emc.gs?.");
     }
 
     public static Formatting groupIdToFormatting(int groupId) {
