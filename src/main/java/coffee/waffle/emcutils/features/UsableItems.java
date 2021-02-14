@@ -102,7 +102,7 @@ public class UsableItems {
 
     public static String formatTime(long seconds, int depth) {
         if (seconds < 60) {
-            return seconds + " seconds";
+            return seconds + " second" + (seconds > 1 ? "s" : "");
         }
 
         if (seconds < 3600) {
