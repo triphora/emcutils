@@ -9,6 +9,8 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -65,10 +67,15 @@ public class ChatChannels {
     public static void handleChatScreenMouseClicked(Screen screen, double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
         if (Util.IS_ON_EMC) {
             for (ChatChannel channel : ChatChannel.values()) {
+                if (channel == ChatChannel.SUPPORTER && Util.playerGroupId < 2) break;
+                if (channel == ChatChannel.MODERATOR && Util.playerGroupId < 5) break;
+
                 if (isInBounds(screen, channel.name, channel.getOffset(), mouseX, mouseY) && (System.currentTimeMillis() - lastClickedButtonTime) >= 1000L && currentChannel != channel) {
                     lastClickedButtonTime = System.currentTimeMillis();
                     currentChannel = channel;
                     channel.executeCommand();
+
+                    MinecraftClient.getInstance().player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_PLING, 5, 5);
 
                     // Cancel private conversation if in one
                     inPrivateConversation = false;
