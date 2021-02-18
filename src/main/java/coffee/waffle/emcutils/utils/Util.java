@@ -1,19 +1,32 @@
 package coffee.waffle.emcutils.utils;
 
+import coffee.waffle.emcutils.features.VisitResidenceHandler;
+import com.google.common.collect.Queues;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.SneakyThrows;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientLoginNetworkHandler;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.Formatting;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class Util {
+    @Getter @Setter private static String serverAddress;
+    @Getter private static EmpireServer currentServer;
+    private static Queue<String> onJoinCommandQueue;
     public static int playerGroupId = 0;
     public static boolean IS_ON_EMC = false;
+
+    public static ClientPlayerEntity getPlayer() {
+        return MinecraftClient.getInstance().player;
+    }
 
     public static int getUserGroup(String name) {
         try {
@@ -32,18 +45,18 @@ public class Util {
         return 0;
     }
 
-    public static void handleServerLoginSuccess(ClientLoginNetworkHandler handler, MinecraftClient client) {
-        checkIfOnEmpire(handler);
+    public static void handleServerPlayConnect(ClientPlayNetworkHandler handler, MinecraftClient client) {
+        IS_ON_EMC = serverAddress.matches(".*.emc.gs?.");
+        String playerName = handler.getProfile().getName();
+
+        if (IS_ON_EMC) {
+            VisitResidenceHandler.loadResidences();
+            setPlayerGroupId(playerName);
+        }
     }
 
     public static void setPlayerGroupId(String name) {
         playerGroupId = getUserGroup(name);
-    }
-
-    private static void checkIfOnEmpire(ClientLoginNetworkHandler handler) {
-        String serverHost = handler.getConnection().getAddress().toString().split("/")[0];
-
-        IS_ON_EMC = serverHost.matches("(.*).emc.gs?.");
     }
 
     public static Formatting groupIdToFormatting(int groupId) {
@@ -61,5 +74,64 @@ public class Util {
             case 10: return Formatting.DARK_PURPLE;
             default: return Formatting.WHITE;
         }
+    }
+
+    public static boolean isVisitCommand(String command) {
+        switch (command.toLowerCase()) {
+            case "v":
+            case "visit":
+                return true;
+            default: return false;
+        }
+    }
+
+    public static boolean isHomeCommand(String command) {
+        switch (command.toLowerCase()) {
+            case "home":
+                return true;
+            default: return false;
+        }
+    }
+
+    public static void setCurrentServer(String name) {
+        for (EmpireServer server : EmpireServer.values()) {
+            if (server.getName().equalsIgnoreCase(name)) {
+                currentServer = server;
+                return;
+            }
+        }
+
+        currentServer = EmpireServer.NULL_SERVER;
+    }
+
+    public static Queue<String> getOnJoinCommandQueue() {
+        if (onJoinCommandQueue == null) {
+            onJoinCommandQueue = Queues.newArrayBlockingQueue(100);
+        }
+
+        return onJoinCommandQueue;
+    }
+
+    public static void executeJoinCommands() {
+        Thread thread = new Thread(new Runnable() {
+            @SneakyThrows
+            @Override
+            public void run() {
+                String command;
+
+                while ((command = onJoinCommandQueue.poll()) != null) {
+                    if (command.startsWith("/")) {
+                        command = command.substring(1);
+                    }
+
+                    Util.getPlayer().sendChatMessage("/" + command);
+
+                    Thread.sleep(100);
+                }
+            }
+        });
+
+        thread.setName("join_cmds");
+        thread.start();
     }
 }

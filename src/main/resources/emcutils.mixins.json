@@ -4,8 +4,9 @@
   "package": "coffee.waffle.emcutils.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "ClientLoginNetworkHandlerMixin",
-    "ClientPlayNetworkHandlerMixin"
+    "ClientEntityPlayerMixin",
+    "ClientPlayNetworkHandlerMixin",
+    "ConnectScreenMixin"
   ],
   "client": [
     "ChatScreenMixin"
