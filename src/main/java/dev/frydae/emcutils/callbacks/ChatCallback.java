@@ -1,4 +1,4 @@
-package coffee.waffle.emcutils.callbacks;
+package dev.frydae.emcutils.callbacks;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

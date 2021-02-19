@@ -1,8 +1,8 @@
-package coffee.waffle.emcutils.features;
+package dev.frydae.emcutils.features;
 
-import coffee.waffle.emcutils.utils.EmpireServer;
-import coffee.waffle.emcutils.utils.Log;
-import coffee.waffle.emcutils.utils.Util;
+import dev.frydae.emcutils.utils.EmpireServer;
+import dev.frydae.emcutils.utils.Log;
+import dev.frydae.emcutils.utils.Util;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

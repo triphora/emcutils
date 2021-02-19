@@ -1,6 +1,6 @@
-package coffee.waffle.emcutils.mixins;
+package dev.frydae.emcutils.mixins;
 
-import coffee.waffle.emcutils.utils.Util;
+import dev.frydae.emcutils.utils.Util;
 import net.minecraft.client.gui.screen.ConnectScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

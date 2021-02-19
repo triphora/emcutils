@@ -1,6 +1,6 @@
-package coffee.waffle.emcutils.mixins;
+package dev.frydae.emcutils.mixins;
 
-import coffee.waffle.emcutils.features.ChatChannels;
+import dev.frydae.emcutils.features.ChatChannels;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;

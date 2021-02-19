@@ -1,10 +1,10 @@
-package coffee.waffle.emcutils;
+package dev.frydae.emcutils;
 
-import coffee.waffle.emcutils.callbacks.CommandExecutionCallback;
-import coffee.waffle.emcutils.features.UsableItems;
-import coffee.waffle.emcutils.features.VisitResidenceHandler;
-import coffee.waffle.emcutils.utils.Config;
-import coffee.waffle.emcutils.utils.Util;
+import dev.frydae.emcutils.callbacks.CommandExecutionCallback;
+import dev.frydae.emcutils.features.UsableItems;
+import dev.frydae.emcutils.features.VisitResidenceHandler;
+import dev.frydae.emcutils.utils.Config;
+import dev.frydae.emcutils.utils.Util;
 import lombok.Getter;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
@@ -24,7 +24,7 @@ public class EmpireMinecraftUtilities implements ModInitializer {
         logger = LogManager.getLogger("EMC Utils");
         Util.getOnJoinCommandQueue();
 
-        Config.initConfig();
+        Config.getInstance().load();
 
         registerListeners();
 

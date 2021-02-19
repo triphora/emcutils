@@ -1,13 +1,10 @@
-package coffee.waffle.emcutils.utils;
+package dev.frydae.emcutils.utils;
 
-import coffee.waffle.emcutils.features.TabListOrganizer;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import dev.frydae.emcutils.features.TabListOrganizer;
 import io.github.prospector.modmenu.api.ConfigScreenFactory;
 import io.github.prospector.modmenu.api.ModMenuApi;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
@@ -15,87 +12,55 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.TranslatableText;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
 @Environment(EnvType.CLIENT)
-public class Config implements ModMenuApi {
-    @Getter private static ConfigValues configValues;
-
-    public static void initConfig() {
-        try (FileReader reader = new FileReader("config/emc_utils.json")) {
-            Gson gson = new Gson();
-
-            configValues = gson.fromJson(reader, ConfigValues.class);
-        } catch (IOException e) {
-            Log.exception(e);
-        }
-    }
-
-    @Getter @Setter
-    public static class ConfigValues {
-        public boolean tabListShowAllServers = true;
-        public TabListSortType tabListSortType = TabListSortType.SERVER_ASCENDING;
-        public TabListCurrentServerPlacement tabListCurrentServerPlacement = TabListCurrentServerPlacement.TOP;
-    }
+public class ModMenuIntegration implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return Config::genConfig;
+        return ModMenuIntegration::genConfig;
     }
 
     private static Screen genConfig(Screen parent) {
         ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(parent)
                 .setTitle(new TranslatableText("emc_utils.config"))
-                .setSavingRunnable(Config::save);
+                .setSavingRunnable(Config.getInstance()::save);
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
         builder.getOrCreateCategory(new TranslatableText("emc_utils.config.tablist.category"))
                 .addEntry(entryBuilder
                     .startBooleanToggle(
                             new TranslatableText("emc_utils.config.tablist.showAllServers"),
-                            configValues.isTabListShowAllServers()
+                            Config.getInstance().isTabListShowAllServers()
                     )
                     .setDefaultValue(true)
-                    .setSaveConsumer(configValues::setTabListShowAllServers)
+                    .setSaveConsumer(Config.getInstance()::setTabListShowAllServers)
                     .build()
                 )
                 .addEntry(entryBuilder
                     .startEnumSelector(
                             new TranslatableText("emc_utils.config.tablist.sort.type"),
                             TabListSortType.class,
-                            configValues.getTabListSortType()
+                            Config.getInstance().getTabListSortType()
                     )
                     .setDefaultValue(TabListSortType.NAME_ASCENDING)
                     .setEnumNameProvider(type -> ((TabListSortType) type).getDescription())
-                    .setSaveConsumer(configValues::setTabListSortType)
+                    .setSaveConsumer(Config.getInstance()::setTabListSortType)
                     .build()
                 )
                 .addEntry(entryBuilder
                     .startEnumSelector(
                             new TranslatableText("emc_utils.config.tablist.placement"),
                             TabListCurrentServerPlacement.class,
-                            configValues.getTabListCurrentServerPlacement()
+                            Config.getInstance().getTabListCurrentServerPlacement()
                     )
                     .setDefaultValue(TabListCurrentServerPlacement.TOP)
                     .setEnumNameProvider(placement -> ((TabListCurrentServerPlacement) placement).getDescription())
-                    .setSaveConsumer(configValues::setTabListCurrentServerPlacement)
+                    .setSaveConsumer(Config.getInstance()::setTabListCurrentServerPlacement)
                     .build()
                 );
 
         return builder.build();
-    }
-
-    private static void save() {
-        try (FileWriter writer = new FileWriter("config/emc_utils.json")) {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-            gson.toJson(configValues, writer);
-        } catch (IOException e) {
-            Log.exception(e);
-        }
     }
 
     @AllArgsConstructor

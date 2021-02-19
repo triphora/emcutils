@@ -1,4 +1,4 @@
-package coffee.waffle.emcutils.callbacks;
+package dev.frydae.emcutils.callbacks;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;

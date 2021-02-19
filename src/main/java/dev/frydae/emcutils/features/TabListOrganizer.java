@@ -1,8 +1,9 @@
-package coffee.waffle.emcutils.features;
+package dev.frydae.emcutils.features;
 
-import coffee.waffle.emcutils.utils.Config;
-import coffee.waffle.emcutils.utils.EmpireServer;
-import coffee.waffle.emcutils.utils.Util;
+import dev.frydae.emcutils.utils.Config;
+import dev.frydae.emcutils.utils.ModMenuIntegration;
+import dev.frydae.emcutils.utils.EmpireServer;
+import dev.frydae.emcutils.utils.Util;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import net.minecraft.client.network.PlayerListEntry;
@@ -33,20 +34,20 @@ public class TabListOrganizer {
             }
         }
 
-        if (!Config.getConfigValues().isTabListShowAllServers()) {
+        if (!Config.getInstance().isTabListShowAllServers()) {
             enhanced = enhanced.stream().filter(e -> e.server == Util.getCurrentServer()).collect(Collectors.toList());
         }
 
         // This ensures that the names are in alphabetical order before any other sort.
-        enhanced.sort(Config.TabListSortType.NAME_ASCENDING::compare);
-        currentServer.sort(Config.TabListSortType.NAME_ASCENDING::compare);
+        enhanced.sort(ModMenuIntegration.TabListSortType.NAME_ASCENDING::compare);
+        currentServer.sort(ModMenuIntegration.TabListSortType.NAME_ASCENDING::compare);
 
         // This sorts based on what config option you have set
-        enhanced.sort(Config.getConfigValues().getTabListSortType()::compare);
+        enhanced.sort(Config.getInstance().getTabListSortType()::compare);
 
         List<EnhancedTabListEntry> sorted = Lists.newArrayList();
 
-        switch (Config.getConfigValues().getTabListCurrentServerPlacement()) {
+        switch (Config.getInstance().getTabListCurrentServerPlacement()) {
             case TOP:
                 enhanced.removeAll(currentServer);
                 sorted.addAll(currentServer);

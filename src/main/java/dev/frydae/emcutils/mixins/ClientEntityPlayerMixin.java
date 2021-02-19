@@ -1,7 +1,7 @@
-package coffee.waffle.emcutils.mixins;
+package dev.frydae.emcutils.mixins;
 
-import coffee.waffle.emcutils.callbacks.ChatCallback;
-import coffee.waffle.emcutils.callbacks.CommandExecutionCallback;
+import dev.frydae.emcutils.callbacks.ChatCallback;
+import dev.frydae.emcutils.callbacks.CommandExecutionCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.ActionResult;

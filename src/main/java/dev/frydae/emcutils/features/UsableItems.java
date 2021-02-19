@@ -1,6 +1,6 @@
-package coffee.waffle.emcutils.features;
+package dev.frydae.emcutils.features;
 
-import coffee.waffle.emcutils.utils.Util;
+import dev.frydae.emcutils.utils.Util;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

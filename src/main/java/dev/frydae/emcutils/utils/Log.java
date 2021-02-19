@@ -1,6 +1,6 @@
-package coffee.waffle.emcutils.utils;
+package dev.frydae.emcutils.utils;
 
-import coffee.waffle.emcutils.EmpireMinecraftUtilities;
+import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.logging.log4j.Logger;
 

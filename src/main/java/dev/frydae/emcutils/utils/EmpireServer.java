@@ -1,4 +1,4 @@
-package coffee.waffle.emcutils.utils;
+package dev.frydae.emcutils.utils;
 
 import lombok.Getter;
 import net.minecraft.client.MinecraftClient;

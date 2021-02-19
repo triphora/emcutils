@@ -1,6 +1,5 @@
-package coffee.waffle.emcutils.utils;
+package dev.frydae.emcutils.utils;
 
-import coffee.waffle.emcutils.features.VisitResidenceHandler;
 import com.google.common.collect.Queues;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -55,7 +54,6 @@ public class Util {
     public static void handleServerPlayConnect(ClientPlayNetworkHandler handler, MinecraftClient client) {
         String playerName = handler.getProfile().getName();
 
-        VisitResidenceHandler.loadResidences();
         setPlayerGroupId(playerName);
     }
 

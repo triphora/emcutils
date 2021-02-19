@@ -1,9 +1,9 @@
-package coffee.waffle.emcutils.mixins;
+package dev.frydae.emcutils.mixins;
 
-import coffee.waffle.emcutils.callbacks.ChatCallback;
-import coffee.waffle.emcutils.features.ChatChannels;
-import coffee.waffle.emcutils.features.VisitResidenceHandler;
-import coffee.waffle.emcutils.utils.Util;
+import dev.frydae.emcutils.callbacks.ChatCallback;
+import dev.frydae.emcutils.features.ChatChannels;
+import dev.frydae.emcutils.features.VisitResidenceHandler;
+import dev.frydae.emcutils.utils.Util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;

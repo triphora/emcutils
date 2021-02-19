@@ -1,6 +1,6 @@
-package coffee.waffle.emcutils.mixins;
+package dev.frydae.emcutils.mixins;
 
-import coffee.waffle.emcutils.features.TabListOrganizer;
+import dev.frydae.emcutils.features.TabListOrganizer;
 import net.minecraft.client.gui.hud.PlayerListHud;
 import net.minecraft.client.network.PlayerListEntry;
 import org.spongepowered.asm.mixin.Mixin;

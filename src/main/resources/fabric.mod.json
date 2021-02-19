@@ -20,10 +20,10 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "coffee.waffle.emcutils.EmpireMinecraftUtilities"
+      "dev.frydae.emcutils.EmpireMinecraftUtilities"
     ],
     "modmenu": [
-      "coffee.waffle.emcutils.utils.Config"
+      "dev.frydae.emcutils.utils.ModMenuIntegration"
     ]
   },
   "mixins": [
