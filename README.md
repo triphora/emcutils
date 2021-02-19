@@ -3,7 +3,7 @@
 A collection of small utilities for players of [Empire Minecraft](https://ref.emc.gs/GreenMeanie).  
 Feature idea credits go to [Giselbaer](https://u.emc.gs/Giselbaer), [WitherDoggie](https://u.emc.gs/WitherDoggie), and [wafflecoffee](https://u.emc.gs/wafflecoffee).
 
-Made by MrFrydae, and available under the MIT License.
+Made by [MrFrydae](https://u.emc.gs/GreenMeanie), and available under the MIT License.
 
 Modrinth page for downloads: https://modrinth.com/mod/emcutils
 
