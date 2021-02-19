@@ -9,9 +9,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
-import me.shedaniel.clothconfig2.api.ConfigCategory;
+import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.TranslatableText;
 
 import java.io.FileReader;
@@ -41,42 +42,60 @@ public class Config implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return parent -> {
-            ConfigBuilder builder = ConfigBuilder.create()
-                    .setParentScreen(parent)
-                    .setTitle(new TranslatableText("emc_utils.config"));
+        return Config::genConfig;
+    }
 
-            ConfigCategory tabList = builder.getOrCreateCategory(new TranslatableText("emc_utils.config.tablist.category"));
+    private static Screen genConfig(Screen parent) {
+        ConfigBuilder builder = ConfigBuilder.create()
+                .setParentScreen(parent)
+                .setTitle(new TranslatableText("emc_utils.config"))
+                .setSavingRunnable(Config::save);
+        ConfigEntryBuilder entryBuilder = builder.entryBuilder();
 
-            tabList.addEntry(builder.entryBuilder()
-                    .startBooleanToggle(new TranslatableText("emc_utils.config.tablist.showAllServers"), configValues.isTabListShowAllServers())
+        builder.getOrCreateCategory(new TranslatableText("emc_utils.config.tablist.category"))
+                .addEntry(entryBuilder
+                    .startBooleanToggle(
+                            new TranslatableText("emc_utils.config.tablist.showAllServers"),
+                            configValues.isTabListShowAllServers()
+                    )
                     .setDefaultValue(true)
-                    .setSaveConsumer(configValues::setTabListShowAllServers).build());
-
-            tabList.addEntry(builder.entryBuilder()
-                    .startEnumSelector(new TranslatableText("emc_utils.config.tablist.sort.type"), TabListSortType.class, configValues.getTabListSortType())
+                    .setSaveConsumer(configValues::setTabListShowAllServers)
+                    .build()
+                )
+                .addEntry(entryBuilder
+                    .startEnumSelector(
+                            new TranslatableText("emc_utils.config.tablist.sort.type"),
+                            TabListSortType.class,
+                            configValues.getTabListSortType()
+                    )
                     .setDefaultValue(TabListSortType.NAME_ASCENDING)
                     .setEnumNameProvider(type -> ((TabListSortType) type).getDescription())
-                    .setSaveConsumer(configValues::setTabListSortType).build());
-
-            tabList.addEntry(builder.entryBuilder()
-                    .startEnumSelector(new TranslatableText("emc_utils.config.tablist.placement"), TabListCurrentServerPlacement.class, configValues.getTabListCurrentServerPlacement())
+                    .setSaveConsumer(configValues::setTabListSortType)
+                    .build()
+                )
+                .addEntry(entryBuilder
+                    .startEnumSelector(
+                            new TranslatableText("emc_utils.config.tablist.placement"),
+                            TabListCurrentServerPlacement.class,
+                            configValues.getTabListCurrentServerPlacement()
+                    )
                     .setDefaultValue(TabListCurrentServerPlacement.TOP)
                     .setEnumNameProvider(placement -> ((TabListCurrentServerPlacement) placement).getDescription())
-                    .setSaveConsumer(configValues::setTabListCurrentServerPlacement).build());
+                    .setSaveConsumer(configValues::setTabListCurrentServerPlacement)
+                    .build()
+                );
 
-            builder.setSavingRunnable(() -> {
-                try (FileWriter writer = new FileWriter("config/emc_utils.json")) {
-                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return builder.build();
+    }
 
-                    gson.toJson(configValues, writer);
-                } catch (IOException e) {
-                    Log.exception(e);
-                }
-            });
+    private static void save() {
+        try (FileWriter writer = new FileWriter("config/emc_utils.json")) {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-            return builder.build();
-        };
+            gson.toJson(configValues, writer);
+        } catch (IOException e) {
+            Log.exception(e);
+        }
     }
 
     @AllArgsConstructor

@@ -10,11 +10,12 @@
   ],
   "contact": {
     "homepage": "",
-    "sources": "https://github.com/MrFrydae/Empire-Minecraft-Utilities"
+    "sources": "https://github.com/MrFrydae/Empire-Minecraft-Utilities",
+    "issues": "https://github.com/MrFrydae/Empire-Minecraft-Utilities/issues"
   },
 
   "license": "MIT",
-  "icon": "icon.png",
+  "icon": "assets/emc_utils/icon.png",
 
   "environment": "*",
   "entrypoints": {
@@ -32,6 +33,7 @@
   "depends": {
     "fabricloader": ">=0.7.4",
     "fabric": "*",
-    "minecraft": "1.16.x"
+    "minecraft": "1.16.x",
+    "cloth-config2": ">=4.10.13"
   }
 }

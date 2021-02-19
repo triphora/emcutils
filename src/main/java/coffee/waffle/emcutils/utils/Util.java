@@ -10,6 +10,7 @@ import lombok.SneakyThrows;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 
 import java.io.IOException;
@@ -26,6 +27,12 @@ public class Util {
 
     public static ClientPlayerEntity getPlayer() {
         return MinecraftClient.getInstance().player;
+    }
+
+    public static void sendPlayerMessage(String message) {
+        for (String line : message.split("\n")) {
+            MinecraftClient.getInstance().player.sendMessage(new LiteralText(line), false);
+        }
     }
 
     public static int getUserGroup(String name) {
