@@ -46,13 +46,10 @@ public class Util {
     }
 
     public static void handleServerPlayConnect(ClientPlayNetworkHandler handler, MinecraftClient client) {
-        IS_ON_EMC = serverAddress.matches(".*.emc.gs?.");
         String playerName = handler.getProfile().getName();
 
-        if (IS_ON_EMC) {
-            VisitResidenceHandler.loadResidences();
-            setPlayerGroupId(playerName);
-        }
+        VisitResidenceHandler.loadResidences();
+        setPlayerGroupId(playerName);
     }
 
     public static void setPlayerGroupId(String name) {
@@ -101,7 +98,7 @@ public class Util {
             }
         }
 
-        currentServer = EmpireServer.NULL_SERVER;
+        currentServer = EmpireServer.NULL;
     }
 
     public static Queue<String> getOnJoinCommandQueue() {

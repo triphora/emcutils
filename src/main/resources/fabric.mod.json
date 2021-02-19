@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "coffee.waffle.emcutils.EmpireMinecraftUtilities"
+    ],
+    "modmenu": [
+      "coffee.waffle.emcutils.utils.Config"
     ]
   },
   "mixins": [

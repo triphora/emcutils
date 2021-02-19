@@ -6,7 +6,8 @@
   "mixins": [
     "ClientEntityPlayerMixin",
     "ClientPlayNetworkHandlerMixin",
-    "ConnectScreenMixin"
+    "ConnectScreenMixin",
+    "PlayerListHudMixin"
   ],
   "client": [
     "ChatScreenMixin"

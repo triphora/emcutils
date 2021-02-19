@@ -37,7 +37,7 @@ public class VisitResidenceHandler {
 
         EmpireServer server = getResidenceServer(res);
 
-        if (server != EmpireServer.NULL_SERVER && server != Util.getCurrentServer()) {
+        if (server != EmpireServer.NULL && server != Util.getCurrentServer()) {
             Util.getOnJoinCommandQueue().add("v " + res + " " + loc);
 
             server.sendToServer();
@@ -71,7 +71,7 @@ public class VisitResidenceHandler {
 
         EmpireServer server = getResidenceServer(resName);
 
-        if (server != EmpireServer.NULL_SERVER && server != Util.getCurrentServer()) {
+        if (server != EmpireServer.NULL && server != Util.getCurrentServer()) {
             Util.getOnJoinCommandQueue().add("v " + resName + " " + loc);
 
             server.sendToServer();
@@ -128,7 +128,7 @@ public class VisitResidenceHandler {
             }
         }
 
-        return EmpireServer.NULL_SERVER;
+        return EmpireServer.NULL;
     }
 
     public static EmpireServer getResidenceServer(int address) {
@@ -138,7 +138,7 @@ public class VisitResidenceHandler {
             }
         }
 
-        return EmpireServer.NULL_SERVER;
+        return EmpireServer.NULL;
     }
 
     @Data

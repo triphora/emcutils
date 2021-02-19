@@ -2,6 +2,7 @@ package coffee.waffle.emcutils.mixins;
 
 import coffee.waffle.emcutils.callbacks.ChatCallback;
 import coffee.waffle.emcutils.features.ChatChannels;
+import coffee.waffle.emcutils.features.VisitResidenceHandler;
 import coffee.waffle.emcutils.utils.Util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -46,6 +47,8 @@ public class ClientPlayNetworkHandlerMixin {
     @Inject(at = @At("TAIL"), method = "onGameJoin")
     public void onGameJoin(GameJoinS2CPacket packet, CallbackInfo info) {
         ChatChannels.processGameJoin(packet, info);
+
+        VisitResidenceHandler.loadResidences();
 
         Util.executeJoinCommands();
     }

@@ -10,6 +10,12 @@ archivesBaseName = 'Empire-Minecraft-Utilities-1.16.x'//project.archives_base_na
 version = project.mod_version
 group = project.maven_group
 
+repositories {
+	maven {
+		url "https://maven.shedaniel.me/"
+	}
+}
+
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -27,6 +33,12 @@ dependencies {
 
 	testImplementation 'org.projectlombok:lombok:1.18.16'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
+
+	modApi("me.shedaniel.cloth:cloth-config-fabric:4.10.13") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+
+	modImplementation "io.github.prospector:modmenu:1.14.9+build.14"
 }
 
 processResources {
