@@ -7,9 +7,7 @@
     "ClientEntityPlayerMixin",
     "ClientPlayNetworkHandlerMixin",
     "ConnectScreenMixin",
-    "PlayerListHudMixin"
-  ],
-  "client": [
+    "PlayerListHudMixin",
     "ChatScreenMixin"
   ],
   "injectors": {

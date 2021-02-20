@@ -1,5 +1,6 @@
 package dev.frydae.emcutils;
 
+import dev.frydae.emcutils.callbacks.ChatCallback;
 import dev.frydae.emcutils.callbacks.CommandCallback;
 import dev.frydae.emcutils.features.UsableItems;
 import dev.frydae.emcutils.features.VisitResidenceHandler;
@@ -33,9 +34,17 @@ public class EmpireMinecraftUtilities implements ModInitializer {
         System.out.println("Loaded Empire Minecraft Utilities!");
     }
 
-
-
     private void registerListeners() {
+        ChatCallback.POST_RECEIVE_MESSAGE.register(((player, message) -> {
+            if (message.matches("Welcome to Empire Minecraft - (.*), (.*)!")) {
+                String server = message.substring(30, message.indexOf(","));
+
+                Util.setCurrentServer(server);
+            }
+
+            return ActionResult.PASS;
+        }));
+
         CommandCallback.PRE_EXECUTE_COMMAND.register(((player, command, args) -> {
             if (Util.isVisitCommand(command)) {
                 return VisitResidenceHandler.handleVisitCommand(args);
