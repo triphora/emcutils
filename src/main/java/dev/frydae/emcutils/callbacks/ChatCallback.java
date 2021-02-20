@@ -19,7 +19,8 @@ public interface ChatCallback {
                 }
 
                 return ActionResult.PASS;
-            });
+            }
+    );
 
     Event<PostSendMessage> POST_SEND_MESSAGE = EventFactory.createArrayBacked(PostSendMessage.class,
             (listeners) -> (player, message) -> {
@@ -32,7 +33,8 @@ public interface ChatCallback {
                 }
 
                 return ActionResult.PASS;
-            });
+            }
+    );
 
     Event<PreReceiveMessage> PRE_RECEIVE_MESSAGE = EventFactory.createArrayBacked(PreReceiveMessage.class,
             (listeners) -> (player, message) -> {
@@ -45,7 +47,8 @@ public interface ChatCallback {
                 }
 
                 return ActionResult.PASS;
-            });
+            }
+    );
 
     Event<PostReceiveMessage> POST_RECEIVE_MESSAGE = EventFactory.createArrayBacked(PostReceiveMessage.class,
             (listeners) -> (player, message) -> {
@@ -58,7 +61,8 @@ public interface ChatCallback {
                 }
 
                 return ActionResult.PASS;
-            });
+            }
+    );
 
     @FunctionalInterface
     @Environment(EnvType.CLIENT)

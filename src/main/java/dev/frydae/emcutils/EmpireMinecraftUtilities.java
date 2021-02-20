@@ -1,6 +1,6 @@
 package dev.frydae.emcutils;
 
-import dev.frydae.emcutils.callbacks.CommandExecutionCallback;
+import dev.frydae.emcutils.callbacks.CommandCallback;
 import dev.frydae.emcutils.features.UsableItems;
 import dev.frydae.emcutils.features.VisitResidenceHandler;
 import dev.frydae.emcutils.utils.Config;
@@ -33,8 +33,10 @@ public class EmpireMinecraftUtilities implements ModInitializer {
         System.out.println("Loaded Empire Minecraft Utilities!");
     }
 
+
+
     private void registerListeners() {
-        CommandExecutionCallback.EVENT.register(((command, args) -> {
+        CommandCallback.PRE_EXECUTE_COMMAND.register(((player, command, args) -> {
             if (Util.isVisitCommand(command)) {
                 return VisitResidenceHandler.handleVisitCommand(args);
             }

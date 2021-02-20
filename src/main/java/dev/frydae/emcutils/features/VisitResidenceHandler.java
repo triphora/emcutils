@@ -20,13 +20,13 @@ import java.util.stream.IntStream;
 public class VisitResidenceHandler {
     public static List<EmpireResidence> residences = Lists.newArrayList();
 
-    public static ActionResult handleVisitCommand(String[] args) {
+    public static ActionResult handleVisitCommand(List<String> args) {
         if (args == null) {
             return ActionResult.PASS;
         }
 
-        String res = args[0];
-        String loc = args.length > 1 ? args[1] : "";
+        String res = args.get(0);
+        String loc = args.size() > 1 ? args.get(1) : "";
 
         if (res.contains("@")) {
             String[] split = res.split("@");
@@ -48,21 +48,21 @@ public class VisitResidenceHandler {
         return ActionResult.PASS;
     }
 
-    public static ActionResult handleHomeCommand(String[] args) {
+    public static ActionResult handleHomeCommand(List<String> args) {
         int num = 1;
         String loc = "";
 
         if (args != null) {
-            if (args.length == 1) {
-                if (NumberUtils.isParsable(args[0])) {
-                    num = Integer.parseInt(args[0]);
+            if (args.size() == 1) {
+                if (NumberUtils.isParsable(args.get(0))) {
+                    num = Integer.parseInt(args.get(0));
                 } else {
-                    loc = args[0];
+                    loc = args.get(0);
                 }
-            } else if (args.length == 2) {
-                if (NumberUtils.isParsable(args[0])) {
-                    num = Integer.parseInt(args[0]);
-                    loc = args[1];
+            } else if (args.size() == 2) {
+                if (NumberUtils.isParsable(args.get(0))) {
+                    num = Integer.parseInt(args.get(0));
+                    loc = args.get(1);
                 }
             }
         }
