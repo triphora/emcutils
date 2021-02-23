@@ -4,11 +4,13 @@
   "package": "dev.frydae.emcutils.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "ChatScreenMixin",
     "ClientEntityPlayerMixin",
     "ClientPlayNetworkHandlerMixin",
     "ConnectScreenMixin",
-    "PlayerListHudMixin",
-    "ChatScreenMixin"
+    "IdentifierMixin",
+    "PlayerListHudAccessor",
+    "PlayerListHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1

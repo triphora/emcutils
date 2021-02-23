@@ -8,16 +8,14 @@ import net.fabricmc.api.Environment;
 import net.minecraft.util.ActionResult;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Map;
-
 @Environment(EnvType.CLIENT)
 public class CommandAliases implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         CommandCallback.PRE_EXECUTE_COMMAND.register(((player, command, args) -> {
-            for (Map.Entry<String, String> entry : Config.getInstance().getCommandAliases().entrySet()) {
-                String alias = entry.getKey();
-                String original = entry.getValue();
+            for (Config.CommandAlias entry : Config.getInstance().getCommandAliases()) {
+                String alias = entry.getAlias();
+                String original = entry.getOriginal();
 
                 // This is to prevent an infinite loop made by a curious player
                 if (alias.equalsIgnoreCase(original)) {

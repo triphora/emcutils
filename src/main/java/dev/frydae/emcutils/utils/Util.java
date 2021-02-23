@@ -1,19 +1,24 @@
 package dev.frydae.emcutils.utils;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import dev.frydae.emcutils.mixins.PlayerListHudAccessor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
 
@@ -106,6 +111,10 @@ public class Util {
         currentServer = EmpireServer.NULL;
     }
 
+    public static List<PlayerListEntry> getPlayerListEntries() {
+        return Lists.newArrayList(((PlayerListHudAccessor) MinecraftClient.getInstance().inGameHud.getPlayerListWidget()).getEntryOrdering().sortedCopy(MinecraftClient.getInstance().getNetworkHandler().getPlayerList()));
+    }
+
     public static Queue<String> getOnJoinCommandQueue() {
         if (onJoinCommandQueue == null) {
             onJoinCommandQueue = Queues.newArrayBlockingQueue(100);
@@ -135,5 +144,39 @@ public class Util {
 
         thread.setName("join_cmds");
         thread.start();
+    }
+
+    public static int getPlayerGroupIdFromTabList(String user) {
+        List<PlayerListEntry> entries = getPlayerListEntries();
+
+        for (PlayerListEntry entry : entries) {
+            if (entry.getDisplayName().getSiblings().get(1).getString().equalsIgnoreCase(user)) {
+                if (entry.getDisplayName().getSiblings().size() > 1) {
+                    Text coloredName = entry.getDisplayName().getSiblings().get(1);
+
+                    switch (coloredName.getStyle().getColor().getName()) {
+                        case "white":
+                            return 1;
+                        case "gray":
+                            return 2;
+                        case "gold":
+                            return 3;
+                        case "dark_aqua":
+                            return 4;
+                        case "blue":
+                            return 6;
+                        case "dark_green":
+                            return 7;
+                        case "green":
+                            return 8;
+                        case "dark_purple":
+                            return 9;
+                        default: return 0;
+                    }
+                }
+            }
+        }
+
+        return 0;
     }
 }

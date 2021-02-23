@@ -45,7 +45,7 @@ public class ChatChannels {
             inPrivateConversation = true;
             currentChannel = null;
             targetUsername = user;
-            targetGroupId = Util.getUserGroup(user);
+            targetGroupId = Util.getPlayerGroupIdFromTabList(user);
         }
     }
 
