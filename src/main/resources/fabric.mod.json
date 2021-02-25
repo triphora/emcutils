@@ -23,7 +23,12 @@
       "dev.frydae.emcutils.EmpireMinecraftUtilities"
     ],
     "client": [
-      "dev.frydae.emcutils.features.CommandAliases"
+    ],
+    "emc": [
+      "dev.frydae.emcutils.listeners.ChatListener",
+      "dev.frydae.emcutils.listeners.CommandListener",
+      "dev.frydae.emcutils.features.UsableItems",
+      "dev.frydae.emcutils.features.VisitResidenceHandler"
     ],
     "modmenu": [
       "dev.frydae.emcutils.utils.ModMenuIntegration"

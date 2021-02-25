@@ -2,31 +2,27 @@ package dev.frydae.emcutils.utils;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import dev.frydae.emcutils.mixins.PlayerListHudAccessor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.List;
+import java.util.Objects;
 import java.util.Queue;
-import java.util.Scanner;
 
 public class Util {
     @Getter @Setter private static String serverAddress;
     @Getter private static EmpireServer currentServer;
     private static Queue<String> onJoinCommandQueue;
-    public static int playerGroupId = 0;
+    @Getter private static int playerGroupId = 0;
     public static boolean IS_ON_EMC = false;
 
     public static ClientPlayerEntity getPlayer() {
@@ -39,31 +35,8 @@ public class Util {
         }
     }
 
-    public static int getUserGroup(String name) {
-        try {
-            URL url = new URL("https://empireminecraft.com/api/pinfo.php?name=" + name);
-            Scanner scanner = new Scanner(url.openStream());
-            String json = scanner.nextLine();
-            scanner.close();
-
-            JsonObject object = new JsonParser().parse(json).getAsJsonObject();
-
-            return object.get("user_group").getAsInt();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return 0;
-    }
-
-    public static void handleServerPlayConnect(ClientPlayNetworkHandler handler, MinecraftClient client) {
-        String playerName = handler.getProfile().getName();
-
-        setPlayerGroupId(playerName);
-    }
-
-    public static void setPlayerGroupId(String name) {
-        playerGroupId = getUserGroup(name);
+    public static void setPlayerGroupId(int groupId) {
+        playerGroupId = groupId;
     }
 
     public static Formatting groupIdToFormatting(int groupId) {
@@ -154,29 +127,33 @@ public class Util {
                 if (entry.getDisplayName().getSiblings().size() > 1) {
                     Text coloredName = entry.getDisplayName().getSiblings().get(1);
 
-                    switch (coloredName.getStyle().getColor().getName()) {
-                        case "white":
-                            return 1;
-                        case "gray":
-                            return 2;
-                        case "gold":
-                            return 3;
-                        case "dark_aqua":
-                            return 4;
-                        case "blue":
-                            return 6;
-                        case "dark_green":
-                            return 7;
-                        case "green":
-                            return 8;
-                        case "dark_purple":
-                            return 9;
-                        default: return 0;
-                    }
+                    return getGroupIdFromColor(Objects.requireNonNull(coloredName.getStyle().getColor()));
                 }
             }
         }
 
         return 0;
+    }
+
+    public static int getGroupIdFromColor(TextColor color) {
+        switch (color.getName()) {
+            case "white":
+                return 1;
+            case "gray":
+                return 2;
+            case "gold":
+                return 3;
+            case "dark_aqua":
+                return 4;
+            case "blue":
+                return 6;
+            case "dark_green":
+                return 7;
+            case "green":
+                return 8;
+            case "dark_purple":
+                return 9;
+            default: return 0;
+        }
     }
 }

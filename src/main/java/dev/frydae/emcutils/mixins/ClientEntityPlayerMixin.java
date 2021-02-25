@@ -18,8 +18,6 @@ import java.util.stream.Collectors;
 public class ClientEntityPlayerMixin {
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayNetworkHandler;sendPacket(Lnet/minecraft/network/Packet;)V"), method = "sendChatMessage", cancellable = true)
     public void onPreSendMessage(String message, CallbackInfo info) {
-        ActionResult messageResult = ChatCallback.PRE_SEND_MESSAGE.invoker().onPreSendMessage(MinecraftClient.getInstance().player, message);
-
         if (message.startsWith("/")) {
             message = message.substring(1);
             String[] parts = message.split(" ");
@@ -28,21 +26,23 @@ public class ClientEntityPlayerMixin {
             if (commandResult == ActionResult.FAIL) {
                 info.cancel();
             }
-        }
+        } else {
+            ActionResult messageResult = ChatCallback.PRE_SEND_MESSAGE.invoker().onPreSendMessage(MinecraftClient.getInstance().player, message);
 
-        if (messageResult == ActionResult.FAIL) {
-            info.cancel();
+            if (messageResult == ActionResult.FAIL) {
+                info.cancel();
+            }
         }
     }
 
     @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayNetworkHandler;sendPacket(Lnet/minecraft/network/Packet;)V", shift = At.Shift.AFTER), method = "sendChatMessage")
     public void onPostSendMessage(String message, CallbackInfo info) {
-        ChatCallback.POST_SEND_MESSAGE.invoker().onPostSendMessage(MinecraftClient.getInstance().player, message);
-
         if (message.startsWith("/")) {
             message = message.substring(1);
             String[] parts = message.split(" ");
             CommandCallback.POST_EXECUTE_COMMAND.invoker().onPostExecuteCommand(MinecraftClient.getInstance().player, parts[0], parts.length > 1 ? Arrays.stream(parts, 1, parts.length).collect(Collectors.toList()) : Lists.newArrayList());
+        } else {
+            ChatCallback.POST_SEND_MESSAGE.invoker().onPostSendMessage(MinecraftClient.getInstance().player, message);
         }
     }
 }

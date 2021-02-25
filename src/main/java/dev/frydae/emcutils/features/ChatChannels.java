@@ -1,14 +1,15 @@
 package dev.frydae.emcutils.features;
 
+import dev.frydae.emcutils.listeners.ChatListener;
 import dev.frydae.emcutils.utils.Util;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
-import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
@@ -18,42 +19,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Arrays;
 
 public class ChatChannels {
-    private static ChatChannel currentChannel = ChatChannel.COMMUNITY;
-    private static boolean inPrivateConversation = false;
-    private static String targetUsername = null;
-    private static int targetGroupId = 0;
+    @Setter private static ChatChannel currentChannel = ChatChannel.COMMUNITY;
+    @Setter private static boolean inPrivateConversation = false;
+    @Setter private static String targetUsername = null;
+    @Setter private static int targetGroupId = 0;
     private static long lastClickedButtonTime = 0L;
-
-    private static final String CHAT_FOCUS_MESSAGE = "Chat focus set to channel (.*)";
-    private static final String CHAT_PRIVATE_MESSAGE = "Started private conversation with (.*)";
-
-    public static void processChatMessage(GameMessageS2CPacket packet, CallbackInfo info) {
-        String message = packet.getMessage().getString();
-
-        if (message.matches(CHAT_FOCUS_MESSAGE)) {
-            String channel = message.substring(26);
-
-            if (ChatChannel.getChannelByName(channel) != null) {
-                currentChannel = ChatChannel.getChannelByName(channel);
-                inPrivateConversation = false;
-            }
-        }
-
-        if (message.matches(CHAT_PRIVATE_MESSAGE)) {
-            String user = message.substring(34);
-
-            inPrivateConversation = true;
-            currentChannel = null;
-            targetUsername = user;
-            targetGroupId = Util.getPlayerGroupIdFromTabList(user);
-        }
-    }
 
     public static void handleChatScreenRender(Screen screen, MatrixStack matrices, CallbackInfo info) {
         if (Util.IS_ON_EMC) {
             for (ChatChannel channel : ChatChannel.values()) {
-                if (channel == ChatChannel.SUPPORTER && Util.playerGroupId < 2) break;
-                if (channel == ChatChannel.MODERATOR && Util.playerGroupId < 5) break;
+                if (channel == ChatChannel.SUPPORTER && Util.getPlayerGroupId() < 2) break;
+                if (channel == ChatChannel.MODERATOR && Util.getPlayerGroupId() < 5) break;
                 drawButton(screen, matrices, channel);
             }
 
@@ -66,8 +42,8 @@ public class ChatChannels {
     public static void handleChatScreenMouseClicked(Screen screen, double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
         if (Util.IS_ON_EMC) {
             for (ChatChannel channel : ChatChannel.values()) {
-                if (channel == ChatChannel.SUPPORTER && Util.playerGroupId < 2) break;
-                if (channel == ChatChannel.MODERATOR && Util.playerGroupId < 5) break;
+                if (channel == ChatChannel.SUPPORTER && Util.getPlayerGroupId() < 2) break;
+                if (channel == ChatChannel.MODERATOR && Util.getPlayerGroupId() < 5) break;
 
                 if (isInBounds(screen, channel.name, channel.getOffset(), mouseX, mouseY) && (System.currentTimeMillis() - lastClickedButtonTime) >= 1000L && currentChannel != channel) {
                     lastClickedButtonTime = System.currentTimeMillis();
@@ -128,11 +104,12 @@ public class ChatChannels {
     public static void processGameJoin(GameJoinS2CPacket packet, CallbackInfo info) {
         inPrivateConversation = false;
 
+        ChatListener.hideJoinChatMessage();
         ChatChannel.COMMUNITY.executeCommand();
     }
 
     @AllArgsConstructor
-    private enum ChatChannel {
+    public enum ChatChannel {
         COMMUNITY("Community", "/cc", Formatting.DARK_GREEN, null),
         MARKET("Market", "/cm", Formatting.GOLD, COMMUNITY),
         SERVER("Server", "/cs", Formatting.RED, MARKET),

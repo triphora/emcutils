@@ -1,18 +1,24 @@
 package dev.frydae.emcutils.features;
 
-import dev.frydae.emcutils.utils.Util;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import dev.frydae.emcutils.loader.EmpireMinecraftInitializer;
+import dev.frydae.emcutils.utils.Util;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 
-public class UsableItems {
-    public static void onInitialize() {
+@Environment(EnvType.CLIENT)
+public class UsableItems implements EmpireMinecraftInitializer {
+
+    @Override
+    public void onJoinEmpireMinecraft() {
         ItemTooltipCallback.EVENT.register(((itemStack, tooltipContext, list) -> {
             if (Util.IS_ON_EMC) {
                 if (isUsableItemWithCooldown(itemStack)) {

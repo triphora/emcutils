@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 
 public interface ChatCallback {
@@ -37,9 +38,9 @@ public interface ChatCallback {
     );
 
     Event<PreReceiveMessage> PRE_RECEIVE_MESSAGE = EventFactory.createArrayBacked(PreReceiveMessage.class,
-            (listeners) -> (player, message) -> {
+            (listeners) -> (player, text) -> {
                 for (PreReceiveMessage listener : listeners) {
-                    ActionResult result = listener.onPreReceiveMessage(player, message);
+                    ActionResult result = listener.onPreReceiveMessage(player, text);
 
                     if (result != ActionResult.PASS) {
                         return result;
@@ -51,9 +52,9 @@ public interface ChatCallback {
     );
 
     Event<PostReceiveMessage> POST_RECEIVE_MESSAGE = EventFactory.createArrayBacked(PostReceiveMessage.class,
-            (listeners) -> (player, message) -> {
+            (listeners) -> (player, text) -> {
                 for (PostReceiveMessage listener : listeners) {
-                    ActionResult result = listener.onPostReceiveMessage(player, message);
+                    ActionResult result = listener.onPostReceiveMessage(player, text);
 
                     if (result != ActionResult.PASS) {
                         return result;
@@ -79,12 +80,12 @@ public interface ChatCallback {
     @FunctionalInterface
     @Environment(EnvType.CLIENT)
     interface PreReceiveMessage {
-        ActionResult onPreReceiveMessage(ClientPlayerEntity player, String message);
+        ActionResult onPreReceiveMessage(ClientPlayerEntity player, Text message);
     }
 
     @FunctionalInterface
     @Environment(EnvType.CLIENT)
     interface PostReceiveMessage {
-        ActionResult onPostReceiveMessage(ClientPlayerEntity player, String message);
+        ActionResult onPostReceiveMessage(ClientPlayerEntity player, Text message);
     }
 }

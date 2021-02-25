@@ -1,14 +1,15 @@
 package dev.frydae.emcutils.features;
 
-import dev.frydae.emcutils.utils.EmpireServer;
-import dev.frydae.emcutils.utils.Log;
-import dev.frydae.emcutils.utils.Util;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import dev.frydae.emcutils.loader.EmpireMinecraftInitializer;
+import dev.frydae.emcutils.utils.EmpireServer;
+import dev.frydae.emcutils.utils.Log;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import net.minecraft.util.ActionResult;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.IOException;
@@ -17,69 +18,13 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.IntStream;
 
-public class VisitResidenceHandler {
+@Environment(EnvType.CLIENT)
+public class VisitResidenceHandler implements EmpireMinecraftInitializer {
     public static List<EmpireResidence> residences = Lists.newArrayList();
 
-    public static ActionResult handleVisitCommand(List<String> args) {
-        if (args == null) {
-            return ActionResult.PASS;
-        }
-
-        String res = args.get(0);
-        String loc = args.size() > 1 ? args.get(1) : "";
-
-        if (res.contains("@")) {
-            String[] split = res.split("@");
-
-            res = split[0];
-            loc = (split.length > 1 ? split[1] : "");
-        }
-
-        EmpireServer server = getResidenceServer(res);
-
-        if (server != EmpireServer.NULL && server != Util.getCurrentServer()) {
-            Util.getOnJoinCommandQueue().add("v " + res + " " + loc);
-
-            server.sendToServer();
-
-            return ActionResult.FAIL;
-        }
-
-        return ActionResult.PASS;
-    }
-
-    public static ActionResult handleHomeCommand(List<String> args) {
-        int num = 1;
-        String loc = "";
-
-        if (args != null) {
-            if (args.size() == 1) {
-                if (NumberUtils.isParsable(args.get(0))) {
-                    num = Integer.parseInt(args.get(0));
-                } else {
-                    loc = args.get(0);
-                }
-            } else if (args.size() == 2) {
-                if (NumberUtils.isParsable(args.get(0))) {
-                    num = Integer.parseInt(args.get(0));
-                    loc = args.get(1);
-                }
-            }
-        }
-
-        String resName = Util.getPlayer().getEntityName() + (num > 1 ? "-" + num : "");
-
-        EmpireServer server = getResidenceServer(resName);
-
-        if (server != EmpireServer.NULL && server != Util.getCurrentServer()) {
-            Util.getOnJoinCommandQueue().add("v " + resName + " " + loc);
-
-            server.sendToServer();
-
-            return ActionResult.FAIL;
-        }
-
-        return ActionResult.PASS;
+    @Override
+    public void onJoinEmpireMinecraft() {
+        loadResidences();
     }
 
     public static void loadResidences() {
