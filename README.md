@@ -1,7 +1,15 @@
 # Empire Minecraft Utilities
 
-A collection of small utilities for players of [Empire Minecraft](https://ref.emc.gs/GreenMeanie). Currently includes chat channel buttons above the hotbar (credits to Giselbaer and WitherDoggie for the idea), and easier viewing of temporary items.  
+A collection of small utilities for players of [Empire Minecraft](https://ref.emc.gs/GreenMeanie).  
+Feature idea credits go to [Giselbaer](https://u.emc.gs/Giselbaer), [WitherDoggie](https://u.emc.gs/WitherDoggie), and [wafflecoffee](https://u.emc.gs/wafflecoffee).
 
-Licensed under the MIT License.
+Made by [MrFrydae](https://u.emc.gs/GreenMeanie), and available under the MIT License.
 
 Modrinth page for downloads: https://modrinth.com/mod/emcutils
+
+## Feature List
+* Chat channel buttons above the hotbar
+* Automatic teleportation to a Residence on another server
+* Easier viewing of usable Custom Items such as [Pot of Gold](https://wiki.emc.gs/pot-of-gold)
+* Customizable tab list sorting
+* And more to come :)
