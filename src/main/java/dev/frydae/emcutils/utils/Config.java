@@ -30,6 +30,7 @@ public class Config {
         commandAliases.add(new CommandAlias("h", "home"));
         commandAliases.add(new CommandAlias("gmail", "getmail"));
         commandAliases.add(new CommandAlias("pmail", "previewmail"));
+        commandAliases.add(new CommandAlias("rs", "resshout"));
     }
 
     public static synchronized Config getInstance() {
