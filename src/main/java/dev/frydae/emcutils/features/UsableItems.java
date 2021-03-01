@@ -12,6 +12,7 @@ import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 @Environment(EnvType.CLIENT)
@@ -22,6 +23,15 @@ public class UsableItems implements EmpireMinecraftInitializer {
         ItemTooltipCallback.EVENT.register(((itemStack, tooltipContext, list) -> {
             if (Util.IS_ON_EMC) {
                 if (isUsableItemWithCooldown(itemStack)) {
+
+                    for (Text text : list) {
+                        if (text.getString().startsWith("Usable in: ")) {
+                            return;
+                        } else if (text.getString().equalsIgnoreCase("Can be used now")) {
+                            return;
+                        }
+                    }
+
                     list.add(new LiteralText(""));
 
                     long untilUsable = getSecondsUntilUsable(itemStack);

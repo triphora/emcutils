@@ -85,7 +85,7 @@ public class Util {
     }
 
     public static List<PlayerListEntry> getPlayerListEntries() {
-        return Lists.newArrayList(((PlayerListHudAccessor) MinecraftClient.getInstance().inGameHud.getPlayerListWidget()).getEntryOrdering().sortedCopy(MinecraftClient.getInstance().getNetworkHandler().getPlayerList()));
+        return Lists.newArrayList(((PlayerListHudAccessor) MinecraftClient.getInstance().inGameHud.getPlayerListHud()).getEntryOrdering().sortedCopy(MinecraftClient.getInstance().getNetworkHandler().getPlayerList()));
     }
 
     public static Queue<String> getOnJoinCommandQueue() {

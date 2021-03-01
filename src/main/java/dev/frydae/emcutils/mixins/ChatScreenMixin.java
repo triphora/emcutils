@@ -17,7 +17,7 @@ public class ChatScreenMixin extends Screen {
         super(title);
     }
 
-    @Inject(at = @At("RETURN"), method = "render")
+    @Inject(at = @At("HEAD"), method = "render")
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo info) {
         ChatChannels.handleChatScreenRender(this, matrices, info);
     }

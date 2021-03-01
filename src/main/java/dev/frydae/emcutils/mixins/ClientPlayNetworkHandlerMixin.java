@@ -2,6 +2,7 @@ package dev.frydae.emcutils.mixins;
 
 import dev.frydae.emcutils.callbacks.ChatCallback;
 import dev.frydae.emcutils.features.ChatChannels;
+import dev.frydae.emcutils.features.VaultButtons;
 import dev.frydae.emcutils.loader.EmpireMinecraftInitializer;
 import dev.frydae.emcutils.utils.Util;
 import net.fabricmc.loader.entrypoint.minecraft.hooks.EntrypointUtils;
@@ -9,6 +10,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
+import net.minecraft.network.packet.s2c.play.OpenScreenS2CPacket;
 import net.minecraft.util.ActionResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -41,5 +43,10 @@ public class ClientPlayNetworkHandlerMixin {
 
             Util.executeJoinCommands();
         }
+    }
+
+    @Inject(at = @At("INVOKE"), method = "onOpenScreen", cancellable = true)
+    public void onOpenScreen(OpenScreenS2CPacket packet, CallbackInfo ci) {
+        VaultButtons.handleScreenOpen(packet, ci);
     }
 }

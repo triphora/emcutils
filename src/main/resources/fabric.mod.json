@@ -14,8 +14,10 @@
     "issues": "https://github.com/MrFrydae/Empire-Minecraft-Utilities/issues"
   },
 
+  "accessWidener": "emcutils.accesswidener",
+
   "license": "MIT",
-  "icon": "assets/emc_utils/icon.png",
+  "icon": "assets/emcutils/icon.png",
 
   "environment": "*",
   "entrypoints": {
@@ -23,6 +25,7 @@
       "dev.frydae.emcutils.EmpireMinecraftUtilities"
     ],
     "client": [
+
     ],
     "emc": [
       "dev.frydae.emcutils.listeners.ChatListener",
