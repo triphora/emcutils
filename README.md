@@ -1,4 +1,5 @@
 # Empire Minecraft Utilities
+[![CircleCI](https://circleci.com/gh/MrFrydae/Empire-Minecraft-Utilities/tree/master.svg?style=svg)](https://circleci.com/gh/MrFrydae/Empire-Minecraft-Utilities/tree/master)
 ![Java 11](https://img.shields.io/badge/language-Java%2011-9B599A.svg?style=flat-square)
 ![Modrinth Downloads](https://img.shields.io/badge/dynamic/json?color=blue&label=Mod&ensp;Downloads&query=downloads&url=https%3A%2F%2Fapi.modrinth.com%2Fapi%2Fv1%2Fmod%2Femcutils)
 [![GitHub license](https://img.shields.io/github/license/MrFrydae/Empire-Minecraft-Utilities?style=flat-square)](https://raw.githubusercontent.com/MrFrydae/Empire-Minecraft-Utilities/master/LICENSE)
