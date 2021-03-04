@@ -4,7 +4,7 @@ import dev.frydae.emcutils.callbacks.CommandCallback;
 import dev.frydae.emcutils.features.VisitResidenceHandler;
 import dev.frydae.emcutils.loader.EmpireMinecraftInitializer;
 import dev.frydae.emcutils.utils.Config;
-import dev.frydae.emcutils.utils.EmpireServer;
+import dev.frydae.emcutils.containers.EmpireServer;
 import dev.frydae.emcutils.utils.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

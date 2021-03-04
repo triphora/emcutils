@@ -2,7 +2,7 @@ package dev.frydae.emcutils.features;
 
 import dev.frydae.emcutils.utils.Config;
 import dev.frydae.emcutils.utils.ModMenuIntegration;
-import dev.frydae.emcutils.utils.EmpireServer;
+import dev.frydae.emcutils.containers.EmpireServer;
 import dev.frydae.emcutils.utils.Util;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
