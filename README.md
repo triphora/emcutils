@@ -1,8 +1,8 @@
 # Empire Minecraft Utilities
 [![CircleCI](https://circleci.com/gh/MrFrydae/Empire-Minecraft-Utilities/tree/master.svg?style=svg)](https://circleci.com/gh/MrFrydae/Empire-Minecraft-Utilities/tree/master)
 ![Java 11](https://img.shields.io/badge/language-Java%2011-9B599A.svg?style=flat-square)
-![Modrinth Downloads](https://img.shields.io/badge/dynamic/json?color=blue&label=Mod&ensp;Downloads&query=downloads&url=https%3A%2F%2Fapi.modrinth.com%2Fapi%2Fv1%2Fmod%2Femcutils)
-[![GitHub license](https://img.shields.io/github/license/MrFrydae/Empire-Minecraft-Utilities?style=flat-square)](https://raw.githubusercontent.com/MrFrydae/Empire-Minecraft-Utilities/master/LICENSE)
+![Modrinth Downloads](https://waffle.coffee/modrinth/emcutils/downloads)
+[![MIT License](https://img.shields.io/github/license/MrFrydae/Empire-Minecraft-Utilities?style=flat-square)](https://raw.githubusercontent.com/MrFrydae/Empire-Minecraft-Utilities/master/LICENSE)
 ![Environment: Client](https://img.shields.io/badge/environment-client-1976d2?style=flat-square)
 ![Version](https://img.shields.io/github/v/tag/MrFrydae/Empire-Minecraft-Utilities?label=version&style=flat-square)
 
@@ -21,7 +21,7 @@ Modrinth page for downloads: https://modrinth.com/mod/emcutils
 * Easier viewing of usable Custom Items such as [Pot of Gold](https://wiki.emc.gs/pot-of-gold)
 * Customizable tab list sorting
 * Command aliases
-* Vault Buttons
+* Vault buttons
 * And more to come :)
 
 ---
