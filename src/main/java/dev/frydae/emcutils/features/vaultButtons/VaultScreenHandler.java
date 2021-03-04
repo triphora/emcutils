@@ -45,7 +45,6 @@ public class VaultScreenHandler extends ScreenHandler {
         for(int row = 0; row < 9; ++row) {
             this.addSlot(new Slot(playerInventory, row, 8 + row * 18, 161 + i));
         }
-
     }
 
     public boolean canUse(PlayerEntity player) {
@@ -54,10 +53,12 @@ public class VaultScreenHandler extends ScreenHandler {
 
     public ItemStack transferSlot(PlayerEntity player, int index) {
         ItemStack itemStack = ItemStack.EMPTY;
-        Slot slot = (Slot)this.slots.get(index);
+        Slot slot = this.slots.get(index);
+
         if (slot != null && slot.hasStack()) {
             ItemStack itemStack2 = slot.getStack();
             itemStack = itemStack2.copy();
+
             if (index < this.rows * 9) {
                 if (!this.insertItem(itemStack2, this.rows * 9, this.slots.size(), true)) {
                     return ItemStack.EMPTY;

@@ -14,6 +14,12 @@ repositories {
 	maven {
 		url "https://maven.shedaniel.me/"
 	}
+	maven {
+		url "https://www.cursemaven.com"
+		content {
+			includeGroup "curse.maven"
+		}
+	}
 }
 
 minecraft {
@@ -38,8 +44,13 @@ dependencies {
 	testImplementation 'org.projectlombok:lombok:1.18.16'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
 
+	// Minimaps
+	//modImplementation "curse.maven:voxelmap-225179:3197679"
+	modImplementation "curse.maven:xaeroworldmap-317780:3222863"
+	modImplementation "curse.maven:xaerominimap-263420:3222851"
+
 	// Mod Menu, to add the hook for a config screen
-	modImplementation "io.github.prospector:modmenu:${project.modmenu_version}"
+	modImplementation "curse.maven:modmenu-308702:3211066"
 
 	// Easy config screen setup library
 	modApi("me.shedaniel.cloth:config-2:${project.cloth_version}") {

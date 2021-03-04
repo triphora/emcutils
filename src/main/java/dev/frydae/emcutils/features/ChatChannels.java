@@ -1,6 +1,7 @@
 package dev.frydae.emcutils.features;
 
 import dev.frydae.emcutils.listeners.ChatListener;
+import dev.frydae.emcutils.systems.Chat;
 import dev.frydae.emcutils.utils.Util;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +11,6 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -50,7 +50,7 @@ public class ChatChannels {
                     currentChannel = channel;
                     channel.executeCommand();
 
-                    MinecraftClient.getInstance().player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_PLING, 5, 5);
+                    MinecraftClient.getInstance().player.playSound(Chat.getInstance().getAlertSound().getSoundEvent(), 5, Chat.getInstance().getPitch());
 
                     // Cancel private conversation if in one
                     inPrivateConversation = false;
@@ -104,6 +104,7 @@ public class ChatChannels {
     public static void processGameJoin(GameJoinS2CPacket packet, CallbackInfo info) {
         inPrivateConversation = false;
 
+        //TODO: Move this to a task
         ChatListener.hideJoinChatMessage();
         ChatChannel.COMMUNITY.executeCommand();
     }

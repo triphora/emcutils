@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -48,6 +49,8 @@ public class Config {
             Gson gson = new Gson();
 
             singleton = gson.fromJson(reader, Config.class);
+        } catch (FileNotFoundException e) {
+            save();
         } catch (IOException e) {
             Log.exception(e);
         }

@@ -23,8 +23,6 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.math.NumberUtils;
 
-import java.util.UUID;
-
 @Environment(EnvType.CLIENT)
 public class VaultScreen extends HandledScreen<VaultScreenHandler> implements ScreenHandlerProvider<VaultScreenHandler> {
     private static final Identifier TEXTURE = new Identifier("emcutils", "textures/gui/container/generic_63.png");
@@ -36,6 +34,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
     public VaultScreen(VaultScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
+        this.client = MinecraftClient.getInstance();
         this.passEvents = false;
         this.rows = 6;
         this.backgroundHeight = 114 + 7 * 18;
@@ -54,7 +53,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
         stack.setCustomName(new LiteralText("Go back " + amount + " page" + (amount > 1 ? "s" : "")).setStyle(Style.EMPTY.withColor(TextColor.fromFormatting(Formatting.GREEN)).withItalic(false)));
 
-        GameProfile profile = new GameProfile(UUID.fromString("1f961930-4e97-47b7-a5a1-2cc5150f3764"), "");
+        GameProfile profile = new GameProfile(null, "MrFrydae");
         profile.getProperties().put("textures", new Property("Value", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWYxMzNlOTE5MTlkYjBhY2VmZGMyNzJkNjdmZDg3YjRiZTg4ZGM0NGE5NTg5NTg4MjQ0NzRlMjFlMDZkNTNlNiJ9fX0="));
 
         stack.getTag().put("SkullOwner", NbtHelper.fromGameProfile(new CompoundTag(), profile));
@@ -67,7 +66,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
         stack.setCustomName(new LiteralText("Go forward " + amount + " page" + (amount > 1 ? "s" : "")).setStyle(Style.EMPTY.withColor(TextColor.fromFormatting(Formatting.GREEN)).withItalic(false)));
 
-        GameProfile profile = new GameProfile(UUID.fromString("1f961930-4e97-47b7-a5a1-2cc5150f3764"), "");
+        GameProfile profile = new GameProfile(null, "MrFrydae");
         profile.getProperties().put("textures", new Property("Value", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTNmYzUyMjY0ZDhhZDllNjU0ZjQxNWJlZjAxYTIzOTQ3ZWRiY2NjY2Y2NDkzNzMyODliZWE0ZDE0OTU0MWY3MCJ9fX0="));
 
         stack.getTag().put("SkullOwner", NbtHelper.fromGameProfile(new CompoundTag(), profile));
@@ -82,7 +81,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
         for (int i = 4; i > 0; i--) {
             if (vaultPage > i) {
-                drawButton(matrices, getPreviousHead(i), mouseX, mouseY, slotOffsets[4 - i], i + "");
+                drawButton(matrices, getPreviousHead(i), mouseX, mouseY, slotOffsets[4 - i], (vaultPage - i) + "");
             }
         }
 
@@ -91,22 +90,19 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
         drawButton(matrices, chest, mouseX, mouseY, slotOffsets[4], "");
 
         for (int i = 1; i <= 4; i++) {
-            drawButton(matrices, getNextHead(i), mouseX, mouseY, slotOffsets[4 + i], i + "");
+            drawButton(matrices, getNextHead(i), mouseX, mouseY, slotOffsets[4 + i], (vaultPage + i) + "");
         }
 
         this.drawMouseoverTooltip(matrices, mouseX, mouseY);
     }
 
     private void drawButton(MatrixStack matrices, ItemStack button, int mouseX, int mouseY, int buttonX, String amountText) {
-        int midWidth = (this.width - this.backgroundWidth) / 2;
-        int midHeight = (this.height - this.backgroundHeight) / 2;
+        this.drawItem(button, x + buttonX, y + 125, amountText);
 
-        this.drawItem(button, midWidth + buttonX, midHeight + 125, amountText);
-
-        if (mouseX >= midWidth + buttonX && mouseX <= midWidth + buttonX + 15) {
-            if (mouseY >= midHeight + 126 && mouseY <= midHeight + 141) {
+        if (mouseX >= x + buttonX && mouseX <= x + buttonX + 15) {
+            if (mouseY >= y + 126 && mouseY <= y + 141) {
                 matrices.translate(0, 0, 225);
-                this.fillGradient(matrices, midWidth + buttonX, midHeight + 125, midWidth + buttonX + 16, midHeight + 125 + 16, 0x80ffffff, 0x80ffffff);
+                this.fillGradient(matrices, x + buttonX, y + 125, x + buttonX + 16, y + 125 + 16, 0x80ffffff, 0x80ffffff);
                 this.renderTooltip(matrices, button, mouseX, mouseY);
                 matrices.translate(0, 0, -225);
             }
@@ -116,16 +112,16 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
     protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.client.getTextureManager().bindTexture(TEXTURE);
-        int i = (this.width - this.backgroundWidth) / 2;
-        int j = (this.height - this.backgroundHeight) / 2;
-        this.drawTexture(matrices, i, j, 0, 0, this.backgroundWidth, (rows + 1) * 18 + 17);
-        this.drawTexture(matrices, i, j + this.rows * 18 + 17, 0, 126, this.backgroundWidth, 128);
+        this.drawTexture(matrices, x, y, 0, 0, this.backgroundWidth, (rows + 1) * 18 + 17);
+        this.drawTexture(matrices, x, y + this.rows * 18 + 17, 0, 126, this.backgroundWidth, 128);
     }
 
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         for (int i = 4; i > 0; i--) {
-            handleClick(slotOffsets[4 - i], mouseX, mouseY, "/vault " + (vaultPage - i));
+            if (vaultPage > i) {
+                handleClick(slotOffsets[4 - i], mouseX, mouseY, "/vault " + (vaultPage - i));
+            }
         }
 
         handleClick(slotOffsets[4], mouseX, mouseY, "/vaults");
@@ -138,11 +134,8 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
     }
 
     private void handleClick(int buttonX, double mouseX, double mouseY, String command) {
-        int midWidth = (this.width - this.backgroundWidth) / 2;
-        int midHeight = (this.height - this.backgroundHeight) / 2;
-
-        if (mouseX >= midWidth + buttonX && mouseX < midWidth + buttonX + 16) {
-            if (mouseY >= midHeight + 126 && mouseY <= midHeight + 141) {
+        if (mouseX >= x + buttonX && mouseX < x + buttonX + 16) {
+            if (mouseY >= y + 126 && mouseY <= y + 141) {
                 this.shouldCallClose = false;
                 MinecraftClient.getInstance().player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_SNARE, 4F, 1F);
                 MinecraftClient.getInstance().player.sendChatMessage(command);
