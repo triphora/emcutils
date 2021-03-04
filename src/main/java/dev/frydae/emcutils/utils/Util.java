@@ -2,6 +2,7 @@ package dev.frydae.emcutils.utils;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Queues;
+import dev.frydae.emcutils.containers.EmpireServer;
 import dev.frydae.emcutils.mixins.PlayerListHudAccessor;
 import lombok.Getter;
 import lombok.Setter;
