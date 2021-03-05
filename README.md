@@ -1,7 +1,7 @@
 # Empire Minecraft Utilities
 [![CircleCI](https://circleci.com/gh/MrFrydae/Empire-Minecraft-Utilities/tree/master.svg?style=svg)](https://circleci.com/gh/MrFrydae/Empire-Minecraft-Utilities/tree/master)
 ![Java 11](https://img.shields.io/badge/language-Java%2011-9B599A.svg?style=flat-square)
-![Modrinth Downloads](https://waffle.coffee/modrinth/emcutils/downloads)
+![Modrinth Downloads](https://waffle.coffee/modrinth/emcutils/downloads?style=flat-square)
 [![MIT License](https://img.shields.io/github/license/MrFrydae/Empire-Minecraft-Utilities?style=flat-square)](https://raw.githubusercontent.com/MrFrydae/Empire-Minecraft-Utilities/master/LICENSE)
 ![Environment: Client](https://img.shields.io/badge/environment-client-1976d2?style=flat-square)
 ![Version](https://img.shields.io/github/v/tag/MrFrydae/Empire-Minecraft-Utilities?label=version&style=flat-square)

@@ -5,11 +5,10 @@
 
   "name": "Empire Minecraft Utilities",
   "description": "A collection of various utilities for the Empire Minecraft server.",
-  "authors": [
-    "MrFrydae"
-  ],
+  "authors": ["MrFrydae"],
+  "contributors": ["wafflecoffee"],
   "contact": {
-    "homepage": "",
+    "homepage": "https://github.com/MrFrydae/Empire-Minecraft-Utilities",
     "sources": "https://github.com/MrFrydae/Empire-Minecraft-Utilities",
     "issues": "https://github.com/MrFrydae/Empire-Minecraft-Utilities/issues"
   },
@@ -45,5 +44,10 @@
     "fabric": "*",
     "minecraft": "1.16.x",
     "cloth-config2": ">=4.8.3"
+  },
+  "suggests": {
+    "modmenu": ">=1.16.8",
+    "xaeros-minimap": ">=21.4.1",
+    "xaeros-worldmap": ">=1.12.1"
   }
 }
