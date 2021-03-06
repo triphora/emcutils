@@ -1,4 +1,5 @@
 # Empire Minecraft Utilities
+[![](https://github.com/MrFrydae/Empire-Minecraft-Utilities/workflows/build/badge.svg)](https://github.com/MrFrydae/Empire-Minecraft-Utilities/actions?query=workflow%3Abuild)
 [![CircleCI](https://circleci.com/gh/MrFrydae/Empire-Minecraft-Utilities/tree/master.svg?style=svg)](https://circleci.com/gh/MrFrydae/Empire-Minecraft-Utilities/tree/master)
 ![Java 11](https://img.shields.io/badge/language-Java%2011-9B599A.svg?style=flat-square)
 ![Modrinth Downloads](https://waffle.coffee/modrinth/emcutils/downloads?style=flat-square)
