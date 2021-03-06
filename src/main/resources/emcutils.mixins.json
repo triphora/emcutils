@@ -10,7 +10,11 @@
     "ConnectScreenMixin",
     "IdentifierMixin",
     "PlayerListHudAccessor",
-    "PlayerListHudMixin"
+    "PlayerListHudMixin",
+    "ScreenMixin",
+    "voxelMap.GuiPersistentMapMixin",
+    "voxelMap.GuiWaypointsMixin",
+    "voxelMap.VoxelMapMixin"
   ],
   "injectors": {
     "defaultRequire": 1

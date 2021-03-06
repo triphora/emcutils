@@ -1,10 +1,9 @@
 package dev.frydae.emcutils.listeners;
 
 import dev.frydae.emcutils.callbacks.CommandCallback;
-import dev.frydae.emcutils.features.VisitResidenceHandler;
-import dev.frydae.emcutils.loader.EmpireMinecraftInitializer;
-import dev.frydae.emcutils.utils.Config;
 import dev.frydae.emcutils.containers.EmpireServer;
+import dev.frydae.emcutils.features.VisitResidenceHandler;
+import dev.frydae.emcutils.utils.Config;
 import dev.frydae.emcutils.utils.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -16,12 +15,26 @@ import org.apache.commons.lang3.math.NumberUtils;
 import java.util.List;
 
 @Environment(EnvType.CLIENT)
-public class CommandListener implements EmpireMinecraftInitializer {
-    @Override
-    public void onJoinEmpireMinecraft() {
+public class CommandListener {
+    public CommandListener() {
         CommandCallback.PRE_EXECUTE_COMMAND.register(CommandListener::registerCommandAliases);
         CommandCallback.PRE_EXECUTE_COMMAND.register(CommandListener::handleResidenceVisitCommand);
         CommandCallback.PRE_EXECUTE_COMMAND.register(CommandListener::handleResidenceHomeCommand);
+
+        CommandCallback.PRE_EXECUTE_COMMAND.register(CommandListener::handleTestCommand);
+    }
+
+    private static ActionResult handleTestCommand(ClientPlayerEntity player, String command, List<String> args) {
+        if (command.equalsIgnoreCase("test")) {
+            String input = "Location: town:-693,65,-486 - Facing: East [LIVEMAP]";
+            String pattern = "Location: .*:-?\\d+,-?\\d+,-?\\d+ - Facing: .* \\[LIVEMAP]";
+
+            Util.sendPlayerMessage(input.matches(pattern) + "");
+
+            return ActionResult.FAIL;
+        }
+
+        return ActionResult.PASS;
     }
 
     private static ActionResult handleResidenceHomeCommand(ClientPlayerEntity player, String command, List<String> args) {

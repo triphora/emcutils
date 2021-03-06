@@ -1,8 +1,8 @@
 package dev.frydae.emcutils.utils;
 
+import com.terraformersmc.modmenu.api.ConfigScreenFactory;
+import com.terraformersmc.modmenu.api.ModMenuApi;
 import dev.frydae.emcutils.features.TabListOrganizer;
-import io.github.prospector.modmenu.api.ConfigScreenFactory;
-import io.github.prospector.modmenu.api.ModMenuApi;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;

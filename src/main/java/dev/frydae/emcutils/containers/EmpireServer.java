@@ -7,6 +7,7 @@ import dev.frydae.emcutils.utils.Log;
 import dev.frydae.emcutils.utils.Util;
 import lombok.Getter;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.util.math.Vec3d;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -90,6 +91,22 @@ public enum EmpireServer {
         }
 
         return list;
+    }
+
+    public EmpireResidence getResidenceByAddress(int address) {
+        return residences.stream().filter(residence -> residence.getAddress() == address).findFirst().orElse(null);
+    }
+
+    public EmpireResidence getResidenceByLoc(Vec3d pos) {
+        for (EmpireResidence residence : residences) {
+            if (pos.getX() <= residence.getSouthEastCorner().getX() && pos.getX() >= residence.getNorthWestCorner().getX()) {
+                if (pos.getZ() <= residence.getSouthEastCorner().getZ() && pos.getZ() >= residence.getNorthWestCorner().getZ()) {
+                    return residence;
+                }
+            }
+        }
+
+        return null;
     }
 
     public void collectResidences() {

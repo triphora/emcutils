@@ -37,12 +37,12 @@ dependencies {
 	testAnnotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
 
 	// Minimaps
-	//modImplementation "curse.maven:voxelmap-225179:3197679"
-	modImplementation "curse.maven:xaeroworldmap-317780:3222863"
-	modImplementation "curse.maven:xaerominimap-263420:3222851"
+	modImplementation "curse.maven:voxelmap-225179:3197679"
+	//modImplementation "curse.maven:xaeroworldmap-317780:3222863"
+	//modImplementation "curse.maven:xaerominimap-263420:3222851"
 
 	// Mod Menu & config integration
-	modImplementation "io.github.prospector:modmenu:v${project.modmenu_version}"
+	modImplementation "curse.maven:modmenu-308702:3211066"
 	modApi("me.shedaniel.cloth:config-2:${project.cloth_version}") { exclude(group: "net.fabricmc.fabric-api") }
 	include "me.shedaniel.cloth:config-2:${project.cloth_version}"
 }

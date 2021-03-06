@@ -15,9 +15,12 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
+import java.util.stream.Collectors;
 
 public class Util {
     @Getter @Setter private static String serverAddress;
@@ -156,5 +159,13 @@ public class Util {
                 return 9;
             default: return 0;
         }
+    }
+
+    public static int getMinValue(int[] arr) {
+        return Collections.min(Arrays.stream(arr).boxed().collect(Collectors.toList()));
+    }
+
+    public static int getMaxValue(int[] arr) {
+        return Collections.max(Arrays.stream(arr).boxed().collect(Collectors.toList()));
     }
 }

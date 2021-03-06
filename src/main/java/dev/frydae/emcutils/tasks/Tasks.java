@@ -1,44 +1,54 @@
 package dev.frydae.emcutils.tasks;
 
-import com.google.common.collect.Lists;
-import dev.frydae.emcutils.loader.EmpireMinecraftInitializer;
+import dev.frydae.emcutils.features.VoxelMapIntegration;
+import dev.frydae.emcutils.listeners.ChatListener;
+import dev.frydae.emcutils.utils.Log;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 
-import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class Tasks implements EmpireMinecraftInitializer {
-    private static final List<Task> tasks = Lists.newArrayList();
+@Environment(EnvType.CLIENT)
+public class Tasks {
+    public Tasks() {
+        ChatListener.currentMessage = ChatListener.ChatMessage.NULL_MESSAGE;
 
-    static {
-        tasks.add(new GetChatAlertsEnabledTask());
-        tasks.add(new GetChatAlertSoundTask());
-        tasks.add(new GetChatAlertPitchTask());
+        // Wait a second for the server to load
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        runTasks(
+                new GetLocationTask(),
+                new GetChatAlertsEnabledTask(),
+                new GetChatAlertSoundTask(),
+                new GetChatAlertPitchTask(),
+                new VoxelMapIntegration()
+        );
     }
 
-    @Override
-    public void onJoinEmpireMinecraft() {
-        executeTasks();
-    }
+    public static void runTasks(Task... tasks) {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    public static void executeTasks() {
-        Thread taskThread = new Thread(() -> {
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
+        executor.submit(() -> {
             for (Task task : tasks) {
                 task.execute();
 
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                Log.info("Executed Task: " + task.toString());
+
+                if (task.shouldWait()) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
 
-        taskThread.setName("tasks");
-        taskThread.start();
+        executor.shutdown();
     }
 }

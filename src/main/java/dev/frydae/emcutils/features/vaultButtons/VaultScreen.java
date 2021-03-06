@@ -3,6 +3,7 @@ package dev.frydae.emcutils.features.vaultButtons;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.blaze3d.systems.RenderSystem;
+import dev.frydae.emcutils.accessors.ScreenAccessor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
@@ -42,6 +43,10 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
         String page = title.getString().split(" ")[1];
         this.vaultPage = NumberUtils.isParsable(page) ? Integer.parseInt(page) : 1;
+
+        if (vaultPage == 69) {
+            ((ScreenAccessor) this).setTitle(new LiteralText(title.getString() + " ... nice"));
+        }
     }
 
     /**
@@ -111,6 +116,8 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
     protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
         RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+        int x = (this.width - this.backgroundWidth) / 2;
+        int y = (this.height - this.backgroundHeight) / 2;
         this.client.getTextureManager().bindTexture(TEXTURE);
         this.drawTexture(matrices, x, y, 0, 0, this.backgroundWidth, (rows + 1) * 18 + 17);
         this.drawTexture(matrices, x, y + this.rows * 18 + 17, 0, 126, this.backgroundWidth, 128);

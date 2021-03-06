@@ -1,7 +1,7 @@
 package dev.frydae.emcutils.features;
 
 import dev.frydae.emcutils.listeners.ChatListener;
-import dev.frydae.emcutils.systems.Chat;
+import dev.frydae.emcutils.utils.Config;
 import dev.frydae.emcutils.utils.Util;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -50,7 +50,7 @@ public class ChatChannels {
                     currentChannel = channel;
                     channel.executeCommand();
 
-                    MinecraftClient.getInstance().player.playSound(Chat.getInstance().getAlertSound().getSoundEvent(), 5, Chat.getInstance().getPitch());
+                    MinecraftClient.getInstance().player.playSound(Config.getInstance().getChatAlertSound().getSoundEvent(), 5, Config.getInstance().getChatAlertPitch());
 
                     // Cancel private conversation if in one
                     inPrivateConversation = false;

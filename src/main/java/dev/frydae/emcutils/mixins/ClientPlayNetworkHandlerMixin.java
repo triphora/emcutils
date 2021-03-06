@@ -1,11 +1,10 @@
 package dev.frydae.emcutils.mixins;
 
+import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.callbacks.ChatCallback;
 import dev.frydae.emcutils.features.ChatChannels;
 import dev.frydae.emcutils.features.VaultButtons;
-import dev.frydae.emcutils.loader.EmpireMinecraftInitializer;
 import dev.frydae.emcutils.utils.Util;
-import net.fabricmc.loader.entrypoint.minecraft.hooks.EntrypointUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
@@ -37,7 +36,7 @@ public class ClientPlayNetworkHandlerMixin {
     @Inject(at = @At("TAIL"), method = "onGameJoin")
     public void onGameJoin(GameJoinS2CPacket packet, CallbackInfo info) {
         if (Util.IS_ON_EMC) {
-            EntrypointUtils.invoke("emc", EmpireMinecraftInitializer.class, EmpireMinecraftInitializer::onJoinEmpireMinecraft);
+            EmpireMinecraftUtilities.onJoinEmpireMinecraft();
 
             ChatChannels.processGameJoin(packet, info);
 

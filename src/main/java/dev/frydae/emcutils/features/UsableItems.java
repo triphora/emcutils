@@ -4,7 +4,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import dev.frydae.emcutils.loader.EmpireMinecraftInitializer;
 import dev.frydae.emcutils.utils.Util;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -16,10 +15,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 @Environment(EnvType.CLIENT)
-public class UsableItems implements EmpireMinecraftInitializer {
-
-    @Override
-    public void onJoinEmpireMinecraft() {
+public class UsableItems {
+    public UsableItems() {
         ItemTooltipCallback.EVENT.register(((itemStack, tooltipContext, list) -> {
             if (Util.IS_ON_EMC) {
                 if (isUsableItemWithCooldown(itemStack)) {

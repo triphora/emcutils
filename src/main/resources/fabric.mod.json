@@ -26,11 +26,6 @@
     "client": [
 
     ],
-    "emc": [
-      "dev.frydae.emcutils.listeners.ChatListener",
-      "dev.frydae.emcutils.listeners.CommandListener",
-      "dev.frydae.emcutils.features.UsableItems"
-    ],
     "modmenu": [
       "dev.frydae.emcutils.utils.ModMenuIntegration"
     ]

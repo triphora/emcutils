@@ -4,16 +4,16 @@ import dev.frydae.emcutils.listeners.ChatListener;
 import dev.frydae.emcutils.utils.Config;
 import net.minecraft.client.MinecraftClient;
 
-public class GetChatAlertsEnabledTask implements Task {
+public class GetLocationTask implements Task {
     @Override
     public void execute() {
         Config.getInstance().setHideFeatureMessages(true);
-        ChatListener.currentMessage = ChatListener.ChatMessage.CHAT_SOUND_ALERTS;
-        MinecraftClient.getInstance().player.sendChatMessage("/ps set chatalerts");
+        ChatListener.currentMessage = ChatListener.ChatMessage.LOCATION;
+        MinecraftClient.getInstance().player.sendChatMessage("/loc");
     }
 
     @Override
     public String getDescription() {
-        return "Getting Chat Alerts Enabled";
+        return "Getting current location";
     }
 }
