@@ -15,7 +15,7 @@ public class VaultScreenHandler extends ScreenHandler {
     private final int rows;
 
     public static VaultScreenHandler createGeneric9x7(int syncId, PlayerInventory playerInventory) {
-        return new VaultScreenHandler(VaultButtons.GENERIC_9X7, syncId, playerInventory, 7);
+        return new VaultScreenHandler(VaultButtons.GENERIC_9X7, syncId, playerInventory, 6);
     }
 
     private VaultScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory, int rows) {

@@ -37,7 +37,7 @@ public class Tasks {
             for (Task task : tasks) {
                 task.execute();
 
-                Log.info("Executed Task: " + task.toString());
+                Log.info("Executed Task: " + task.getDescription());
 
                 if (task.shouldWait()) {
                     try {
