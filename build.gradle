@@ -35,6 +35,9 @@ dependencies {
 	annotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
 	testImplementation "org.projectlombok:lombok:${project.lombok_version}"
 	testAnnotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
+	
+	// Not Enough Crashes
+	modImplementation "curse.maven:notenoughcrashes-353890:3226331"
 
 	// Minimaps
 	modImplementation "curse.maven:voxelmap-225179:3197679"
