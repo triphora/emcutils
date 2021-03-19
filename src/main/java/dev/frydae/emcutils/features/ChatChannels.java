@@ -1,6 +1,5 @@
 package dev.frydae.emcutils.features;
 
-import dev.frydae.emcutils.listeners.ChatListener;
 import dev.frydae.emcutils.utils.Config;
 import dev.frydae.emcutils.utils.Util;
 import lombok.AllArgsConstructor;
@@ -19,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Arrays;
 
 public class ChatChannels {
-    @Setter private static ChatChannel currentChannel = ChatChannel.COMMUNITY;
+    @Setter private static ChatChannel currentChannel = null;
     @Setter private static boolean inPrivateConversation = false;
     @Setter private static String targetUsername = null;
     @Setter private static int targetGroupId = 0;
@@ -103,10 +102,6 @@ public class ChatChannels {
 
     public static void processGameJoin(GameJoinS2CPacket packet, CallbackInfo info) {
         inPrivateConversation = false;
-
-        //TODO: Move this to a task
-        ChatListener.hideJoinChatMessage();
-        ChatChannel.COMMUNITY.executeCommand();
     }
 
     @AllArgsConstructor

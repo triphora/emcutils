@@ -1,12 +1,12 @@
 ---
 name: Bug Report
-about: Create a report to help us improve
+about: Create a bug report to help us improve!
 labels: bug
 ---
 ## Describe the bug
 A clear and concise description of what the bug is.
 ### To reproduce
-Steps to reproduce the behavior:
+Steps to reproduce the behaviour:
 1. Go to '...'
 2. Click on '...'
 3. Scroll down to '...'
@@ -17,8 +17,8 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 ### System information
 - Operating System [i.e. Windows 10, macOS, Linux (distro and DE)]
-- Fabric Version
+- Fabric API Version
 - Mod Version
 - Other mods that may conflict
 ### Additional context
-Add any other context about the problem here.
+Add any other context about the problem here if necessary.

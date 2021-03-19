@@ -38,7 +38,7 @@ public class CommandListener {
     }
 
     private static ActionResult handleResidenceHomeCommand(ClientPlayerEntity player, String command, List<String> args) {
-        if (command.equalsIgnoreCase("home")) {
+        if (command.equalsIgnoreCase("home") || command.equalsIgnoreCase("res home") || command.equalsIgnoreCase("residence home")) {
             int num = 1;
             String loc = "";
 
@@ -74,7 +74,7 @@ public class CommandListener {
     }
 
     private static ActionResult handleResidenceVisitCommand(ClientPlayerEntity player, String command, List<String> args) {
-        if (command.equalsIgnoreCase("v") || command.equalsIgnoreCase("visit")) {
+        if (command.equalsIgnoreCase("v") || command.equalsIgnoreCase("visit") || command.equalsIgnoreCase("res tp") || command.equalsIgnoreCase("residence tp")) {
             if (args.isEmpty()) {
                 return ActionResult.PASS;
             }
