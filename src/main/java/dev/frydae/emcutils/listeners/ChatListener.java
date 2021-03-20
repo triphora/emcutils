@@ -22,17 +22,13 @@ public class ChatListener {
     private static final String CHAT_FOCUS_MESSAGE = "Chat focus set to channel (.*)";
     private static final String CHAT_PRIVATE_MESSAGE = "Started private conversation with (.*)";
     private static final String CHAT_WELCOME_PLAYER = "Please give (.*) a warm welcome!";
-    private static boolean shouldHideJoinChatMessage = false;
     public static ChatMessage currentMessage = ChatMessage.NULL_MESSAGE;
     private static boolean shouldHideFeatureMessages = false;
 
     public ChatListener() {
-        ChatChannels.setCurrentChannel(ChatChannels.ChatChannel.COMMUNITY);
+        ChatChannels.setCurrentChannel(null);
 
         ChatCallback.PRE_RECEIVE_MESSAGE.register(ChatListener::hideChatMessages);
-
-        ChatCallback.PRE_RECEIVE_MESSAGE.register(ChatListener::hideJoinChatMessage);
-
         ChatCallback.POST_RECEIVE_MESSAGE.register(ChatListener::currentServerReceiver);
         ChatCallback.POST_RECEIVE_MESSAGE.register(ChatListener::userGroupReceiver);
         ChatCallback.POST_RECEIVE_MESSAGE.register(ChatListener::handleChatChannelChange);
@@ -85,20 +81,6 @@ public class ChatListener {
         return ActionResult.PASS;
     }
 
-    public static void hideJoinChatMessage() {
-        shouldHideJoinChatMessage = true;
-    }
-
-    private static ActionResult hideJoinChatMessage(ClientPlayerEntity player, Text text) {
-        if (shouldHideJoinChatMessage && text.getString().equalsIgnoreCase("Chat focus set to channel Community")) {
-            shouldHideJoinChatMessage = false;
-
-            return ActionResult.FAIL;
-        }
-
-        return ActionResult.PASS;
-    }
-
     private static ActionResult userGroupReceiver(ClientPlayerEntity player, Text text) {
         if (text.getString().matches(WELCOME_TO_EMC)) {
             int group = Util.getGroupIdFromColor(text.getSiblings().get(5).getStyle().getColor());
@@ -112,8 +94,6 @@ public class ChatListener {
     private static ActionResult currentServerReceiver(ClientPlayerEntity player, Text text) {
         if (text.getString().matches(WELCOME_TO_EMC)) {
             Util.setCurrentServer(text.getSiblings().get(3).asString().trim());
-
-
 
             EmpireMinecraftUtilities.onPostJoinEmpireMinecraft();
         }
@@ -142,7 +122,7 @@ public class ChatListener {
                 "Click option to set it."
         ),
         LOCATION(1, "setLocation",
-                "--- {2}Your Location on (SMP\\d|UTOPIA) {2}---",
+                "--- {2}Your Location on (SMP\\d|UTOPIA|GAMES|STAGE) {2}---",
                 "Location: .*:-?\\d+,-?\\d+,-?\\d+ - Facing: .* \\[LIVEMAP]",
                 "Compass target: .*:-?\\d+,-?\\d+,-?\\d+ - Distance: .*");
 

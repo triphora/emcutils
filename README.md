@@ -1,6 +1,5 @@
 # Empire Minecraft Utilities
 [![](https://github.com/MrFrydae/Empire-Minecraft-Utilities/workflows/build/badge.svg)](https://github.com/MrFrydae/Empire-Minecraft-Utilities/actions/workflows/build.yml)
-[![CircleCI](https://circleci.com/gh/MrFrydae/Empire-Minecraft-Utilities/tree/master.svg?style=svg)](https://circleci.com/gh/MrFrydae/Empire-Minecraft-Utilities/tree/master)
 ![Java 11](https://img.shields.io/badge/language-Java%2011-9B599A.svg?style=flat-square)
 ![Modrinth Downloads](https://waffle.coffee/modrinth/emcutils/downloads?style=flat-square)
 [![MIT License](https://img.shields.io/github/license/MrFrydae/Empire-Minecraft-Utilities?style=flat-square)](https://raw.githubusercontent.com/MrFrydae/Empire-Minecraft-Utilities/master/LICENSE)
@@ -17,12 +16,15 @@ Modrinth page for downloads: https://modrinth.com/mod/emcutils
 *Note: No need to download jars for separate features. The releases each contain the feature it has added as well as all features previously released.*
 
 ## Feature List
-* Chat channel buttons above the hotbar
+* Chat channel buttons above the chat input bar
 * Automatic teleportation to a Residence on another server
 * Easier viewing of usable Custom Items such as [Pot of Gold](https://wiki.emc.gs/pot-of-gold)
-* Customizable tab list sorting
-* Command aliases
+* Customizable tab list sorting (configurable from Mod Menu)
+* Command aliases (configurable from config file)
 * Vault buttons
+* Integration with VoxelMap
+    * Automatic world detection and map confirmation/creation
+    * Clicking on a residence will teleport you to that residence
 * And more to come :)
 
 ---

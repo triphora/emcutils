@@ -64,6 +64,8 @@ public class Util {
         switch (command.toLowerCase()) {
             case "v":
             case "visit":
+            case "res tp":
+            case "residence tp":
                 return true;
             default: return false;
         }
@@ -72,6 +74,8 @@ public class Util {
     public static boolean isHomeCommand(String command) {
         switch (command.toLowerCase()) {
             case "home":
+            case "res home":
+            case "residence home":
                 return true;
             default: return false;
         }
