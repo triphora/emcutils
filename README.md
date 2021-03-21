@@ -1,10 +1,11 @@
 # Empire Minecraft Utilities
-[![](https://github.com/MrFrydae/Empire-Minecraft-Utilities/workflows/build/badge.svg)](https://github.com/MrFrydae/Empire-Minecraft-Utilities/actions/workflows/build.yml)
-![Java 11](https://img.shields.io/badge/language-Java%2011-9B599A.svg?style=flat-square)
-![Modrinth Downloads](https://waffle.coffee/modrinth/emcutils/downloads?style=flat-square)
-[![MIT License](https://img.shields.io/github/license/MrFrydae/Empire-Minecraft-Utilities?style=flat-square)](https://raw.githubusercontent.com/MrFrydae/Empire-Minecraft-Utilities/master/LICENSE)
-![Environment: Client](https://img.shields.io/badge/environment-client-1976d2?style=flat-square)
-![Version](https://img.shields.io/github/v/tag/MrFrydae/Empire-Minecraft-Utilities?label=version&style=flat-square)
+
+| Type | Badges |
+|------|--------|
+| **General** | ![](https://tokei.rs/b1/github/MrFrydae/Empire-Minecraft-Utilities?category=code) ![](https://tokei.rs/b1/github/MrFrydae/Empire-Minecraft-Utilities?category=files) |
+| **GitHub CI** | [![](https://github.com/MrFrydae/Empire-Minecraft-Utilities/workflows/build/badge.svg)](https://github.com/MrFrydae/Empire-Minecraft-Utilities/actions/workflows/build.yml) ![Java 11](https://img.shields.io/badge/language-Java%2011-9B599A.svg?style=flat-square) |
+| **Repo Stuff** | [![MIT License](https://img.shields.io/github/license/MrFrydae/Empire-Minecraft-Utilities?style=flat-square)](https://raw.githubusercontent.com/MrFrydae/Empire-Minecraft-Utilities/master/LICENSE) ![Version](https://img.shields.io/github/v/tag/MrFrydae/Empire-Minecraft-Utilities?label=version&style=flat-square) |
+| **Fabric Stuff** | ![Modrinth Downloads](https://waffle.coffee/modrinth/emcutils/downloads?style=flat-square) ![Environment: Client](https://img.shields.io/badge/environment-client-1976d2?style=flat-square)  |
 
 A collection of small utilities for players of [Empire Minecraft](https://ref.emc.gs/GreenMeanie).  
 Feature idea credits go to [Giselbaer](https://u.emc.gs/Giselbaer) and [wafflecoffee](https://u.emc.gs/wafflecoffee).
