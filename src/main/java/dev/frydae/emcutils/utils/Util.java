@@ -172,4 +172,9 @@ public class Util {
     public static int getMaxValue(int[] arr) {
         return Collections.max(Arrays.stream(arr).boxed().collect(Collectors.toList()));
     }
+
+    public static String getCurrentUUID() {
+        return MinecraftClient.getInstance().getSession().getUuid()
+                .replaceAll("(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})", "$1-$2-$3-$4-$5");
+    }
 }

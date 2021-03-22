@@ -3,12 +3,18 @@ package dev.frydae.emcutils;
 import dev.frydae.emcutils.containers.EmpireServer;
 import dev.frydae.emcutils.features.UsableItems;
 import dev.frydae.emcutils.features.VaultButtons;
+import dev.frydae.emcutils.features.VoxelMapIntegration;
 import dev.frydae.emcutils.features.vaultButtons.VaultScreen;
 import dev.frydae.emcutils.listeners.ChatListener;
 import dev.frydae.emcutils.listeners.CommandListener;
 import dev.frydae.emcutils.listeners.ServerListener;
+import dev.frydae.emcutils.tasks.GetChatAlertPitchTask;
+import dev.frydae.emcutils.tasks.GetChatAlertSoundTask;
+import dev.frydae.emcutils.tasks.GetChatAlertsEnabledTask;
+import dev.frydae.emcutils.tasks.GetLocationTask;
 import dev.frydae.emcutils.tasks.Tasks;
 import dev.frydae.emcutils.utils.Config;
+import dev.frydae.emcutils.utils.DevLogin;
 import dev.frydae.emcutils.utils.Log;
 import dev.frydae.emcutils.utils.Util;
 import lombok.Getter;
@@ -41,6 +47,10 @@ public class EmpireMinecraftUtilities implements ModInitializer {
 
         Util.getOnJoinCommandQueue();
 
+        if (isTestMode()) {
+            DevLogin.login();
+        }
+
         Config.getInstance().load();
 
         Log.info("Loaded Empire Minecraft Utilities!");
@@ -58,6 +68,21 @@ public class EmpireMinecraftUtilities implements ModInitializer {
     }
 
     public static void onPostJoinEmpireMinecraft() {
-        new Tasks();
+        if (Config.getInstance().isShouldRunTasks()) {
+            Tasks.runTasks(
+                    new GetChatAlertPitchTask(),
+                    new GetChatAlertsEnabledTask(),
+                    new GetChatAlertSoundTask(),
+                    () -> Config.getInstance().setShouldRunTasks(false));
+        }
+
+        Tasks.runTasks(
+                new GetLocationTask(),
+                new VoxelMapIntegration()
+        );
+    }
+
+    public static boolean isTestMode() {
+        return System.getProperty("testMode").equals("true");
     }
 }

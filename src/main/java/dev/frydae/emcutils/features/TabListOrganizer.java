@@ -34,7 +34,7 @@ public class TabListOrganizer {
             }
         }
 
-        if (!Config.getInstance().isTabListShowAllServers()) {
+        if (!Config.getInstance().getConfig().isTabListShowAllServers()) {
             enhanced = enhanced.stream().filter(e -> e.server == Util.getCurrentServer()).collect(Collectors.toList());
         }
 
@@ -43,11 +43,11 @@ public class TabListOrganizer {
         currentServer.sort(ModMenuIntegration.TabListSortType.NAME_ASCENDING::compare);
 
         // This sorts based on what config option you have set
-        enhanced.sort(Config.getInstance().getTabListSortType()::compare);
+        enhanced.sort(Config.getInstance().getConfig().getTabListSortType()::compare);
 
         List<EnhancedTabListEntry> sorted = Lists.newArrayList();
 
-        switch (Config.getInstance().getTabListCurrentServerPlacement()) {
+        switch (Config.getInstance().getConfig().getTabListCurrentServerPlacement()) {
             case TOP:
                 enhanced.removeAll(currentServer);
                 sorted.addAll(currentServer);

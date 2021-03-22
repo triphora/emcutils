@@ -104,7 +104,7 @@ public class CommandListener {
     }
 
     private static ActionResult registerCommandAliases(ClientPlayerEntity player, String command, List<String> args) {
-        for (Config.CommandAlias entry : Config.getInstance().getCommandAliases()) {
+        for (Config.CommandAlias entry : Config.getInstance().getConfig().getCommandAliases()) {
             String alias = entry.getAlias();
             String original = entry.getOriginal();
 

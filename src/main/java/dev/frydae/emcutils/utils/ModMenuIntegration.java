@@ -31,32 +31,32 @@ public class ModMenuIntegration implements ModMenuApi {
                 .addEntry(entryBuilder
                     .startBooleanToggle(
                             new TranslatableText("emc_utils.config.tablist.showAllServers"),
-                            Config.getInstance().isTabListShowAllServers()
+                            Config.getInstance().getConfig().isTabListShowAllServers()
                     )
                     .setDefaultValue(true)
-                    .setSaveConsumer(Config.getInstance()::setTabListShowAllServers)
+                    .setSaveConsumer(Config.getInstance().getConfig()::setTabListShowAllServers)
                     .build()
                 )
                 .addEntry(entryBuilder
                     .startEnumSelector(
                             new TranslatableText("emc_utils.config.tablist.sort.type"),
                             TabListSortType.class,
-                            Config.getInstance().getTabListSortType()
+                            Config.getInstance().getConfig().getTabListSortType()
                     )
                     .setDefaultValue(TabListSortType.NAME_ASCENDING)
                     .setEnumNameProvider(type -> ((TabListSortType) type).getDescription())
-                    .setSaveConsumer(Config.getInstance()::setTabListSortType)
+                    .setSaveConsumer(Config.getInstance().getConfig()::setTabListSortType)
                     .build()
                 )
                 .addEntry(entryBuilder
                     .startEnumSelector(
                             new TranslatableText("emc_utils.config.tablist.placement"),
                             TabListCurrentServerPlacement.class,
-                            Config.getInstance().getTabListCurrentServerPlacement()
+                            Config.getInstance().getConfig().getTabListCurrentServerPlacement()
                     )
                     .setDefaultValue(TabListCurrentServerPlacement.TOP)
                     .setEnumNameProvider(placement -> ((TabListCurrentServerPlacement) placement).getDescription())
-                    .setSaveConsumer(Config.getInstance()::setTabListCurrentServerPlacement)
+                    .setSaveConsumer(Config.getInstance().getConfig()::setTabListCurrentServerPlacement)
                     .build()
                 );
 

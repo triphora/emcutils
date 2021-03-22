@@ -1,8 +1,10 @@
 package dev.frydae.emcutils.utils;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,36 +16,23 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @SuppressWarnings("AccessStaticViaInstance")
 public class Config {
-    @Getter @Setter private boolean tabListShowAllServers;
-    @Getter @Setter private ModMenuIntegration.TabListSortType tabListSortType;
-    @Getter @Setter private ModMenuIntegration.TabListCurrentServerPlacement tabListCurrentServerPlacement;
-    @Getter private final List<CommandAlias> commandAliases;
-
-    private static boolean chatAlertsOn;
-    private static int chatAlertPitch;
-    private static AlertSound chatAlertSound;
     private static String world;
     private static boolean hideFeatureMessages;
+
+    private Map<String, UniqueConfig> configurations;
+    @Getter @Setter private boolean shouldRunTasks = false;
 
     private static volatile Config singleton;
 
     private Config() {
-        this.tabListShowAllServers = true;
-        this.tabListSortType = ModMenuIntegration.TabListSortType.SERVER_ASCENDING;
-        this.tabListCurrentServerPlacement = ModMenuIntegration.TabListCurrentServerPlacement.TOP;
-        this.commandAliases = Lists.newArrayList();
-
-        commandAliases.add(new CommandAlias("h", "home"));
-        commandAliases.add(new CommandAlias("gmail", "getmail"));
-        commandAliases.add(new CommandAlias("pmail", "previewmail"));
-        commandAliases.add(new CommandAlias("rs", "resshout"));
-
-        hideFeatureMessages = false;
+        configurations = Maps.newHashMap();
     }
 
     public static synchronized Config getInstance() {
@@ -60,8 +49,13 @@ public class Config {
         try (FileReader reader = new FileReader("config/emc_utils.json")) {
             Gson gson = new Gson();
 
-            singleton = gson.fromJson(reader, Config.class);
+            Type type = new TypeToken<Map<String, UniqueConfig>>(){}.getType();
+            configurations = gson.fromJson(reader, type);
+
+            createNewConfig();
         } catch (FileNotFoundException e) {
+            createNewConfig();
+
             save();
         } catch (IOException e) {
             Log.exception(e);
@@ -72,9 +66,20 @@ public class Config {
         try (FileWriter writer = new FileWriter("config/emc_utils.json")) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-            gson.toJson(singleton, writer);
+            gson.toJson(configurations, writer);
         } catch (IOException e) {
             Log.exception(e);
+        }
+    }
+
+    private void createNewConfig() {
+        String uuid = Util.getCurrentUUID();
+        if (!configurations.containsKey(uuid)) {
+            configurations.put(uuid, new UniqueConfig());
+
+            shouldRunTasks = true;
+
+            save();
         }
     }
 
@@ -103,27 +108,28 @@ public class Config {
     }
 
     public static void setChatAlertPitch(String line) {
-        getInstance().chatAlertPitch = Integer.parseInt(Objects.requireNonNull(getSelectedValue(line)));
+        getInstance().getConfig().setChatAlertPitch(Integer.parseInt(Objects.requireNonNull(getSelectedValue(line))));
     }
 
     public int getChatAlertPitch() {
-        return chatAlertPitch;
+        return getConfig().getChatAlertPitch();
     }
 
     public static void setChatAlertSound(String line) {
-        getInstance().chatAlertSound = AlertSound.valueOf(getSelectedValue(line).toUpperCase());
+        getInstance().getConfig().setChatAlertSound(AlertSound.valueOf(getSelectedValue(line).toUpperCase()));
+
     }
 
     public AlertSound getChatAlertSound() {
-        return chatAlertSound;
+        return getConfig().getChatAlertSound();
     }
 
     public static void setChatAlertsOn(String line) {
-        getInstance().chatAlertsOn = getSelectedValue(line).equals("on");
+        getInstance().getConfig().setChatAlertsOn(getSelectedValue(line).equals("on"));
     }
 
     public boolean getChatAlertsOn() {
-        return chatAlertsOn;
+        return getConfig().isChatAlertsOn();
     }
 
     public static void setLocation(String line) {
@@ -140,6 +146,37 @@ public class Config {
 
     public void setHideFeatureMessages(boolean hide) {
         hideFeatureMessages = hide;
+    }
+
+    public UniqueConfig getConfig() {
+        return configurations.get(Util.getCurrentUUID());
+    }
+
+    public static class UniqueConfig {
+        @Getter @Setter private boolean tabListShowAllServers;
+        @Getter @Setter private ModMenuIntegration.TabListSortType tabListSortType;
+        @Getter @Setter private ModMenuIntegration.TabListCurrentServerPlacement tabListCurrentServerPlacement;
+        @Getter @Setter private boolean chatAlertsOn;
+        @Getter @Setter private int chatAlertPitch;
+        @Getter @Setter private AlertSound chatAlertSound;
+
+        @Getter private final List<CommandAlias> commandAliases;
+
+        public UniqueConfig() {
+            this.tabListShowAllServers = true;
+            this.tabListSortType = ModMenuIntegration.TabListSortType.SERVER_ASCENDING;
+            this.tabListCurrentServerPlacement = ModMenuIntegration.TabListCurrentServerPlacement.TOP;
+            this.chatAlertPitch = 0;
+            this.chatAlertSound = AlertSound.LEVEL_UP;
+            this.commandAliases = Lists.newArrayList();
+
+            commandAliases.add(new CommandAlias("h", "home"));
+            commandAliases.add(new CommandAlias("gmail", "getmail"));
+            commandAliases.add(new CommandAlias("pmail", "previewmail"));
+            commandAliases.add(new CommandAlias("rs", "resshout"));
+
+            hideFeatureMessages = false;
+        }
     }
 
     public enum AlertSound {
