@@ -83,6 +83,10 @@ public class EmpireMinecraftUtilities implements ModInitializer {
     }
 
     public static boolean isTestMode() {
+        if (System.getProperty("testMode") == null) {
+            return false;
+        }
+
         return System.getProperty("testMode").equals("true");
     }
 }
