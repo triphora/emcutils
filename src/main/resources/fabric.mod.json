@@ -32,10 +32,10 @@
     "fabric": "*",
     "minecraft": "1.16.x",
     "cloth-config2": ">=4.8.3",
-    "modmenu": ">=1.16.8",
-    "notenoughcrashes": ">=3.1.8"
+    "modmenu": ">=1.16.8"
   },
   "suggests": {
+    "notenoughcrashes": ">=3.1.8",
     "voxelmap": ">=1.10.15"
   }
 }
