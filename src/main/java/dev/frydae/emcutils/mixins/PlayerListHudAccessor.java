@@ -9,6 +9,6 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(PlayerListHud.class)
 public interface PlayerListHudAccessor {
 
-    @Accessor(value = "ENTRY_ORDERING")
-    Ordering<PlayerListEntry> getEntryOrdering();
+  @Accessor(value = "ENTRY_ORDERING")
+  Ordering<PlayerListEntry> getEntryOrdering();
 }

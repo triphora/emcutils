@@ -1,15 +1,14 @@
 {
-    "emc_utils.config": "Empire Minecraft Utilities",
-
-    "emc_utils.config.tablist.category": "Player Tab List",
-    "emc_utils.config.tablist.showAllServers": "Show all servers in the Player Tab List",
-    "emc_utils.config.tablist.placement": "Where to put your current server",
-    "emc_utils.config.tablist.placement.top": "At the Top",
-    "emc_utils.config.tablist.placement.bottom": "At the Bottom",
-    "emc_utils.config.tablist.placement.mixed": "Mixed with Others",
-    "emc_utils.config.tablist.sort.type": "How to sort the Players",
-    "emc_utils.config.tablist.sort.name.ascending": "Player Name (A->Z)",
-    "emc_utils.config.tablist.sort.name.descending": "Player Name (Z->A)",
-    "emc_utils.config.tablist.sort.server.ascending": "Server (SMP1->Stage)",
-    "emc_utils.config.tablist.sort.server.descending": "Server (Stage->SMP1)"
+  "emc_utils.config": "Empire Minecraft Utilities",
+  "emc_utils.config.tablist.category": "Player Tab List",
+  "emc_utils.config.tablist.showAllServers": "Show all servers in the Player Tab List",
+  "emc_utils.config.tablist.placement": "Where to put your current server",
+  "emc_utils.config.tablist.placement.top": "At the Top",
+  "emc_utils.config.tablist.placement.bottom": "At the Bottom",
+  "emc_utils.config.tablist.placement.mixed": "Mixed with Others",
+  "emc_utils.config.tablist.sort.type": "How to sort the Players",
+  "emc_utils.config.tablist.sort.name.ascending": "Player Name (A->Z)",
+  "emc_utils.config.tablist.sort.name.descending": "Player Name (Z->A)",
+  "emc_utils.config.tablist.sort.server.ascending": "Server (SMP1->Stage)",
+  "emc_utils.config.tablist.sort.server.descending": "Server (Stage->SMP1)"
 }

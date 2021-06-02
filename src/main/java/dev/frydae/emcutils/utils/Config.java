@@ -23,181 +23,196 @@ import java.util.Objects;
 
 @SuppressWarnings("AccessStaticViaInstance")
 public class Config {
-    private static String world;
-    private static boolean hideFeatureMessages;
+  private static String world;
+  private static boolean hideFeatureMessages;
+  private static volatile Config singleton;
+  private Map<String, UniqueConfig> configurations;
+  @Getter
+  @Setter
+  private boolean shouldRunTasks = false;
 
-    private Map<String, UniqueConfig> configurations;
-    @Getter @Setter private boolean shouldRunTasks = false;
+  private Config() {
+    configurations = Maps.newHashMap();
+  }
 
-    private static volatile Config singleton;
+  public static synchronized Config getInstance() {
+    if (singleton == null) {
+      singleton = new Config();
 
-    private Config() {
-        configurations = Maps.newHashMap();
+      ClientLifecycleEvents.CLIENT_STOPPING.register(c -> Config.getInstance().save());
     }
 
-    public static synchronized Config getInstance() {
-        if (singleton == null) {
-            singleton = new Config();
+    return singleton;
+  }
 
-            ClientLifecycleEvents.CLIENT_STOPPING.register(c -> Config.getInstance().save());
-        }
+  private static String getSelectedValue(String line) {
+    String[] split = line.split(", ");
 
-        return singleton;
+    for (String s : split) {
+      if (s.contains("*")) {
+        return s.replace("*", "")
+                .replace("[", "")
+                .replace("]", "")
+                .trim();
+      }
     }
 
-    public void load() {
-        try (FileReader reader = new FileReader("config/emc_utils.json")) {
-            Gson gson = new Gson();
+    return null;
+  }
 
-            Type type = new TypeToken<Map<String, UniqueConfig>>(){}.getType();
-            configurations = gson.fromJson(reader, type);
+  /**
+   * This literally does nothing
+   *
+   * @param line
+   */
+  public static void doNothing(String line) {
 
-            createNewConfig();
-        } catch (FileNotFoundException e) {
-            createNewConfig();
+  }
 
-            save();
-        } catch (IOException e) {
-            Log.exception(e);
-        }
+  public static void setLocation(String line) {
+    getInstance().world = line.split(" ")[1].split(":")[0];
+  }
+
+  public void load() {
+    try (FileReader reader = new FileReader("config/emc_utils.json")) {
+      Gson gson = new Gson();
+
+      Type type = new TypeToken<Map<String, UniqueConfig>>() {
+      }.getType();
+      configurations = gson.fromJson(reader, type);
+
+      createNewConfig();
+    } catch (FileNotFoundException e) {
+      createNewConfig();
+
+      save();
+    } catch (IOException e) {
+      Log.exception(e);
     }
+  }
 
-    public void save() {
-        try (FileWriter writer = new FileWriter("config/emc_utils.json")) {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+  public void save() {
+    try (FileWriter writer = new FileWriter("config/emc_utils.json")) {
+      Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-            gson.toJson(configurations, writer);
-        } catch (IOException e) {
-            Log.exception(e);
-        }
+      gson.toJson(configurations, writer);
+    } catch (IOException e) {
+      Log.exception(e);
     }
+  }
 
-    private void createNewConfig() {
-        String uuid = Util.getCurrentUUID();
-        if (!configurations.containsKey(uuid)) {
-            configurations.put(uuid, new UniqueConfig());
+  private void createNewConfig() {
+    String uuid = Util.getCurrentUUID();
+    if (!configurations.containsKey(uuid)) {
+      configurations.put(uuid, new UniqueConfig());
 
-            shouldRunTasks = true;
+      shouldRunTasks = true;
 
-            save();
-        }
+      save();
     }
+  }
 
-    private static String getSelectedValue(String line) {
-        String[] split = line.split(", ");
+  public int getChatAlertPitch() {
+    return getConfig().getChatAlertPitch();
+  }
 
-        for (String s : split) {
-            if (s.contains("*")) {
-                return s.replace("*", "")
-                        .replace("[", "")
-                        .replace("]", "")
-                        .trim();
-            }
-        }
+  public static void setChatAlertPitch(String line) {
+    getInstance().getConfig().setChatAlertPitch(Integer.parseInt(Objects.requireNonNull(getSelectedValue(line))));
+  }
 
-        return null;
-    }
+  public AlertSound getChatAlertSound() {
+    return getConfig().getChatAlertSound();
+  }
 
-    /**
-     * This literally does nothing
-     *
-     * @param line
-     */
-    public static void doNothing(String line) {
+  public static void setChatAlertSound(String line) {
+    getInstance().getConfig().setChatAlertSound(AlertSound.valueOf(getSelectedValue(line).toUpperCase()));
 
-    }
+  }
 
-    public static void setChatAlertPitch(String line) {
-        getInstance().getConfig().setChatAlertPitch(Integer.parseInt(Objects.requireNonNull(getSelectedValue(line))));
-    }
+  public boolean getChatAlertsOn() {
+    return getConfig().isChatAlertsOn();
+  }
 
-    public int getChatAlertPitch() {
-        return getConfig().getChatAlertPitch();
-    }
+  public static void setChatAlertsOn(String line) {
+    getInstance().getConfig().setChatAlertsOn(getSelectedValue(line).equals("on"));
+  }
 
-    public static void setChatAlertSound(String line) {
-        getInstance().getConfig().setChatAlertSound(AlertSound.valueOf(getSelectedValue(line).toUpperCase()));
+  public String getWorld() {
+    return world;
+  }
 
-    }
+  public boolean shouldHideFeatureMessages() {
+    return hideFeatureMessages;
+  }
 
-    public AlertSound getChatAlertSound() {
-        return getConfig().getChatAlertSound();
-    }
+  public void setHideFeatureMessages(boolean hide) {
+    hideFeatureMessages = hide;
+  }
 
-    public static void setChatAlertsOn(String line) {
-        getInstance().getConfig().setChatAlertsOn(getSelectedValue(line).equals("on"));
-    }
+  public UniqueConfig getConfig() {
+    return configurations.get(Util.getCurrentUUID());
+  }
 
-    public boolean getChatAlertsOn() {
-        return getConfig().isChatAlertsOn();
-    }
-
-    public static void setLocation(String line) {
-        getInstance().world = line.split(" ")[1].split(":")[0];
-    }
-
-    public String getWorld() {
-        return world;
-    }
-
-    public boolean shouldHideFeatureMessages() {
-        return hideFeatureMessages;
-    }
-
-    public void setHideFeatureMessages(boolean hide) {
-        hideFeatureMessages = hide;
-    }
-
-    public UniqueConfig getConfig() {
-        return configurations.get(Util.getCurrentUUID());
-    }
-
-    public static class UniqueConfig {
-        @Getter @Setter private boolean tabListShowAllServers;
-        @Getter @Setter private ModMenuIntegration.TabListSortType tabListSortType;
-        @Getter @Setter private ModMenuIntegration.TabListCurrentServerPlacement tabListCurrentServerPlacement;
-        @Getter @Setter private boolean chatAlertsOn;
-        @Getter @Setter private int chatAlertPitch;
-        @Getter @Setter private AlertSound chatAlertSound;
-
-        @Getter private final List<CommandAlias> commandAliases;
-
-        public UniqueConfig() {
-            this.tabListShowAllServers = true;
-            this.tabListSortType = ModMenuIntegration.TabListSortType.SERVER_ASCENDING;
-            this.tabListCurrentServerPlacement = ModMenuIntegration.TabListCurrentServerPlacement.TOP;
-            this.chatAlertPitch = 0;
-            this.chatAlertSound = AlertSound.LEVEL_UP;
-            this.commandAliases = Lists.newArrayList();
-
-            commandAliases.add(new CommandAlias("h", "home"));
-            commandAliases.add(new CommandAlias("gmail", "getmail"));
-            commandAliases.add(new CommandAlias("pmail", "previewmail"));
-            commandAliases.add(new CommandAlias("rs", "resshout"));
-
-            hideFeatureMessages = false;
-        }
-    }
-
-    public enum AlertSound {
-        LEVEL_UP(SoundEvents.ENTITY_PLAYER_LEVELUP),
-        ORB_PICKUP(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP),
-        NOTE_PLING(SoundEvents.BLOCK_NOTE_BLOCK_PLING),
-        ITEM_PICKUP(SoundEvents.ENTITY_ITEM_PICKUP);
-
-        @Getter private final String name;
-        @Getter private final SoundEvent soundEvent;
-
-        AlertSound(SoundEvent soundEvent) {
-            this.name = name().toLowerCase();
-            this.soundEvent = soundEvent;
-        }
-    }
+  public enum AlertSound {
+    LEVEL_UP(SoundEvents.ENTITY_PLAYER_LEVELUP),
+    ORB_PICKUP(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP),
+    NOTE_PLING(SoundEvents.BLOCK_NOTE_BLOCK_PLING),
+    ITEM_PICKUP(SoundEvents.ENTITY_ITEM_PICKUP);
 
     @Getter
-    @AllArgsConstructor
-    public static class CommandAlias {
-        private final String alias;
-        private final String original;
+    private final String name;
+    @Getter
+    private final SoundEvent soundEvent;
+
+    AlertSound(SoundEvent soundEvent) {
+      this.name = name().toLowerCase();
+      this.soundEvent = soundEvent;
     }
+  }
+
+  public static class UniqueConfig {
+    @Getter
+    private final List<CommandAlias> commandAliases;
+    @Getter
+    @Setter
+    private boolean tabListShowAllServers;
+    @Getter
+    @Setter
+    private ModMenuIntegration.TabListSortType tabListSortType;
+    @Getter
+    @Setter
+    private ModMenuIntegration.TabListCurrentServerPlacement tabListCurrentServerPlacement;
+    @Getter
+    @Setter
+    private boolean chatAlertsOn;
+    @Getter
+    @Setter
+    private int chatAlertPitch;
+    @Getter
+    @Setter
+    private AlertSound chatAlertSound;
+
+    public UniqueConfig() {
+      this.tabListShowAllServers = true;
+      this.tabListSortType = ModMenuIntegration.TabListSortType.SERVER_ASCENDING;
+      this.tabListCurrentServerPlacement = ModMenuIntegration.TabListCurrentServerPlacement.TOP;
+      this.chatAlertPitch = 0;
+      this.chatAlertSound = AlertSound.LEVEL_UP;
+      this.commandAliases = Lists.newArrayList();
+
+      commandAliases.add(new CommandAlias("h", "home"));
+      commandAliases.add(new CommandAlias("gmail", "getmail"));
+      commandAliases.add(new CommandAlias("pmail", "previewmail"));
+      commandAliases.add(new CommandAlias("rs", "resshout"));
+
+      hideFeatureMessages = false;
+    }
+  }
+
+  @Getter
+  @AllArgsConstructor
+  public static class CommandAlias {
+    private final String alias;
+    private final String original;
+  }
 }

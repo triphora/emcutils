@@ -16,140 +16,140 @@ import net.minecraft.util.Formatting;
 
 @Environment(EnvType.CLIENT)
 public class UsableItems {
-    public UsableItems() {
-        ItemTooltipCallback.EVENT.register(((itemStack, tooltipContext, list) -> {
-            if (Util.IS_ON_EMC) {
-                if (isUsableItemWithCooldown(itemStack)) {
+  public UsableItems() {
+    ItemTooltipCallback.EVENT.register(((itemStack, tooltipContext, list) -> {
+      if (Util.IS_ON_EMC) {
+        if (isUsableItemWithCooldown(itemStack)) {
 
-                    for (Text text : list) {
-                        if (text.getString().startsWith("Usable in: ")) {
-                            return;
-                        } else if (text.getString().equalsIgnoreCase("Can be used now")) {
-                            return;
-                        }
-                    }
-
-                    list.add(new LiteralText(""));
-
-                    long untilUsable = getSecondsUntilUsable(itemStack);
-
-                    if (untilUsable > 0) {
-                        list.add(new LiteralText("Usable in: " + formatTime(untilUsable, 1)).formatted(Formatting.RED));
-                    } else {
-                        list.add(new LiteralText("Can be used now").formatted(Formatting.GREEN));
-                    }
-
-                    itemStack.getItem().appendTooltip(itemStack, MinecraftClient.getInstance().world, list, tooltipContext);
-                }
+          for (Text text : list) {
+            if (text.getString().startsWith("Usable in: ")) {
+              return;
+            } else if (text.getString().equalsIgnoreCase("Can be used now")) {
+              return;
             }
-        }));
+          }
+
+          list.add(new LiteralText(""));
+
+          long untilUsable = getSecondsUntilUsable(itemStack);
+
+          if (untilUsable > 0) {
+            list.add(new LiteralText("Usable in: " + formatTime(untilUsable, 1)).formatted(Formatting.RED));
+          } else {
+            list.add(new LiteralText("Can be used now").formatted(Formatting.GREEN));
+          }
+
+          itemStack.getItem().appendTooltip(itemStack, MinecraftClient.getInstance().world, list, tooltipContext);
+        }
+      }
+    }));
+  }
+
+  private static boolean isUsableItemWithCooldown(ItemStack item) {
+    if (item != null && item.getTag() != null) {
+      if (item.getTag().get("display") != null) {
+        String displayString = item.getTag().get("display").toString();
+
+        JsonObject display = new JsonParser().parse(displayString).getAsJsonObject();
+        JsonArray originalLore = display.getAsJsonArray("OriginalLore");
+
+        boolean usable = false;
+
+        if (originalLore != null) {
+          for (int i = 0; i < originalLore.size(); i++) {
+            JsonObject metaLine = new JsonParser().parse(originalLore.get(i).getAsString()).getAsJsonObject();
+
+            if (metaLine.has("extra")) {
+              JsonElement extra = metaLine.getAsJsonArray("extra").get(0);
+
+              String text = extra.getAsJsonObject().get("text").getAsString();
+
+              if (text.equals("__usableItem")) {
+                usable = true;
+              }
+
+              if (text.equals("useTimer") && usable) {
+                return true;
+              }
+            }
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  private static long getSecondsUntilUsable(ItemStack item) {
+    if (item != null && item.getTag() != null) {
+      if (item.getTag().get("display") != null) {
+        String displayString = item.getTag().get("display").toString();
+
+        JsonObject display = new JsonParser().parse(displayString).getAsJsonObject();
+        JsonArray originalLore = display.getAsJsonArray("OriginalLore");
+
+        int useTimerLine = -1;
+
+        if (originalLore != null) {
+          for (int i = 0; i < originalLore.size(); i++) {
+            JsonObject metaLine = new JsonParser().parse(originalLore.get(i).getAsString()).getAsJsonObject();
+
+            if (metaLine.has("extra")) {
+              JsonElement extra = metaLine.getAsJsonArray("extra").get(0);
+
+              String text = extra.getAsJsonObject().get("text").getAsString();
+
+              if (text.equals("useTimer")) {
+                useTimerLine = i;
+              }
+            }
+          }
+
+          if (useTimerLine != -1) {
+            long time = new JsonParser().parse(originalLore.get(useTimerLine + 1).getAsString()).getAsJsonObject().getAsJsonArray("extra").get(0).getAsJsonObject().get("text").getAsLong();
+
+            return Math.max(0, (time - System.currentTimeMillis()) / 1000L);
+          }
+        }
+      }
     }
 
-    private static boolean isUsableItemWithCooldown(ItemStack item) {
-        if (item != null && item.getTag() != null) {
-            if (item.getTag().get("display") != null) {
-                String displayString = item.getTag().get("display").toString();
+    return 0L;
+  }
 
-                JsonObject display = new JsonParser().parse(displayString).getAsJsonObject();
-                JsonArray originalLore = display.getAsJsonArray("OriginalLore");
-
-                boolean usable = false;
-
-                if (originalLore != null) {
-                    for (int i = 0; i < originalLore.size(); i++) {
-                        JsonObject metaLine = new JsonParser().parse(originalLore.get(i).getAsString()).getAsJsonObject();
-
-                        if (metaLine.has("extra")) {
-                            JsonElement extra = metaLine.getAsJsonArray("extra").get(0);
-
-                            String text = extra.getAsJsonObject().get("text").getAsString();
-
-                            if (text.equals("__usableItem")) {
-                                usable = true;
-                            }
-
-                            if (text.equals("useTimer") && usable) {
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return false;
+  public static String formatTime(long seconds, int depth) {
+    if (seconds < 60) {
+      return seconds + " second" + (seconds > 1 ? "s" : "");
     }
 
-    private static long getSecondsUntilUsable(ItemStack item) {
-        if (item != null && item.getTag() != null) {
-            if (item.getTag().get("display") != null) {
-                String displayString = item.getTag().get("display").toString();
+    if (seconds < 3600) {
+      long count = (long) Math.ceil(seconds / 60);
 
-                JsonObject display = new JsonParser().parse(displayString).getAsJsonObject();
-                JsonArray originalLore = display.getAsJsonArray("OriginalLore");
+      String res = count + " minute" + (count > 1 ? "s" : "");
 
-                int useTimerLine = -1;
+      long remaining = seconds % 60;
 
-                if (originalLore != null) {
-                    for (int i = 0; i < originalLore.size(); i++) {
-                        JsonObject metaLine = new JsonParser().parse(originalLore.get(i).getAsString()).getAsJsonObject();
+      if (depth > 0 && remaining >= 5) {
+        return res + ", " + formatTime(remaining, --depth);
+      }
+      return res;
+    }
+    if (seconds < 86400) {
+      long count = (long) Math.ceil(seconds / 3600);
+      String res = count + " hour" + (count > 1 ? "s" : "");
 
-                        if (metaLine.has("extra")) {
-                            JsonElement extra = metaLine.getAsJsonArray("extra").get(0);
+      if (depth > 0) {
+        return res + ", " + formatTime(seconds % 3600, --depth);
+      }
 
-                            String text = extra.getAsJsonObject().get("text").getAsString();
+      return res;
+    }
+    long count = (long) Math.ceil(seconds / 86400);
+    String res = count + " day" + (count > 1 ? "s" : "");
 
-                            if (text.equals("useTimer")) {
-                                useTimerLine = i;
-                            }
-                        }
-                    }
-
-                    if (useTimerLine != -1) {
-                        long time = new JsonParser().parse(originalLore.get(useTimerLine + 1).getAsString()).getAsJsonObject().getAsJsonArray("extra").get(0).getAsJsonObject().get("text").getAsLong();
-
-                        return Math.max(0, (time - System.currentTimeMillis()) / 1000L);
-                    }
-                }
-            }
-        }
-
-        return 0L;
+    if (depth > 0) {
+      return res + ", " + formatTime(seconds % 86400, --depth);
     }
 
-    public static String formatTime(long seconds, int depth) {
-        if (seconds < 60) {
-            return seconds + " second" + (seconds > 1 ? "s" : "");
-        }
-
-        if (seconds < 3600) {
-            long count = (long) Math.ceil(seconds / 60);
-
-            String res = count + " minute" + (count > 1 ? "s" : "");
-
-            long remaining = seconds % 60;
-
-            if (depth > 0 && remaining >= 5) {
-                return res + ", " + formatTime(remaining, --depth);
-            }
-            return res;
-        }
-        if (seconds < 86400) {
-            long count = (long) Math.ceil(seconds / 3600);
-            String res = count + " hour" + (count > 1 ? "s" : "");
-
-            if (depth > 0) {
-                return res + ", " + formatTime(seconds % 3600, --depth);
-            }
-
-            return res;
-        }
-        long count = (long) Math.ceil(seconds / 86400);
-        String res = count + " day" + (count > 1 ? "s" : "");
-
-        if (depth > 0) {
-            return res + ", " + formatTime(seconds % 86400, --depth);
-        }
-
-        return res;
-    }
+    return res;
+  }
 }

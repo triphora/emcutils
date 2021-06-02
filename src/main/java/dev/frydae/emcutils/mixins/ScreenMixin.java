@@ -8,10 +8,11 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(Screen.class)
 public class ScreenMixin implements ScreenAccessor {
-    @Shadow protected Text title;
+  @Shadow
+  protected Text title;
 
-    @Override
-    public void setTitle(Text title) {
-        this.title = title;
-    }
+  @Override
+  public void setTitle(Text title) {
+    this.title = title;
+  }
 }

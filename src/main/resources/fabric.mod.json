@@ -2,31 +2,34 @@
   "schemaVersion": 1,
   "id": "emcutils",
   "version": "${version}",
-
   "name": "Empire Minecraft Utilities",
   "description": "A collection of various utilities for the Empire Minecraft server.",
-  "authors": ["MrFrydae"],
-  "contributors": ["wafflecoffee"],
+  "authors": [
+    "MrFrydae"
+  ],
+  "contributors": [
+    "wafflecoffee"
+  ],
   "contact": {
     "homepage": "https://github.com/MrFrydae/Empire-Minecraft-Utilities",
     "sources": "https://github.com/MrFrydae/Empire-Minecraft-Utilities",
     "issues": "https://github.com/MrFrydae/Empire-Minecraft-Utilities/issues"
   },
-
   "accessWidener": "emcutils.accesswidener",
-
   "license": "MIT",
   "icon": "assets/emcutils/icon.png",
-
   "environment": "*",
   "entrypoints": {
-    "main": ["dev.frydae.emcutils.EmpireMinecraftUtilities"],
-    "modmenu": ["dev.frydae.emcutils.utils.ModMenuIntegration"]
+    "main": [
+      "dev.frydae.emcutils.EmpireMinecraftUtilities"
+    ],
+    "modmenu": [
+      "dev.frydae.emcutils.utils.ModMenuIntegration"
+    ]
   },
   "mixins": [
     "emcutils.mixins.json"
   ],
-
   "depends": {
     "fabric": "*",
     "minecraft": "1.16.5",

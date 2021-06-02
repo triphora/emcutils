@@ -16,11 +16,17 @@ Made by [MrFrydae](https://u.emc.gs/GreenMeanie), and available under the MIT Li
 
 Modrinth page for downloads: https://modrinth.com/mod/emcutils
 
-**This mod requires three additional mods:** [Fabric API](https://modrinth.com/mod/fabric-api), [Mod Menu](https://modrinth.com/mod/modmenu), and [Cloth Config](https://www.curseforge.com/minecraft/mc-mods/cloth-config). [Not Enough Crashes](https://www.curseforge.com/minecraft/mc-mods/not-enough-crashes) and [VoxelMap](https://www.curseforge.com/minecraft/mc-mods/voxelmap) are also recommended.
+**This mod requires three additional mods:** [Fabric API](https://modrinth.com/mod/fabric-api)
+, [Mod Menu](https://modrinth.com/mod/modmenu),
+and [Cloth Config](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
+. [Not Enough Crashes](https://www.curseforge.com/minecraft/mc-mods/not-enough-crashes)
+and [VoxelMap](https://www.curseforge.com/minecraft/mc-mods/voxelmap) are also recommended.
 
-*Note: No need to download jars for separate features. The releases each contain the feature it has added as well as all features previously released.*
+*Note: No need to download jars for separate features. The releases each contain the feature it has added as well as all
+features previously released.*
 
 ## Feature List
+
 * Chat channel buttons above the chat input bar
 * Automatic teleportation to a Residence on another server
 * Easier viewing of usable Custom Items such as [Pot of Gold](https://wiki.emc.gs/pot-of-gold)
@@ -28,9 +34,10 @@ Modrinth page for downloads: https://modrinth.com/mod/emcutils
 * Command aliases (configurable from config file)
 * Vault buttons
 * Integration with VoxelMap
-    * Automatic world detection and map confirmation/creation
-    * Clicking on a residence will teleport you to that residence
+  * Automatic world detection and map confirmation/creation
+  * Clicking on a residence will teleport you to that residence
 * And more to come :)
 
 ---
-This mod is not sponsored by nor affiliated with Empire Minecraft, Starlis LLC, or Mojang Studios. It has been approved for use on Empire Minecraft in accordance with its [approved mod](https://mods.emc.gs) policies.
+This mod is not sponsored by nor affiliated with Empire Minecraft, Starlis LLC, or Mojang Studios. It has been approved
+for use on Empire Minecraft in accordance with its [approved mod](https://mods.emc.gs) policies.

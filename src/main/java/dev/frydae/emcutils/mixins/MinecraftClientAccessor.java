@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin(MinecraftClient.class)
 public interface MinecraftClientAccessor {
 
-    @Accessor @Mutable
-    void setSession(Session session);
+  @Accessor
+  @Mutable
+  void setSession(Session session);
 }

@@ -9,25 +9,25 @@ import java.util.concurrent.Executors;
 
 @Environment(EnvType.CLIENT)
 public class Tasks {
-    public static void runTasks(Task... tasks) {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
+  public static void runTasks(Task... tasks) {
+    ExecutorService executor = Executors.newSingleThreadExecutor();
 
-        executor.submit(() -> {
-            for (Task task : tasks) {
-                task.execute();
+    executor.submit(() -> {
+      for (Task task : tasks) {
+        task.execute();
 
-                Log.info("Executed Task: " + task.getDescription());
+        Log.info("Executed Task: " + task.getDescription());
 
-                if (task.shouldWait()) {
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
+        if (task.shouldWait()) {
+          try {
+            Thread.sleep(1000);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+    });
 
-        executor.shutdown();
-    }
+    executor.shutdown();
+  }
 }

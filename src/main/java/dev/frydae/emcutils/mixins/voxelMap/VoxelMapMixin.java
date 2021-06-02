@@ -14,14 +14,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(VoxelMap.class)
 public class VoxelMapMixin {
 
-    @Shadow private RadarSettingsManager radarOptions;
-    @Shadow private MapSettingsManager mapOptions;
+  @Shadow
+  private RadarSettingsManager radarOptions;
+  @Shadow
+  private MapSettingsManager mapOptions;
 
-    @Inject(method = "checkPermissionMessages", remap = false, at = @At(value = "TAIL"))
-    public void disableFeatures(MinecraftClient mc, CallbackInfo ci) {
-        if (Util.IS_ON_EMC) {
-            radarOptions.radarAllowed = false;
-            mapOptions.cavesAllowed = false;
-        }
+  @Inject(method = "checkPermissionMessages", remap = false, at = @At(value = "TAIL"))
+  public void disableFeatures(MinecraftClient mc, CallbackInfo ci) {
+    if (Util.IS_ON_EMC) {
+      radarOptions.radarAllowed = false;
+      mapOptions.cavesAllowed = false;
     }
+  }
 }

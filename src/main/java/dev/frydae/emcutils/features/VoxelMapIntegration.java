@@ -10,19 +10,19 @@ import net.fabricmc.api.Environment;
 @Environment(EnvType.CLIENT)
 public class VoxelMapIntegration implements Task {
 
-    @Override
-    public void execute() {
-        VoxelMap.getInstance().getWaypointManager()
-                .setSubworldName(Util.getCurrentServer().getName().toLowerCase() + " - " + Config.getInstance().getWorld(), false);
-    }
+  @Override
+  public void execute() {
+    VoxelMap.getInstance().getWaypointManager()
+            .setSubworldName(Util.getCurrentServer().getName().toLowerCase() + " - " + Config.getInstance().getWorld(), false);
+  }
 
-    @Override
-    public boolean shouldWait() {
-        return false;
-    }
+  @Override
+  public boolean shouldWait() {
+    return false;
+  }
 
-    @Override
-    public String getDescription() {
-        return "Set VoxelMap Information";
-    }
+  @Override
+  public String getDescription() {
+    return "Set VoxelMap Information";
+  }
 }

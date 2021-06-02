@@ -16,35 +16,36 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 @Mixin(GuiPersistentMap.class)
 public class GuiPersistentMapMixin {
 
-    @Shadow Waypoint selectedWaypoint;
+  @Shadow
+  Waypoint selectedWaypoint;
 
-    @Inject(
-            method = "popupAction",
-            at = @At(
-                    value = "INVOKE_ASSIGN",
-                    target = "Lnet/minecraft/world/dimension/DimensionType;getCoordinateScale()D"
-                    ),
-            locals = LocalCapture.CAPTURE_FAILSOFT,
-            cancellable = true
-    )
-    public void redirectTeleport(Popup popup, int action, CallbackInfo ci,
-                                 int mouseDirectX, int mouseDirectY,
-                                 float cursorX, float cursorY,
-                                 float cursorCoordX, float cursorCoordZ) {
-        if (action == 3) {
-            if (Util.IS_ON_EMC) {
-                int x = selectedWaypoint != null ? selectedWaypoint.getX() : (int) Math.floor(cursorCoordX);
-                int z = selectedWaypoint != null ? selectedWaypoint.getZ() : (int) Math.floor(cursorCoordZ);
+  @Inject(
+          method = "popupAction",
+          at = @At(
+                  value = "INVOKE_ASSIGN",
+                  target = "Lnet/minecraft/world/dimension/DimensionType;getCoordinateScale()D"
+          ),
+          locals = LocalCapture.CAPTURE_FAILSOFT,
+          cancellable = true
+  )
+  public void redirectTeleport(Popup popup, int action, CallbackInfo ci,
+                               int mouseDirectX, int mouseDirectY,
+                               float cursorX, float cursorY,
+                               float cursorCoordX, float cursorCoordZ) {
+    if (action == 3) {
+      if (Util.IS_ON_EMC) {
+        int x = selectedWaypoint != null ? selectedWaypoint.getX() : (int) Math.floor(cursorCoordX);
+        int z = selectedWaypoint != null ? selectedWaypoint.getZ() : (int) Math.floor(cursorCoordZ);
 
-                Vec3d pos = new Vec3d(x, 64, z);
+        Vec3d pos = new Vec3d(x, 64, z);
 
-                EmpireResidence res = Util.getCurrentServer().getResidenceByLoc(pos);
-                if (res != null) {
-                    Util.getPlayer().sendChatMessage(res.getVisitCommand());
+        EmpireResidence res = Util.getCurrentServer().getResidenceByLoc(pos);
+        if (res != null) {
+          Util.getPlayer().sendChatMessage(res.getVisitCommand());
 
-                    ci.cancel();
-                }
-            }
+          ci.cancel();
         }
+      }
     }
+  }
 }

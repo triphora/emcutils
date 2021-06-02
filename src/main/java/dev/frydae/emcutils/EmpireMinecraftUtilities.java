@@ -8,11 +8,7 @@ import dev.frydae.emcutils.features.vaultButtons.VaultScreen;
 import dev.frydae.emcutils.listeners.ChatListener;
 import dev.frydae.emcutils.listeners.CommandListener;
 import dev.frydae.emcutils.listeners.ServerListener;
-import dev.frydae.emcutils.tasks.GetChatAlertPitchTask;
-import dev.frydae.emcutils.tasks.GetChatAlertSoundTask;
-import dev.frydae.emcutils.tasks.GetChatAlertsEnabledTask;
-import dev.frydae.emcutils.tasks.GetLocationTask;
-import dev.frydae.emcutils.tasks.Tasks;
+import dev.frydae.emcutils.tasks.*;
 import dev.frydae.emcutils.utils.Config;
 import dev.frydae.emcutils.utils.Log;
 import dev.frydae.emcutils.utils.Util;
@@ -27,53 +23,55 @@ import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
 public class EmpireMinecraftUtilities implements ModInitializer {
-    @Getter private static EmpireMinecraftUtilities instance;
-    @Getter private Logger logger;
-    private static boolean online = false;
+  @Getter
+  private static EmpireMinecraftUtilities instance;
+  private static boolean online = false;
+  @Getter
+  private Logger logger;
 
-    @Override
-    public void onInitialize() {
-        instance = this;
-        logger = LogManager.getLogger("EMC Utils");
+  public static void onJoinEmpireMinecraft() {
+    if (!online) {
+      new ChatListener();
+      new CommandListener();
+      new ServerListener();
+      new UsableItems();
 
-        ExecutorService executor = Executors.newCachedThreadPool();
-        IntStream.rangeClosed(1, 10).forEach(i -> {
-            executor.submit(() -> EmpireServer.getById(i).collectResidences());
-        });
-        executor.shutdown();
+      online = true;
+    }
+  }
 
-        HandledScreens.register(VaultButtons.GENERIC_9X7, VaultScreen::new);
-
-        Util.getOnJoinCommandQueue();
-
-        Config.getInstance().load();
-
-        Log.info("Loaded Empire Minecraft Utilities!");
+  public static void onPostJoinEmpireMinecraft() {
+    if (Config.getInstance().isShouldRunTasks()) {
+      Tasks.runTasks(
+              new GetChatAlertPitchTask(),
+              new GetChatAlertsEnabledTask(),
+              new GetChatAlertSoundTask(),
+              () -> Config.getInstance().setShouldRunTasks(false));
     }
 
-    public static void onJoinEmpireMinecraft() {
-        if (!online) {
-            new ChatListener();
-            new CommandListener();
-            new ServerListener();
-            new UsableItems();
+    Tasks.runTasks(
+            new GetLocationTask(),
+            new VoxelMapIntegration()
+    );
+  }
 
-            online = true;
-        }
-    }
+  @Override
+  public void onInitialize() {
+    instance = this;
+    logger = LogManager.getLogger("EMC Utils");
 
-    public static void onPostJoinEmpireMinecraft() {
-        if (Config.getInstance().isShouldRunTasks()) {
-            Tasks.runTasks(
-                    new GetChatAlertPitchTask(),
-                    new GetChatAlertsEnabledTask(),
-                    new GetChatAlertSoundTask(),
-                    () -> Config.getInstance().setShouldRunTasks(false));
-        }
+    ExecutorService executor = Executors.newCachedThreadPool();
+    IntStream.rangeClosed(1, 10).forEach(i -> {
+      executor.submit(() -> EmpireServer.getById(i).collectResidences());
+    });
+    executor.shutdown();
 
-        Tasks.runTasks(
-                new GetLocationTask(),
-                new VoxelMapIntegration()
-        );
-    }
+    HandledScreens.register(VaultButtons.GENERIC_9X7, VaultScreen::new);
+
+    Util.getOnJoinCommandQueue();
+
+    Config.getInstance().load();
+
+    Log.info("Loaded Empire Minecraft Utilities!");
+  }
 }

@@ -7,11 +7,11 @@ import net.fabricmc.fabric.api.networking.v1.ServerLoginConnectionEvents;
 
 @Environment(EnvType.CLIENT)
 public class ServerListener {
-    public ServerListener() {
+  public ServerListener() {
 
-        ServerLoginConnectionEvents.DISCONNECT.register((handler, server) -> {
-            Log.info("fish");
-        });
+    ServerLoginConnectionEvents.DISCONNECT.register((handler, server) -> {
+      Log.info("fish");
+    });
 
-    }
+  }
 }

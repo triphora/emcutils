@@ -14,19 +14,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(GuiWaypoints.class)
 public class GuiWaypointsMixin {
 
-    @Shadow protected Waypoint selectedWaypoint;
+  @Shadow
+  protected Waypoint selectedWaypoint;
 
-    @Inject(method = "teleportClicked", at = @At("INVOKE"), remap = false, cancellable = true)
-    public void handleTeleport(CallbackInfo ci) {
-        if (Util.IS_ON_EMC) {
-            Vec3d pos = new Vec3d(selectedWaypoint.getX(), selectedWaypoint.getY(), selectedWaypoint.getZ());
+  @Inject(method = "teleportClicked", at = @At("INVOKE"), remap = false, cancellable = true)
+  public void handleTeleport(CallbackInfo ci) {
+    if (Util.IS_ON_EMC) {
+      Vec3d pos = new Vec3d(selectedWaypoint.getX(), selectedWaypoint.getY(), selectedWaypoint.getZ());
 
-            EmpireResidence res = Util.getCurrentServer().getResidenceByLoc(pos);
-            if (res != null) {
-                Util.getPlayer().sendChatMessage(res.getVisitCommand());
+      EmpireResidence res = Util.getCurrentServer().getResidenceByLoc(pos);
+      if (res != null) {
+        Util.getPlayer().sendChatMessage(res.getVisitCommand());
 
-            }
-            ci.cancel();
-        }
+      }
+      ci.cancel();
     }
+  }
 }
