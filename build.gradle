@@ -1,6 +1,6 @@
 plugins {
 	id "fabric-loom" version "0.6-SNAPSHOT"
-	id "com.modrinth.minotaur" version "1.2.0"
+	id "com.modrinth.minotaur" version "1.2.1"
 }
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -43,6 +43,9 @@ dependencies {
 	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 	modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}") { exclude(group: "net.fabricmc.fabric-api") }
 	include "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}"
+
+	// Auth Me to login properly
+	modImplementation "curse.maven:auth-me-356643:3073169"
 }
 
 processResources {
@@ -75,7 +78,7 @@ task publishModrinth (type: TaskModrinthUpload){
     onlyIf {System.getenv("MODRINTH_TOKEN")}
     token = System.getenv("MODRINTH_TOKEN")
     projectId = 'QYTT62S0'
-    versionNumber = '1.8.1'
+    versionNumber = '1.8.2'
     uploadFile = jar.outputs.getFiles().asPath
     addGameVersion('1.16.5')
     addLoader('fabric')

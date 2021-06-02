@@ -14,7 +14,6 @@ import dev.frydae.emcutils.tasks.GetChatAlertsEnabledTask;
 import dev.frydae.emcutils.tasks.GetLocationTask;
 import dev.frydae.emcutils.tasks.Tasks;
 import dev.frydae.emcutils.utils.Config;
-import dev.frydae.emcutils.utils.DevLogin;
 import dev.frydae.emcutils.utils.Log;
 import dev.frydae.emcutils.utils.Util;
 import lombok.Getter;
@@ -47,10 +46,6 @@ public class EmpireMinecraftUtilities implements ModInitializer {
 
         Util.getOnJoinCommandQueue();
 
-        if (isTestMode()) {
-            DevLogin.login();
-        }
-
         Config.getInstance().load();
 
         Log.info("Loaded Empire Minecraft Utilities!");
@@ -80,13 +75,5 @@ public class EmpireMinecraftUtilities implements ModInitializer {
                 new GetLocationTask(),
                 new VoxelMapIntegration()
         );
-    }
-
-    public static boolean isTestMode() {
-        if (System.getProperty("testMode") == null) {
-            return false;
-        }
-
-        return System.getProperty("testMode").equals("true");
     }
 }
