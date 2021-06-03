@@ -35,6 +35,7 @@ public class Util {
 
   public static void sendPlayerMessage(String message) {
     for (String line : message.split("\n")) {
+      assert MinecraftClient.getInstance().player != null;
       MinecraftClient.getInstance().player.sendMessage(new LiteralText(line), false);
     }
   }
@@ -106,7 +107,7 @@ public class Util {
   }
 
   public static List<PlayerListEntry> getPlayerListEntries() {
-    return Lists.newArrayList(((PlayerListHudAccessor) MinecraftClient.getInstance().inGameHud.getPlayerListHud()).getEntryOrdering().sortedCopy(MinecraftClient.getInstance().getNetworkHandler().getPlayerList()));
+    return Lists.newArrayList(((PlayerListHudAccessor) MinecraftClient.getInstance().inGameHud.getPlayerListHud()).getEntryOrdering().sortedCopy(Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).getPlayerList()));
   }
 
   public static Queue<String> getOnJoinCommandQueue() {
@@ -144,7 +145,7 @@ public class Util {
     List<PlayerListEntry> entries = getPlayerListEntries();
 
     for (PlayerListEntry entry : entries) {
-      if (entry.getDisplayName().getSiblings().get(1).getString().equalsIgnoreCase(user)) {
+      if (Objects.requireNonNull(entry.getDisplayName()).getSiblings().get(1).getString().equalsIgnoreCase(user)) {
         if (entry.getDisplayName().getSiblings().size() > 1) {
           Text coloredName = entry.getDisplayName().getSiblings().get(1);
 
