@@ -85,6 +85,7 @@ public enum EmpireServer {
   }
 
   public void sendToServer() {
+    assert MinecraftClient.getInstance().player != null;
     MinecraftClient.getInstance().player.sendChatMessage(getCommand());
     Util.setCurrentServer(getName());
   }
@@ -97,10 +98,6 @@ public enum EmpireServer {
     } else {
       return 0;
     }
-  }
-
-  public EmpireResidence getResidenceByAddress(int address) {
-    return residences.stream().filter(residence -> residence.getAddress() == address).findFirst().orElse(null);
   }
 
   public EmpireResidence getResidenceByLoc(Vec3d pos) {

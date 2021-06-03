@@ -9,6 +9,7 @@ public class GetChatAlertSoundTask implements Task {
   public void execute() {
     Config.getInstance().setHideFeatureMessages(true);
     ChatListener.currentMessage = ChatListener.ChatMessage.CHAT_ALERT_SOUND;
+    assert MinecraftClient.getInstance().player != null;
     MinecraftClient.getInstance().player.sendChatMessage("/ps set chatalertsound");
   }
 

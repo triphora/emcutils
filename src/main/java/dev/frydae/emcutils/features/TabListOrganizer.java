@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import net.minecraft.client.network.PlayerListEntry;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class TabListOrganizer {
@@ -22,7 +23,7 @@ public class TabListOrganizer {
     }
 
     for (PlayerListEntry entry : original) {
-      char server = entry.getDisplayName().getSiblings().get(0).getString().charAt(1);
+      char server = Objects.requireNonNull(entry.getDisplayName()).getSiblings().get(0).getString().charAt(1);
       String playerName = entry.getDisplayName().getSiblings().get(1).getString();
 
       EnhancedTabListEntry enhancedEntry = new EnhancedTabListEntry(EmpireServer.getByTabListDisplay(server), playerName, entry);

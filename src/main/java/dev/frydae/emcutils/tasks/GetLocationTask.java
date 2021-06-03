@@ -9,6 +9,7 @@ public class GetLocationTask implements Task {
   public void execute() {
     Config.getInstance().setHideFeatureMessages(true);
     ChatListener.currentMessage = ChatListener.ChatMessage.LOCATION;
+    assert MinecraftClient.getInstance().player != null;
     MinecraftClient.getInstance().player.sendChatMessage("/loc");
   }
 

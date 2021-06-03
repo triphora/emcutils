@@ -14,6 +14,8 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
+import java.util.Objects;
+
 @Environment(EnvType.CLIENT)
 public class UsableItems {
   public UsableItems() {
@@ -48,7 +50,7 @@ public class UsableItems {
   private static boolean isUsableItemWithCooldown(ItemStack item) {
     if (item != null && item.getTag() != null) {
       if (item.getTag().get("display") != null) {
-        String displayString = item.getTag().get("display").toString();
+        String displayString = Objects.requireNonNull(item.getTag().get("display")).toString();
 
         JsonObject display = new JsonParser().parse(displayString).getAsJsonObject();
         JsonArray originalLore = display.getAsJsonArray("OriginalLore");
@@ -82,7 +84,7 @@ public class UsableItems {
   private static long getSecondsUntilUsable(ItemStack item) {
     if (item != null && item.getTag() != null) {
       if (item.getTag().get("display") != null) {
-        String displayString = item.getTag().get("display").toString();
+        String displayString = Objects.requireNonNull(item.getTag().get("display")).toString();
 
         JsonObject display = new JsonParser().parse(displayString).getAsJsonObject();
         JsonArray originalLore = display.getAsJsonArray("OriginalLore");

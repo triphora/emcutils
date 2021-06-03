@@ -53,6 +53,7 @@ public class ChatChannels {
           currentChannel = channel;
           channel.executeCommand();
 
+          assert MinecraftClient.getInstance().player != null;
           MinecraftClient.getInstance().player.playSound(Config.getInstance().getChatAlertSound().getSoundEvent(), 5, Config.getInstance().getChatAlertPitch());
 
           // Cancel private conversation if in one
@@ -74,11 +75,7 @@ public class ChatChannels {
     }
 
     // Check Y coordinate
-    if (mouseY < screen.height - 32 || mouseY >= screen.height - (32 - height - 4)) {
-      return false;
-    }
-
-    return true;
+    return !(mouseY < screen.height - 32) && !(mouseY >= screen.height - (32 - height - 4));
   }
 
   private static void drawButton(Screen screen, MatrixStack matrices, ChatChannel channel) {
@@ -116,7 +113,7 @@ public class ChatChannels {
     LOCAL("Local", "/cl", Formatting.YELLOW, SERVER),
     RESIDENCE("Residence", "/cr", Formatting.BLUE, LOCAL),
     GROUP("Group", "/cg", Formatting.DARK_AQUA, RESIDENCE),
-    SUPPORTER("Supporter", "/csup", Formatting.AQUA, GROUP),
+    SUPPORTER("Supporter", "/cp", Formatting.AQUA, GROUP),
     MODERATOR("Moderator", "/cx", Formatting.LIGHT_PURPLE, SUPPORTER);
 
     @Getter
@@ -140,6 +137,7 @@ public class ChatChannels {
     }
 
     public void executeCommand() {
+      assert MinecraftClient.getInstance().player != null;
       MinecraftClient.getInstance().player.sendChatMessage(command);
     }
   }

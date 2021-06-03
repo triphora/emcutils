@@ -15,6 +15,7 @@ import net.minecraft.util.ActionResult;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Objects;
 
 @Environment(EnvType.CLIENT)
 public class ChatListener {
@@ -23,7 +24,7 @@ public class ChatListener {
   private static final String CHAT_PRIVATE_MESSAGE = "Started private conversation with (.*)";
   private static final String CHAT_WELCOME_PLAYER = "Please give (.*) a warm welcome!";
   public static ChatMessage currentMessage = ChatMessage.NULL_MESSAGE;
-  private static boolean shouldHideFeatureMessages = false;
+  private static final boolean shouldHideFeatureMessages = false;
 
   public ChatListener() {
     ChatChannels.setCurrentChannel(null);
@@ -83,7 +84,7 @@ public class ChatListener {
 
   private static ActionResult userGroupReceiver(ClientPlayerEntity player, Text text) {
     if (text.getString().matches(WELCOME_TO_EMC)) {
-      int group = Util.getGroupIdFromColor(text.getSiblings().get(5).getStyle().getColor());
+      int group = Util.getGroupIdFromColor(Objects.requireNonNull(text.getSiblings().get(5).getStyle().getColor()));
 
       Util.setPlayerGroupId(group);
     }

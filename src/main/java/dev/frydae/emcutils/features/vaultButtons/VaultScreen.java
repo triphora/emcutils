@@ -60,6 +60,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
     GameProfile profile = new GameProfile(null, "MrFrydae");
     profile.getProperties().put("textures", new Property("Value", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWYxMzNlOTE5MTlkYjBhY2VmZGMyNzJkNjdmZDg3YjRiZTg4ZGM0NGE5NTg5NTg4MjQ0NzRlMjFlMDZkNTNlNiJ9fX0="));
 
+    assert stack.getTag() != null;
     stack.getTag().put("SkullOwner", NbtHelper.fromGameProfile(new CompoundTag(), profile));
 
     return stack;
@@ -73,6 +74,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
     GameProfile profile = new GameProfile(null, "MrFrydae");
     profile.getProperties().put("textures", new Property("Value", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTNmYzUyMjY0ZDhhZDllNjU0ZjQxNWJlZjAxYTIzOTQ3ZWRiY2NjY2Y2NDkzNzMyODliZWE0ZDE0OTU0MWY3MCJ9fX0="));
 
+    assert stack.getTag() != null;
     stack.getTag().put("SkullOwner", NbtHelper.fromGameProfile(new CompoundTag(), profile));
 
     return stack;
@@ -117,6 +119,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
     RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
     int x = (this.width - this.backgroundWidth) / 2;
     int y = (this.height - this.backgroundHeight) / 2;
+    assert this.client != null;
     this.client.getTextureManager().bindTexture(TEXTURE);
     this.drawTexture(matrices, x, y, 0, 0, this.backgroundWidth, (rows + 1) * 18 + 17);
     this.drawTexture(matrices, x, y + this.rows * 18 + 17, 0, 126, this.backgroundWidth, 128);
@@ -143,6 +146,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
     if (mouseX >= x + buttonX && mouseX < x + buttonX + 16) {
       if (mouseY >= y + 126 && mouseY <= y + 141) {
         this.shouldCallClose = false;
+        assert MinecraftClient.getInstance().player != null;
         MinecraftClient.getInstance().player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_SNARE, 4F, 1F);
         MinecraftClient.getInstance().player.sendChatMessage(command);
       }

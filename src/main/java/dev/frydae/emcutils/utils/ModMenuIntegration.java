@@ -70,7 +70,7 @@ public class ModMenuIntegration implements ModMenuApi {
     MIXED(new TranslatableText("emc_utils.config.tablist.placement.mixed"));
 
     @Getter
-    private TranslatableText description;
+    private final TranslatableText description;
   }
 
   @AllArgsConstructor

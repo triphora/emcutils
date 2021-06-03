@@ -44,9 +44,6 @@ dependencies {
   modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
   modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}") { exclude(group: "net.fabricmc.fabric-api") }
   include "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}"
-
-  // Auth Me to login properly
-  modImplementation "curse.maven:auth-me-356643:3073169"
 }
 
 processResources {
