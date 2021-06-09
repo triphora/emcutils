@@ -45,54 +45,33 @@ public class Util {
   }
 
   public static Formatting groupIdToFormatting(int groupId) {
-    switch (groupId) {
-      case 0:
-        return Formatting.BLACK;
-      case 1:
-        return Formatting.WHITE;
-      case 2:
-        return Formatting.GRAY;
-      case 3:
-        return Formatting.GOLD;
-      case 4:
-        return Formatting.DARK_AQUA;
-      case 5:
-        return Formatting.YELLOW;
-      case 6:
-        return Formatting.BLUE;
-      case 7:
-        return Formatting.DARK_GREEN;
-      case 8:
-        return Formatting.GREEN;
-      case 9:
-      case 10:
-        return Formatting.DARK_PURPLE;
-      default:
-        return Formatting.WHITE;
-    }
+    return switch (groupId) {
+      case 0 -> Formatting.BLACK;
+      case 1 -> Formatting.WHITE;
+      case 2 -> Formatting.GRAY;
+      case 3 -> Formatting.GOLD;
+      case 4 -> Formatting.DARK_AQUA;
+      case 5 -> Formatting.YELLOW;
+      case 6 -> Formatting.BLUE;
+      case 7 -> Formatting.DARK_GREEN;
+      case 8 -> Formatting.GREEN;
+      case 9, 10 -> Formatting.DARK_PURPLE;
+      default -> Formatting.WHITE;
+    };
   }
 
   public static boolean isVisitCommand(String command) {
-    switch (command.toLowerCase()) {
-      case "v":
-      case "visit":
-      case "res tp":
-      case "residence tp":
-        return true;
-      default:
-        return false;
-    }
+    return switch (command.toLowerCase()) {
+      case "v", "visit", "res tp", "residence tp" -> true;
+      default -> false;
+    };
   }
 
   public static boolean isHomeCommand(String command) {
-    switch (command.toLowerCase()) {
-      case "home":
-      case "res home":
-      case "residence home":
-        return true;
-      default:
-        return false;
-    }
+    return switch (command.toLowerCase()) {
+      case "home", "res home", "residence home" -> true;
+      default -> false;
+    };
   }
 
   public static void setCurrentServer(String name) {
@@ -158,26 +137,17 @@ public class Util {
   }
 
   public static int getGroupIdFromColor(TextColor color) {
-    switch (color.getName()) {
-      case "white":
-        return 1;
-      case "gray":
-        return 2;
-      case "gold":
-        return 3;
-      case "dark_aqua":
-        return 4;
-      case "blue":
-        return 6;
-      case "dark_green":
-        return 7;
-      case "green":
-        return 8;
-      case "dark_purple":
-        return 9;
-      default:
-        return 0;
-    }
+    return switch (color.getName()) {
+      case "white" -> 1;
+      case "gray" -> 2;
+      case "gold" -> 3;
+      case "dark_aqua" -> 4;
+      case "blue" -> 6;
+      case "dark_green" -> 7;
+      case "green" -> 8;
+      case "dark_purple" -> 9;
+      default -> 0;
+    };
   }
 
   public static int getMinValue(int[] arr) {

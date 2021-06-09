@@ -1,5 +1,7 @@
 package dev.frydae.emcutils.mixins.voxelMap;
 
+/* VOXELMAP HAS NOT BEEN UPDATED TO 1.17 - UNCOMMENT & UPDATE ONCE IT HAS UPDATED
+
 import com.mamiyaotaru.voxelmap.MapSettingsManager;
 import com.mamiyaotaru.voxelmap.RadarSettingsManager;
 import com.mamiyaotaru.voxelmap.VoxelMap;
@@ -27,3 +29,4 @@ public class VoxelMapMixin {
     }
   }
 }
+*/

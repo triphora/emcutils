@@ -3,7 +3,7 @@ package dev.frydae.emcutils;
 import dev.frydae.emcutils.containers.EmpireServer;
 import dev.frydae.emcutils.features.UsableItems;
 import dev.frydae.emcutils.features.VaultButtons;
-import dev.frydae.emcutils.features.VoxelMapIntegration;
+//import dev.frydae.emcutils.features.VoxelMapIntegration;
 import dev.frydae.emcutils.features.vaultButtons.VaultScreen;
 import dev.frydae.emcutils.listeners.ChatListener;
 import dev.frydae.emcutils.listeners.CommandListener;
@@ -51,8 +51,8 @@ public class EmpireMinecraftUtilities implements ModInitializer {
     }
 
     Tasks.runTasks(
-            new GetLocationTask(),
-            new VoxelMapIntegration()
+            new GetLocationTask()//,
+            //new VoxelMapIntegration()
     );
   }
 

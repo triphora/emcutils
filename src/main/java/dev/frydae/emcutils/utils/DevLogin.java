@@ -16,7 +16,6 @@ public class DevLogin {
   /**
    * Attempts to login and set a new session for the current Minecraft instance.
    *
-   * @return completable future for the new session
    */
   public static void login()
   {

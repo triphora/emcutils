@@ -49,18 +49,17 @@ public class TabListOrganizer {
     List<EnhancedTabListEntry> sorted = Lists.newArrayList();
 
     switch (Config.getInstance().getConfig().getTabListCurrentServerPlacement()) {
-      case TOP:
+      case TOP -> {
         enhanced.removeAll(currentServer);
         sorted.addAll(currentServer);
         sorted.addAll(enhanced);
-        break;
-      case BOTTOM:
+      }
+      case BOTTOM -> {
         enhanced.removeAll(currentServer);
         sorted.addAll(enhanced);
         sorted.addAll(currentServer);
-        break;
-      case MIXED:
-        sorted.addAll(enhanced);
+      }
+      case MIXED -> sorted.addAll(enhanced);
     }
 
     return sorted.stream().map(e -> e.entry).collect(Collectors.toList());

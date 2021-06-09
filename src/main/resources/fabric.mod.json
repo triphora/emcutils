@@ -32,12 +32,12 @@
   ],
   "depends": {
     "fabric": "*",
-    "minecraft": "1.16.5",
-    "cloth-config2": ">=4.11.15",
-    "modmenu": ">=1.16.8"
+    "minecraft": "1.17.x",
+    "cloth-config2": "*",
+    "modmenu": "*"
   },
   "suggests": {
-    "notenoughcrashes": ">=3.1.8",
-    "voxelmap": ">=1.10.15"
+    "notenoughcrashes": "*",
+    "voxelmap": "*"
   }
 }

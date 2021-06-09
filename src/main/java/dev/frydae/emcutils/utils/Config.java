@@ -63,7 +63,6 @@ public class Config {
   /**
    * This literally does nothing
    *
-   * @param line
    */
   public static void doNothing(String line) {
 
@@ -125,7 +124,7 @@ public class Config {
   }
 
   public static void setChatAlertSound(String line) {
-    getInstance().getConfig().setChatAlertSound(AlertSound.valueOf(getSelectedValue(line).toUpperCase()));
+    getInstance().getConfig().setChatAlertSound(AlertSound.valueOf(Objects.requireNonNull(getSelectedValue(line)).toUpperCase()));
 
   }
 
@@ -134,7 +133,7 @@ public class Config {
   }
 
   public static void setChatAlertsOn(String line) {
-    getInstance().getConfig().setChatAlertsOn(getSelectedValue(line).equals("on"));
+    getInstance().getConfig().setChatAlertsOn(Objects.equals(getSelectedValue(line), "on"));
   }
 
   public String getWorld() {

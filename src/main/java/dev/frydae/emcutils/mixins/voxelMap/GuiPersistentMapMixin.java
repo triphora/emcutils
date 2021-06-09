@@ -1,5 +1,7 @@
 package dev.frydae.emcutils.mixins.voxelMap;
 
+/* VOXELMAP HAS NOT BEEN UPDATED TO 1.17 - UNCOMMENT & UPDATE ONCE IT HAS UPDATED
+
 import com.mamiyaotaru.voxelmap.gui.overridden.Popup;
 import com.mamiyaotaru.voxelmap.persistent.GuiPersistentMap;
 import com.mamiyaotaru.voxelmap.util.Waypoint;
@@ -49,3 +51,4 @@ public class GuiPersistentMapMixin {
     }
   }
 }
+*/

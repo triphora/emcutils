@@ -1,10 +1,7 @@
-plugins {
-  id "fabric-loom" version "0.6-SNAPSHOT"
-  id "com.modrinth.minotaur" version "1.2.1"
-}
+plugins { id "fabric-loom" version "0.8-SNAPSHOT" }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_16
 
 archivesBaseName = "${project.archives_base_name}-${project.minecraft_version}"
 version = project.mod_version
@@ -24,11 +21,10 @@ minecraft {
 }
 
 dependencies {
-  // To change the versions see the gradle.properties file
   minecraft "com.mojang:minecraft:${project.minecraft_version}"
-  mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+  mappings "net.fabricmc:yarn:${project.minecraft_version}+build.${project.yarn_mappings}:v2"
   modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-  modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}" // Fabric API
+  modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
   implementation "org.projectlombok:lombok:${project.lombok_version}"
   annotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
@@ -54,30 +50,8 @@ processResources {
   }
 }
 
-tasks.withType(JavaCompile).configureEach {
-  it.options.encoding = "UTF-8"
-  def targetVersion = 8
-  if (JavaVersion.current().isJava9Compatible()) {
-    it.options.release.set(targetVersion)
-  }
-}
+tasks.withType(JavaCompile) { it.options.encoding = "UTF-8" }
 
 java { withSourcesJar() }
 
-jar {
-  from("LICENSE") {
-    rename { "${it}_${project.archivesBaseName}" }
-  }
-}
-
-import com.modrinth.minotaur.TaskModrinthUpload
-
-task publishModrinth(type: TaskModrinthUpload) {
-  onlyIf { System.getenv("MODRINTH_TOKEN") }
-  token = System.getenv("MODRINTH_TOKEN")
-  projectId = 'QYTT62S0'
-  versionNumber = '1.8.2'
-  uploadFile = jar.outputs.getFiles().asPath
-  addGameVersion('1.16.5')
-  addLoader('fabric')
-}
+jar { from("LICENSE") { rename { "${it}_${project.archivesBaseName}" } } }
