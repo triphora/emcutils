@@ -19,7 +19,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Util {
-  public static boolean IS_ON_EMC = false;
+  public static boolean IS_ON_EMC = true;
   @Getter
   @Setter
   private static String serverAddress;

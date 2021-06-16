@@ -3,6 +3,7 @@ package dev.frydae.emcutils.features.vaultButtons;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 // import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.systems.RenderSystem;
 import dev.frydae.emcutils.accessors.ScreenAccessor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -34,7 +35,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
   public VaultScreen(VaultScreenHandler handler, PlayerInventory inventory, Text title) {
     super(handler, inventory, title);
-    this.client = MinecraftClient.getInstance();
+    super.init(MinecraftClient.getInstance(), MinecraftClient.getInstance().getWindow().getScaledWidth(), MinecraftClient.getInstance().getWindow().getScaledHeight());
     this.passEvents = false;
     this.rows = 6;
     this.backgroundHeight = 114 + 7 * 18;
@@ -116,11 +117,10 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
   }
 
   protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-    // RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+    RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
     int x = (this.width - this.backgroundWidth) / 2;
     int y = (this.height - this.backgroundHeight) / 2;
-    assert this.client != null;
-    this.client.getTextureManager().bindTexture(TEXTURE);
+    MinecraftClient.getInstance().getTextureManager().bindTexture(TEXTURE);
     this.drawTexture(matrices, x, y, 0, 0, this.backgroundWidth, (rows + 1) * 18 + 17);
     this.drawTexture(matrices, x, y + this.rows * 18 + 17, 0, 126, this.backgroundWidth, 128);
   }
