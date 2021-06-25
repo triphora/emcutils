@@ -2,7 +2,6 @@ package dev.frydae.emcutils.features.vaultButtons;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-// import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.frydae.emcutils.accessors.ScreenAccessor;
 import net.fabricmc.api.EnvType;
@@ -10,6 +9,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.ScreenHandlerProvider;
+import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -116,13 +116,14 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
     }
   }
 
+  @Override
   protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
+    RenderSystem.setShader(GameRenderer::getPositionTexShader);
     RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-    int x = (this.width - this.backgroundWidth) / 2;
-    int y = (this.height - this.backgroundHeight) / 2;
-    MinecraftClient.getInstance().getTextureManager().bindTexture(TEXTURE);
-    this.drawTexture(matrices, x, y, 0, 0, this.backgroundWidth, (rows + 1) * 18 + 17);
-    this.drawTexture(matrices, x, y + this.rows * 18 + 17, 0, 126, this.backgroundWidth, 128);
+    RenderSystem.setShaderTexture(0, TEXTURE);
+    int x = (width - backgroundWidth) / 2;
+    int y = (height - backgroundHeight) / 2;
+    drawTexture(matrices, x, y, 0, 0, backgroundWidth, backgroundHeight);
   }
 
   @Override
