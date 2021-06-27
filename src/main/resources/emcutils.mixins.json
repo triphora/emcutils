@@ -13,7 +13,10 @@
     "PlayerListHudAccessor",
     "PlayerListHudMixin",
     "ScreenMixin",
-    "MinecraftClientMixin"
+    "MinecraftClientMixin",
+    "voxelMap.GuiPersistentMapMixin",
+    "voxelMap.GuiWaypointsMixin",
+    "voxelMap.VoxelMapMixin"
   ],
   "injectors": {
     "defaultRequire": 1
