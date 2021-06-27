@@ -32,7 +32,7 @@ dependencies {
   testAnnotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
 
   // Minimaps
-  //modImplementation "curse.maven:voxelmap-225179:3197679"
+  modImplementation "curse.maven:voxelmap-225179:3345206"
   //modImplementation "curse.maven:xaeroworldmap-317780:3222863"
   //modImplementation "curse.maven:xaerominimap-263420:3222851"
 

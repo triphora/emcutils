@@ -1,7 +1,5 @@
 package dev.frydae.emcutils.mixins.voxelMap;
 
-/* VOXELMAP HAS NOT BEEN UPDATED TO 1.17 - UNCOMMENT & UPDATE ONCE IT HAS UPDATED
-
 import com.mamiyaotaru.voxelmap.gui.GuiWaypoints;
 import com.mamiyaotaru.voxelmap.util.Waypoint;
 import dev.frydae.emcutils.containers.EmpireResidence;
@@ -33,4 +31,3 @@ public class GuiWaypointsMixin {
     }
   }
 }
-*/

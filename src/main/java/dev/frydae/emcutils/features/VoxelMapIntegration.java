@@ -1,7 +1,5 @@
 package dev.frydae.emcutils.features;
 
-/* VOXELMAP HAS NOT BEEN UPDATED TO 1.17 - UNCOMMENT & UPDATE ONCE IT HAS UPDATED
-
 import com.mamiyaotaru.voxelmap.VoxelMap;
 import dev.frydae.emcutils.tasks.Task;
 import dev.frydae.emcutils.utils.Config;
@@ -28,4 +26,3 @@ public class VoxelMapIntegration implements Task {
     return "Set VoxelMap Information";
   }
 }
-*/
