@@ -12,7 +12,8 @@
     "MinecraftClientAccessor",
     "PlayerListHudAccessor",
     "PlayerListHudMixin",
-    "ScreenMixin"
+    "ScreenMixin",
+    "MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1
