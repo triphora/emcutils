@@ -18,10 +18,8 @@ jobs:
         with:
           distribution: adopt
           java-version: ${{ matrix.java }}
-      - name: 4 - Minecraft tests
-        uses: Geometrically/fabric-test-runner@v1
-        with:
-          minecraftVersion: 1.17
+      - name: 4 - Build
+        run: ./gradlew build
       - name: 5 - Capture & upload build artifacts
         if: ${{ runner.os == 'Linux' }}
         uses: actions/upload-artifact@v2
