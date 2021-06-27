@@ -1,29 +1,23 @@
 # Empire Minecraft Utilities
 
-| Type | Badges |
-|------|--------|
-| **General Stuff** | ![](https://tokei.rs/b1/github/MrFrydae/Empire-Minecraft-Utilities?category=code) ![](https://tokei.rs/b1/github/MrFrydae/Empire-Minecraft-Utilities?category=files) |
-| **Code Stuff** | [![](https://github.com/MrFrydae/Empire-Minecraft-Utilities/workflows/build/badge.svg)](https://github.com/MrFrydae/Empire-Minecraft-Utilities/actions/workflows/build.yml) ![Java 11](https://img.shields.io/badge/language-Java%2011-9B599A.svg?style=flat-square) |
-| **Repo Stuff** | [![MIT License](https://img.shields.io/github/license/MrFrydae/Empire-Minecraft-Utilities?style=flat-square)](https://raw.githubusercontent.com/MrFrydae/Empire-Minecraft-Utilities/master/LICENSE) ![Version](https://img.shields.io/github/v/tag/MrFrydae/Empire-Minecraft-Utilities?label=version&style=flat-square) |
-| **Fabric Stuff** | ![Modrinth Downloads](https://waffle.coffee/modrinth/emcutils/downloads?style=flat-square) ![Environment: Client](https://img.shields.io/badge/environment-client-1976d2?style=flat-square)  |
+![](https://tokei.rs/b1/github/MrFrydae/Empire-Minecraft-Utilities?category=code)
+![](https://tokei.rs/b1/github/MrFrydae/Empire-Minecraft-Utilities?category=files)
+![](https://github.com/MrFrydae/Empire-Minecraft-Utilities/workflows/build/badge.svg)
+![](https://waffle.coffee/modrinth/emcutils/downloads?style=flat-square)
+![](https://img.shields.io/badge/environment-client-1976d2?style=flat-square)
 
-*Looking for a modpack? We recommend [waffle's Mods](https://waffle.coffee/modpack).*
+*Looking for a modpack? We recommend [waffle's Modpack](https://waffle.coffee/packwiz).*
 
-A collection of small utilities for players of [Empire Minecraft](https://ref.emc.gs/GreenMeanie).  
+Empire Minecraft Utilities, aka emcutils, is a 1.16 and 1.17 mod containing a collection of small utilities for players of [Empire Minecraft](https://ref.emc.gs/GreenMeanie).  
 Feature idea credits go to [Giselbaer](https://u.emc.gs/Giselbaer) and [wafflecoffee](https://u.emc.gs/wafflecoffee).
 
 Made by [MrFrydae](https://u.emc.gs/GreenMeanie), and available under the MIT License.
 
 Modrinth page for downloads: https://modrinth.com/mod/emcutils
 
-**This mod requires three additional mods:** [Fabric API](https://modrinth.com/mod/fabric-api)
-, [Mod Menu](https://modrinth.com/mod/modmenu),
-and [Cloth Config](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
-. [Not Enough Crashes](https://www.curseforge.com/minecraft/mc-mods/not-enough-crashes)
-and [VoxelMap](https://www.curseforge.com/minecraft/mc-mods/voxelmap) are also recommended.
+**This mod requires two additional mods:** [Fabric API](https://modrinth.com/mod/fabric-api) and [Mod Menu](https://modrinth.com/mod/modmenu). [Not Enough Crashes](https://www.curseforge.com/minecraft/mc-mods/not-enough-crashes) and [VoxelMap](https://www.curseforge.com/minecraft/mc-mods/voxelmap) are also recommended.
 
-*Note: No need to download jars for separate features. The releases each contain the feature it has added as well as all
-features previously released.*
+*Note: No need to download jars for separate features. The releases each contain the feature it has added as well as all features previously released.*
 
 ## Feature List
 
@@ -39,5 +33,4 @@ features previously released.*
 * And more to come :)
 
 ---
-This mod is not sponsored by nor affiliated with Empire Minecraft, Starlis LLC, or Mojang Studios. It has been approved
-for use on Empire Minecraft in accordance with its [approved mod](https://mods.emc.gs) policies.
+This mod is not sponsored by nor affiliated with Empire Minecraft, Starlis LLC, or Mojang Studios. It has been approved for use on Empire Minecraft in accordance with its [approved mod](https://mods.emc.gs) policies.
