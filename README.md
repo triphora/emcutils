@@ -15,9 +15,7 @@ Made by [MrFrydae](https://u.emc.gs/GreenMeanie), and available under the MIT Li
 
 Modrinth page for downloads: https://modrinth.com/mod/emcutils
 
-**This mod requires two additional mods:** [Fabric API](https://modrinth.com/mod/fabric-api) and [Mod Menu](https://modrinth.com/mod/modmenu). [Not Enough Crashes](https://www.curseforge.com/minecraft/mc-mods/not-enough-crashes) and [VoxelMap](https://www.curseforge.com/minecraft/mc-mods/voxelmap) are also recommended.
-
-*Note: No need to download jars for separate features. The releases each contain the feature it has added as well as all features previously released.*
+**This mod requires [Mod Menu](https://modrinth.com/mod/modmenu)**. In addition, [Not Enough Crashes](https://www.curseforge.com/minecraft/mc-mods/not-enough-crashes) and [VoxelMap](https://www.curseforge.com/minecraft/mc-mods/voxelmap) are recommended.
 
 ## Feature List
 

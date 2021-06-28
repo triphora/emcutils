@@ -8,7 +8,8 @@
     "MrFrydae"
   ],
   "contributors": [
-    "wafflecoffee"
+    "wafflecoffee",
+    "BlockHead_56"
   ],
   "contact": {
     "homepage": "https://github.com/MrFrydae/Empire-Minecraft-Utilities",
@@ -31,7 +32,10 @@
     "emcutils.mixins.json"
   ],
   "depends": {
-    "fabric": "*",
+    "fabric-api-base": "*",
+    "fabric-item-api-v1": "*",
+    "fabric-lifecycle-events-v1": "*",
+    "fabric-networking-api-v1": "*",
     "minecraft": "1.17.x",
     "cloth-config2": "*",
     "modmenu": "*"
