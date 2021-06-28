@@ -3,18 +3,15 @@ package dev.frydae.emcutils.listeners;
 import dev.frydae.emcutils.callbacks.CommandCallback;
 import dev.frydae.emcutils.containers.EmpireServer;
 import dev.frydae.emcutils.features.VisitResidenceHandler;
-import dev.frydae.emcutils.utils.Config;
 import dev.frydae.emcutils.utils.Util;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.ActionResult;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.List;
 
 public class CommandListener {
   public CommandListener() {
-    CommandCallback.PRE_EXECUTE_COMMAND.register(CommandListener::registerCommandAliases);
     CommandCallback.PRE_EXECUTE_COMMAND.register(CommandListener::handleResidenceVisitCommand);
     CommandCallback.PRE_EXECUTE_COMMAND.register(CommandListener::handleResidenceHomeCommand);
 
@@ -92,26 +89,6 @@ public class CommandListener {
         Util.getOnJoinCommandQueue().add("v " + res + " " + loc);
 
         server.sendToServer();
-
-        return ActionResult.FAIL;
-      }
-    }
-
-    return ActionResult.PASS;
-  }
-
-  private static ActionResult registerCommandAliases(ClientPlayerEntity player, String command, List<String> args) {
-    for (Config.CommandAlias entry : Config.getInstance().getConfig().getCommandAliases()) {
-      String alias = entry.getAlias();
-      String original = entry.getOriginal();
-
-      // This is to prevent an infinite loop made by a curious player
-      if (alias.equalsIgnoreCase(original)) {
-        continue;
-      }
-
-      if (command.equalsIgnoreCase(alias)) {
-        player.sendChatMessage("/" + original + " " + (!args.isEmpty() ? StringUtils.join(args, " ") : ""));
 
         return ActionResult.FAIL;
       }

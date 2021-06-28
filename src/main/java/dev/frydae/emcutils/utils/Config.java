@@ -1,6 +1,5 @@
 package dev.frydae.emcutils.utils;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,7 +16,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -171,8 +169,6 @@ public class Config {
 
   public static class UniqueConfig {
     @Getter
-    private final List<CommandAlias> commandAliases;
-    @Getter
     @Setter
     private boolean tabListShowAllServers;
     @Getter
@@ -197,12 +193,6 @@ public class Config {
       this.tabListCurrentServerPlacement = ModMenuIntegration.TabListCurrentServerPlacement.TOP;
       this.chatAlertPitch = 0;
       this.chatAlertSound = AlertSound.LEVEL_UP;
-      this.commandAliases = Lists.newArrayList();
-
-      commandAliases.add(new CommandAlias("h", "home"));
-      commandAliases.add(new CommandAlias("gmail", "getmail"));
-      commandAliases.add(new CommandAlias("pmail", "previewmail"));
-      commandAliases.add(new CommandAlias("rs", "resshout"));
 
       hideFeatureMessages = false;
     }

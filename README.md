@@ -23,7 +23,6 @@ Modrinth page for downloads: https://modrinth.com/mod/emcutils
 * Automatic teleportation to a Residence on another server
 * Easier viewing of usable Custom Items such as [Pot of Gold](https://wiki.emc.gs/pot-of-gold)
 * Customizable tab list sorting (configurable from Mod Menu)
-* Command aliases (configurable from config file)
 * Vault buttons
 * Integration with VoxelMap
   * Automatic world detection and map confirmation/creation
