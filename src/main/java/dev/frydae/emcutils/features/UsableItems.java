@@ -5,8 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import dev.frydae.emcutils.utils.Util;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
@@ -16,7 +14,6 @@ import net.minecraft.util.Formatting;
 
 import java.util.Objects;
 
-@Environment(EnvType.CLIENT)
 public class UsableItems {
   public UsableItems() {
     ItemTooltipCallback.EVENT.register(((itemStack, tooltipContext, list) -> {

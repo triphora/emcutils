@@ -4,10 +4,7 @@ import com.mamiyaotaru.voxelmap.VoxelMap;
 import dev.frydae.emcutils.tasks.Task;
 import dev.frydae.emcutils.utils.Config;
 import dev.frydae.emcutils.utils.Util;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 
-@Environment(EnvType.CLIENT)
 public class VoxelMapIntegration implements Task {
 
   @Override

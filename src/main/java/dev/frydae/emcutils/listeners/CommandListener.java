@@ -5,8 +5,6 @@ import dev.frydae.emcutils.containers.EmpireServer;
 import dev.frydae.emcutils.features.VisitResidenceHandler;
 import dev.frydae.emcutils.utils.Config;
 import dev.frydae.emcutils.utils.Util;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.ActionResult;
 import org.apache.commons.lang3.StringUtils;
@@ -14,7 +12,6 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.List;
 
-@Environment(EnvType.CLIENT)
 public class CommandListener {
   public CommandListener() {
     CommandCallback.PRE_EXECUTE_COMMAND.register(CommandListener::registerCommandAliases);

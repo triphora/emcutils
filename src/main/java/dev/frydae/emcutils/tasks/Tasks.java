@@ -1,13 +1,10 @@
 package dev.frydae.emcutils.tasks;
 
 import dev.frydae.emcutils.utils.Log;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Environment(EnvType.CLIENT)
 public class Tasks {
   public static void runTasks(Task... tasks) {
     ExecutorService executor = Executors.newSingleThreadExecutor();

@@ -7,12 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.TranslatableText;
 
-@Environment(EnvType.CLIENT)
 public class ModMenuIntegration implements ModMenuApi {
 
   private static Screen genConfig(Screen parent) {

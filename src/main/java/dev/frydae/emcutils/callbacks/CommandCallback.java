@@ -1,7 +1,5 @@
 package dev.frydae.emcutils.callbacks;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -40,13 +38,11 @@ public interface CommandCallback {
 
 
   @FunctionalInterface
-  @Environment(EnvType.CLIENT)
   interface PreExecuteCommand {
     ActionResult onPreExecuteCommand(ClientPlayerEntity player, String command, List<String> args);
   }
 
   @FunctionalInterface
-  @Environment(EnvType.CLIENT)
   interface PostExecuteCommand {
     ActionResult onPostExecuteCommand(ClientPlayerEntity player, String command, List<String> args);
   }

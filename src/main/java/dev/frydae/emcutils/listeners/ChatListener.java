@@ -6,8 +6,6 @@ import dev.frydae.emcutils.callbacks.ChatCallback;
 import dev.frydae.emcutils.features.ChatChannels;
 import dev.frydae.emcutils.utils.Config;
 import dev.frydae.emcutils.utils.Util;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -17,7 +15,6 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Objects;
 
-@Environment(EnvType.CLIENT)
 public class ChatListener {
   private static final String WELCOME_TO_EMC = "Welcome to Empire Minecraft - .*, .*!";
   private static final String CHAT_FOCUS_MESSAGE = "Chat focus set to channel (.*)";

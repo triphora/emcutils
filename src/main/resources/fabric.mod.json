@@ -18,9 +18,9 @@
   "accessWidener": "emcutils.accesswidener",
   "license": "MIT",
   "icon": "assets/emcutils/icon.png",
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
-    "main": [
+    "client": [
       "dev.frydae.emcutils.EmpireMinecraftUtilities"
     ],
     "modmenu": [

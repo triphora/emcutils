@@ -14,7 +14,7 @@ import dev.frydae.emcutils.utils.DevLogin;
 import dev.frydae.emcutils.utils.Log;
 import dev.frydae.emcutils.utils.Util;
 import lombok.Getter;
-import net.fabricmc.api.ModInitializer;
+import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,7 +23,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
-public class EmpireMinecraftUtilities implements ModInitializer {
+public class EmpireMinecraftUtilities implements ClientModInitializer {
   @Getter
   private static EmpireMinecraftUtilities instance;
   private static boolean online = false;
@@ -57,7 +57,7 @@ public class EmpireMinecraftUtilities implements ModInitializer {
   }
 
   @Override
-  public void onInitialize() {
+  public void onInitializeClient() {
     instance = this;
     logger = LogManager.getLogger("EMC Utils");
 

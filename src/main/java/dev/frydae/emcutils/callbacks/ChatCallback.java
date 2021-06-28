@@ -1,7 +1,5 @@
 package dev.frydae.emcutils.callbacks;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -66,25 +64,21 @@ public interface ChatCallback {
   );
 
   @FunctionalInterface
-  @Environment(EnvType.CLIENT)
   interface PreSendMessage {
     ActionResult onPreSendMessage(ClientPlayerEntity player, String message);
   }
 
   @FunctionalInterface
-  @Environment(EnvType.CLIENT)
   interface PostSendMessage {
     ActionResult onPostSendMessage(ClientPlayerEntity player, String message);
   }
 
   @FunctionalInterface
-  @Environment(EnvType.CLIENT)
   interface PreReceiveMessage {
     ActionResult onPreReceiveMessage(ClientPlayerEntity player, Text message);
   }
 
   @FunctionalInterface
-  @Environment(EnvType.CLIENT)
   interface PostReceiveMessage {
     ActionResult onPostReceiveMessage(ClientPlayerEntity player, Text message);
   }
