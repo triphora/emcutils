@@ -3,11 +3,12 @@ package dev.frydae.emcutils.containers;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import dev.frydae.emcutils.utils.Log;
+import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.utils.Util;
 import lombok.Getter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;
+import org.apache.logging.log4j.LogManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -154,6 +155,6 @@ public enum EmpireServer {
       e.printStackTrace();
     }
 
-    Log.info("Loaded Residences for: " + name.toLowerCase());
+    LogManager.getLogger(EmpireMinecraftUtilities.MODID).info("Loaded Residences for: " + name.toLowerCase());
   }
 }

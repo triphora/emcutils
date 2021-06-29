@@ -2,7 +2,6 @@ package dev.frydae.emcutils.features;
 
 import com.google.common.collect.Lists;
 import dev.frydae.emcutils.containers.EmpireServer;
-import dev.frydae.emcutils.utils.ConfigHandler;
 import dev.frydae.emcutils.utils.MidnightLibConfig;
 import dev.frydae.emcutils.utils.Util;
 import lombok.AllArgsConstructor;
@@ -35,24 +34,24 @@ public class TabListOrganizer {
       }
     }
 
-    if (!ConfigHandler.getInstance().getConfig().isTabListShowAllServers()) {
+    if (!MidnightLibConfig.isTabListShowAllServers()) {
       enhanced = enhanced.stream().filter(e -> e.server == Util.getCurrentServer()).collect(Collectors.toList());
     }
 
     // This ensures that the names are in alphabetical order before any other sort.
-    enhanced.sort(MidnightLibConfig.TabListSortTypeEnum.NAME_ASCENDING::compare);
-    currentServer.sort(MidnightLibConfig.TabListSortTypeEnum.NAME_ASCENDING::compare);
+    enhanced.sort(MidnightLibConfig.TabListSortType.NAME_ASCENDING::compare);
+    currentServer.sort(MidnightLibConfig.TabListSortType.NAME_ASCENDING::compare);
 
     // This sorts based on what config option you have set
-    enhanced.sort(ConfigHandler.getInstance().getConfig().getTabListSortTypeEnum()::compare);
+    enhanced.sort(MidnightLibConfig.getTabListSortType()::compare);
 
     List<EnhancedTabListEntry> sorted = Lists.newArrayList();
 
-    if (MidnightLibConfig.tabListCurrentServerPlacementEnum == MidnightLibConfig.TabListCurrentServerPlacementEnum.TOP) {
+    if (MidnightLibConfig.tabListCurrentServerPlacement == MidnightLibConfig.TabListCurrentServerPlacement.TOP) {
         enhanced.removeAll(currentServer);
         sorted.addAll(currentServer);
         sorted.addAll(enhanced);
-      } else if (MidnightLibConfig.tabListCurrentServerPlacementEnum == MidnightLibConfig.TabListCurrentServerPlacementEnum.BOTTOM) {
+      } else if (MidnightLibConfig.tabListCurrentServerPlacement == MidnightLibConfig.TabListCurrentServerPlacement.BOTTOM) {
         enhanced.removeAll(currentServer);
         sorted.addAll(enhanced);
         sorted.addAll(currentServer);

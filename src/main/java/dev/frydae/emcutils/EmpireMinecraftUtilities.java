@@ -15,7 +15,6 @@ import lombok.Getter;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -26,8 +25,6 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
   @Getter
   private static EmpireMinecraftUtilities instance;
   private static boolean online = false;
-  @Getter
-  private Logger logger;
 
   public static void onJoinEmpireMinecraft() {
     if (!online) {
@@ -58,7 +55,6 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
   @Override
   public void onInitializeClient() {
     instance = this;
-    logger = LogManager.getLogger("EMC Utils");
 
     ExecutorService executor = Executors.newCachedThreadPool();
     IntStream.rangeClosed(1, 10).forEach(i -> executor.submit(() -> EmpireServer.getById(i).collectResidences()));
@@ -68,21 +64,8 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
 
     Util.getOnJoinCommandQueue();
 
-    if (isTestMode()) {
-      DevLogin.login();
-    }
-
     MidnightConfig.init(MODID, MidnightLibConfig.class);
-    //ConfigHandler.getInstance().load();
 
-    Log.info("Loaded Empire Minecraft Utilities!");
-  }
-
-  public static boolean isTestMode() {
-    if (System.getProperty("testMode") == null) {
-      return false;
-    }
-
-    return System.getProperty("testMode").equals("true");
+    LogManager.getLogger(MODID).info("Loaded Empire Minecraft Utilities!");
   }
 }

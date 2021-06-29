@@ -1,22 +1,24 @@
 package dev.frydae.emcutils.utils;
 
 import dev.frydae.emcutils.features.TabListOrganizer;
-import eu.midnightdust.lib.config.*;
+import eu.midnightdust.lib.config.MidnightConfig;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 
+@SuppressWarnings("unused")
 public class MidnightLibConfig extends MidnightConfig {
-  @Entry public static boolean tabListShowAllServers = true;
-  @Entry public static TabListSortTypeEnum tabListSortTypeEnum = TabListSortTypeEnum.SERVER_ASCENDING;
-  @Entry public static TabListCurrentServerPlacementEnum tabListCurrentServerPlacementEnum = TabListCurrentServerPlacementEnum.TOP;
-  @Entry public static boolean chatAlertsOn = true;
-  @Entry public static int chatAlertPitch = 0;
-  @Entry public static ChatAlertSoundEnum chatAlertSoundEnum = ChatAlertSoundEnum.LEVEL_UP;
+  @Getter @Setter @Entry public static boolean tabListShowAllServers = true;
+  @Getter @Setter @Entry public static TabListSortType tabListSortType = TabListSortType.SERVER_ASCENDING;
+  @Getter @Setter @Entry public static TabListCurrentServerPlacement tabListCurrentServerPlacement = TabListCurrentServerPlacement.TOP;
+  @Getter @Setter @Entry public static boolean chatAlertsOn = true;
+  @Getter @Setter @Entry(min=-15,max=30) public static int chatAlertPitch = 0;
+  @Getter @Setter @Entry public static ChatAlertSound chatAlertSound = ChatAlertSound.LEVEL_UP;
 
   @AllArgsConstructor
-  public enum TabListSortTypeEnum {
+  public enum TabListSortType {
     NAME_ASCENDING() {
       @Override
       public int compare(TabListOrganizer.EnhancedTabListEntry entry1, TabListOrganizer.EnhancedTabListEntry entry2) {
@@ -47,9 +49,9 @@ public class MidnightLibConfig extends MidnightConfig {
     }
   }
 
-  public enum TabListCurrentServerPlacementEnum {TOP, BOTTOM, MIXED}
+  public enum TabListCurrentServerPlacement {TOP, BOTTOM, MIXED}
 
-  public enum ChatAlertSoundEnum {
+  public enum ChatAlertSound {
     LEVEL_UP(SoundEvents.ENTITY_PLAYER_LEVELUP),
     ORB_PICKUP(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP),
     NOTE_PLING(SoundEvents.BLOCK_NOTE_BLOCK_PLING),
@@ -60,7 +62,7 @@ public class MidnightLibConfig extends MidnightConfig {
     @Getter
     private final SoundEvent soundEvent;
 
-    ChatAlertSoundEnum(SoundEvent soundEvent) {
+    ChatAlertSound(SoundEvent soundEvent) {
       this.name = name().toLowerCase();
       this.soundEvent = soundEvent;
     }
