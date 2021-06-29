@@ -2,15 +2,15 @@ package dev.frydae.emcutils.features;
 
 import com.mamiyaotaru.voxelmap.VoxelMap;
 import dev.frydae.emcutils.tasks.Task;
-import dev.frydae.emcutils.utils.ConfigHandler;
 import dev.frydae.emcutils.utils.Util;
 
 public class VoxelMapIntegration implements Task {
 
   @Override
   public void execute() {
+    Util.getInstance();
     VoxelMap.getInstance().getWaypointManager()
-            .setSubworldName(Util.getCurrentServer().getName().toLowerCase() + " - " + ConfigHandler.getInstance().getWorld(), false);
+            .setSubworldName(Util.getCurrentServer().getName().toLowerCase() + " - " + Util.getWorld(), false);
   }
 
   @Override

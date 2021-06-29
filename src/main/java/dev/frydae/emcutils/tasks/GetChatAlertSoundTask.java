@@ -1,13 +1,13 @@
 package dev.frydae.emcutils.tasks;
 
 import dev.frydae.emcutils.listeners.ChatListener;
-import dev.frydae.emcutils.utils.ConfigHandler;
+import dev.frydae.emcutils.utils.Util;
 import net.minecraft.client.MinecraftClient;
 
 public class GetChatAlertSoundTask implements Task {
   @Override
   public void execute() {
-    ConfigHandler.getInstance().setHideFeatureMessages(true);
+    Util.getInstance().setHideFeatureMessages(true);
     ChatListener.currentMessage = ChatListener.ChatMessage.CHAT_ALERT_SOUND;
     assert MinecraftClient.getInstance().player != null;
     MinecraftClient.getInstance().player.sendChatMessage("/ps set chatalertsound");

@@ -2,7 +2,7 @@ package dev.frydae.emcutils.features;
 
 import com.google.common.collect.Lists;
 import dev.frydae.emcutils.containers.EmpireServer;
-import dev.frydae.emcutils.utils.MidnightLibConfig;
+import dev.frydae.emcutils.utils.Config;
 import dev.frydae.emcutils.utils.Util;
 import lombok.AllArgsConstructor;
 import net.minecraft.client.network.PlayerListEntry;
@@ -34,24 +34,24 @@ public class TabListOrganizer {
       }
     }
 
-    if (!MidnightLibConfig.isTabListShowAllServers()) {
+    if (!Config.isTabListShowAllServers()) {
       enhanced = enhanced.stream().filter(e -> e.server == Util.getCurrentServer()).collect(Collectors.toList());
     }
 
     // This ensures that the names are in alphabetical order before any other sort.
-    enhanced.sort(MidnightLibConfig.TabListSortType.NAME_ASCENDING::compare);
-    currentServer.sort(MidnightLibConfig.TabListSortType.NAME_ASCENDING::compare);
+    enhanced.sort(Config.TabListSortType.NAME_ASCENDING::compare);
+    currentServer.sort(Config.TabListSortType.NAME_ASCENDING::compare);
 
     // This sorts based on what config option you have set
-    enhanced.sort(MidnightLibConfig.getTabListSortType()::compare);
+    enhanced.sort(Config.getTabListSortType()::compare);
 
     List<EnhancedTabListEntry> sorted = Lists.newArrayList();
 
-    if (MidnightLibConfig.tabListCurrentServerPlacement == MidnightLibConfig.TabListCurrentServerPlacement.TOP) {
+    if (Config.tabListCurrentServerPlacement == Config.TabListCurrentServerPlacement.TOP) {
         enhanced.removeAll(currentServer);
         sorted.addAll(currentServer);
         sorted.addAll(enhanced);
-      } else if (MidnightLibConfig.tabListCurrentServerPlacement == MidnightLibConfig.TabListCurrentServerPlacement.BOTTOM) {
+      } else if (Config.tabListCurrentServerPlacement == Config.TabListCurrentServerPlacement.BOTTOM) {
         enhanced.removeAll(currentServer);
         sorted.addAll(enhanced);
         sorted.addAll(currentServer);

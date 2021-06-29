@@ -1,6 +1,6 @@
 package dev.frydae.emcutils.features;
 
-import dev.frydae.emcutils.utils.MidnightLibConfig;
+import dev.frydae.emcutils.utils.Config;
 import dev.frydae.emcutils.utils.Util;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -54,7 +54,7 @@ public class ChatChannels {
           channel.executeCommand();
 
           assert MinecraftClient.getInstance().player != null;
-          MinecraftClient.getInstance().player.playSound(MidnightLibConfig.getChatAlertSound().getSoundEvent(), 5, MidnightLibConfig.getChatAlertPitch());
+          MinecraftClient.getInstance().player.playSound(Config.getChatAlertSound().getSoundEvent(), 5, Config.getChatAlertPitch());
 
           // Cancel private conversation if in one
           inPrivateConversation = false;

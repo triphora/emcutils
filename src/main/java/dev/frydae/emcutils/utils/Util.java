@@ -47,7 +47,6 @@ public class Util {
   public static Formatting groupIdToFormatting(int groupId) {
     return switch (groupId) {
       case 0 -> Formatting.BLACK;
-      case 1 -> Formatting.WHITE;
       case 2 -> Formatting.GRAY;
       case 3 -> Formatting.GOLD;
       case 4 -> Formatting.DARK_AQUA;
@@ -156,5 +155,29 @@ public class Util {
 
   public static int getMaxValue(int[] arr) {
     return Collections.max(Arrays.stream(arr).boxed().collect(Collectors.toList()));
+  }
+
+  @Getter
+  public static String world;
+  public static boolean hideFeatureMessages;
+  private static volatile Util singleton;
+  @Getter
+  @Setter
+  private boolean shouldRunTasks = false;
+  public static synchronized Util getInstance() {
+    if (singleton == null) {
+      singleton = new Util();
+    }
+
+    return singleton;
+  }
+
+  @SuppressWarnings("unused")
+  public boolean shouldHideFeatureMessages() {
+    return hideFeatureMessages;
+  }
+
+  public void setHideFeatureMessages(boolean hide) {
+    hideFeatureMessages = hide;
   }
 }

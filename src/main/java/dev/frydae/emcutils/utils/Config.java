@@ -9,7 +9,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 
 @SuppressWarnings("unused")
-public class MidnightLibConfig extends MidnightConfig {
+public class Config extends MidnightConfig {
   @Getter @Setter @Entry public static boolean tabListShowAllServers = true;
   @Getter @Setter @Entry public static TabListSortType tabListSortType = TabListSortType.SERVER_ASCENDING;
   @Getter @Setter @Entry public static TabListCurrentServerPlacement tabListCurrentServerPlacement = TabListCurrentServerPlacement.TOP;
