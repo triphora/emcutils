@@ -21,6 +21,9 @@ import java.util.stream.Collectors;
 public class Util {
   public static boolean IS_ON_EMC = false;
   @Getter
+  public static String world;
+  public static boolean hideFeatureMessages;
+  @Getter
   @Setter
   private static String serverAddress;
   @Getter
@@ -28,6 +31,10 @@ public class Util {
   private static Queue<String> onJoinCommandQueue;
   @Getter
   private static int playerGroupId = 0;
+  private static volatile Util singleton;
+  @Getter
+  @Setter
+  private boolean shouldRunTasks = false;
 
   public static ClientPlayerEntity getPlayer() {
     return MinecraftClient.getInstance().player;
@@ -157,19 +164,16 @@ public class Util {
     return Collections.max(Arrays.stream(arr).boxed().collect(Collectors.toList()));
   }
 
-  @Getter
-  public static String world;
-  public static boolean hideFeatureMessages;
-  private static volatile Util singleton;
-  @Getter
-  @Setter
-  private boolean shouldRunTasks = false;
   public static synchronized Util getInstance() {
     if (singleton == null) {
       singleton = new Util();
     }
 
     return singleton;
+  }
+
+  public static void setLocation(String line) {
+    world = line.split(" ")[1].split(":")[0];
   }
 
   @SuppressWarnings("unused")

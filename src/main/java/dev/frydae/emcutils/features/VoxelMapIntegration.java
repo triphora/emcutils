@@ -8,7 +8,6 @@ public class VoxelMapIntegration implements Task {
 
   @Override
   public void execute() {
-    Util.getInstance();
     VoxelMap.getInstance().getWaypointManager()
             .setSubworldName(Util.getCurrentServer().getName().toLowerCase() + " - " + Util.getWorld(), false);
   }
