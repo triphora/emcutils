@@ -59,6 +59,4 @@ processResources {
 
 tasks.withType(JavaCompile) { it.options.encoding = "UTF-8" }
 
-java { withSourcesJar() }
-
-jar { from("LICENSE") { rename { "${it}_${project.archivesBaseName}" } } }
+jar { from("LICENSE") }
