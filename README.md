@@ -32,11 +32,11 @@ Technically, emcutils is on a Maven. Why you would ever want to use it, I'm not 
 
 ```groovy
 repositories {
-    maven { url "https://api.modrinth.com/maven" }
+  maven { url "https://api.modrinth.com/maven" }
 }
 
 dependencies {
-    modImplementation "maven.modrinth:emcutils:${project.emcutils_version}"
+  modImplementation "maven.modrinth:emcutils:${project.emcutils_version}"
 }
 ```
 

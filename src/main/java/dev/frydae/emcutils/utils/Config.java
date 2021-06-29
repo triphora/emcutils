@@ -60,7 +60,6 @@ public class Config {
 
   /**
    * This literally does nothing
-   *
    */
   public static void doNothing(String line) {
 

@@ -62,9 +62,7 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
     logger = LogManager.getLogger("EMC Utils");
 
     ExecutorService executor = Executors.newCachedThreadPool();
-    IntStream.rangeClosed(1, 10).forEach(i -> {
-      executor.submit(() -> EmpireServer.getById(i).collectResidences());
-    });
+    IntStream.rangeClosed(1, 10).forEach(i -> executor.submit(() -> EmpireServer.getById(i).collectResidences()));
     executor.shutdown();
 
     HandledScreens.register(VaultButtons.GENERIC_9X7, VaultScreen::new);

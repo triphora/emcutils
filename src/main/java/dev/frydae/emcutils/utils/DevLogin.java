@@ -15,10 +15,8 @@ public class DevLogin {
 
   /**
    * Attempts to login and set a new session for the current Minecraft instance.
-   *
    */
-  public static void login()
-  {
+  public static void login() {
     try {
       YggdrasilAuthenticationService yas = new YggdrasilAuthenticationService(MinecraftClient.getInstance().getNetworkProxy(),
               UUID.randomUUID().toString());

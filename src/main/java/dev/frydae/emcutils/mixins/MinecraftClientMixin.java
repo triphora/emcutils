@@ -1,5 +1,6 @@
 package dev.frydae.emcutils.mixins;
 
+import dev.frydae.emcutils.features.vaultButtons.VaultScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.KeyBinding;
@@ -11,34 +12,33 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import dev.frydae.emcutils.features.vaultButtons.VaultScreen;
 
 @Mixin(MinecraftClient.class)
 public class MinecraftClientMixin {
-    @Final
-    @Shadow
-    private Window window;
+  @Final
+  @Shadow
+  private Window window;
 
-    @Inject(at = @At("INVOKE"), method = "openScreen", cancellable = true)
-    public void onOpenScreen(@Nullable Screen screen, CallbackInfo ci) {
-        if (!(screen instanceof VaultScreen)) {
-            return;
-        }
-
-        MinecraftClient mc = (MinecraftClient) (Object) this;
-
-        if (mc.currentScreen != null) {
-            mc.currentScreen.removed();
-        }
-
-        mc.currentScreen = screen;
-        mc.mouse.unlockCursor();
-        KeyBinding.unpressAll();
-        screen.init(mc, window.getScaledWidth(), window.getScaledHeight());
-        mc.skipGameRender = false;
-
-        mc.updateWindowTitle();
-        ci.cancel();
+  @Inject(at = @At("INVOKE"), method = "openScreen", cancellable = true)
+  public void onOpenScreen(@Nullable Screen screen, CallbackInfo ci) {
+    if (!(screen instanceof VaultScreen)) {
+      return;
     }
+
+    MinecraftClient mc = (MinecraftClient) (Object) this;
+
+    if (mc.currentScreen != null) {
+      mc.currentScreen.removed();
+    }
+
+    mc.currentScreen = screen;
+    mc.mouse.unlockCursor();
+    KeyBinding.unpressAll();
+    screen.init(mc, window.getScaledWidth(), window.getScaledHeight());
+    mc.skipGameRender = false;
+
+    mc.updateWindowTitle();
+    ci.cancel();
+  }
 
 }

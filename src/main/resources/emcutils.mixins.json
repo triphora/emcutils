@@ -10,10 +10,10 @@
     "ConnectScreenMixin",
     "IdentifierMixin",
     "MinecraftClientAccessor",
+    "MinecraftClientMixin",
     "PlayerListHudAccessor",
     "PlayerListHudMixin",
     "ScreenMixin",
-    "MinecraftClientMixin",
     "voxelMap.GuiPersistentMapMixin",
     "voxelMap.GuiWaypointsMixin",
     "voxelMap.VoxelMapMixin"
