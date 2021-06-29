@@ -3,7 +3,7 @@ package dev.frydae.emcutils.features;
 import com.google.common.collect.Lists;
 import dev.frydae.emcutils.containers.EmpireServer;
 import dev.frydae.emcutils.utils.Config;
-import dev.frydae.emcutils.utils.ModMenuIntegration;
+import dev.frydae.emcutils.utils.ConfigEnums;
 import dev.frydae.emcutils.utils.Util;
 import lombok.AllArgsConstructor;
 import net.minecraft.client.network.PlayerListEntry;
@@ -11,6 +11,9 @@ import net.minecraft.client.network.PlayerListEntry;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static dev.frydae.emcutils.utils.ConfigEnums.TabListCurrentServerPlacementEnum.*;
+import static dev.frydae.emcutils.utils.MidnightLibConfig.tabListCurrentServerPlacementEnum;
 
 public class TabListOrganizer {
 
@@ -40,15 +43,15 @@ public class TabListOrganizer {
     }
 
     // This ensures that the names are in alphabetical order before any other sort.
-    enhanced.sort(ModMenuIntegration.TabListSortType.NAME_ASCENDING::compare);
-    currentServer.sort(ModMenuIntegration.TabListSortType.NAME_ASCENDING::compare);
+    enhanced.sort(ConfigEnums.TabListSortTypeEnum.NAME_ASCENDING::compare);
+    currentServer.sort(ConfigEnums.TabListSortTypeEnum.NAME_ASCENDING::compare);
 
     // This sorts based on what config option you have set
-    enhanced.sort(Config.getInstance().getConfig().getTabListSortType()::compare);
+    enhanced.sort(tabListCurrentServerPlacementEnum::compare);
 
     List<EnhancedTabListEntry> sorted = Lists.newArrayList();
 
-    switch (Config.getInstance().getConfig().getTabListCurrentServerPlacement()) {
+    switch (tabListCurrentServerPlacementEnum) {
       case TOP -> {
         enhanced.removeAll(currentServer);
         sorted.addAll(currentServer);

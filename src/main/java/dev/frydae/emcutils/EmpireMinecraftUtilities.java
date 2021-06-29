@@ -9,10 +9,8 @@ import dev.frydae.emcutils.listeners.ChatListener;
 import dev.frydae.emcutils.listeners.CommandListener;
 import dev.frydae.emcutils.listeners.ServerListener;
 import dev.frydae.emcutils.tasks.*;
-import dev.frydae.emcutils.utils.Config;
-import dev.frydae.emcutils.utils.DevLogin;
-import dev.frydae.emcutils.utils.Log;
-import dev.frydae.emcutils.utils.Util;
+import dev.frydae.emcutils.utils.*;
+import eu.midnightdust.lib.config.MidnightConfig;
 import lombok.Getter;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
@@ -24,6 +22,7 @@ import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
 public class EmpireMinecraftUtilities implements ClientModInitializer {
+  public static final String MODID = "emcutils";
   @Getter
   private static EmpireMinecraftUtilities instance;
   private static boolean online = false;
@@ -73,7 +72,8 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
       DevLogin.login();
     }
 
-    Config.getInstance().load();
+    MidnightConfig.init(MODID, MidnightLibConfig.class);
+    //Config.getInstance().load();
 
     Log.info("Loaded Empire Minecraft Utilities!");
   }

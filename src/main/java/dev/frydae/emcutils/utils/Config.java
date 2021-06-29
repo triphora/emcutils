@@ -1,30 +1,16 @@
 package dev.frydae.emcutils.utils;
 
 import com.google.common.collect.Maps;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.Map;
 import java.util.Objects;
 
-@SuppressWarnings("AccessStaticViaInstance")
 public class Config {
   private static String world;
   private static boolean hideFeatureMessages;
   private static volatile Config singleton;
-  private Map<String, UniqueConfig> configurations;
+  private final Map<String, UniqueConfig> configurations;
   @Getter
   @Setter
   private boolean shouldRunTasks = false;
@@ -36,8 +22,6 @@ public class Config {
   public static synchronized Config getInstance() {
     if (singleton == null) {
       singleton = new Config();
-
-      ClientLifecycleEvents.CLIENT_STOPPING.register(c -> Config.getInstance().save());
     }
 
     return singleton;
@@ -58,54 +42,8 @@ public class Config {
     return null;
   }
 
-  /**
-   * This literally does nothing
-   */
-  public static void doNothing(String line) {
-
-  }
-
   public static void setLocation(String line) {
-    getInstance().world = line.split(" ")[1].split(":")[0];
-  }
-
-  public void load() {
-    try (FileReader reader = new FileReader("config/emc_utils.json")) {
-      Gson gson = new Gson();
-
-      Type type = new TypeToken<Map<String, UniqueConfig>>() {
-      }.getType();
-      configurations = gson.fromJson(reader, type);
-
-      createNewConfig();
-    } catch (FileNotFoundException e) {
-      createNewConfig();
-
-      save();
-    } catch (IOException e) {
-      Log.exception(e);
-    }
-  }
-
-  public void save() {
-    try (FileWriter writer = new FileWriter("config/emc_utils.json")) {
-      Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-      gson.toJson(configurations, writer);
-    } catch (IOException e) {
-      Log.exception(e);
-    }
-  }
-
-  private void createNewConfig() {
-    String uuid = Util.getCurrentUUID();
-    if (!configurations.containsKey(uuid)) {
-      configurations.put(uuid, new UniqueConfig());
-
-      shouldRunTasks = true;
-
-      save();
-    }
+    world = line.split(" ")[1].split(":")[0];
   }
 
   public int getChatAlertPitch() {
@@ -116,13 +54,12 @@ public class Config {
     getInstance().getConfig().setChatAlertPitch(Integer.parseInt(Objects.requireNonNull(getSelectedValue(line))));
   }
 
-  public AlertSound getChatAlertSound() {
+  public MidnightLibConfig.ChatAlertSoundEnum getChatAlertSound() {
     return getConfig().getChatAlertSound();
   }
 
   public static void setChatAlertSound(String line) {
-    getInstance().getConfig().setChatAlertSound(AlertSound.valueOf(Objects.requireNonNull(getSelectedValue(line)).toUpperCase()));
-
+    getInstance().getConfig().setChatAlertSound(MidnightLibConfig.ChatAlertSoundEnum.valueOf(Objects.requireNonNull(getSelectedValue(line)).toUpperCase()));
   }
 
   public boolean getChatAlertsOn() {
@@ -149,33 +86,16 @@ public class Config {
     return configurations.get(Util.getCurrentUUID());
   }
 
-  public enum AlertSound {
-    LEVEL_UP(SoundEvents.ENTITY_PLAYER_LEVELUP),
-    ORB_PICKUP(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP),
-    NOTE_PLING(SoundEvents.BLOCK_NOTE_BLOCK_PLING),
-    ITEM_PICKUP(SoundEvents.ENTITY_ITEM_PICKUP);
-
-    @Getter
-    private final String name;
-    @Getter
-    private final SoundEvent soundEvent;
-
-    AlertSound(SoundEvent soundEvent) {
-      this.name = name().toLowerCase();
-      this.soundEvent = soundEvent;
-    }
-  }
-
   public static class UniqueConfig {
     @Getter
     @Setter
     private boolean tabListShowAllServers;
     @Getter
     @Setter
-    private ModMenuIntegration.TabListSortType tabListSortType;
+    private MidnightLibConfig.TabListSortTypeEnum tabListSortTypeEnum;
     @Getter
     @Setter
-    private ModMenuIntegration.TabListCurrentServerPlacement tabListCurrentServerPlacement;
+    private MidnightLibConfig.TabListCurrentServerPlacementEnum tabListCurrentServerPlacementEnum;
     @Getter
     @Setter
     private boolean chatAlertsOn;
@@ -184,23 +104,10 @@ public class Config {
     private int chatAlertPitch;
     @Getter
     @Setter
-    private AlertSound chatAlertSound;
+    private MidnightLibConfig.ChatAlertSoundEnum chatAlertSound;
 
     public UniqueConfig() {
-      this.tabListShowAllServers = true;
-      this.tabListSortType = ModMenuIntegration.TabListSortType.SERVER_ASCENDING;
-      this.tabListCurrentServerPlacement = ModMenuIntegration.TabListCurrentServerPlacement.TOP;
-      this.chatAlertPitch = 0;
-      this.chatAlertSound = AlertSound.LEVEL_UP;
-
       hideFeatureMessages = false;
     }
-  }
-
-  @Getter
-  @AllArgsConstructor
-  public static class CommandAlias {
-    private final String alias;
-    private final String original;
   }
 }

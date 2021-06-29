@@ -37,7 +37,7 @@
     "fabric-lifecycle-events-v1": "*",
     "fabric-networking-api-v1": "*",
     "minecraft": "1.17.x",
-    "cloth-config2": "*",
+    "midnightlib": "*",
     "modmenu": "*"
   },
   "suggests": {
