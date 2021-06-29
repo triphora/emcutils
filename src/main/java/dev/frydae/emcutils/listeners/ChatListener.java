@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.callbacks.ChatCallback;
 import dev.frydae.emcutils.features.ChatChannels;
-import dev.frydae.emcutils.utils.Config;
+import dev.frydae.emcutils.utils.ConfigHandler;
 import dev.frydae.emcutils.utils.Util;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.Text;
@@ -165,9 +165,9 @@ public class ChatListener {
       }
 
       try {
-        Method method = Config.class.getMethod(action, String.class);
+        Method method = ConfigHandler.class.getMethod(action, String.class);
 
-        method.invoke(Config.getInstance(), line);
+        method.invoke(ConfigHandler.getInstance(), line);
       } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
         e.printStackTrace();
       }

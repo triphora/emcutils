@@ -2,8 +2,8 @@ package dev.frydae.emcutils.features;
 
 import com.google.common.collect.Lists;
 import dev.frydae.emcutils.containers.EmpireServer;
-import dev.frydae.emcutils.utils.Config;
-import dev.frydae.emcutils.utils.ConfigEnums;
+import dev.frydae.emcutils.utils.ConfigHandler;
+import dev.frydae.emcutils.utils.MidnightLibConfig;
 import dev.frydae.emcutils.utils.Util;
 import lombok.AllArgsConstructor;
 import net.minecraft.client.network.PlayerListEntry;
@@ -11,9 +11,6 @@ import net.minecraft.client.network.PlayerListEntry;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
-import static dev.frydae.emcutils.utils.ConfigEnums.TabListCurrentServerPlacementEnum.*;
-import static dev.frydae.emcutils.utils.MidnightLibConfig.tabListCurrentServerPlacementEnum;
 
 public class TabListOrganizer {
 
@@ -38,31 +35,29 @@ public class TabListOrganizer {
       }
     }
 
-    if (!Config.getInstance().getConfig().isTabListShowAllServers()) {
+    if (!ConfigHandler.getInstance().getConfig().isTabListShowAllServers()) {
       enhanced = enhanced.stream().filter(e -> e.server == Util.getCurrentServer()).collect(Collectors.toList());
     }
 
     // This ensures that the names are in alphabetical order before any other sort.
-    enhanced.sort(ConfigEnums.TabListSortTypeEnum.NAME_ASCENDING::compare);
-    currentServer.sort(ConfigEnums.TabListSortTypeEnum.NAME_ASCENDING::compare);
+    enhanced.sort(MidnightLibConfig.TabListSortTypeEnum.NAME_ASCENDING::compare);
+    currentServer.sort(MidnightLibConfig.TabListSortTypeEnum.NAME_ASCENDING::compare);
 
     // This sorts based on what config option you have set
-    enhanced.sort(tabListCurrentServerPlacementEnum::compare);
+    enhanced.sort(ConfigHandler.getInstance().getConfig().getTabListSortTypeEnum()::compare);
 
     List<EnhancedTabListEntry> sorted = Lists.newArrayList();
 
-    switch (tabListCurrentServerPlacementEnum) {
-      case TOP -> {
+    if (MidnightLibConfig.tabListCurrentServerPlacementEnum == MidnightLibConfig.TabListCurrentServerPlacementEnum.TOP) {
         enhanced.removeAll(currentServer);
         sorted.addAll(currentServer);
         sorted.addAll(enhanced);
-      }
-      case BOTTOM -> {
+      } else if (MidnightLibConfig.tabListCurrentServerPlacementEnum == MidnightLibConfig.TabListCurrentServerPlacementEnum.BOTTOM) {
         enhanced.removeAll(currentServer);
         sorted.addAll(enhanced);
         sorted.addAll(currentServer);
-      }
-      case MIXED -> sorted.addAll(enhanced);
+      } else {
+        sorted.addAll(enhanced);
     }
 
     return sorted.stream().map(e -> e.entry).collect(Collectors.toList());

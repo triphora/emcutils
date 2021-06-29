@@ -9,11 +9,11 @@ import net.minecraft.sound.SoundEvents;
 
 public class MidnightLibConfig extends MidnightConfig {
   @Entry public static boolean tabListShowAllServers = true;
-  @Entry public static ConfigEnums.TabListSortTypeEnum tabListSortTypeEnum = ConfigEnums.TabListSortTypeEnum.SERVER_ASCENDING;
-  @Entry public static ConfigEnums.TabListCurrentServerPlacementEnum tabListCurrentServerPlacementEnum = ConfigEnums.TabListCurrentServerPlacementEnum.TOP;
+  @Entry public static TabListSortTypeEnum tabListSortTypeEnum = TabListSortTypeEnum.SERVER_ASCENDING;
+  @Entry public static TabListCurrentServerPlacementEnum tabListCurrentServerPlacementEnum = TabListCurrentServerPlacementEnum.TOP;
   @Entry public static boolean chatAlertsOn = true;
   @Entry public static int chatAlertPitch = 0;
-  @Entry public static ConfigEnums.ChatAlertSoundEnum chatAlertSoundEnum = ConfigEnums.ChatAlertSoundEnum.LEVEL_UP;
+  @Entry public static ChatAlertSoundEnum chatAlertSoundEnum = ChatAlertSoundEnum.LEVEL_UP;
 
   @AllArgsConstructor
   public enum TabListSortTypeEnum {

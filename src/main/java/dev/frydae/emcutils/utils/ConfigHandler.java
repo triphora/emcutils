@@ -6,22 +6,22 @@ import lombok.Setter;
 import java.util.Map;
 import java.util.Objects;
 
-public class Config {
+public class ConfigHandler {
   private static String world;
   private static boolean hideFeatureMessages;
-  private static volatile Config singleton;
-  private final Map<String, UniqueConfig> configurations;
+  private static volatile ConfigHandler singleton;
+  private Map<String, UniqueConfig> configurations;
   @Getter
   @Setter
   private boolean shouldRunTasks = false;
 
-  private Config() {
+  private ConfigHandler() {
     configurations = Maps.newHashMap();
   }
 
-  public static synchronized Config getInstance() {
+  public static synchronized ConfigHandler getInstance() {
     if (singleton == null) {
-      singleton = new Config();
+      singleton = new ConfigHandler();
     }
 
     return singleton;

@@ -41,12 +41,12 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
   }
 
   public static void onPostJoinEmpireMinecraft() {
-    if (Config.getInstance().isShouldRunTasks()) {
+    if (ConfigHandler.getInstance().isShouldRunTasks()) {
       Tasks.runTasks(
               new GetChatAlertPitchTask(),
               new GetChatAlertsEnabledTask(),
               new GetChatAlertSoundTask(),
-              () -> Config.getInstance().setShouldRunTasks(false));
+              () -> ConfigHandler.getInstance().setShouldRunTasks(false));
     }
 
     Tasks.runTasks(
@@ -73,7 +73,7 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
     }
 
     MidnightConfig.init(MODID, MidnightLibConfig.class);
-    //Config.getInstance().load();
+    //ConfigHandler.getInstance().load();
 
     Log.info("Loaded Empire Minecraft Utilities!");
   }
