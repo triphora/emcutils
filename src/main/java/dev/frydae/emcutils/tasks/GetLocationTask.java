@@ -7,7 +7,7 @@ import net.minecraft.client.MinecraftClient;
 public class GetLocationTask implements Task {
   @Override
   public void execute() {
-    Config.getInstance().setHideFeatureMessages(true);
+    Config.getInstance().setHideFeatureMessages(false);
     ChatListener.currentMessage = ChatListener.ChatMessage.LOCATION;
     assert MinecraftClient.getInstance().player != null;
     MinecraftClient.getInstance().player.sendChatMessage("/loc");
