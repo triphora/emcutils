@@ -20,21 +20,14 @@ import java.util.stream.Collectors;
 
 public class Util {
   public static boolean IS_ON_EMC = false;
-  @Getter
-  public static String world;
+  @Getter public static String world;
   public static boolean hideFeatureMessages;
-  @Getter
-  @Setter
-  private static String serverAddress;
-  @Getter
-  private static EmpireServer currentServer;
+  @Getter @Setter private static String serverAddress;
+  @Getter private static EmpireServer currentServer;
   private static Queue<String> onJoinCommandQueue;
-  @Getter
-  private static int playerGroupId = 0;
+  @Getter private static int playerGroupId = 0;
   private static volatile Util singleton;
-  @Getter
-  @Setter
-  private boolean shouldRunTasks = false;
+  @Getter @Setter private boolean shouldRunTasks = false;
 
   public static ClientPlayerEntity getPlayer() {
     return MinecraftClient.getInstance().player;

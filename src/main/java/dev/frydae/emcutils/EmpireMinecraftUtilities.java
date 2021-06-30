@@ -9,7 +9,8 @@ import dev.frydae.emcutils.listeners.ChatListener;
 import dev.frydae.emcutils.listeners.CommandListener;
 import dev.frydae.emcutils.listeners.ServerListener;
 import dev.frydae.emcutils.tasks.*;
-import dev.frydae.emcutils.utils.*;
+import dev.frydae.emcutils.utils.Config;
+import dev.frydae.emcutils.utils.Util;
 import eu.midnightdust.lib.config.MidnightConfig;
 import lombok.Getter;
 import net.fabricmc.api.ClientModInitializer;
@@ -22,8 +23,7 @@ import java.util.stream.IntStream;
 
 public class EmpireMinecraftUtilities implements ClientModInitializer {
   public static final String MODID = "emcutils";
-  @Getter
-  private static EmpireMinecraftUtilities instance;
+  @Getter private static EmpireMinecraftUtilities instance;
   private static boolean online = false;
 
   public static void onJoinEmpireMinecraft() {

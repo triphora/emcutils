@@ -48,15 +48,15 @@ public class TabListOrganizer {
     List<EnhancedTabListEntry> sorted = Lists.newArrayList();
 
     if (Config.tabListCurrentServerPlacement == Config.TabListCurrentServerPlacement.TOP) {
-        enhanced.removeAll(currentServer);
-        sorted.addAll(currentServer);
-        sorted.addAll(enhanced);
-      } else if (Config.tabListCurrentServerPlacement == Config.TabListCurrentServerPlacement.BOTTOM) {
-        enhanced.removeAll(currentServer);
-        sorted.addAll(enhanced);
-        sorted.addAll(currentServer);
-      } else {
-        sorted.addAll(enhanced);
+      enhanced.removeAll(currentServer);
+      sorted.addAll(currentServer);
+      sorted.addAll(enhanced);
+    } else if (Config.tabListCurrentServerPlacement == Config.TabListCurrentServerPlacement.BOTTOM) {
+      enhanced.removeAll(currentServer);
+      sorted.addAll(enhanced);
+      sorted.addAll(currentServer);
+    } else {
+      sorted.addAll(enhanced);
     }
 
     return sorted.stream().map(e -> e.entry).collect(Collectors.toList());

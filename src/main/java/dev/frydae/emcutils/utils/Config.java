@@ -4,18 +4,17 @@ import dev.frydae.emcutils.features.TabListOrganizer;
 import eu.midnightdust.lib.config.MidnightConfig;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 
 @SuppressWarnings("unused")
 public class Config extends MidnightConfig {
-  @Getter @Setter @Entry public static boolean tabListShowAllServers = true;
-  @Getter @Setter @Entry public static TabListSortType tabListSortType = TabListSortType.SERVER_ASCENDING;
-  @Getter @Setter @Entry public static TabListCurrentServerPlacement tabListCurrentServerPlacement = TabListCurrentServerPlacement.TOP;
-  @Getter @Setter @Entry public static boolean chatAlertsOn = true;
-  @Getter @Setter @Entry(min=-15,max=30) public static int chatAlertPitch = 0;
-  @Getter @Setter @Entry public static ChatAlertSound chatAlertSound = ChatAlertSound.LEVEL_UP;
+  @Getter @Entry public static boolean tabListShowAllServers = true;
+  @Getter @Entry public static TabListSortType tabListSortType = TabListSortType.SERVER_ASCENDING;
+  @Getter @Entry public static TabListCurrentServerPlacement tabListCurrentServerPlacement = TabListCurrentServerPlacement.TOP;
+  @Entry public static boolean chatAlertsOn = true;
+  @Getter @Entry(min=-15,max=30) public static int chatAlertPitch = 0;
+  @Getter @Entry public static ChatAlertSound chatAlertSound = ChatAlertSound.LEVEL_UP;
 
   @AllArgsConstructor
   public enum TabListSortType {
@@ -57,10 +56,8 @@ public class Config extends MidnightConfig {
     NOTE_PLING(SoundEvents.BLOCK_NOTE_BLOCK_PLING),
     ITEM_PICKUP(SoundEvents.ENTITY_ITEM_PICKUP);
 
-    @Getter
-    private final String name;
-    @Getter
-    private final SoundEvent soundEvent;
+    @Getter private final String name;
+    @Getter private final SoundEvent soundEvent;
 
     ChatAlertSound(SoundEvent soundEvent) {
       this.name = name().toLowerCase();

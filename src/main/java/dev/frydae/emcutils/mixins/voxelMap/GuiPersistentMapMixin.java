@@ -17,15 +17,7 @@ public class GuiPersistentMapMixin {
 
   Waypoint selectedWaypoint;
 
-  @Inject(
-          method = "popupAction",
-          at = @At(
-                  value = "INVOKE_ASSIGN",
-                  target = "Lnet/minecraft/world/dimension/DimensionType;getCoordinateScale()D"
-          ),
-          locals = LocalCapture.CAPTURE_FAILSOFT,
-          cancellable = true
-  )
+  @Inject(method = "popupAction", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/dimension/DimensionType;getCoordinateScale()D"), locals = LocalCapture.CAPTURE_FAILSOFT, cancellable = true)
   public void redirectTeleport(Popup popup, int action, CallbackInfo ci,
                                int mouseDirectX, int mouseDirectY,
                                float cursorX, float cursorY,

@@ -1,6 +1,5 @@
 ---
-name: Bug Report
-about: Create a bug report to help us improve!
+name: Bug Report about: Create a bug report to help us improve!
 labels: bug
 ---
 

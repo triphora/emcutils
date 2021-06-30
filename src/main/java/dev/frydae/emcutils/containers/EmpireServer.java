@@ -32,18 +32,12 @@ public enum EmpireServer {
   GAMES(100, "GAMES", 11, 'G'),
   STAGE(200, "STAGE", 12, 'S');
 
-  @Getter
   private final int id;
-  @Getter
-  private final String name;
-  @Getter
-  private final int tabListRank;
-  @Getter
-  private final char tabListDisplay;
-  @Getter
-  private final String command;
-  @Getter
-  private final List<EmpireResidence> residences;
+  @Getter private final String name;
+  @Getter private final int tabListRank;
+  @Getter private final char tabListDisplay;
+  @Getter private final String command;
+  @Getter private final List<EmpireResidence> residences;
 
   EmpireServer(int id, String name, int tabListRank, char tabListDisplay) {
     this.id = id;
