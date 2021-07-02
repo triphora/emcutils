@@ -17,11 +17,8 @@ public class Config extends MidnightConfig {
   @Getter @Entry(min=-15,max=30) public static int chatAlertPitch = 0;
   @Getter @Entry public static ChatAlertSound chatAlertSound = ChatAlertSound.LEVEL_UP;
 
-  public enum VaultScreenOptions {LIGHT_SCREEN, DARK_SCREEN}
-
   public static String returnVaultScreenOption() {
-    if (darkVaultScreen) return "textures/gui/container/generic_63_dark.png";
-    else return "textures/gui/container/generic_63.png";
+    return darkVaultScreen ? "textures/gui/container/generic_63_dark.png" : "textures/gui/container/generic_63.png";
   }
 
   @AllArgsConstructor
@@ -72,5 +69,4 @@ public class Config extends MidnightConfig {
       this.soundEvent = soundEvent;
     }
   }
-  // public static String LIGHT_SCREEN = "textures/gui/container/generic_63.png";
 }
