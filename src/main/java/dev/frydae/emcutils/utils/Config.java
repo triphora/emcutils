@@ -9,12 +9,20 @@ import net.minecraft.sound.SoundEvents;
 
 @SuppressWarnings("unused")
 public class Config extends MidnightConfig {
+  @Getter @Entry public static boolean darkVaultScreen = false;
   @Getter @Entry public static boolean tabListShowAllServers = true;
   @Getter @Entry public static TabListSortType tabListSortType = TabListSortType.SERVER_ASCENDING;
   @Getter @Entry public static TabListCurrentServerPlacement tabListCurrentServerPlacement = TabListCurrentServerPlacement.TOP;
   @Entry public static boolean chatAlertsOn = true;
   @Getter @Entry(min=-15,max=30) public static int chatAlertPitch = 0;
   @Getter @Entry public static ChatAlertSound chatAlertSound = ChatAlertSound.LEVEL_UP;
+
+  public enum VaultScreenOptions {LIGHT_SCREEN, DARK_SCREEN}
+
+  public static String returnVaultScreenOption() {
+    if (darkVaultScreen) return "textures/gui/container/generic_63_dark.png";
+    else return "textures/gui/container/generic_63.png";
+  }
 
   @AllArgsConstructor
   public enum TabListSortType {
@@ -64,4 +72,5 @@ public class Config extends MidnightConfig {
       this.soundEvent = soundEvent;
     }
   }
+  // public static String LIGHT_SCREEN = "textures/gui/container/generic_63.png";
 }

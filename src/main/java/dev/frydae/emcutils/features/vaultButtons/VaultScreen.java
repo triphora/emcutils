@@ -5,6 +5,7 @@ import com.mojang.authlib.properties.Property;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.accessors.ScreenAccessor;
+import dev.frydae.emcutils.utils.Config;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.ScreenHandlerProvider;
@@ -25,7 +26,7 @@ import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.math.NumberUtils;
 
 public class VaultScreen extends HandledScreen<VaultScreenHandler> implements ScreenHandlerProvider<VaultScreenHandler> {
-  private static final Identifier TEXTURE = new Identifier(EmpireMinecraftUtilities.MODID, "textures/gui/container/generic_63.png");
+  private static final Identifier TEXTURE = new Identifier(EmpireMinecraftUtilities.MODID, Config.returnVaultScreenOption());
   private final int rows;
   private final int vaultPage;
   private final int[] slotOffsets = {8, 26, 44, 62, 80, 98, 116, 134, 152};
