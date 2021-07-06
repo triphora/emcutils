@@ -12,7 +12,7 @@ Made by [MrFrydae](https://u.emc.gs/GreenMeanie), and available under the MIT Li
 
 Modrinth page for downloads: https://modrinth.com/mod/emcutils
 
-**This mod requires [Mod Menu](https://modrinth.com/mod/modmenu)**. In addition, [Not Enough Crashes](https://www.curseforge.com/minecraft/mc-mods/not-enough-crashes) and [VoxelMap](https://www.curseforge.com/minecraft/mc-mods/voxelmap) are recommended.
+There are no dependencies, but [Mod Menu](https://modrinth.com/mod/modmenu), [Not Enough Crashes](https://modrinth.com/mod/notenoughcrashes), and [VoxelMap](https://www.curseforge.com/minecraft/mc-mods/voxelmap) are recommended.
 
 ## Feature List
 

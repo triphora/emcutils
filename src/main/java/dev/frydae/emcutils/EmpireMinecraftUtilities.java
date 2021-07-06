@@ -66,6 +66,6 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
 
     MidnightConfig.init(MODID, Config.class);
 
-    LogManager.getLogger(MODID).info("Loaded Empire Minecraft Utilities!");
+    LogManager.getLogger(MODID).info("Initialized Empire Minecraft Utilities");
   }
 }

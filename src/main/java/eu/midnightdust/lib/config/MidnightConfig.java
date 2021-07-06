@@ -62,11 +62,7 @@ import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
 // MidnightConfig v1.0.4
-
-/**
- * Based on https://github.com/Minenash/TinyConfig
- * Credits to Minenash
- */
+// Based on https://github.com/Minenash/TinyConfig. Credits to Minenash
 
 @SuppressWarnings("unchecked")
 public class MidnightConfig {
@@ -398,7 +394,7 @@ public class MidnightConfig {
       return buttonsWithResetButtons;
     }
 
-    public List<? extends Selectable> method_37025() {
+    public List<? extends Selectable> selectableChildren() {
       return buttonsWithResetButtons;
     }
   }

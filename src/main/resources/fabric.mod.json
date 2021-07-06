@@ -12,9 +12,9 @@
     "BlockHead_56"
   ],
   "contact": {
-    "homepage": "https://github.com/MrFrydae/Empire-Minecraft-Utilities",
-    "sources": "https://github.com/MrFrydae/Empire-Minecraft-Utilities",
-    "issues": "https://github.com/MrFrydae/Empire-Minecraft-Utilities/issues"
+    "homepage": "https://github.com/wafflecoffee/Empire-Minecraft-Utilities",
+    "sources": "https://github.com/wafflecoffee/Empire-Minecraft-Utilities",
+    "issues": "https://github.com/wafflecoffee/Empire-Minecraft-Utilities/issues"
   },
   "accessWidener": "emcutils.accesswidener",
   "license": "MIT",
@@ -35,10 +35,10 @@
     "fabric-api-base": "*",
     "fabric-item-api-v1": "*",
     "fabric-networking-api-v1": "*",
-    "minecraft": "1.17.x",
-    "modmenu": "*"
+    "minecraft": "~1.17.1"
   },
   "suggests": {
+    "modmenu": "*",
     "notenoughcrashes": "*",
     "voxelmap": "*"
   }

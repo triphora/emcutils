@@ -5,10 +5,9 @@ targetCompatibility = JavaVersion.VERSION_16
 
 archivesBaseName = "${project.archives_base_name}-${project.minecraft_version}"
 version = project.mod_version
-group = project.maven_group
 
 repositories {
-  maven { url "https://maven.terraformersmc.com/" }
+  maven { url "https://api.modrinth.com/maven" }
   maven { url "https://maven.shedaniel.me/" }
   maven {
     url "https://www.cursemaven.com"
@@ -32,7 +31,7 @@ dependencies {
   modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
   apiModules.forEach { include(modImplementation(fabricApi.module(it, fabric_version))) }
 
-  modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+  modImplementation "maven.modrinth:modmenu:${project.modmenu_version}"
 
   implementation "org.projectlombok:lombok:${project.lombok_version}"
   annotationProcessor "org.projectlombok:lombok:${project.lombok_version}"

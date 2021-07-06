@@ -25,6 +25,7 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.math.NumberUtils;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class VaultScreen extends HandledScreen<VaultScreenHandler> implements ScreenHandlerProvider<VaultScreenHandler> {
   private static final Identifier TEXTURE = new Identifier(EmpireMinecraftUtilities.MODID, Config.returnVaultScreenOption());
   private final int rows;
