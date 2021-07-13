@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package eu.midnightdust.lib.config;
+package dev.frydae.emcutils.utils;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
@@ -242,7 +242,7 @@ public class MidnightConfig {
             }
           }
         }
-        Objects.requireNonNull(client).openScreen(parent);
+        Objects.requireNonNull(client).setScreen(parent);
       }));
 
       ButtonWidget done = this.addDrawableChild(new ButtonWidget(this.width / 2 + 4, this.height - 28, 150, 20, ScreenTexts.DONE, (button) -> {
@@ -254,7 +254,7 @@ public class MidnightConfig {
             }
           }
         write(modid);
-        Objects.requireNonNull(client).openScreen(parent);
+        Objects.requireNonNull(client).setScreen(parent);
       }));
 
       this.list = new MidnightConfigListWidget(this.client, this.width, this.height, 32, this.height - 32, 25);
@@ -266,7 +266,7 @@ public class MidnightConfig {
             info.value = info.defaultValue;
             info.tempValue = info.value.toString();
             double scrollAmount = list.getScrollAmount();
-            Objects.requireNonNull(client).openScreen(this);
+            Objects.requireNonNull(client).setScreen(this);
             list.setScrollAmount(scrollAmount);
           }));
 

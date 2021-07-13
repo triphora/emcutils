@@ -1,7 +1,6 @@
 package dev.frydae.emcutils.utils;
 
 import dev.frydae.emcutils.features.TabListOrganizer;
-import eu.midnightdust.lib.config.MidnightConfig;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.sound.SoundEvent;
@@ -13,7 +12,6 @@ public class Config extends MidnightConfig {
   @Getter @Entry public static boolean tabListShowAllServers = true;
   @Getter @Entry public static TabListSortType tabListSortType = TabListSortType.SERVER_ASCENDING;
   @Getter @Entry public static TabListCurrentServerPlacement tabListCurrentServerPlacement = TabListCurrentServerPlacement.TOP;
-  @Entry public static boolean chatAlertsOn = true;
   @Getter @Entry(min=-15,max=30) public static int chatAlertPitch = 0;
   @Getter @Entry public static ChatAlertSound chatAlertSound = ChatAlertSound.LEVEL_UP;
 

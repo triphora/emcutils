@@ -11,7 +11,7 @@ import dev.frydae.emcutils.listeners.ServerListener;
 import dev.frydae.emcutils.tasks.*;
 import dev.frydae.emcutils.utils.Config;
 import dev.frydae.emcutils.utils.Util;
-import eu.midnightdust.lib.config.MidnightConfig;
+import dev.frydae.emcutils.utils.MidnightConfig;
 import lombok.Getter;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
@@ -41,7 +41,6 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
     if (Util.getInstance().isShouldRunTasks()) {
       Tasks.runTasks(
               new GetChatAlertPitchTask(),
-              new GetChatAlertsEnabledTask(),
               new GetChatAlertSoundTask(),
               () -> Util.getInstance().setShouldRunTasks(false));
     }
