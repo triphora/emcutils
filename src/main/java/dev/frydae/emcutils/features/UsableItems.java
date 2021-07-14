@@ -45,9 +45,9 @@ public class UsableItems {
   }
 
   private static boolean isUsableItemWithCooldown(ItemStack item) {
-    if (item != null && item.getTag() != null) {
-      if (item.getTag().get("display") != null) {
-        String displayString = Objects.requireNonNull(item.getTag().get("display")).toString();
+    if (item != null && item.getNbt() != null) {
+      if (item.getNbt().get("display") != null) {
+        String displayString = Objects.requireNonNull(item.getNbt().get("display")).toString();
 
         JsonObject display = new JsonParser().parse(displayString).getAsJsonObject();
         JsonArray originalLore = display.getAsJsonArray("OriginalLore");
@@ -79,9 +79,9 @@ public class UsableItems {
   }
 
   private static long getSecondsUntilUsable(ItemStack item) {
-    if (item != null && item.getTag() != null) {
-      if (item.getTag().get("display") != null) {
-        String displayString = Objects.requireNonNull(item.getTag().get("display")).toString();
+    if (item != null && item.getNbt() != null) {
+      if (item.getNbt().get("display") != null) {
+        String displayString = Objects.requireNonNull(item.getNbt().get("display")).toString();
 
         JsonObject display = new JsonParser().parse(displayString).getAsJsonObject();
         JsonArray originalLore = display.getAsJsonArray("OriginalLore");

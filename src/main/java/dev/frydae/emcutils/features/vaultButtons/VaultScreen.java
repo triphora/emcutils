@@ -61,8 +61,8 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
     GameProfile profile = new GameProfile(null, "MrFrydae");
     profile.getProperties().put("textures", new Property("Value", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWYxMzNlOTE5MTlkYjBhY2VmZGMyNzJkNjdmZDg3YjRiZTg4ZGM0NGE5NTg5NTg4MjQ0NzRlMjFlMDZkNTNlNiJ9fX0="));
 
-    assert stack.getTag() != null;
-    stack.getTag().put("SkullOwner", NbtHelper.writeGameProfile(new NbtCompound(), profile));
+    assert stack.getNbt() != null;
+    stack.getNbt().put("SkullOwner", NbtHelper.writeGameProfile(new NbtCompound(), profile));
 
     return stack;
   }
@@ -75,8 +75,8 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
     GameProfile profile = new GameProfile(null, "MrFrydae");
     profile.getProperties().put("textures", new Property("Value", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTNmYzUyMjY0ZDhhZDllNjU0ZjQxNWJlZjAxYTIzOTQ3ZWRiY2NjY2Y2NDkzNzMyODliZWE0ZDE0OTU0MWY3MCJ9fX0="));
 
-    assert stack.getTag() != null;
-    stack.getTag().put("SkullOwner", NbtHelper.writeGameProfile(new NbtCompound(), profile));
+    assert stack.getNbt() != null;
+    stack.getNbt().put("SkullOwner", NbtHelper.writeGameProfile(new NbtCompound(), profile));
 
     return stack;
   }

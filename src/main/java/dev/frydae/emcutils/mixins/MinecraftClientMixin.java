@@ -19,7 +19,7 @@ public class MinecraftClientMixin {
   @Shadow
   private Window window;
 
-  @Inject(at = @At("INVOKE"), method = "openScreen", cancellable = true)
+  @Inject(at = @At("INVOKE"), method = "setScreen", cancellable = true)
   public void onOpenScreen(@Nullable Screen screen, CallbackInfo ci) {
     if (!(screen instanceof VaultScreen)) {
       return;

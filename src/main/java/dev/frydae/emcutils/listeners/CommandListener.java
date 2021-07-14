@@ -51,7 +51,7 @@ public class CommandListener {
         }
       }
 
-      String resName = Util.getPlayer().getEntityName() + (num > 1 ? "-" + num : ""); // TODO: this is what causes #33
+      String resName = Util.getPlayer().getEntityName() + (num > 1 ? "-" + num : ""); // FIXME: this is what causes #33
 
       EmpireServer server = VisitResidenceHandler.getResidenceServer(resName);
 
