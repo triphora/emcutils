@@ -32,8 +32,8 @@ public class UsableItems {
 
           long untilUsable = getSecondsUntilUsable(itemStack);
 
-          if (untilUsable > 16) {
-            list.add(new LiteralText("Usable in: " + formatTime(untilUsable - 16, 1)).formatted(Formatting.RED));
+          if (untilUsable > 0) {
+            list.add(new LiteralText("Usable in: " + formatTime(untilUsable, 1)).formatted(Formatting.RED));
           } else {
             list.add(new LiteralText("Can be used now").formatted(Formatting.GREEN));
           }
