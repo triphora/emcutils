@@ -32,8 +32,8 @@ public class UsableItems {
 
           long untilUsable = getSecondsUntilUsable(itemStack);
 
-          if (untilUsable > 0) {
-            list.add(new LiteralText("Usable in: " + formatTime(untilUsable, 1)).formatted(Formatting.RED));
+          if (untilUsable > 16) {
+            list.add(new LiteralText("Usable in: " + formatTime(untilUsable - 16, 1)).formatted(Formatting.RED));
           } else {
             list.add(new LiteralText("Can be used now").formatted(Formatting.GREEN));
           }
@@ -121,7 +121,7 @@ public class UsableItems {
     }
 
     if (seconds < 3600) {
-      long count = (long) Math.ceil(seconds / 60);
+      long count = (long) Math.ceil(seconds) / 60;
 
       String res = count + " minute" + (count > 1 ? "s" : "");
 
@@ -133,7 +133,7 @@ public class UsableItems {
       return res;
     }
     if (seconds < 86400) {
-      long count = (long) Math.ceil(seconds / 3600);
+      long count = (long) Math.ceil(seconds) / 3600;
       String res = count + " hour" + (count > 1 ? "s" : "");
 
       if (depth > 0) {
@@ -142,7 +142,7 @@ public class UsableItems {
 
       return res;
     }
-    long count = (long) Math.ceil(seconds / 86400);
+    long count = (long) Math.ceil(seconds) / 86400;
     String res = count + " day" + (count > 1 ? "s" : "");
 
     if (depth > 0) {

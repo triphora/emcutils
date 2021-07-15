@@ -2,7 +2,7 @@ package dev.frydae.emcutils.listeners;
 
 import com.google.common.collect.Lists;
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
-import dev.frydae.emcutils.callbacks.ChatCallback;
+import dev.frydae.emcutils.interfaces.ChatCallback;
 import dev.frydae.emcutils.features.ChatChannels;
 import dev.frydae.emcutils.utils.Util;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -18,9 +18,7 @@ public class ChatListener {
   private static final String WELCOME_TO_EMC = "Welcome to Empire Minecraft - .*, .*!";
   private static final String CHAT_FOCUS_MESSAGE = "Chat focus set to channel (.*)";
   private static final String CHAT_PRIVATE_MESSAGE = "Started private conversation with (.*)";
-  private static final String CHAT_WELCOME_PLAYER = "Please give (.*) a warm welcome!";
   public static ChatMessage currentMessage = ChatMessage.NULL_MESSAGE;
-  private static final boolean shouldHideFeatureMessages = false;
 
   public ChatListener() {
     ChatChannels.setCurrentChannel(null);
@@ -110,12 +108,6 @@ public class ChatListener {
             "Setting [Chat Alert Sound]",
             "  Set the alert sound effect type.",
             "  [level_up], [orb_pickup], [note_pling], [item_pickup]",
-            "Click option to set it."
-    ),
-    CHAT_SOUND_ALERTS(2, "setChatAlertsOn",
-            "Setting [Chat Sound Alerts]",
-            "  Set if sounds are played when alerted.",
-            "  [on], [off]",
             "Click option to set it."
     ),
     LOCATION(1, "setLocation",

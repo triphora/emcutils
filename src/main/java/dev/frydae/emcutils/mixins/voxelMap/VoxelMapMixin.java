@@ -6,10 +6,13 @@ import com.mamiyaotaru.voxelmap.VoxelMap;
 import dev.frydae.emcutils.utils.Util;
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@SuppressWarnings("UnusedDeclaration")
+@Pseudo
 @Mixin(VoxelMap.class)
 public class VoxelMapMixin {
 

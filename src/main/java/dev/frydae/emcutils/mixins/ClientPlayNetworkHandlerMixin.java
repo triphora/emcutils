@@ -1,7 +1,7 @@
 package dev.frydae.emcutils.mixins;
 
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
-import dev.frydae.emcutils.callbacks.ChatCallback;
+import dev.frydae.emcutils.interfaces.ChatCallback;
 import dev.frydae.emcutils.features.ChatChannels;
 import dev.frydae.emcutils.features.VaultButtons;
 import dev.frydae.emcutils.utils.Util;

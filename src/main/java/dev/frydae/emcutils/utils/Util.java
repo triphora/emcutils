@@ -14,10 +14,14 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static dev.frydae.emcutils.EmpireMinecraftUtilities.MODID;
+
+@SuppressWarnings({"unused", "Convert2Lambda", "BusyWait"})
 public class Util {
   public static boolean IS_ON_EMC = false;
   @Getter public static String world;
@@ -28,6 +32,7 @@ public class Util {
   @Getter private static int playerGroupId = 0;
   private static volatile Util singleton;
   @Getter @Setter private boolean shouldRunTasks = false;
+  public static boolean HAS_VOXELMAP = false;
 
   public static ClientPlayerEntity getPlayer() {
     return MinecraftClient.getInstance().player;
@@ -169,12 +174,21 @@ public class Util {
     world = line.split(" ")[1].split(":")[0];
   }
 
-  @SuppressWarnings("unused")
   public boolean shouldHideFeatureMessages() {
     return hideFeatureMessages;
   }
 
   public void setHideFeatureMessages(boolean hide) {
     hideFeatureMessages = hide;
+  }
+
+  public static void hasVoxelMap() {
+    try {
+      Class.forName("com.mamiyaotaru.voxelmap.VoxelMap");
+      LogManager.getLogger(MODID).info(MODID + " found VoxelMap - enabling integrations");
+      HAS_VOXELMAP = true;
+    } catch (ClassNotFoundException ex) {
+      LogManager.getLogger(MODID).info(MODID + " did not find VoxelMap - you might get some weird errors in console, which you can ignore");
+    }
   }
 }

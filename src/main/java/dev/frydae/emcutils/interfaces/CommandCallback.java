@@ -1,4 +1,4 @@
-package dev.frydae.emcutils.callbacks;
+package dev.frydae.emcutils.interfaces;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;

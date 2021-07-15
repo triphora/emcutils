@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Arrays;
 
+@SuppressWarnings({"unused", "ConstantConditions"})
 public class ChatChannels {
   @Setter private static ChatChannel currentChannel = null;
   @Setter private static boolean inPrivateConversation = false;

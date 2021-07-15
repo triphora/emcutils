@@ -4,7 +4,7 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
-import dev.frydae.emcutils.accessors.ScreenAccessor;
+import dev.frydae.emcutils.interfaces.ScreenAccessor;
 import dev.frydae.emcutils.utils.Config;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -28,7 +28,6 @@ import org.apache.commons.lang3.math.NumberUtils;
 @SuppressWarnings("SpellCheckingInspection")
 public class VaultScreen extends HandledScreen<VaultScreenHandler> implements ScreenHandlerProvider<VaultScreenHandler> {
   private static final Identifier TEXTURE = new Identifier(EmpireMinecraftUtilities.MODID, Config.returnVaultScreenOption());
-  private final int rows;
   private final int vaultPage;
   private final int[] slotOffsets = {8, 26, 44, 62, 80, 98, 116, 134, 152};
   private boolean shouldCallClose = true;
@@ -37,7 +36,6 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
     super(handler, inventory, title);
     super.init(MinecraftClient.getInstance(), MinecraftClient.getInstance().getWindow().getScaledWidth(), MinecraftClient.getInstance().getWindow().getScaledHeight());
     this.passEvents = false;
-    this.rows = 6;
     this.backgroundHeight = 114 + 7 * 18;
     this.playerInventoryTitleY = this.backgroundHeight - 94;
 

@@ -12,11 +12,11 @@
     "BlockHead_56"
   ],
   "contact": {
-    "homepage": "https://github.com/wafflecoffee/Empire-Minecraft-Utilities",
+    "homepage": "https://emc.gs/t/84361",
     "sources": "https://github.com/wafflecoffee/Empire-Minecraft-Utilities",
     "issues": "https://github.com/wafflecoffee/Empire-Minecraft-Utilities/issues"
   },
-  "accessWidener": "emcutils.accesswidener",
+  "accessWidener": "emcutils.aw",
   "license": "MIT",
   "icon": "assets/emcutils/icon.png",
   "environment": "client",
@@ -39,7 +39,6 @@
   },
   "suggests": {
     "modmenu": "*",
-    "notenoughcrashes": "*",
     "voxelmap": "*"
   }
 }

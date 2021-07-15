@@ -1,6 +1,7 @@
 package dev.frydae.emcutils.tasks;
 
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
+import dev.frydae.emcutils.interfaces.Task;
 import org.apache.logging.log4j.LogManager;
 
 import java.util.concurrent.ExecutorService;

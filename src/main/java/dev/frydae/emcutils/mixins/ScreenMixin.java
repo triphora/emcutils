@@ -1,6 +1,6 @@
 package dev.frydae.emcutils.mixins;
 
-import dev.frydae.emcutils.accessors.ScreenAccessor;
+import dev.frydae.emcutils.interfaces.ScreenAccessor;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Final;

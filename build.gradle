@@ -3,21 +3,16 @@ plugins { id "fabric-loom" version "0.8-SNAPSHOT" }
 sourceCompatibility = JavaVersion.VERSION_16
 targetCompatibility = JavaVersion.VERSION_16
 
-archivesBaseName = "${project.archives_base_name}-${project.minecraft_version}"
+archivesBaseName = "emcutils-${project.minecraft_version}"
 version = project.mod_version
 
 repositories {
   maven { url "https://api.modrinth.com/maven" }
-  maven { url "https://maven.shedaniel.me/" }
-  maven {
-    url "https://www.cursemaven.com"
-    content { includeGroup "curse.maven" }
-  }
+  maven { url "https://maven.shedaniel.me" }
+  maven { url "https://www.cursemaven.com" }
 }
 
-minecraft {
-  accessWidener = file("src/main/resources/emcutils.accesswidener")
-}
+minecraft { accessWidener = file("src/main/resources/emcutils.aw") }
 
 Set<String> apiModules = [
         "fabric-api-base",
@@ -38,10 +33,7 @@ dependencies {
   testImplementation "org.projectlombok:lombok:${project.lombok_version}"
   testAnnotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
 
-  // Minimaps
   modImplementation "curse.maven:voxelmap-225179:3345206"
-  //modImplementation "curse.maven:xaeroworldmap-317780:3222863"
-  //modImplementation "curse.maven:xaerominimap-263420:3222851"
 }
 
 processResources {

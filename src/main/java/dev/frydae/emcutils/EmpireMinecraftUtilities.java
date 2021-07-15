@@ -8,10 +8,13 @@ import dev.frydae.emcutils.features.vaultButtons.VaultScreen;
 import dev.frydae.emcutils.listeners.ChatListener;
 import dev.frydae.emcutils.listeners.CommandListener;
 import dev.frydae.emcutils.listeners.ServerListener;
-import dev.frydae.emcutils.tasks.*;
+import dev.frydae.emcutils.tasks.GetChatAlertPitchTask;
+import dev.frydae.emcutils.tasks.GetChatAlertSoundTask;
+import dev.frydae.emcutils.tasks.GetLocationTask;
+import dev.frydae.emcutils.tasks.Tasks;
 import dev.frydae.emcutils.utils.Config;
-import dev.frydae.emcutils.utils.Util;
 import dev.frydae.emcutils.utils.MidnightConfig;
+import dev.frydae.emcutils.utils.Util;
 import lombok.Getter;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
@@ -21,6 +24,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
+@SuppressWarnings("InstantiationOfUtilityClass")
 public class EmpireMinecraftUtilities implements ClientModInitializer {
   public static final String MODID = "emcutils";
   @Getter private static EmpireMinecraftUtilities instance;
@@ -45,10 +49,12 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
               () -> Util.getInstance().setShouldRunTasks(false));
     }
 
-    Tasks.runTasks(
-            new GetLocationTask(),
-            new VoxelMapIntegration()
-    );
+    if (Util.HAS_VOXELMAP) {
+      Tasks.runTasks(
+              new GetLocationTask(),
+              new VoxelMapIntegration()
+      );
+    }
   }
 
   @Override
@@ -62,9 +68,10 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
     HandledScreens.register(VaultButtons.GENERIC_9X7, VaultScreen::new);
 
     Util.getOnJoinCommandQueue();
+    Util.hasVoxelMap();
 
     MidnightConfig.init(MODID, Config.class);
 
-    LogManager.getLogger(MODID).info("Initialized Empire Minecraft Utilities");
+    LogManager.getLogger(MODID).info("Initialized " + MODID);
   }
 }

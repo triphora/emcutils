@@ -1,6 +1,6 @@
 package dev.frydae.emcutils.listeners;
 
-import dev.frydae.emcutils.callbacks.CommandCallback;
+import dev.frydae.emcutils.interfaces.CommandCallback;
 import dev.frydae.emcutils.containers.EmpireServer;
 import dev.frydae.emcutils.features.VisitResidenceHandler;
 import dev.frydae.emcutils.utils.Util;
@@ -14,25 +14,10 @@ public class CommandListener {
   public CommandListener() {
     CommandCallback.PRE_EXECUTE_COMMAND.register(CommandListener::handleResidenceVisitCommand);
     CommandCallback.PRE_EXECUTE_COMMAND.register(CommandListener::handleResidenceHomeCommand);
-
-    CommandCallback.PRE_EXECUTE_COMMAND.register(CommandListener::handleTestCommand);
-  }
-
-  private static ActionResult handleTestCommand(ClientPlayerEntity player, String command, List<String> args) {
-    if (command.equalsIgnoreCase("test")) {
-      String input = "Location: town:-693,65,-486 - Facing: East [LIVEMAP]";
-      String pattern = "Location: .*:-?\\d+,-?\\d+,-?\\d+ - Facing: .* \\[LIVEMAP]";
-
-      Util.sendPlayerMessage(input.matches(pattern) + "");
-
-      return ActionResult.FAIL;
-    }
-
-    return ActionResult.PASS;
   }
 
   private static ActionResult handleResidenceHomeCommand(ClientPlayerEntity player, String command, List<String> args) {
-    if (command.equalsIgnoreCase("home") || command.equalsIgnoreCase("res home") || command.equalsIgnoreCase("residence home")) {
+    if (command.equalsIgnoreCase("home")) {
       int num = 1;
       String loc = "";
 
@@ -68,7 +53,7 @@ public class CommandListener {
   }
 
   private static ActionResult handleResidenceVisitCommand(ClientPlayerEntity player, String command, List<String> args) {
-    if (command.equalsIgnoreCase("v") || command.equalsIgnoreCase("visit") || command.equalsIgnoreCase("res tp") || command.equalsIgnoreCase("residence tp")) {
+    if (command.equalsIgnoreCase("v") || command.equalsIgnoreCase("visit")) {
       if (args.isEmpty()) {
         return ActionResult.PASS;
       }

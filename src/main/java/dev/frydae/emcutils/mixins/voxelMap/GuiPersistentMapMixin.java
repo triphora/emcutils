@@ -7,11 +7,13 @@ import dev.frydae.emcutils.containers.EmpireResidence;
 import dev.frydae.emcutils.utils.Util;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+@Pseudo
 @Mixin(GuiPersistentMap.class)
 public class GuiPersistentMapMixin {
 
