@@ -21,7 +21,7 @@ public class CommandListener {
       int num = 1;
       String loc = "";
 
-      if (args != null) {
+      if (args.size() != 0) {
         if (args.size() == 1) {
           if (NumberUtils.isParsable(args.get(0))) {
             num = Integer.parseInt(args.get(0));
@@ -34,7 +34,7 @@ public class CommandListener {
             loc = args.get(1);
           }
         }
-      }
+      } else return ActionResult.PASS;
 
       String resName = Util.getPlayer().getEntityName() + (num > 1 ? "-" + num : ""); // FIXME: this is what causes #33
 
