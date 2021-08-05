@@ -1,17 +1,28 @@
+// Inspired in part by the buildscripts of FabricMC/fabric
+
 plugins {
-  id "fabric-loom" version "0.9-SNAPSHOT"
-  id 'io.github.juuxel.loom-quiltflower' version '1.1.3'
+  id "fabric-loom" version "0.9.+"
+  id "com.modrinth.minotaur" version "1.2.+"
+  id "org.cadixdev.licenser" version "0.6.+"
+  id "io.github.juuxel.loom-quiltflower" version "1.2.+"
 }
 
-sourceCompatibility = JavaVersion.VERSION_16
-targetCompatibility = JavaVersion.VERSION_16
+String mod_version = "2.2.0"
+String release_title = "Important bug fix & new config option for slow connections"
+String changelog = "- update deps, add quiltflower (wafflecoffee)\n- [release] v2.2.0: New config option for bad connections; temporary command/world fix; buildscript improvement; license headers (wafflecoffee)"
 
-archivesBaseName = "emcutils-${project.minecraft_version}"
-version = project.mod_version
+String minecraft_version = "1.17.1"   // https://fabricmc.net/versions.html
+String yarn_mappings = "32"           // https://fabricmc.net/versions.html
+String loader_version = "0.11.6"      // https://fabricmc.net/versions.html
+String fabric_version = "0.37.1+1.17" // https://fabricmc.net/versions.html
+String modmenu_version = "2.0.4"      // https://modrinth.com/mod/modmenu/versions
+String lombok_version = "1.18.20"     // https://mvnrepository.com/artifact/org.projectlombok/lombok
+
+archivesBaseName = "emcutils-${minecraft_version}"
+version = mod_version
 
 repositories {
-  maven { url "https://api.modrinth.com/maven" }
-  maven { url "https://maven.shedaniel.me" }
+  maven { url "https://maven.terraformersmc.com" }
   maven { url "https://www.cursemaven.com" }
 }
 
@@ -24,24 +35,23 @@ Set<String> apiModules = [
 ]
 
 dependencies {
-  minecraft "com.mojang:minecraft:${project.minecraft_version}"
-  mappings "net.fabricmc:yarn:${project.minecraft_version}+build.${project.yarn_mappings}:v2"
-  modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+  minecraft "com.mojang:minecraft:${minecraft_version}"
+  mappings "net.fabricmc:yarn:${minecraft_version}+build.${yarn_mappings}:v2"
+  modImplementation "net.fabricmc:fabric-loader:${loader_version}"
   apiModules.forEach { include(modImplementation(fabricApi.module(it, fabric_version))) }
 
-  modImplementation "maven.modrinth:modmenu:${project.modmenu_version}"
+  modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
 
-  implementation "org.projectlombok:lombok:${project.lombok_version}"
-  annotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
-  testImplementation "org.projectlombok:lombok:${project.lombok_version}"
-  testAnnotationProcessor "org.projectlombok:lombok:${project.lombok_version}"
+  implementation "org.projectlombok:lombok:${lombok_version}"
+  annotationProcessor "org.projectlombok:lombok:${lombok_version}"
+  testImplementation "org.projectlombok:lombok:${lombok_version}"
+  testAnnotationProcessor "org.projectlombok:lombok:${lombok_version}"
 
   modImplementation "curse.maven:voxelmap-225179:3345206"
 }
 
 processResources {
   inputs.property "version", project.version
-
   filesMatching("fabric.mod.json") {
     expand "version": project.version
   }
@@ -50,3 +60,16 @@ processResources {
 tasks.withType(JavaCompile) { it.options.encoding = "UTF-8" }
 
 jar { from("LICENSE") }
+
+import com.modrinth.minotaur.TaskModrinthUpload
+
+task modrinth(type: TaskModrinthUpload) {
+  onlyIf { System.getenv().MODRINTH_TOKEN }
+  token = System.getenv().MODRINTH_TOKEN
+  projectId = "QYTT62S0"
+  versionNumber = version
+  versionName = release_title
+  changelog = changelog as String
+  uploadFile = file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")
+  addGameVersion(minecraft_version)
+}

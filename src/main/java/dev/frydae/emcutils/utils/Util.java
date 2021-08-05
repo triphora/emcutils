@@ -1,3 +1,27 @@
+/*
+ * Copyright (c) 2021 MrFrydae
+ * Copyright (c) 2021 wafflecoffee
+ * Copyright (c) 2021 djlawler
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package dev.frydae.emcutils.utils;
 
 import com.google.common.collect.Lists;
@@ -23,7 +47,7 @@ import static dev.frydae.emcutils.EmpireMinecraftUtilities.MODID;
 
 @SuppressWarnings({"unused", "Convert2Lambda", "BusyWait"})
 public class Util {
-  public static boolean IS_ON_EMC = false;
+  public static boolean isOnEMC = false;
   @Getter public static String world;
   public static boolean hideFeatureMessages;
   @Getter @Setter private static String serverAddress;
@@ -32,7 +56,8 @@ public class Util {
   @Getter private static int playerGroupId = 0;
   private static volatile Util singleton;
   @Getter @Setter private boolean shouldRunTasks = false;
-  public static boolean HAS_VOXELMAP = false;
+  public static boolean hasVoxelMap = false;
+  public static boolean worldLoaded = false;
 
   public static ClientPlayerEntity getPlayer() {
     return MinecraftClient.getInstance().player;
@@ -113,6 +138,8 @@ public class Util {
             command = command.substring(1);
           }
 
+          Thread.sleep(1500); // FIXME: Replace with a more permanent solution to prevent it from sending commands before the world is loaded
+
           Util.getPlayer().sendChatMessage("/" + command);
 
           Thread.sleep(100);
@@ -186,7 +213,7 @@ public class Util {
     try {
       Class.forName("com.mamiyaotaru.voxelmap.VoxelMap");
       LogManager.getLogger(MODID).info(MODID + " found VoxelMap - enabling integrations");
-      HAS_VOXELMAP = true;
+      hasVoxelMap = true;
     } catch (ClassNotFoundException ex) {
       LogManager.getLogger(MODID).info(MODID + " did not find VoxelMap - you might get some weird errors in console, which you can ignore");
     }

@@ -1,3 +1,27 @@
+/*
+ * Copyright (c) 2021 MrFrydae
+ * Copyright (c) 2021 wafflecoffee
+ * Copyright (c) 2021 djlawler
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package dev.frydae.emcutils.containers;
 
 import com.google.common.collect.Lists;
@@ -38,6 +62,7 @@ public enum EmpireServer {
   @Getter private final char tabListDisplay;
   @Getter private final String command;
   @Getter private final List<EmpireResidence> residences;
+  private static boolean didConnectionFail = false;
 
   EmpireServer(int id, String name, int tabListRank, char tabListDisplay) {
     this.id = id;
@@ -135,20 +160,12 @@ public enum EmpireServer {
               .getAsJsonObject("empire.residences")
               .getAsJsonObject("areas");
 
-      object.entrySet().forEach(e -> {
-        if (e.getValue().getAsJsonObject().get("desc").getAsString().contains("EmpireMinecraft") ||
-                e.getValue().getAsJsonObject().get("desc").getAsString().contains("Aikar") ||
-                e.getValue().getAsJsonObject().get("desc").getAsString().contains("Krysyy") ||
-                e.getValue().getAsJsonObject().get("desc").getAsString().contains("Maxarias")) {
-          return;
-        }
-
-        residences.add(new EmpireResidence(this, e.getValue().getAsJsonObject()));
-      });
-    } catch (IOException e) {
-      e.printStackTrace();
+      object.entrySet().forEach(e -> residences.add(new EmpireResidence(this, e.getValue().getAsJsonObject())));
+    } catch (IOException ioException) {
+      didConnectionFail = true;
     }
 
-    LogManager.getLogger(EmpireMinecraftUtilities.MODID).info("Loaded Residences for: " + name.toLowerCase());
+    if (!didConnectionFail) LogManager.getLogger(EmpireMinecraftUtilities.MODID).info("Loaded Residences for: " + name.toLowerCase());
+    else LogManager.getLogger(EmpireMinecraftUtilities.MODID).info("Residence collector for " + name.toLowerCase() + " failed; you may find the 'Don't run residence collector' option to be useful. This option will prevent the residence collector from running at all, which, on very slow connections, will help prevent requests which will fail anyway.");
   }
 }

@@ -1,3 +1,27 @@
+/*
+ * Copyright (c) 2021 MrFrydae
+ * Copyright (c) 2021 wafflecoffee
+ * Copyright (c) 2021 djlawler
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package dev.frydae.emcutils;
 
 import dev.frydae.emcutils.containers.EmpireServer;
@@ -49,7 +73,7 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
               () -> Util.getInstance().setShouldRunTasks(false));
     }
 
-    if (Util.HAS_VOXELMAP) {
+    if (Util.hasVoxelMap) {
       Tasks.runTasks(
               new GetLocationTask(),
               new VoxelMapIntegration()
@@ -61,16 +85,19 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
   public void onInitializeClient() {
     instance = this;
 
-    ExecutorService executor = Executors.newCachedThreadPool();
-    IntStream.rangeClosed(1, 10).forEach(i -> executor.submit(() -> EmpireServer.getById(i).collectResidences()));
-    executor.shutdown();
+    MidnightConfig.init(MODID, Config.class);
+
+    if (!Config.isDontRunResidenceCollector()) {
+      ExecutorService executor = Executors.newCachedThreadPool();
+      IntStream.rangeClosed(1, 10).forEach(i -> executor.submit(() -> EmpireServer.getById(i).collectResidences()));
+      executor.shutdown();
+    }
+    else LogManager.getLogger(MODID).info(MODID + " is not going to run the residence collector - some features will not work as intended. Disable 'Don't run residence collector' to get rid of this message.");
 
     HandledScreens.register(VaultButtons.GENERIC_9X7, VaultScreen::new);
 
     Util.getOnJoinCommandQueue();
     Util.hasVoxelMap();
-
-    MidnightConfig.init(MODID, Config.class);
 
     LogManager.getLogger(MODID).info("Initialized " + MODID);
   }
