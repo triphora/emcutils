@@ -7,9 +7,9 @@ plugins {
   id "io.github.juuxel.loom-quiltflower" version "1.2.+"
 }
 
-String mod_version = "2.2.0"
-String release_title = "Important bug fix & new config option for slow connections"
-String changelog = "- update deps, add quiltflower (wafflecoffee)\n- [release] v2.2.0: New config option for bad connections; temporary command/world fix; buildscript improvement; license headers (wafflecoffee)"
+String mod_version = "2.2.1-SNAPSHOT"
+String release_title = null
+String changeLog = null
 
 String minecraft_version = "1.17.1"   // https://fabricmc.net/versions.html
 String yarn_mappings = "32"           // https://fabricmc.net/versions.html
@@ -69,7 +69,7 @@ task modrinth(type: TaskModrinthUpload) {
   projectId = "QYTT62S0"
   versionNumber = version
   versionName = release_title
-  changelog = changelog as String
+  changelog = changeLog
   uploadFile = file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")
   addGameVersion(minecraft_version)
 }

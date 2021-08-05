@@ -1,5 +1,5 @@
-name: Build
-on: [ push ]
+name: Release
+on: [ workflow_dispatch ]
 
 jobs:
   build:
@@ -14,4 +14,7 @@ jobs:
         with:
           distribution: adopt
           java-version: 16
-      - run: ./gradlew build
+      - run: ./gradlew build modrinth
+        if: "contains(github.event.head_commit.message, '[release]')"
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
