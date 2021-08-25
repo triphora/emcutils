@@ -15,7 +15,8 @@
     "ScreenMixin",
     "voxelMap.GuiPersistentMapMixin",
     "voxelMap.GuiWaypointsMixin",
-    "voxelMap.VoxelMapMixin"
+    "voxelMap.VoxelMapMixin",
+    "xaero.ModSettingsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

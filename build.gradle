@@ -7,23 +7,27 @@ plugins {
   id "io.github.juuxel.loom-quiltflower" version "1.2.+"
 }
 
-String mod_version = "2.2.1-SNAPSHOT"
+String mod_version = "2.2.1-XAERO.3"
 String release_title = null
 String changeLog = null
 
-String minecraft_version = "1.17.1"   // https://fabricmc.net/versions.html
-String yarn_mappings = "43"           // https://fabricmc.net/versions.html
-String loader_version = "0.11.6"      // https://fabricmc.net/versions.html
-String fabric_version = "0.39.1+1.17" // https://fabricmc.net/versions.html
-String modmenu_version = "2.0.5"      // https://modrinth.com/mod/modmenu/versions
-String lombok_version = "1.18.20"     // https://mvnrepository.com/artifact/org.projectlombok/lombok
+String mc_version = "1.17.1"
+String mc_version_major = "1.17"
+String yarn_mappings = "43"       // https://fabricmc.net/versions.html
+String loader_version = "0.11.6"  // https://fabricmc.net/versions.html
+String fabric_version = "0.39.1"  // https://fabricmc.net/versions.html
+String modmenu_version = "2.0.5"  // https://modrinth.com/mod/modmenu/versions
+String lombok_version = "1.18.20" // https://mvnrepository.com/artifact/org.projectlombok/lombok
+String voxel_version = "1.10.15"  // https://www.curseforge.com/minecraft/mc-mods/voxelmap/files/all
+String xmm_version = "21.16.0"    // https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap/files/all
+String xwm_version = "1.16.1"     // https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map/files/all
 
-archivesBaseName = "emcutils-${minecraft_version}"
+archivesBaseName = "emcutils-${mc_version}"
 version = mod_version
 
 repositories {
   maven { url "https://maven.terraformersmc.com" }
-  maven { url "https://www.cursemaven.com" }
+  maven { url "https://maven.waffle.coffee" }
 }
 
 loom { accessWidenerPath = file("src/main/resources/emcutils.aw") }
@@ -35,10 +39,10 @@ Set<String> apiModules = [
 ]
 
 dependencies {
-  minecraft "com.mojang:minecraft:${minecraft_version}"
-  mappings "net.fabricmc:yarn:${minecraft_version}+build.${yarn_mappings}:v2"
+  minecraft "com.mojang:minecraft:${mc_version}"
+  mappings "net.fabricmc:yarn:${mc_version}+build.${yarn_mappings}:v2"
   modImplementation "net.fabricmc:fabric-loader:${loader_version}"
-  apiModules.forEach { include(modImplementation(fabricApi.module(it, fabric_version))) }
+  apiModules.forEach { include(modImplementation(fabricApi.module(it, "${fabric_version}+${mc_version_major}"))) }
 
   modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
 
@@ -47,7 +51,9 @@ dependencies {
   testImplementation "org.projectlombok:lombok:${lombok_version}"
   testAnnotationProcessor "org.projectlombok:lombok:${lombok_version}"
 
-  modImplementation "curse.maven:voxelmap-225179:3345206"
+  modApi "com.mamiyaotaru:voxelmap:${voxel_version}+${mc_version_major}"
+  modApi "xaero:minimap:${xmm_version}+${mc_version_major}"
+  modApi "xaero:map:${xwm_version}+${mc_version_major}"
 }
 
 processResources {
@@ -71,5 +77,5 @@ task modrinth(type: TaskModrinthUpload) {
   versionName = release_title
   changelog = changeLog
   uploadFile = file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")
-  addGameVersion(minecraft_version)
+  addGameVersion(mc_version)
 }
