@@ -14,7 +14,7 @@ String changeLog = null
 String minecraft_version = "1.17.1"   // https://fabricmc.net/versions.html
 String yarn_mappings = "43"           // https://fabricmc.net/versions.html
 String loader_version = "0.11.6"      // https://fabricmc.net/versions.html
-String fabric_version = "0.38.2+1.17" // https://fabricmc.net/versions.html
+String fabric_version = "0.39.1+1.17" // https://fabricmc.net/versions.html
 String modmenu_version = "2.0.5"      // https://modrinth.com/mod/modmenu/versions
 String lombok_version = "1.18.20"     // https://mvnrepository.com/artifact/org.projectlombok/lombok
 
@@ -60,13 +60,6 @@ processResources {
 tasks.withType(JavaCompile) { it.options.encoding = "UTF-8" }
 
 jar { from("LICENSE") }
-
-license {
-  ignoreFailures = true
-  matching('src/main/java/dev/frydae/emcutils/utils/MidnightConfig.java') {
-    header = file 'src/main/java/dev/frydae/emcutils/utils/LICENSE-MidnightConfig'
-  }
-}
 
 import com.modrinth.minotaur.TaskModrinthUpload
 
