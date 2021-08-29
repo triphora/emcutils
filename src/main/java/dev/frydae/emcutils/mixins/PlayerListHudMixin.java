@@ -35,7 +35,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import java.util.List;
 
 @Mixin(PlayerListHud.class)
-public class PlayerListHudMixin {
+public abstract class PlayerListHudMixin {
 
   @ModifyVariable(method = "render", at = @At(value = "INVOKE_ASSIGN", remap = false, target = "Lcom/google/common/collect/Ordering;sortedCopy(Ljava/lang/Iterable;)Ljava/util/List;"))
   public List<PlayerListEntry> customSortTabList(List<PlayerListEntry> original) {

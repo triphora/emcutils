@@ -39,7 +39,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @SuppressWarnings("UnusedDeclaration")
 @Pseudo
 @Mixin(VoxelMap.class)
-public class VoxelMapMixin {
+public abstract class VoxelMapMixin {
 
   private RadarSettingsManager radarOptions;
   private MapSettingsManager mapOptions;

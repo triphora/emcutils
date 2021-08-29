@@ -40,7 +40,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Pseudo
 @Mixin(GuiPersistentMap.class)
-public class GuiPersistentMapMixin {
+public abstract class GuiPersistentMapMixin {
 
   Waypoint selectedWaypoint;
 

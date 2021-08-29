@@ -35,7 +35,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ConnectScreen.class)
-public class ConnectScreenMixin {
+public abstract class ConnectScreenMixin {
   @Inject(method = "connect(Lnet/minecraft/client/MinecraftClient;Lnet/minecraft/client/network/ServerAddress;)V", at = @At(value = "HEAD"))
   public void onConnect(MinecraftClient client, ServerAddress address, CallbackInfo ci) {
     Util.setServerAddress(String.valueOf(address));

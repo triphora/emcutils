@@ -40,7 +40,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 @Mixin(ClientPlayerEntity.class)
-public class ClientEntityPlayerMixin {
+public abstract class ClientEntityPlayerMixin {
   @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayNetworkHandler;sendPacket(Lnet/minecraft/network/Packet;)V"), method = "sendChatMessage", cancellable = true)
   public void onPreSendMessage(String message, CallbackInfo info) {
     if (message.startsWith("/")) {

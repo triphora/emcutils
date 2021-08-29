@@ -37,7 +37,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ChatScreen.class)
-public class ChatScreenMixin extends Screen {
+public abstract class ChatScreenMixin extends Screen {
   protected ChatScreenMixin(Text title) {
     super(title);
   }

@@ -34,7 +34,7 @@ import org.spongepowered.asm.mixin.Mutable;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(Screen.class)
-public class ScreenMixin implements ScreenAccessor {
+public abstract class ScreenMixin implements ScreenAccessor {
   @Mutable @Final @Shadow protected Text title;
 
   @Override

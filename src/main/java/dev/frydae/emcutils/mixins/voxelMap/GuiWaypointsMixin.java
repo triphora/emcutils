@@ -38,7 +38,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Pseudo
 @Mixin(GuiWaypoints.class)
-public class GuiWaypointsMixin {
+public abstract class GuiWaypointsMixin {
 
   protected Waypoint selectedWaypoint;
 
