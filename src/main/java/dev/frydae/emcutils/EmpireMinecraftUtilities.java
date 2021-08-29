@@ -74,12 +74,9 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
               () -> Util.getInstance().setShouldRunTasks(false));
     }
 
-    if (Util.hasVoxelMap) {
-      Tasks.runTasks(
-              new GetLocationTask(),
-              new VoxelMapIntegration()
-      );
-    }
+    if (Util.hasVoxelMap || Util.hasXaeroMap) {Tasks.runTasks(new GetLocationTask());}
+    if (Util.hasVoxelMap) {Tasks.runTasks(new VoxelMapIntegration());}
+    //if (Util.hasXaeroMap) {Tasks.runTasks(new XaeroMapIntegration());}
   }
 
   @Override
@@ -99,6 +96,7 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
 
     Util.getOnJoinCommandQueue();
     Util.hasVoxelMap();
+    Util.hasXaeroMap();
 
     LogManager.getLogger(MODID).info("Initialized " + MODID);
   }

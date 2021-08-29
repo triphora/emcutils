@@ -58,6 +58,7 @@ public class Util {
   private static volatile Util singleton;
   @Getter @Setter private boolean shouldRunTasks = false;
   public static boolean hasVoxelMap = false;
+  public static boolean hasXaeroMap = false;
   public static boolean worldLoaded = false;
 
   public static ClientPlayerEntity getPlayer() {
@@ -217,6 +218,16 @@ public class Util {
       hasVoxelMap = true;
     } catch (ClassNotFoundException ex) {
       LogManager.getLogger(MODID).info(MODID + " did not find VoxelMap - you might get some weird errors in console, which you can ignore");
+    }
+  }
+
+  public static void hasXaeroMap() {
+    try {
+      Class.forName("xaero.common.settings.ModSettings");
+      LogManager.getLogger(MODID).info(MODID + " found Xaero's World Map - enabling integrations");
+      hasXaeroMap = true;
+    } catch (ClassNotFoundException ex) {
+      LogManager.getLogger(MODID).info(MODID + " did not find Xaero's World Map - you might get some weird errors in console, which you can ignore");
     }
   }
 }

@@ -63,7 +63,7 @@ public enum EmpireServer {
   @Getter private final char tabListDisplay;
   @Getter private final String command;
   @Getter private final List<EmpireResidence> residences;
-  private static boolean didConnectionFail = false;
+  private static boolean didConnectionFail;
 
   EmpireServer(int id, String name, int tabListRank, char tabListDisplay) {
     this.id = id;
@@ -166,7 +166,7 @@ public enum EmpireServer {
       didConnectionFail = true;
     }
 
-    if (!didConnectionFail) LogManager.getLogger(EmpireMinecraftUtilities.MODID).info("Loaded Residences for: " + name.toLowerCase());
-    else LogManager.getLogger(EmpireMinecraftUtilities.MODID).info("Residence collector for " + name.toLowerCase() + " failed; you may find the 'Don't run residence collector' option to be useful. This option will prevent the residence collector from running at all, which, on very slow connections, will help prevent requests which will fail anyway.");
+    if (didConnectionFail) LogManager.getLogger(EmpireMinecraftUtilities.MODID).info("Residence collector for " + name.toLowerCase() + " failed; you may find the 'Don't run residence collector' option to be useful. This option will prevent the residence collector from running at all, which, on very slow connections, will help prevent requests which will fail anyway.");
+    else LogManager.getLogger(EmpireMinecraftUtilities.MODID).info("Loaded Residences for: " + name.toLowerCase());
   }
 }

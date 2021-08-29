@@ -16,7 +16,8 @@
     "voxelMap.GuiPersistentMapMixin",
     "voxelMap.GuiWaypointsMixin",
     "voxelMap.VoxelMapMixin",
-    "xaero.ModSettingsMixin"
+    "xaero.ModSettingsMixin",
+    "xaero.SupportXaeroMinimapMixin"
   ],
   "injectors": {
     "defaultRequire": 1

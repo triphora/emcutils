@@ -7,7 +7,7 @@ plugins {
   id "io.github.juuxel.loom-quiltflower" version "1.2.+"
 }
 
-String mod_version = "2.2.1-XAERO.3"
+String mod_version = "2.3.0-XAERO.12"
 String release_title = null
 String changeLog = null
 
