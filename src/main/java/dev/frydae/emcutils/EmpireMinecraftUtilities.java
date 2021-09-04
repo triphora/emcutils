@@ -25,7 +25,6 @@
 
 package dev.frydae.emcutils;
 
-import dev.frydae.emcutils.containers.EmpireServer;
 import dev.frydae.emcutils.features.UsableItems;
 import dev.frydae.emcutils.features.VaultButtons;
 import dev.frydae.emcutils.features.VoxelMapIntegration;
@@ -44,10 +43,6 @@ import lombok.Getter;
 import net.fabricmc.api.ClientModInitializer;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import org.apache.logging.log4j.LogManager;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.stream.IntStream;
 
 @SuppressWarnings("InstantiationOfUtilityClass")
 public class EmpireMinecraftUtilities implements ClientModInitializer {
@@ -84,12 +79,7 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
 
     MidnightConfig.init(MODID, Config.class);
 
-    if (!Config.isDontRunResidenceCollector()) {
-      ExecutorService executor = Executors.newCachedThreadPool();
-      IntStream.rangeClosed(1, 10).forEach(i -> executor.submit(() -> EmpireServer.getById(i).collectResidences()));
-      executor.shutdown();
-    }
-    else LogManager.getLogger(MODID).info(MODID + " is not going to run the residence collector - some features will not work as intended. Disable 'Don't run residence collector' to get rid of this message.");
+    Util.runResidenceCollector();
 
     HandledScreens.register(VaultButtons.GENERIC_9X7, VaultScreen::new);
 

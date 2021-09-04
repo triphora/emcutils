@@ -59,7 +59,7 @@ public class ChatListener {
     String line = text.getString();
 
     if (currentMessage != ChatMessage.NULL_MESSAGE) {
-      if (currentMessage.matches(line)) {
+      if (currentMessage.matches(line) && currentMessage != ChatMessage.LOCATION) {
         if (currentMessage.isLastLine(line)) {
           currentMessage = ChatMessage.NULL_MESSAGE;
         }

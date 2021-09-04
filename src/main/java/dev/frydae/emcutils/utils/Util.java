@@ -42,7 +42,10 @@ import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
 
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static dev.frydae.emcutils.EmpireMinecraftUtilities.MODID;
 
@@ -211,14 +214,21 @@ public class Util {
     hideFeatureMessages = hide;
   }
 
+  public static void runResidenceCollector() {
+    if (!Config.isDontRunResidenceCollector()) {
+      ExecutorService executor = Executors.newCachedThreadPool();
+      IntStream.rangeClosed(1, 10).forEach(i -> executor.submit(() -> EmpireServer.getById(i).collectResidences()));
+      executor.shutdown();
+    }
+    else LogManager.getLogger(MODID).info(MODID + " is not going to run the residence collector - some features will not work as intended. Disable 'Don't run residence collector' to get rid of this message.");
+  }
+
   public static void hasVoxelMap() {
     try {
       Class.forName("com.mamiyaotaru.voxelmap.VoxelMap");
       LogManager.getLogger(MODID).info(MODID + " found VoxelMap - enabling integrations");
       hasVoxelMap = true;
-    } catch (ClassNotFoundException ex) {
-      LogManager.getLogger(MODID).info(MODID + " did not find VoxelMap - you might get some weird errors in console, which you can ignore");
-    }
+    } catch (ClassNotFoundException ignored) {}
   }
 
   public static void hasXaeroMap() {
@@ -226,8 +236,6 @@ public class Util {
       Class.forName("xaero.common.settings.ModSettings");
       LogManager.getLogger(MODID).info(MODID + " found Xaero's World Map - enabling integrations");
       hasXaeroMap = true;
-    } catch (ClassNotFoundException ex) {
-      LogManager.getLogger(MODID).info(MODID + " did not find Xaero's World Map - you might get some weird errors in console, which you can ignore");
-    }
+    } catch (ClassNotFoundException ignored) {}
   }
 }
