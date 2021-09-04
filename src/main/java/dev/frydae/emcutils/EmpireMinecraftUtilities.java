@@ -76,7 +76,6 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
 
     if (Util.hasVoxelMap || Util.hasXaeroMap) {Tasks.runTasks(new GetLocationTask());}
     if (Util.hasVoxelMap) {Tasks.runTasks(new VoxelMapIntegration());}
-    //if (Util.hasXaeroMap) {Tasks.runTasks(new XaeroMapIntegration());}
   }
 
   @Override
