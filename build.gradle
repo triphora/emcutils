@@ -72,7 +72,7 @@ task modrinth(type: com.modrinth.minotaur.TaskModrinthUpload) {
   onlyIf { System.getenv().MODRINTH_TOKEN }
   token = System.getenv().MODRINTH_TOKEN
   projectId = "QYTT62S0"
-  versionNumber = version
+  versionNumber = mod_version
   versionType = "beta"
   versionName = release_title
   changelog = changeLog
