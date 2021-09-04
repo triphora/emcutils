@@ -41,7 +41,11 @@ import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
