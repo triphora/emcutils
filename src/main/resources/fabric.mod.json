@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "emcutils",
-  "version": "2.3.0-XAERO.16",
+  "version": "2.3.0-beta.1",
   "name": "Empire Minecraft Utilities",
   "description": "A collection of various utilities for the Empire Minecraft server.",
   "authors": [
@@ -38,7 +38,9 @@
     "minecraft": "~1.17.1"
   },
   "suggests": {
-    "modmenu": "*",
-    "voxelmap": "*"
+    "modmenu": ">=2.0.9",
+    "voxelmap": ">=1.10.15",
+    "xaeroworldmap": ">=1.17.0",
+    "xaerominimap": ">=21.16.0"
   }
 }

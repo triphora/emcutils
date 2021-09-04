@@ -7,8 +7,8 @@ plugins {
 }
 
 String mod_version = new groovy.json.JsonSlurper().parse(file('src/main/resources/fabric.mod.json')).version
-String release_title = null
-String changeLog = null
+String release_title = "Experimental Xaero's integration"
+String changeLog = "Tried porting the VoxelMap integrations over to Xaero's. Teleportation can be a bit funky but otherwise it works as intended."
 
 String mc_version = "1.17.1"
 String mc_version_major = "1.17"
@@ -73,6 +73,7 @@ task modrinth(type: com.modrinth.minotaur.TaskModrinthUpload) {
   token = System.getenv().MODRINTH_TOKEN
   projectId = "QYTT62S0"
   versionNumber = version
+  versionType = "beta"
   versionName = release_title
   changelog = changeLog
   uploadFile = file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")
