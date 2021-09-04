@@ -21,9 +21,9 @@ There are no dependencies, but [Mod Menu](https://modrinth.com/mod/modmenu), [No
 * Easier viewing of usable Custom Items such as [Pot of Gold](https://wiki.emc.gs/pot-of-gold)
 * Customizable tab list sorting (configurable from Mod Menu)
 * Vault buttons
-* Integration with VoxelMap
-  * Automatic world detection and map confirmation/creation
+* Integration with VoxelMap and Xaero's World Map/Minimap
   * Clicking on a residence will teleport you to that residence
+  * Automatic[*](#asterisk) world detection and map confirmation/creation
 * And more to come :)
 
 ## Maven/Development
@@ -43,3 +43,7 @@ dependencies {
 ## Disclaimer
 
 This mod is not sponsored by nor affiliated with Empire Minecraft, Starlis LLC, or Mojang Studios. It has been approved for use on Empire Minecraft in accordance with its [approved mod](https://mods.emc.gs) policies.
+
+## Asterisk
+
+*Fully automatic with VoxelMap. Xaero's users must still manually create the world, but the name will automatically be filled in.
