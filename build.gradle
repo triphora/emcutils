@@ -7,12 +7,8 @@ plugins {
 }
 
 String mod_version = new groovy.json.JsonSlurper().parse(file('src/main/resources/fabric.mod.json')).version
-String release_title = "Xaero's integration and fix loc command"
-String changeLog = "This update adds integration with [Xaero's World Map](https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map) " +
-        "and [Xaero's Minimap](https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap). This also fixes the /location command not " +
-        "giving any output, as well as some unnecessary failed mixin messages." +
-        "\n" +
-        "The Xaero's teleportation is slightly buggy, with it just deciding not to work sometimes. I am unable to figure out why, though."
+String release_title = null
+String changeLog = null
 
 String mc_version = "1.17.1"
 String mc_version_major = "1.17"
