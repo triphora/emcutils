@@ -47,7 +47,6 @@ import org.apache.logging.log4j.LogManager;
 @SuppressWarnings("InstantiationOfUtilityClass")
 public class EmpireMinecraftUtilities implements ClientModInitializer {
   public static final String MODID = "emcutils";
-  private static EmpireMinecraftUtilities instance;
   private static boolean online = false;
 
   public static void onJoinEmpireMinecraft() {
@@ -75,8 +74,6 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
 
   @Override
   public void onInitializeClient() {
-    instance = this;
-
     MidnightConfig.init(MODID, Config.class);
 
     Util.runResidenceCollector();

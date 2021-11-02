@@ -12,16 +12,24 @@ String mod_version = loom.modVersion
 String release_title = null
 String changeLog = null
 
+/// Minecraft & Fabric ///
 String mc_version = "1.17.1"
 String mc_version_major = "1.17"
-String yarn_mappings = "63"       // https://fabricmc.net/versions.html
-String loader_version = "0.12.4"  // https://fabricmc.net/versions.html
-String fabric_version = "0.41.3"  // https://fabricmc.net/versions.html
-String modmenu_version = "2.0.14" // https://modrinth.com/mod/modmenu/versions
-String lombok_version = "1.18.22" // https://mvnrepository.com/artifact/org.projectlombok/lombok
-String voxel_version = "1.10.15"  // https://www.curseforge.com/minecraft/mc-mods/voxelmap/files/all
-String xmm_version = "21.20.0"    // https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap/files/all
-String xwm_version = "1.18.0"     // https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map/files/all
+String yarn_mappings   = "63"           // https://fabricmc.net/versions.html
+String loader_version  = "0.12.4"       // https://fabricmc.net/versions.html
+String fabric_version  = "0.41.3"       // https://fabricmc.net/versions.html
+
+/// Useful annotations ///
+String lombok_version  = "1.18.22"      // https://mvnrepository.com/artifact/org.projectlombok/lombok
+
+/// Compat ///
+String modmenu_version = "2.0.14"       // https://modrinth.com/mod/modmenu/versions
+String voxel_version   = "1.10.15"      // https://www.curseforge.com/minecraft/mc-mods/voxelmap/files/all
+String xmm_version     = "21.20.0"      // https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap/files/all
+String xwm_version     = "1.18.0"       // https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map/files/all
+String gbl_version     = "1.3.4"        // https://minecraft.guntram.de/maven/de/guntram/mcmod/GBfabrictools/maven-metadata.xml
+String crowdin_version = "1.3"          // https://minecraft.guntram.de/maven/de/guntram/mcmod/crowdin-translate/maven-metadata.xml
+String echests_version = "0.36.1-1.7.0" // https://api.modrinth.com/maven/maven/modrinth/easierchests/maven-metadata.xml
 
 archivesBaseName = "emcutils"
 version = mc_version + "-" + mod_version + System.getenv().SNAPSHOT
@@ -53,29 +61,39 @@ idea { module { downloadJavadoc = false } }
 
 loom { accessWidenerPath = file("src/main/resources/emcutils.aw") }
 
-Set<String> apiModules = [ "api-base", "item-api-v1", "networking-api-v1" ]
-
 dependencies {
+  /// Minecraft & Fabric ///
   minecraft "com.mojang:minecraft:${mc_version}"
   mappings "net.fabricmc:yarn:${mc_version}+build.${yarn_mappings}:v2"
   modImplementation "net.fabricmc:fabric-loader:${loader_version}"
+  Set<String> apiModules = [ "api-base", "item-api-v1", "networking-api-v1" ]
   apiModules.forEach {
     include(modImplementation(fabricApi.module("fabric-$it", "${fabric_version}+${mc_version_major}")))
   }
 
-  modImplementation "com.terraformersmc:modmenu:${modmenu_version}"
-
+  /// Useful annotations ///
   implementation annotationProcessor("org.projectlombok:lombok:${lombok_version}")
 
-  modApi "com.mamiyaotaru:voxelmap:${voxel_version}+${mc_version_major}"
-  modApi "xaero:minimap:${xmm_version}+${mc_version_major}"
-  modApi "xaero:map:${xwm_version}+${mc_version_major}"
-  modApi("de.guntram.mcmod:GBfabrictools:1.3.4+1.17") {
+  /// Compat ///
+
+  // Mod Menu
+  modImplementation ("com.terraformersmc:modmenu:${modmenu_version}") {
     exclude group: "net.fabricmc.fabric-api"
     exclude group: "net.fabricmc"
   }
-  modApi "de.guntram.mcmod:crowdin-translate:1.3+1.17"
-  modApi "maven.modrinth:easierchests:1.17.1-fabric0.36.1-1.7.0"
+
+  // Map mods
+  modApi "com.mamiyaotaru:voxelmap:${voxel_version}+${mc_version_major}"
+  modApi "xaero:minimap:${xmm_version}+${mc_version_major}"
+  modApi "xaero:map:${xwm_version}+${mc_version_major}"
+
+  // EasierChests
+  modApi("de.guntram.mcmod:GBfabrictools:${gbl_version}+${mc_version_major}") {
+    exclude group: "net.fabricmc.fabric-api"
+    exclude group: "net.fabricmc"
+  }
+  modApi "de.guntram.mcmod:crowdin-translate:${crowdin_version}+${mc_version_major}"
+  modApi "maven.modrinth:easierchests:${mc_version}-fabric${echests_version}"
 }
 
 tasks.withType(JavaCompile) { it.options.encoding = "UTF-8" }
