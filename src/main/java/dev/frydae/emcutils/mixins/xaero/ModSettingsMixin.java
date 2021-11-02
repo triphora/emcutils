@@ -27,40 +27,22 @@ package dev.frydae.emcutils.mixins.xaero;
 
 import dev.frydae.emcutils.utils.Util;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Pseudo;
-import org.spongepowered.asm.mixin.Shadow;
-import xaero.common.AXaeroMinimap;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import xaero.common.settings.ModSettings;
 
-/**
- * A set of Overwrites into Xaero's configs. These are safe to do
- * because no other mod that I could find mixins into this class.
- */
 @Pseudo
 @Mixin(ModSettings.class)
-public class ModSettingsMixin {
-  @Shadow(remap = false) public static int serverSettings;
-  @Shadow(remap = false) private boolean entityRadar;
-  @Shadow(remap = false) private AXaeroMinimap modMain;
-
-  /**
-   * @reason Force cave maps off on EMC
-   * @author wafflecoffee
-   */
-  @Overwrite(remap = false)
-  public boolean caveMapsDisabled() {
-    if (Util.isOnEMC) return true;
-    else return (serverSettings & 16384) != 16384;
+public abstract class ModSettingsMixin {
+  @Inject(method = "caveMapsDisabled", at = @At("HEAD"), cancellable = true, remap = false)
+  private void disableCaveMapsOnEMC(CallbackInfoReturnable<Boolean> cir) {
+    if (Util.isOnEMC) cir.setReturnValue(true);
   }
 
-  /**
-   * @reason Force radars off on EMC
-   * @author wafflecoffee
-   */
-  @Overwrite(remap = false)
-  public boolean getEntityRadar() {
-    if (Util.isOnEMC) return false;
-    else return this.entityRadar && !this.modMain.isFairPlay();
+  @Inject(method = "getEntityRadar", at = @At("HEAD"), cancellable = true, remap = false)
+  private void disableRadarOnEMC(CallbackInfoReturnable<Boolean> cir) {
+    if (Util.isOnEMC) cir.setReturnValue(false);
   }
 }

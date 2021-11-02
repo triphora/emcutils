@@ -16,7 +16,7 @@
     "sources": "https://github.com/wafflecoffee/Empire-Minecraft-Utilities",
     "issues": "https://github.com/wafflecoffee/Empire-Minecraft-Utilities/issues"
   },
-  "accessWidener": "emcutils.aw",
+  "accessWidener": "emcutils.tsv",
   "license": "MIT",
   "icon": "assets/emcutils/icon.png",
   "environment": "client",

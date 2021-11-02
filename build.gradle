@@ -59,7 +59,7 @@ repositories {
 // Comment this line out if you have good internet
 idea { module { downloadJavadoc = false } }
 
-loom { accessWidenerPath = file("src/main/resources/emcutils.aw") }
+loom { accessWidenerPath = file("src/main/resources/emcutils.tsv") }
 
 dependencies {
   /// Minecraft & Fabric ///

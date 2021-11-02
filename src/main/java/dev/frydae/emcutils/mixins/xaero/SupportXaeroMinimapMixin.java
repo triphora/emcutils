@@ -30,12 +30,12 @@ import dev.frydae.emcutils.utils.Util;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Pseudo;
 import org.spongepowered.asm.mixin.Shadow;
-import xaero.common.XaeroMinimapSession;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import xaero.common.minimap.waypoints.WaypointWorld;
-import xaero.common.minimap.waypoints.WaypointsManager;
 import xaero.map.mods.SupportXaeroMinimap;
 import xaero.map.mods.gui.Waypoint;
 
@@ -44,24 +44,15 @@ import xaero.map.mods.gui.Waypoint;
 public abstract class SupportXaeroMinimapMixin {
   @Shadow(remap = false) private WaypointWorld waypointWorld;
 
-  /**
-   * @reason Change teleport behaviour on EMC. This is safe to do because no other mod that I could find mixins into
-   * this class.
-   * @author wafflecoffee
-   */
-  @Overwrite(remap = false)
-  public void teleportToWaypoint(Screen screen, Waypoint w) {
-    if (this.waypointWorld != null) {
-      XaeroMinimapSession minimapSession = XaeroMinimapSession.getCurrentSession();
-      WaypointsManager waypointsManager = minimapSession.getWaypointsManager();
+  @Inject(method = "teleportToWaypoint(Lnet/minecraft/client/gui/screen/Screen;Lxaero/map/mods/gui/Waypoint;)V", at = @At("HEAD"))
+  public void teleportToResidenceOnEMC(Screen screen, Waypoint w, CallbackInfo ci) {
+    if (waypointWorld != null) {
       if (Util.isOnEMC) {
         EmpireResidence res = Util.getCurrentServer().getResidenceByLoc(
                 new Vec3d(w.getX(), 64, w.getZ())
         );
 
         if (res != null) Util.getPlayer().sendChatMessage(res.getVisitCommand());
-      } else {
-        waypointsManager.teleportToWaypoint((xaero.common.minimap.waypoints.Waypoint) w.getOriginal(), this.waypointWorld, screen);
       }
     }
   }
