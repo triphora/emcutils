@@ -32,15 +32,16 @@
     "emcutils.mixins.json"
   ],
   "depends": {
+    "fabricloader": ">=0.12.4",
     "fabric-api-base": "*",
     "fabric-item-api-v1": "*",
     "fabric-networking-api-v1": "*",
     "minecraft": "~1.17.1"
   },
   "suggests": {
-    "modmenu": ">=2.0.9",
+    "modmenu": ">=2.0.14",
     "voxelmap": ">=1.10.15",
-    "xaeroworldmap": ">=1.17.0",
-    "xaerominimap": ">=21.16.0"
+    "xaeroworldmap": ">=1.18.0",
+    "xaerominimap": ">=21.20.0"
   }
 }

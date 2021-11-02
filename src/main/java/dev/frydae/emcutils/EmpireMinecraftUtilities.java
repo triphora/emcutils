@@ -39,15 +39,15 @@ import dev.frydae.emcutils.tasks.Tasks;
 import dev.frydae.emcutils.utils.Config;
 import dev.frydae.emcutils.utils.MidnightConfig;
 import dev.frydae.emcutils.utils.Util;
-import lombok.Getter;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import org.apache.logging.log4j.LogManager;
 
 @SuppressWarnings("InstantiationOfUtilityClass")
 public class EmpireMinecraftUtilities implements ClientModInitializer {
   public static final String MODID = "emcutils";
-  @Getter private static EmpireMinecraftUtilities instance;
+  private static EmpireMinecraftUtilities instance;
   private static boolean online = false;
 
   public static void onJoinEmpireMinecraft() {
@@ -69,8 +69,8 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
               () -> Util.getInstance().setShouldRunTasks(false));
     }
 
-    if (Util.hasVoxelMap || Util.hasXaeroMap) {Tasks.runTasks(new GetLocationTask());}
-    if (Util.hasVoxelMap) {Tasks.runTasks(new VoxelMapIntegration());}
+    if (Util.hasVoxelMap || Util.hasXaeroMap) Tasks.runTasks(new GetLocationTask());
+    if (Util.hasVoxelMap) Tasks.runTasks(new VoxelMapIntegration());
   }
 
   @Override
@@ -84,8 +84,8 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
     HandledScreens.register(VaultButtons.GENERIC_9X7, VaultScreen::new);
 
     Util.getOnJoinCommandQueue();
-    Util.hasVoxelMap();
-    Util.hasXaeroMap();
+    if (FabricLoader.getInstance().isModLoaded("voxelmap")) Util.hasVoxelMap();
+    if (FabricLoader.getInstance().isModLoaded("xaeroworldmap")) Util.hasXaeroMap();
 
     LogManager.getLogger(MODID).info("Initialized " + MODID);
   }

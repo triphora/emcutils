@@ -18,5 +18,5 @@
   "emcutils.midnightconfig.enum.ChatAlertSound.NOTE_PLING": "Note pling",
   "emcutils.midnightconfig.enum.ChatAlertSound.ITEM_PICKUP": "Level up",
   "emcutils.midnightconfig.dontRunResidenceCollector": "Don't run residence collector",
-  "emcutils.midnightconfig.dontRunResidenceCollector.tooltip": "The following config option can be enabled if you're running \n on a very slow connection to prevent spam in the console.\n Note, though, that this will disable cross-server visit \n command integration and VoxelMap integration."
+  "emcutils.midnightconfig.dontRunResidenceCollector.tooltip": "The following config option can be enabled if you're running \n on a very slow connection to prevent spam in the console.\n Note, though, that this will disable cross-server visit \n command integration and minimap integration."
 }

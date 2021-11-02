@@ -4,6 +4,7 @@ plugins {
   id "fabric-loom" version "0.10.+"
   id "com.modrinth.minotaur" version "1.2.+"
   id "org.cadixdev.licenser" version "0.6.+"
+  id "io.github.juuxel.loom-quiltflower-mini" version "1.+"
   id "maven-publish"
 }
 
@@ -13,14 +14,14 @@ String changeLog = null
 
 String mc_version = "1.17.1"
 String mc_version_major = "1.17"
-String yarn_mappings = "62"       // https://fabricmc.net/versions.html
-String loader_version = "0.12.2"  // https://fabricmc.net/versions.html
-String fabric_version = "0.41.0"  // https://fabricmc.net/versions.html
+String yarn_mappings = "63"       // https://fabricmc.net/versions.html
+String loader_version = "0.12.4"  // https://fabricmc.net/versions.html
+String fabric_version = "0.41.3"  // https://fabricmc.net/versions.html
 String modmenu_version = "2.0.14" // https://modrinth.com/mod/modmenu/versions
 String lombok_version = "1.18.22" // https://mvnrepository.com/artifact/org.projectlombok/lombok
 String voxel_version = "1.10.15"  // https://www.curseforge.com/minecraft/mc-mods/voxelmap/files/all
-String xmm_version = "21.19.0"    // https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap/files/all
-String xwm_version = "1.17.3"     // https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map/files/all
+String xmm_version = "21.20.0"    // https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap/files/all
+String xwm_version = "1.18.0"     // https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map/files/all
 
 archivesBaseName = "emcutils"
 version = mc_version + "-" + mod_version + System.getenv().SNAPSHOT
@@ -37,7 +38,18 @@ repositories {
       includeGroup "xaero"
     }
   }
+  maven {
+    url "https://api.modrinth.com/maven"
+    content { includeGroup "maven.modrinth" }
+  }
+  maven {
+    url "https://minecraft.guntram.de/maven/"
+    content { includeGroup "de.guntram.mcmod" }
+  }
 }
+
+// Comment this line out if you have good internet
+idea { module { downloadJavadoc = false } }
 
 loom { accessWidenerPath = file("src/main/resources/emcutils.aw") }
 
@@ -58,6 +70,12 @@ dependencies {
   modApi "com.mamiyaotaru:voxelmap:${voxel_version}+${mc_version_major}"
   modApi "xaero:minimap:${xmm_version}+${mc_version_major}"
   modApi "xaero:map:${xwm_version}+${mc_version_major}"
+  modApi("de.guntram.mcmod:GBfabrictools:1.3.4+1.17") {
+    exclude group: "net.fabricmc.fabric-api"
+    exclude group: "net.fabricmc"
+  }
+  modApi "de.guntram.mcmod:crowdin-translate:1.3+1.17"
+  modApi "maven.modrinth:easierchests:1.17.1-fabric0.36.1-1.7.0"
 }
 
 tasks.withType(JavaCompile) { it.options.encoding = "UTF-8" }

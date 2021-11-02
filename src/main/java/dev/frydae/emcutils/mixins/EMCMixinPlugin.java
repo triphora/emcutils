@@ -37,9 +37,10 @@ import java.util.Set;
 public class EMCMixinPlugin implements IMixinConfigPlugin {
   @Override
   public boolean shouldApplyMixin(@NotNull String targetClassName, String mixinClassName) {
-    if (targetClassName.contains("com.mamiyaotaru")) return FabricLoader.getInstance().isModLoaded("voxelmap");
-    else if (targetClassName.contains("xaero")) return FabricLoader.getInstance().isModLoaded("xaerosworldmap");
-    else return true;
+    if (mixinClassName.contains("voxelMap")) return FabricLoader.getInstance().isModLoaded("voxelmap");
+    if (mixinClassName.contains("xaero")) return FabricLoader.getInstance().isModLoaded("xaeroworldmap");
+    if (mixinClassName.contains("easierChests")) return FabricLoader.getInstance().isModLoaded("easierchests");
+    return true;
   }
 
   @Override public void onLoad(String mixinPackage) {}

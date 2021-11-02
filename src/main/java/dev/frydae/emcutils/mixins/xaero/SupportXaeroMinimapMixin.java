@@ -55,15 +55,11 @@ public abstract class SupportXaeroMinimapMixin {
       XaeroMinimapSession minimapSession = XaeroMinimapSession.getCurrentSession();
       WaypointsManager waypointsManager = minimapSession.getWaypointsManager();
       if (Util.isOnEMC) {
-        int x = w != null ? w.getX() : 1;
-        int z = w != null ? w.getZ() : 1;
-
-        Vec3d pos = new Vec3d(x, 64, z);
-
-        EmpireResidence res = Util.getCurrentServer().getResidenceByLoc(pos);
+        EmpireResidence res = Util.getCurrentServer().getResidenceByLoc(
+                new Vec3d(w.getX(), 64, w.getZ())
+        );
 
         if (res != null) Util.getPlayer().sendChatMessage(res.getVisitCommand());
-
       } else {
         waypointsManager.teleportToWaypoint((xaero.common.minimap.waypoints.Waypoint) w.getOriginal(), this.waypointWorld, screen);
       }

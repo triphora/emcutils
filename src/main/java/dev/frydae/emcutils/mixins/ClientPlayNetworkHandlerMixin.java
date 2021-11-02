@@ -69,7 +69,7 @@ public abstract class ClientPlayNetworkHandlerMixin {
     }
   }
 
-  @Inject(at = @At("INVOKE"), method = "onOpenScreen", cancellable = true)
+  @Inject(at = @At("HEAD"), method = "onOpenScreen", cancellable = true)
   public void onOpenScreen(OpenScreenS2CPacket packet, CallbackInfo ci) {
     VaultButtons.handleScreenOpen(packet, ci);
   }

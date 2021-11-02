@@ -23,44 +23,33 @@
  * SOFTWARE.
  */
 
-package dev.frydae.emcutils.mixins.xaero;
+package dev.frydae.emcutils.mixins.easierChests;
 
-import dev.frydae.emcutils.utils.Util;
+import de.guntram.mcmod.easierchests.ExtendedGuiChest;
+import dev.frydae.emcutils.features.VaultButtons;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
+import net.minecraft.screen.GenericContainerScreenHandler;
+import net.minecraft.screen.ScreenHandlerType;
+import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Pseudo;
-import org.spongepowered.asm.mixin.Shadow;
-import xaero.common.AXaeroMinimap;
-import xaero.common.settings.ModSettings;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/**
- * A set of Overwrites into Xaero's configs. These are safe to do
- * because no other mod that I could find mixins into this class.
- */
 @Pseudo
-@Mixin(ModSettings.class)
-public class ModSettingsMixin {
-  @Shadow(remap = false) public static int serverSettings;
-  @Shadow(remap = false) private boolean entityRadar;
-  @Shadow(remap = false) private AXaeroMinimap modMain;
-
-  /**
-   * @reason Force cave maps off on EMC
-   * @author wafflecoffee
-   */
-  @Overwrite(remap = false)
-  public boolean caveMapsDisabled() {
-    if (Util.isOnEMC) return true;
-    else return (serverSettings & 16384) != 16384;
-  }
-
-  /**
-   * @reason Force radars off on EMC
-   * @author wafflecoffee
-   */
-  @Overwrite(remap = false)
-  public boolean getEntityRadar() {
-    if (Util.isOnEMC) return false;
-    else return this.entityRadar && !this.modMain.isFairPlay();
+@Mixin(HandledScreens.class)
+public abstract class HandledScreensMixin {
+  @Inject(method = "open", at = @At("HEAD"), cancellable = true)
+  private static void checkVaultScreen(ScreenHandlerType type, MinecraftClient client, int any, Text component, CallbackInfo ci) {
+    if (type == VaultButtons.GENERIC_9X7) {
+      assert client.player != null;
+      GenericContainerScreenHandler container = (GenericContainerScreenHandler) type.create(any, client.player.getInventory());
+      ExtendedGuiChest screen = new ExtendedGuiChest(container, client.player.getInventory(), component, container.getRows());
+      client.player.currentScreenHandler = container;
+      client.setScreen(screen);
+      ci.cancel();
+    }
   }
 }

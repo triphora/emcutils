@@ -42,7 +42,7 @@ public abstract class GuiWaypointsMixin {
 
   protected Waypoint selectedWaypoint;
 
-  @Inject(method = "teleportClicked", at = @At("INVOKE"), remap = false, cancellable = true)
+  @Inject(method = "teleportClicked", at = @At("HEAD"), remap = false, cancellable = true)
   public void handleTeleport(CallbackInfo ci) {
     if (Util.isOnEMC) {
       Vec3d pos = new Vec3d(selectedWaypoint.getX(), selectedWaypoint.getY(), selectedWaypoint.getZ());

@@ -39,7 +39,7 @@ import xaero.map.gui.GuiMapName;
 public abstract class GuiMapNameMixin {
   @Shadow(remap = false) private String currentNameFieldContent;
 
-  @Inject(method = "init()V", at = @At(value = "INVOKE"), remap = false, cancellable = true)
+  @Inject(method = "init", at = @At(value = "HEAD"), remap = false)
   public void setSubworldName(CallbackInfo ci) {
     if (Util.isOnEMC) this.currentNameFieldContent = Util.getCurrentServer().getName().toLowerCase() + " - " + Util.getWorld();
   }

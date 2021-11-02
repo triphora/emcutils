@@ -228,18 +228,12 @@ public class Util {
   }
 
   public static void hasVoxelMap() {
-    try {
-      Class.forName("com.mamiyaotaru.voxelmap.VoxelMap");
-      LogManager.getLogger(MODID).info(MODID + " found VoxelMap - enabling integrations");
-      hasVoxelMap = true;
-    } catch (ClassNotFoundException ignored) {}
+    LogManager.getLogger(MODID).info(MODID + " found VoxelMap - enabling integrations");
+    hasVoxelMap = true;
   }
 
   public static void hasXaeroMap() {
-    try {
-      Class.forName("xaero.common.settings.ModSettings");
-      LogManager.getLogger(MODID).info(MODID + " found Xaero's World Map - enabling integrations");
-      hasXaeroMap = true;
-    } catch (ClassNotFoundException ignored) {}
+    LogManager.getLogger(MODID).info(MODID + " found Xaero's World Map - enabling integrations");
+    hasXaeroMap = true;
   }
 }
