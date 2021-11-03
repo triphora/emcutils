@@ -26,7 +26,7 @@
 package dev.frydae.emcutils.mixins.easierChests;
 
 import de.guntram.mcmod.easierchests.ExtendedGuiChest;
-import dev.frydae.emcutils.features.VaultButtons;
+import dev.frydae.emcutils.features.VaultScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.screen.GenericContainerScreenHandler;
@@ -43,8 +43,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class HandledScreensMixin {
   @Inject(method = "open", at = @At("HEAD"), cancellable = true)
   private static void checkVaultScreen(ScreenHandlerType type, MinecraftClient client, int any, Text component, CallbackInfo ci) {
-    if (type == VaultButtons.GENERIC_9X7) {
-      assert client.player != null;
+    if (type == VaultScreen.GENERIC_9X7) {
       GenericContainerScreenHandler container = (GenericContainerScreenHandler) type.create(any, client.player.getInventory());
       ExtendedGuiChest screen = new ExtendedGuiChest(container, client.player.getInventory(), component, container.getRows());
       client.player.currentScreenHandler = container;

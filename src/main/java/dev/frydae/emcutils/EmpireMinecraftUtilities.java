@@ -26,9 +26,8 @@
 package dev.frydae.emcutils;
 
 import dev.frydae.emcutils.features.UsableItems;
-import dev.frydae.emcutils.features.VaultButtons;
+import dev.frydae.emcutils.features.VaultScreen;
 import dev.frydae.emcutils.features.VoxelMapIntegration;
-import dev.frydae.emcutils.features.vaultButtons.VaultScreen;
 import dev.frydae.emcutils.listeners.ChatListener;
 import dev.frydae.emcutils.listeners.CommandListener;
 import dev.frydae.emcutils.listeners.ServerListener;
@@ -78,7 +77,7 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
 
     Util.runResidenceCollector();
 
-    HandledScreens.register(VaultButtons.GENERIC_9X7, VaultScreen::new);
+    HandledScreens.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
 
     Util.getOnJoinCommandQueue();
     if (FabricLoader.getInstance().isModLoaded("voxelmap")) Util.hasVoxelMap();

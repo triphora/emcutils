@@ -26,15 +26,17 @@
 package dev.frydae.emcutils.mixins;
 
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
-import dev.frydae.emcutils.interfaces.ChatCallback;
 import dev.frydae.emcutils.features.ChatChannels;
-import dev.frydae.emcutils.features.VaultButtons;
+import dev.frydae.emcutils.features.VaultScreen;
+import dev.frydae.emcutils.interfaces.ChatCallback;
 import dev.frydae.emcutils.utils.Util;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.OpenScreenS2CPacket;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.ActionResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -71,6 +73,11 @@ public abstract class ClientPlayNetworkHandlerMixin {
 
   @Inject(at = @At("HEAD"), method = "onOpenScreen", cancellable = true)
   public void onOpenScreen(OpenScreenS2CPacket packet, CallbackInfo ci) {
-    VaultButtons.handleScreenOpen(packet, ci);
+    if (Util.isOnEMC) {
+      if (!packet.getName().getString().startsWith("Page: ")) return;
+      if (packet.getScreenHandlerType() != ScreenHandlerType.GENERIC_9X6) return;
+      HandledScreens.open(VaultScreen.GENERIC_9X7, MinecraftClient.getInstance(), packet.getSyncId(), packet.getName());
+      ci.cancel();
+    }
   }
 }

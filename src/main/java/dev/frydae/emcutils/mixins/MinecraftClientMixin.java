@@ -25,7 +25,7 @@
 
 package dev.frydae.emcutils.mixins;
 
-import dev.frydae.emcutils.features.vaultButtons.VaultScreen;
+import dev.frydae.emcutils.features.VaultScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.KeyBinding;

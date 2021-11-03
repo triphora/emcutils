@@ -23,7 +23,7 @@
  * SOFTWARE.
  */
 
-package dev.frydae.emcutils.features.vaultButtons;
+package dev.frydae.emcutils.features;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
@@ -41,6 +41,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
+import net.minecraft.screen.GenericContainerScreenHandler;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Style;
@@ -51,13 +53,14 @@ import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.math.NumberUtils;
 
 @SuppressWarnings("SpellCheckingInspection")
-public class VaultScreen extends HandledScreen<VaultScreenHandler> implements ScreenHandlerProvider<VaultScreenHandler> {
+public class VaultScreen extends HandledScreen<GenericContainerScreenHandler> implements ScreenHandlerProvider<GenericContainerScreenHandler> {
+  public static final ScreenHandlerType<GenericContainerScreenHandler> GENERIC_9X7 = ScreenHandlerType.register("generic_9x7", CreateGeneric9x7::createGeneric9x7);
   private static final Identifier TEXTURE = new Identifier(EmpireMinecraftUtilities.MODID, Config.returnVaultScreenOption());
   private final int vaultPage;
   private final int[] slotOffsets = {8, 26, 44, 62, 80, 98, 116, 134, 152};
   private boolean shouldCallClose = true;
 
-  public VaultScreen(VaultScreenHandler handler, PlayerInventory inventory, Text title) {
+  public VaultScreen(GenericContainerScreenHandler handler, PlayerInventory inventory, Text title) {
     super(handler, inventory, title);
     super.init(MinecraftClient.getInstance(), MinecraftClient.getInstance().getWindow().getScaledWidth(), MinecraftClient.getInstance().getWindow().getScaledHeight());
     this.passEvents = false;
@@ -69,6 +72,12 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
     if (vaultPage == 69) {
       ((ScreenAccessor) this).setTitle(new LiteralText(title.getString() + " ... nice"));
+    }
+  }
+
+  private static final class CreateGeneric9x7 {
+    static GenericContainerScreenHandler createGeneric9x7(int syncId, PlayerInventory playerInventory) {
+      return new GenericContainerScreenHandler(GENERIC_9X7, syncId, playerInventory, 6);
     }
   }
 
