@@ -14,11 +14,9 @@
     "PlayerListHudAccessor",
     "PlayerListHudMixin",
     "ScreenMixin",
-    "easierChests.HandledScreensMixin",
     "voxelMap.GuiPersistentMapMixin",
     "voxelMap.GuiWaypointsMixin",
     "voxelMap.VoxelMapMixin",
-    "xaero.GuiMapNameMixin",
     "xaero.ModSettingsMixin",
     "xaero.SupportXaeroMinimapMixin"
   ],

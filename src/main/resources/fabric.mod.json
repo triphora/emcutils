@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
   "id": "emcutils",
-  "version": "2.3.1-alpha.build.10",
+  "version": "2.3.1",
   "name": "Empire Minecraft Utilities",
   "description": "A collection of various utilities for the Empire Minecraft server.",
   "authors": [
-    "MrFrydae"
+    "MrFrydae",
+    "wafflecoffee"
   ],
   "contributors": [
-    "wafflecoffee",
     "BlockHead_56"
   ],
   "contact": {
-    "homepage": "https://emc.gs/t/84361",
+    "homepage": "https://emc.gs/t/84930",
     "sources": "https://github.com/wafflecoffee/Empire-Minecraft-Utilities",
     "issues": "https://github.com/wafflecoffee/Empire-Minecraft-Utilities/issues"
   },
@@ -36,7 +36,7 @@
     "fabric-api-base": "*",
     "fabric-item-api-v1": "*",
     "fabric-networking-api-v1": "*",
-    "minecraft": "~1.17.1"
+    "minecraft": ">=1.17.1"
   },
   "suggests": {
     "modmenu": ">=2.0.14",

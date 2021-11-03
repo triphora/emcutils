@@ -39,7 +39,6 @@ public class EMCMixinPlugin implements IMixinConfigPlugin {
   public boolean shouldApplyMixin(@NotNull String targetClassName, String mixinClassName) {
     if (mixinClassName.contains("voxelMap")) return FabricLoader.getInstance().isModLoaded("voxelmap");
     if (mixinClassName.contains("xaero")) return FabricLoader.getInstance().isModLoaded("xaeroworldmap");
-    if (mixinClassName.contains("easierChests")) return FabricLoader.getInstance().isModLoaded("easierchests");
     return true;
   }
 
