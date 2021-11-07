@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "emcutils",
+  "version": "${version}",
+  "name": "Empire Minecraft Utilities",
+  "description": "A collection of various utilities for the Empire Minecraft server.",
+  "authors": [
+    "MrFrydae",
+    "wafflecoffee"
+  ],
+  "contributors": [
+    "BlockHead_56"
+  ],
+  "contact": {
+    "homepage": "https://emc.gs/t/84930",
+    "sources": "https://github.com/wafflecoffee/Empire-Minecraft-Utilities",
+    "issues": "https://github.com/wafflecoffee/Empire-Minecraft-Utilities/issues"
+  },
+  "accessWidener": "emcutils.tsv",
+  "license": "MIT",
+  "icon": "assets/emcutils/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.frydae.emcutils.fabric.EmpireMinecraftUtilitiesFabric"
+    ],
+    "modmenu": [
+      "dev.frydae.emcutils.utils.fabric.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "emcutils-common.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.12.4",
+    "fabric-api-base": "*",
+    "fabric-item-api-v1": "*",
+    "fabric-networking-api-v1": "*",
+    "minecraft": ">=1.17.1"
+  },
+  "suggests": {
+    "modmenu": ">=2.0.14",
+    "voxelmap": ">=1.10.15",
+    "xaeroworldmap": ">=1.18.0",
+    "xaerominimap": ">=21.20.0"
+  }
+}
