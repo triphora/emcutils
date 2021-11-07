@@ -1,14 +1,12 @@
-//file:noinspection UnnecessaryQualifiedReference
-//file:noinspection GroovyAssignabilityCheck
 plugins {
-  id "fabric-loom" version "0.10.+"
-  id "com.modrinth.minotaur" version "1.2.+"
-  id "org.cadixdev.licenser" version "0.6.+"
-  id "io.github.juuxel.loom-quiltflower-mini" version "1.+"
-  id "maven-publish"
+    id "architectury-plugin" version "3.4-SNAPSHOT"
+    id "dev.architectury.loom" version "0.10.0-SNAPSHOT" apply false
+    id "com.modrinth.minotaur" version "1.2.+"
+    id "org.cadixdev.licenser" version "0.6.+"
+    id "io.github.juuxel.loom-quiltflower-mini" version "1.+" apply false
 }
 
-String mod_version = loom.modVersion
+
 String release_title = "Fix many bugs and introduce a couple more"
 String changeLog = "There are still many known bugs! Be patient, I am working on fixing them, but wanted to get this hotfix out.\n" +
         "- Hotbar placement is strange\n" +
@@ -16,105 +14,67 @@ String changeLog = "There are still many known bugs! Be patient, I am working on
         "- Other things I'm forgetting\n" +
         "Hopefully nothing too game-breaking! :P"
 
-String mc_version = "1.17.1"
-String mc_version_major = "1.17"
 String yarn_mappings   = "63"           // https://fabricmc.net/versions.html
-String loader_version  = "0.12.4"       // https://fabricmc.net/versions.html
-String fabric_version  = "0.41.3"       // https://fabricmc.net/versions.html
-String modmenu_version = "2.0.14"       // https://modrinth.com/mod/modmenu/versions
 String lombok_version  = "1.18.22"      // https://mvnrepository.com/artifact/org.projectlombok/lombok
-String voxel_version   = "1.10.15"      // https://www.curseforge.com/minecraft/mc-mods/voxelmap/files/all
-String xmm_version     = "21.20.0"      // https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap/files/all
-String xwm_version     = "1.18.0"       // https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map/files/all
 
-archivesBaseName = "emcutils"
-version = mc_version + "-" + mod_version + System.getenv().SNAPSHOT
 
-repositories {
-  maven {
-    url "https://maven.terraformersmc.com"
-    content { includeGroup "com.terraformersmc" }
-  }
-  maven {
-    url "https://maven.waffle.coffee/releases"
-    content {
-      includeGroup "com.mamiyaotaru"
-      includeGroup "xaero"
-    }
-  }
+
+architectury {
+    minecraft = mc_version
 }
 
-// Comment this line out if you have good internet
-idea { module { downloadJavadoc = false } }
+subprojects {
+    apply plugin: "dev.architectury.loom"
+    apply plugin: "io.github.juuxel.loom-quiltflower-mini"
 
-loom { accessWidenerPath = file("src/main/resources/emcutils.tsv") }
+    loom {
+        silentMojangMappingsLicense()
+    }
 
-dependencies {
-  minecraft "com.mojang:minecraft:${mc_version}"
-  mappings "net.fabricmc:yarn:${mc_version}+build.${yarn_mappings}:v2"
-  modImplementation "net.fabricmc:fabric-loader:${loader_version}"
-  Set<String> apiModules = [ "api-base", "item-api-v1", "networking-api-v1" ]
-  apiModules.forEach {
-    include(modImplementation(fabricApi.module("fabric-$it", "${fabric_version}+${mc_version_major}")))
-  }
+    dependencies {
+        minecraft "com.mojang:minecraft:${mc_version}"
+        mappings "net.fabricmc:yarn:${mc_version}+build.${yarn_mappings}:v2"
 
-  implementation annotationProcessor("org.projectlombok:lombok:${lombok_version}")
-
-  modImplementation ("com.terraformersmc:modmenu:${modmenu_version}") {
-    exclude group: "net.fabricmc.fabric-api"
-    exclude group: "net.fabricmc"
-  }
-
-  modApi "com.mamiyaotaru:voxelmap:${voxel_version}+${mc_version_major}"
-  modApi "xaero:minimap:${xmm_version}+${mc_version_major}"
-  modApi "xaero:map:${xwm_version}+${mc_version_major}"
+        implementation annotationProcessor("org.projectlombok:lombok:${lombok_version}")
+    }
 }
 
-tasks.withType(JavaCompile) { it.options.encoding = "UTF-8" }
+allprojects {
+    apply plugin: "java"
+    apply plugin: "architectury-plugin"
+    apply plugin: "maven-publish"
 
-jar { from("LICENSE") }
+    archivesBaseName = "emcutils"
+    version = rootProject.mc_version + "-" + mod_version + System.getenv().SNAPSHOT
 
-task modrinth(type: com.modrinth.minotaur.TaskModrinthUpload) {
-  onlyIf { System.getenv().MODRINTH_TOKEN }
-  token = System.getenv().MODRINTH_TOKEN
-  projectId = "QYTT62S0"
-  versionNumber = mod_version
-  versionName = release_title
-  changelog = changeLog
-  uploadFile = file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")
-  addGameVersion(mc_version)
-}
-
-java { withSourcesJar() }
-
-publishing {
-  publications {
-    mavenJava(MavenPublication) {
-      groupId = 'coffee.waffle'
-      artifactId = archivesBaseName
-      version = mod_version + "+" + mc_version + System.getenv().SNAPSHOT
-      artifact(remapJar) { builtBy remapJar }
-      artifact(sourcesJar) { builtBy remapSourcesJar }
+    repositories {
+        // Add repositories to retrieve artifacts from in here.
+        // You should only use this when depending on other mods because
+        // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
+        // See https://docs.gradle.org/current/userguide/declaring_repositories.html
+        // for more information about repositories.
+        maven {
+            url "https://maven.terraformersmc.com"
+            content { includeGroup "com.terraformersmc" }
+        }
+        maven {
+            url "https://maven.waffle.coffee/releases"
+            content {
+                includeGroup "com.mamiyaotaru"
+                includeGroup "xaero"
+            }
+        }
     }
-  }
-  repositories {
-    maven {
-      name = "emmavenReleases"
-      url = "https://maven.waffle.coffee/releases"
-      credentials {
-        username = System.getenv().MAVEN_USER
-        password = System.getenv().MAVEN_PASS
-      }
-      authentication { basic(BasicAuthentication) }
+
+    // Comment this line out if you have good internet
+    idea { module { downloadJavadoc = false } }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+        options.release = 16
     }
-    maven {
-      name = "emmavenSnapshots"
-      url = "https://maven.waffle.coffee/snapshots"
-      credentials {
-        username = System.getenv().MAVEN_USER
-        password = System.getenv().MAVEN_PASS
-      }
-      authentication { basic(BasicAuthentication) }
+
+    java {
+        withSourcesJar()
     }
-  }
 }
