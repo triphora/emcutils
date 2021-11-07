@@ -47,6 +47,8 @@ import org.apache.logging.log4j.LogManager;
 public class EmpireMinecraftUtilities implements ClientModInitializer {
   public static final String MODID = "emcutils";
   private static boolean online = false;
+  public static boolean hasVoxelMap = FabricLoader.getInstance().isModLoaded("voxelmap");
+  public static boolean hasXaeroMap = FabricLoader.getInstance().isModLoaded("xaeroworldmap");
 
   public static void onJoinEmpireMinecraft() {
     if (!online) {
@@ -67,8 +69,8 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
               () -> Util.getInstance().setShouldRunTasks(false));
     }
 
-    if (Util.hasVoxelMap || Util.hasXaeroMap) Tasks.runTasks(new GetLocationTask());
-    if (Util.hasVoxelMap) Tasks.runTasks(new VoxelMapIntegration());
+    if (hasVoxelMap || hasXaeroMap) Tasks.runTasks(new GetLocationTask());
+    if (hasVoxelMap) Tasks.runTasks(new VoxelMapIntegration());
   }
 
   @Override
@@ -80,8 +82,6 @@ public class EmpireMinecraftUtilities implements ClientModInitializer {
     HandledScreens.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
 
     Util.getOnJoinCommandQueue();
-    if (FabricLoader.getInstance().isModLoaded("voxelmap")) Util.hasVoxelMap();
-    if (FabricLoader.getInstance().isModLoaded("xaeroworldmap")) Util.hasXaeroMap();
 
     LogManager.getLogger(MODID).info("Initialized " + MODID);
   }

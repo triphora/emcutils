@@ -44,11 +44,11 @@ public abstract class ChatScreenMixin extends Screen {
 
   @Inject(at = @At("HEAD"), method = "render")
   public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo info) {
-    ChatChannels.handleChatScreenRender(this, matrices, info);
+    ChatChannels.handleChatScreenRender(this, matrices);
   }
 
   @Inject(at = @At("RETURN"), method = "mouseClicked")
   public void mouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
-    ChatChannels.handleChatScreenMouseClicked(this, mouseX, mouseY, button, cir);
+    ChatChannels.handleChatScreenMouseClicked(this, mouseX, mouseY);
   }
 }

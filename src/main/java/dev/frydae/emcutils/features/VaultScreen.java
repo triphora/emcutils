@@ -31,6 +31,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.interfaces.ScreenAccessor;
 import dev.frydae.emcutils.utils.Config;
+import dev.frydae.emcutils.utils.Util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.ScreenHandlerProvider;
@@ -179,9 +180,8 @@ public class VaultScreen extends HandledScreen<GenericContainerScreenHandler> im
     if (mouseX >= x + buttonX && mouseX < x + buttonX + 16) {
       if (mouseY >= y + 126 && mouseY <= y + 141) {
         this.shouldCallClose = false;
-        assert MinecraftClient.getInstance().player != null;
-        MinecraftClient.getInstance().player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_SNARE, 4F, 1F);
-        MinecraftClient.getInstance().player.sendChatMessage(command);
+        Util.getPlayer().playSound(SoundEvents.BLOCK_NOTE_BLOCK_SNARE, 4F, 1F);
+        Util.getPlayer().sendChatMessage(command);
       }
     }
   }

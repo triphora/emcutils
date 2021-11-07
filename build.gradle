@@ -9,12 +9,8 @@ plugins {
 }
 
 String mod_version = loom.modVersion
-String release_title = "Fix many bugs and introduce a couple more"
-String changeLog = "There are still many known bugs! Be patient, I am working on fixing them, but wanted to get this hotfix out.\n" +
-        "- Hotbar placement is strange\n" +
-        "- Map name detection has been temporarily removed for Xaero's users\n" +
-        "- Other things I'm forgetting\n" +
-        "Hopefully nothing too game-breaking! :P"
+String release_title = null
+String changeLog = null
 
 String mc_version = "1.17.1"
 String mc_version_major = "1.17"
@@ -99,17 +95,7 @@ publishing {
   }
   repositories {
     maven {
-      name = "emmavenReleases"
-      url = "https://maven.waffle.coffee/releases"
-      credentials {
-        username = System.getenv().MAVEN_USER
-        password = System.getenv().MAVEN_PASS
-      }
-      authentication { basic(BasicAuthentication) }
-    }
-    maven {
-      name = "emmavenSnapshots"
-      url = "https://maven.waffle.coffee/snapshots"
+      url = System.getenv().MAVEN_URL
       credentials {
         username = System.getenv().MAVEN_USER
         password = System.getenv().MAVEN_PASS

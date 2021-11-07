@@ -31,7 +31,6 @@ import com.google.gson.JsonParser;
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.utils.Util;
 import lombok.Getter;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;
 import org.apache.logging.log4j.LogManager;
 
@@ -106,8 +105,7 @@ public enum EmpireServer {
   }
 
   public void sendToServer() {
-    assert MinecraftClient.getInstance().player != null;
-    MinecraftClient.getInstance().player.sendChatMessage(getCommand());
+    Util.getPlayer().sendChatMessage(getCommand());
     Util.setCurrentServer(getName());
   }
 

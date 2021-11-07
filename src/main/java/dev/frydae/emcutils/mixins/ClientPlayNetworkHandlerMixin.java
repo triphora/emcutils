@@ -26,13 +26,13 @@
 package dev.frydae.emcutils.mixins;
 
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
-import dev.frydae.emcutils.features.ChatChannels;
 import dev.frydae.emcutils.features.VaultScreen;
 import dev.frydae.emcutils.interfaces.ChatCallback;
 import dev.frydae.emcutils.utils.Util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.network.packet.s2c.play.EntityTrackerUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.OpenScreenS2CPacket;
@@ -48,7 +48,7 @@ public abstract class ClientPlayNetworkHandlerMixin {
 
   @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;addChatMessage(Lnet/minecraft/network/MessageType;Lnet/minecraft/text/Text;Ljava/util/UUID;)V"), method = "onGameMessage", cancellable = true)
   public void onPreReceiveMessage(GameMessageS2CPacket packet, CallbackInfo info) {
-    ActionResult result = ChatCallback.PRE_RECEIVE_MESSAGE.invoker().onPreReceiveMessage(MinecraftClient.getInstance().player, packet.getMessage());
+    ActionResult result = ChatCallback.PRE_RECEIVE_MESSAGE.invoker().onPreReceiveMessage(Util.getPlayer(), packet.getMessage());
 
     if (result != ActionResult.PASS) {
       info.cancel();
@@ -57,16 +57,13 @@ public abstract class ClientPlayNetworkHandlerMixin {
 
   @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;addChatMessage(Lnet/minecraft/network/MessageType;Lnet/minecraft/text/Text;Ljava/util/UUID;)V", shift = At.Shift.AFTER), method = "onGameMessage")
   public void onPostReceiveMessage(GameMessageS2CPacket packet, CallbackInfo info) {
-    ChatCallback.POST_RECEIVE_MESSAGE.invoker().onPostReceiveMessage(MinecraftClient.getInstance().player, packet.getMessage());
+    ChatCallback.POST_RECEIVE_MESSAGE.invoker().onPostReceiveMessage(Util.getPlayer(), packet.getMessage());
   }
 
   @Inject(at = @At("TAIL"), method = "onGameJoin")
   public void onGameJoin(GameJoinS2CPacket packet, CallbackInfo info) {
     if (Util.isOnEMC) {
       EmpireMinecraftUtilities.onJoinEmpireMinecraft();
-
-      ChatChannels.processGameJoin(packet, info);
-
       Util.executeJoinCommands();
     }
   }
@@ -79,5 +76,10 @@ public abstract class ClientPlayNetworkHandlerMixin {
       HandledScreens.open(VaultScreen.GENERIC_9X7, MinecraftClient.getInstance(), packet.getSyncId(), packet.getName());
       ci.cancel();
     }
+  }
+
+  @Inject(at = @At("RETURN"), method = "onEntityTrackerUpdate")
+  public void checkIfWorldIsLoaded(EntityTrackerUpdateS2CPacket packet, CallbackInfo ci) {
+    Util.setWorldLoaded(true);
   }
 }

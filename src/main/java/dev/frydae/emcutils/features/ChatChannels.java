@@ -30,19 +30,15 @@ import dev.frydae.emcutils.utils.Util;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Arrays;
 
-@SuppressWarnings({"unused", "ConstantConditions"})
+@SuppressWarnings("ConstantConditions")
 public class ChatChannels {
   @Setter private static ChatChannel currentChannel = null;
   @Setter private static boolean inPrivateConversation = false;
@@ -50,7 +46,7 @@ public class ChatChannels {
   @Setter private static int targetGroupId = 0;
   private static long lastClickedButtonTime = 0L;
 
-  public static void handleChatScreenRender(Screen screen, MatrixStack matrices, CallbackInfo info) {
+  public static void handleChatScreenRender(Screen screen, MatrixStack matrices) {
     if (Util.isOnEMC) {
       for (ChatChannel channel : ChatChannel.values()) {
         if (channel == ChatChannel.SUPPORTER && Util.getPlayerGroupId() < 2) break;
@@ -64,7 +60,7 @@ public class ChatChannels {
     }
   }
 
-  public static void handleChatScreenMouseClicked(Screen screen, double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
+  public static void handleChatScreenMouseClicked(Screen screen, double mouseX, double mouseY) {
     if (Util.isOnEMC) {
       for (ChatChannel channel : ChatChannel.values()) {
         if (channel == ChatChannel.SUPPORTER && Util.getPlayerGroupId() < 2) break;
@@ -75,8 +71,7 @@ public class ChatChannels {
           currentChannel = channel;
           channel.executeCommand();
 
-          assert MinecraftClient.getInstance().player != null;
-          MinecraftClient.getInstance().player.playSound(Config.getChatAlertSound().getSoundEvent(), 5, Config.getChatAlertPitch());
+          Util.getClient().player.playSound(Config.getChatAlertSound().getSoundEvent(), 5, Config.getChatAlertPitch());
 
           // Cancel private conversation if in one
           inPrivateConversation = false;
@@ -88,8 +83,8 @@ public class ChatChannels {
   }
 
   private static boolean isInBounds(Screen screen, String text, int offset, double mouseX, double mouseY) {
-    int width = MinecraftClient.getInstance().textRenderer.getWidth(text);
-    int height = MinecraftClient.getInstance().textRenderer.fontHeight;
+    int width = Util.getClient().textRenderer.getWidth(text);
+    int height = Util.getClient().textRenderer.fontHeight;
 
     // Check X coordinate
     if (mouseX < offset + 1 || mouseX >= offset + width) {
@@ -101,30 +96,41 @@ public class ChatChannels {
   }
 
   private static void drawButton(Screen screen, MatrixStack matrices, ChatChannel channel) {
-    int width = MinecraftClient.getInstance().textRenderer.getWidth(channel.name);
-    int height = MinecraftClient.getInstance().textRenderer.fontHeight;
+    int width = Util.getClient().textRenderer.getWidth(channel.name);
+    int height = Util.getClient().textRenderer.fontHeight;
 
     if (currentChannel == channel && !inPrivateConversation) {
       DrawableHelper.fill(matrices, channel.getOffset(), screen.height - 33, channel.getOffset() + width + 5, screen.height - (32 - height - 4), (0xff << 24) | channel.format.getColorValue());
     }
 
     DrawableHelper.fill(matrices, channel.getOffset() + 1, screen.height - 32, channel.getOffset() + width + 4, screen.height - (32 - height - 3), (0xc0 << 24));
-    MinecraftClient.getInstance().textRenderer.draw(matrices, new LiteralText(channel.name), channel.getOffset() + 3, screen.height - 30, channel.format.getColorValue());
+    Util.getClient().textRenderer.draw(matrices, new LiteralText(channel.name), channel.getOffset() + 3, screen.height - 30, channel.format.getColorValue());
   }
 
   private static void drawPrivateConversation(Screen screen, MatrixStack matrices) {
-    int fullWidth = MinecraftClient.getInstance().textRenderer.getWidth("PM with: " + targetUsername);
-    int nameWidth = MinecraftClient.getInstance().textRenderer.getWidth(targetUsername);
-    int height = MinecraftClient.getInstance().textRenderer.fontHeight;
+    int fullWidth = Util.getClient().textRenderer.getWidth("PM with: " + targetUsername);
+    int nameWidth = Util.getClient().textRenderer.getWidth(targetUsername);
+    int height = Util.getClient().textRenderer.fontHeight;
 
     DrawableHelper.fill(matrices, screen.width - 3, screen.height - 33, screen.width - fullWidth - 8, screen.height - (32 - height - 4), (0xff << 24) | Formatting.LIGHT_PURPLE.getColorValue());
     DrawableHelper.fill(matrices, screen.width - 4, screen.height - 32, screen.width - fullWidth - 7, screen.height - (32 - height - 3), (0xc0 << 24));
-    MinecraftClient.getInstance().textRenderer.draw(matrices, new LiteralText("PM with: "), screen.width - fullWidth - 5, screen.height - 30, Formatting.WHITE.getColorValue());
-    MinecraftClient.getInstance().textRenderer.draw(matrices, new LiteralText(targetUsername), screen.width - nameWidth - 5, screen.height - 30, Util.groupIdToFormatting(targetGroupId).getColorValue());
+    Util.getClient().textRenderer.draw(matrices, new LiteralText("PM with: "), screen.width - fullWidth - 5, screen.height - 30, Formatting.WHITE.getColorValue());
+    Util.getClient().textRenderer.draw(matrices, new LiteralText(targetUsername), screen.width - nameWidth - 5, screen.height - 30, groupIdToFormatting(targetGroupId).getColorValue());
   }
 
-  public static void processGameJoin(GameJoinS2CPacket packet, CallbackInfo info) {
-    inPrivateConversation = false;
+  public static Formatting groupIdToFormatting(int groupId) {
+    return switch (groupId) {
+      case 0 -> Formatting.BLACK;
+      case 2 -> Formatting.GRAY;
+      case 3 -> Formatting.GOLD;
+      case 4 -> Formatting.DARK_AQUA;
+      case 5 -> Formatting.YELLOW;
+      case 6 -> Formatting.BLUE;
+      case 7 -> Formatting.DARK_GREEN;
+      case 8 -> Formatting.GREEN;
+      case 9, 10 -> Formatting.DARK_PURPLE;
+      default -> Formatting.WHITE;
+    };
   }
 
   @AllArgsConstructor
@@ -152,12 +158,11 @@ public class ChatChannels {
         return 2;
       }
 
-      return adjustAgainst.getOffset() + MinecraftClient.getInstance().textRenderer.getWidth(adjustAgainst.name) + 6;
+      return adjustAgainst.getOffset() + Util.getClient().textRenderer.getWidth(adjustAgainst.name) + 6;
     }
 
     public void executeCommand() {
-      assert MinecraftClient.getInstance().player != null;
-      MinecraftClient.getInstance().player.sendChatMessage(command);
+      Util.getClient().player.sendChatMessage(command);
     }
   }
 }
