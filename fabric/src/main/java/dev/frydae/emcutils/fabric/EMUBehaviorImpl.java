@@ -4,14 +4,15 @@ import dev.frydae.emcutils.EMUBehavior;
 import dev.frydae.emcutils.features.fabric.VoxelMapIntegration;
 import dev.frydae.emcutils.tasks.GetLocationTask;
 import dev.frydae.emcutils.tasks.Tasks;
-import dev.frydae.emcutils.utils.Util;
-import dev.frydae.emcutils.utils.fabric.UtilFabric;
+
+import static dev.frydae.emcutils.fabric.EmpireMinecraftUtilitiesFabric.hasVoxelMap;
+import static dev.frydae.emcutils.fabric.EmpireMinecraftUtilitiesFabric.hasXaeroMap;
 
 public class EMUBehaviorImpl {
-    public static void onPostJoinEmpireMinecraft() {
-        EMUBehavior.onPostJoinEmpireMinecraftCommon();
+  public static void onPostJoinEmpireMinecraft() {
+    EMUBehavior.onPostJoinEmpireMinecraftCommon();
 
-        if (UtilFabric.hasVoxelMap || UtilFabric.hasXaeroMap) Tasks.runTasks(new GetLocationTask());
-        if (UtilFabric.hasVoxelMap) Tasks.runTasks(new VoxelMapIntegration());
-    }
+    if (hasVoxelMap || hasXaeroMap) Tasks.runTasks(new GetLocationTask());
+    if (hasVoxelMap) Tasks.runTasks(new VoxelMapIntegration());
+  }
 }

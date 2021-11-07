@@ -26,7 +26,6 @@
 package dev.frydae.emcutils.mixins;
 
 import dev.frydae.emcutils.EMUBehavior;
-import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.features.VaultScreen;
 import dev.frydae.emcutils.interfaces.ChatCallback;
 import dev.frydae.emcutils.utils.Util;

@@ -40,10 +40,14 @@ import java.util.Arrays;
 
 @SuppressWarnings("ConstantConditions")
 public class ChatChannels {
-  @Setter private static ChatChannel currentChannel = null;
-  @Setter private static boolean inPrivateConversation = false;
-  @Setter private static String targetUsername = null;
-  @Setter private static int targetGroupId = 0;
+  @Setter
+  private static ChatChannel currentChannel = null;
+  @Setter
+  private static boolean inPrivateConversation = false;
+  @Setter
+  private static String targetUsername = null;
+  @Setter
+  private static int targetGroupId = 0;
   private static long lastClickedButtonTime = 0L;
 
   public static void handleChatScreenRender(Screen screen, MatrixStack matrices) {
@@ -144,8 +148,10 @@ public class ChatChannels {
     SUPPORTER("Supporter", "/cp", Formatting.AQUA, GROUP),
     MODERATOR("Moderator", "/cx", Formatting.LIGHT_PURPLE, SUPPORTER);
 
-    @Getter private final String name;
-    @Getter private final String command;
+    @Getter
+    private final String name;
+    @Getter
+    private final String command;
     private final Formatting format;
     private final ChatChannel adjustAgainst;
 

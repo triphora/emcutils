@@ -12,11 +12,11 @@ import static dev.frydae.emcutils.EmpireMinecraftUtilities.MODID;
 
 @Mod("emcutils")
 public class EmpireMinecraftUtilitiesForge {
-    public EmpireMinecraftUtilitiesForge() {
-        EventBuses.registerModEventBus(MODID, FMLJavaModLoadingContext.get().getModEventBus());
+  public EmpireMinecraftUtilitiesForge() {
+    EventBuses.registerModEventBus(MODID, FMLJavaModLoadingContext.get().getModEventBus());
 
-        DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> EMUForgeClient::init);
+    DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> EMUForgeClient::init);
 
-        ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> "anything tm", (a, b) -> b));
-    }
+    ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> "anything tm", (a, b) -> b));
+  }
 }

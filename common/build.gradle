@@ -1,47 +1,47 @@
 dependencies {
-    // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
-    // Do NOT use other classes from fabric loader
-    modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
+  // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
+  // Do NOT use other classes from fabric loader
+  modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
 
-    modApi "dev.architectury:architectury:${rootProject.architectury_version}"
+  modApi "dev.architectury:architectury:${rootProject.architectury_version}"
 }
 
 architectury {
-    common()
+  common()
 }
 
 loom {
-    accessWidenerPath.set(file("src/main/resources/emcutils.tsv"))
+  accessWidenerPath.set(file("src/main/resources/emcutils.tsv"))
 }
 
 publishing {
-    publications {
-        mavenJavaForge(MavenPublication) {
-            groupId = 'coffee.waffle'
-            artifactId = rootProject.archivesBaseName
-            version = rootProject.mod_version + "+" + rootProject.mc_version + System.getenv().SNAPSHOT
+  publications {
+    mavenJavaForge(MavenPublication) {
+      groupId = 'coffee.waffle'
+      artifactId = rootProject.archivesBaseName
+      version = rootProject.mod_version + "+" + rootProject.mc_version + System.getenv().SNAPSHOT
 
-            from components.java
-        }
+      from components.java
     }
-    repositories {
-        maven {
-            name = "emmavenReleases"
-            url = "https://maven.waffle.coffee/releases"
-            credentials {
-                username = System.getenv().MAVEN_USER
-                password = System.getenv().MAVEN_PASS
-            }
-            authentication { basic(BasicAuthentication) }
-        }
-        maven {
-            name = "emmavenSnapshots"
-            url = "https://maven.waffle.coffee/snapshots"
-            credentials {
-                username = System.getenv().MAVEN_USER
-                password = System.getenv().MAVEN_PASS
-            }
-            authentication { basic(BasicAuthentication) }
-        }
+  }
+  repositories {
+    maven {
+      name = "emmavenReleases"
+      url = "https://maven.waffle.coffee/releases"
+      credentials {
+        username = System.getenv().MAVEN_USER
+        password = System.getenv().MAVEN_PASS
+      }
+      authentication { basic(BasicAuthentication) }
     }
+    maven {
+      name = "emmavenSnapshots"
+      url = "https://maven.waffle.coffee/snapshots"
+      credentials {
+        username = System.getenv().MAVEN_USER
+        password = System.getenv().MAVEN_PASS
+      }
+      authentication { basic(BasicAuthentication) }
+    }
+  }
 }

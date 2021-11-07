@@ -25,9 +25,9 @@
 
 package dev.frydae.emcutils.listeners;
 
-import dev.frydae.emcutils.interfaces.CommandCallback;
 import dev.frydae.emcutils.containers.EmpireServer;
 import dev.frydae.emcutils.features.VisitResidenceHandler;
+import dev.frydae.emcutils.interfaces.CommandCallback;
 import dev.frydae.emcutils.utils.Util;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.ActionResult;

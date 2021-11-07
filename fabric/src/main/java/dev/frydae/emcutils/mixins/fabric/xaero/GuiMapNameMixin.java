@@ -25,7 +25,8 @@
 
 package dev.frydae.emcutils.mixins.fabric.xaero;
 
-public abstract class GuiMapNameMixin {}
+public abstract class GuiMapNameMixin {
+}
 /*
 import dev.frydae.emcutils.utils.Util;
 import org.spongepowered.asm.mixin.Mixin;

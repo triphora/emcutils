@@ -35,13 +35,19 @@ import java.util.stream.IntStream;
 
 @Data
 public class EmpireResidence {
-  @Getter private final BlockPos northWestCorner;
-  @Getter private final BlockPos southEastCorner;
-  @Getter private final String label;
-  @Getter private final int address;
+  @Getter
+  private final BlockPos northWestCorner;
+  @Getter
+  private final BlockPos southEastCorner;
+  @Getter
+  private final String label;
+  @Getter
+  private final int address;
   private final String display;
-  @Getter private final String visitCommand;
-  @Getter private EmpireServer server;
+  @Getter
+  private final String visitCommand;
+  @Getter
+  private EmpireServer server;
 
   public EmpireResidence(EmpireServer server, JsonObject object) {
     this.server = server;

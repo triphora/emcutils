@@ -1,130 +1,130 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.0.0"
+  id "com.github.johnrengelman.shadow" version "7.0.0"
 }
 
 architectury {
-    platformSetupLoomIde()
-    fabric()
+  platformSetupLoomIde()
+  fabric()
 }
 
 var commonAW = project(":common").file("src/main/resources/emcutils.tsv")
 var generatedResources = file("src/generated/resources")
 
 loom {
-    accessWidenerPath.set(commonAW)
+  accessWidenerPath.set(commonAW)
 }
 
 configurations {
-    common
-    shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
-    compileClasspath.extendsFrom common
-    runtimeClasspath.extendsFrom common
-    developmentFabric.extendsFrom common
+  common
+  shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
+  compileClasspath.extendsFrom common
+  runtimeClasspath.extendsFrom common
+  developmentFabric.extendsFrom common
 }
 
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
+  modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
 
-    Set<String> apiModules = [ "api-base", "item-api-v1", "networking-api-v1" ]
-    apiModules.forEach {
-        include(modImplementation(fabricApi.module("fabric-$it", "${rootProject.fabric_version}+${rootProject.mc_version_major}")))
-    }
+  Set<String> apiModules = ["api-base", "item-api-v1", "networking-api-v1"]
+  apiModules.forEach {
+    include(modImplementation(fabricApi.module("fabric-$it", "${rootProject.fabric_version}+${rootProject.mc_version_major}")))
+  }
 
-    modImplementation ("com.terraformersmc:modmenu:${rootProject.modmenu_version}") {
-        exclude group: "net.fabricmc.fabric-api"
-        exclude group: "net.fabricmc"
-    }
+  modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}") {
+    exclude group: "net.fabricmc.fabric-api"
+    exclude group: "net.fabricmc"
+  }
 
-    modRuntimeOnly "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_version}+${rootProject.mc_version_major}"
+  modRuntimeOnly "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_version}+${rootProject.mc_version_major}"
 
-    modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
+  modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
 
-    modApi "com.mamiyaotaru:voxelmap:${rootProject.voxel_version}+${rootProject.mc_version_major}"
-    modCompileOnly "xaero:minimap:${rootProject.xmm_version}+${rootProject.mc_version_major}"
-    modCompileOnly "xaero:map:${rootProject.xwm_version}+${rootProject.mc_version_major}"
+  modApi "com.mamiyaotaru:voxelmap:${rootProject.voxel_version}+${rootProject.mc_version_major}"
+  modCompileOnly "xaero:minimap:${rootProject.xmm_version}+${rootProject.mc_version_major}"
+  modCompileOnly "xaero:map:${rootProject.xwm_version}+${rootProject.mc_version_major}"
 
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+  common(project(path: ":common", configuration: "namedElements")) { transitive false }
+  shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 }
 
 sourceSets {
-    main {
-        resources {
-            srcDir generatedResources
-        }
+  main {
+    resources {
+      srcDir generatedResources
     }
+  }
 }
 
 task copyAW(type: Copy) {
-    from commonAW
-    into generatedResources
+  from commonAW
+  into generatedResources
 }
 
 processResources {
-    dependsOn copyAW
+  dependsOn copyAW
 
-    inputs.property "version", project.version
+  inputs.property "version", project.version
 
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
-    }
+  filesMatching("fabric.mod.json") {
+    expand "version": project.version
+  }
 }
 
 shadowJar {
-    configurations = [project.configurations.shadowCommon]
-    classifier "dev-shadow"
+  configurations = [project.configurations.shadowCommon]
+  classifier "dev-shadow"
 }
 
 remapJar {
-    input.set shadowJar.archiveFile
-    dependsOn shadowJar
-    classifier null
+  input.set shadowJar.archiveFile
+  dependsOn shadowJar
+  classifier null
 }
 
 jar {
-    classifier "dev"
+  classifier "dev"
 }
 
 sourcesJar {
-    def commonSources = project(":common").sourcesJar
-    dependsOn commonSources
-    from commonSources.archiveFile.map { zipTree(it) }
+  def commonSources = project(":common").sourcesJar
+  dependsOn commonSources
+  from commonSources.archiveFile.map { zipTree(it) }
 }
 
 components.java {
-    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-        skip()
-    }
+  withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+    skip()
+  }
 }
 
 publishing {
-    publications {
-        mavenJavaFabric(MavenPublication) {
-            groupId = 'coffee.waffle'
-            artifactId = rootProject.archivesBaseName + "-" + project.name
-            version = rootProject.mod_version + "+" + rootProject.mc_version + System.getenv().SNAPSHOT
+  publications {
+    mavenJavaFabric(MavenPublication) {
+      groupId = 'coffee.waffle'
+      artifactId = rootProject.archivesBaseName + "-" + project.name
+      version = rootProject.mod_version + "+" + rootProject.mc_version + System.getenv().SNAPSHOT
 
-            from components.java
-        }
+      from components.java
     }
-    repositories {
-        maven {
-            name = "emmavenReleases"
-            url = "https://maven.waffle.coffee/releases"
-            credentials {
-                username = System.getenv().MAVEN_USER
-                password = System.getenv().MAVEN_PASS
-            }
-            authentication { basic(BasicAuthentication) }
-        }
-        maven {
-            name = "emmavenSnapshots"
-            url = "https://maven.waffle.coffee/snapshots"
-            credentials {
-                username = System.getenv().MAVEN_USER
-                password = System.getenv().MAVEN_PASS
-            }
-            authentication { basic(BasicAuthentication) }
-        }
+  }
+  repositories {
+    maven {
+      name = "emmavenReleases"
+      url = "https://maven.waffle.coffee/releases"
+      credentials {
+        username = System.getenv().MAVEN_USER
+        password = System.getenv().MAVEN_PASS
+      }
+      authentication { basic(BasicAuthentication) }
     }
+    maven {
+      name = "emmavenSnapshots"
+      url = "https://maven.waffle.coffee/snapshots"
+      credentials {
+        username = System.getenv().MAVEN_USER
+        password = System.getenv().MAVEN_PASS
+      }
+      authentication { basic(BasicAuthentication) }
+    }
+  }
 }

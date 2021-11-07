@@ -47,17 +47,28 @@ import static dev.frydae.emcutils.EmpireMinecraftUtilities.MODID;
 
 public class Util {
   public static boolean isOnEMC = false;
-  @Getter public static String world;
+  @Getter
+  public static String world;
   public static boolean hideFeatureMessages;
-  @Getter @Setter private static String serverAddress;
-  @Getter private static EmpireServer currentServer;
+  @Getter
+  @Setter
+  private static String serverAddress;
+  @Getter
+  private static EmpireServer currentServer;
   private static Queue<String> onJoinCommandQueue;
-  @Getter @Setter private static int playerGroupId = 0;
+  @Getter
+  @Setter
+  private static int playerGroupId = 0;
   private static volatile Util singleton;
-  @Getter @Setter private boolean shouldRunTasks = false;
-  @Setter public static boolean worldLoaded = false;
-  @Getter public static ClientPlayerEntity player = MinecraftClient.getInstance().player;
-  @Getter public static final MinecraftClient client = MinecraftClient.getInstance();
+  @Getter
+  @Setter
+  private boolean shouldRunTasks = false;
+  @Setter
+  public static boolean worldLoaded = false;
+  @Getter
+  public static ClientPlayerEntity player = MinecraftClient.getInstance().player;
+  @Getter
+  public static final MinecraftClient client = MinecraftClient.getInstance();
 
   public static void setCurrentServer(String name) {
     for (EmpireServer server : EmpireServer.values()) {
@@ -132,8 +143,8 @@ public class Util {
       ExecutorService executor = Executors.newCachedThreadPool();
       IntStream.rangeClosed(1, 10).forEach(i -> executor.submit(() -> EmpireServer.getById(i).collectResidences()));
       executor.shutdown();
-    }
-    else LogManager.getLogger(MODID).info(MODID + " is not going to run the residence collector - some features will " +
-            "not work as intended. Disable 'Don't run residence collector' to get rid of this message.");
+    } else
+      LogManager.getLogger(MODID).info(MODID + " is not going to run the residence collector - some features will " +
+              "not work as intended. Disable 'Don't run residence collector' to get rid of this message.");
   }
 }

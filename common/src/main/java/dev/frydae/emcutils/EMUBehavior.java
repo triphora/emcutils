@@ -11,29 +11,29 @@ import dev.frydae.emcutils.utils.Util;
 
 @SuppressWarnings("InstantiationOfUtilityClass")
 public class EMUBehavior {
-    private static boolean online = false;
+  private static boolean online = false;
 
-    public static void onJoinEmpireMinecraft() {
-        if (!online) {
-            new ChatListener();
-            new CommandListener();
-            new UsableItems();
+  public static void onJoinEmpireMinecraft() {
+    if (!online) {
+      new ChatListener();
+      new CommandListener();
+      new UsableItems();
 
-            online = true;
-        }
+      online = true;
     }
+  }
 
-    public static void onPostJoinEmpireMinecraftCommon() {
-        if (Util.getInstance().isShouldRunTasks()) {
-            Tasks.runTasks(
-                new GetChatAlertPitchTask(),
-                new GetChatAlertSoundTask(),
-                () -> Util.getInstance().setShouldRunTasks(false));
-        }
+  public static void onPostJoinEmpireMinecraftCommon() {
+    if (Util.getInstance().isShouldRunTasks()) {
+      Tasks.runTasks(
+              new GetChatAlertPitchTask(),
+              new GetChatAlertSoundTask(),
+              () -> Util.getInstance().setShouldRunTasks(false));
     }
+  }
 
-    @ExpectPlatform
-    public static void onPostJoinEmpireMinecraft() {
-        throw new AssertionError("ExpectPlatform didn't apply!");
-    }
+  @ExpectPlatform
+  public static void onPostJoinEmpireMinecraft() {
+    throw new AssertionError("ExpectPlatform didn't apply!");
+  }
 }

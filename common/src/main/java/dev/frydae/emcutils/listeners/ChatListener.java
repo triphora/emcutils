@@ -27,9 +27,8 @@ package dev.frydae.emcutils.listeners;
 
 import com.google.common.collect.Lists;
 import dev.frydae.emcutils.EMUBehavior;
-import dev.frydae.emcutils.EmpireMinecraftUtilities;
-import dev.frydae.emcutils.interfaces.ChatCallback;
 import dev.frydae.emcutils.features.ChatChannels;
+import dev.frydae.emcutils.interfaces.ChatCallback;
 import dev.frydae.emcutils.utils.Util;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;

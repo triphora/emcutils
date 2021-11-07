@@ -42,7 +42,8 @@ import xaero.map.mods.gui.Waypoint;
 @Pseudo
 @Mixin(SupportXaeroMinimap.class)
 public abstract class SupportXaeroMinimapMixin {
-  @Shadow(remap = false) private WaypointWorld waypointWorld;
+  @Shadow(remap = false)
+  private WaypointWorld waypointWorld;
 
   @Inject(method = "teleportToWaypoint(Lnet/minecraft/client/gui/screen/Screen;Lxaero/map/mods/gui/Waypoint;)V", at = @At("HEAD"))
   public void teleportToResidenceOnEMC(Screen screen, Waypoint w, CallbackInfo ci) {
