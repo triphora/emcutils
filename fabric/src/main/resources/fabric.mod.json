@@ -29,13 +29,12 @@
     ]
   },
   "mixins": [
-    "emcutils-common.mixins.json"
+    "emcutils-common.mixins.json",
+    "emcutils-fabric.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.12.4",
-    "fabric-api-base": "*",
-    "fabric-item-api-v1": "*",
-    "fabric-networking-api-v1": "*",
+    "architectury": "*",
     "minecraft": ">=1.17.1"
   },
   "suggests": {

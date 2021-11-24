@@ -9,7 +9,7 @@ pluginManagement {
       url = 'https://maven.architectury.dev/'
     }
     maven {
-      name = 'Minecraft Forge'
+      name = 'Forge'
       url = 'https://maven.minecraftforge.net/'
     }
     maven {

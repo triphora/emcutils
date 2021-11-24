@@ -13,3 +13,8 @@ architectury {
 loom {
   accessWidenerPath.set(file("src/main/resources/emcutils.tsv"))
 }
+
+remapJar {
+  //noinspection all
+  remapAccessWidener = false
+}

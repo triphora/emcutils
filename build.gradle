@@ -1,3 +1,4 @@
+//file:noinspection UnnecessaryQualifiedReference
 plugins {
   id "architectury-plugin" version "3.4-SNAPSHOT"
   id "dev.architectury.loom" version "0.10.0-SNAPSHOT" apply false
@@ -5,9 +6,6 @@ plugins {
   id "org.cadixdev.licenser" version "0.6.+"
   id "io.github.juuxel.loom-quiltflower-mini" version "1.+" apply false
 }
-
-String release_title = null
-String changeLog = null
 
 architectury {
   minecraft = rootProject.mc_version
@@ -38,10 +36,25 @@ allprojects {
 
   tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
+    //noinspection all
     options.release = 16
   }
 
   java {
     withSourcesJar()
+  }
+
+  task modrinth(type: com.modrinth.minotaur.TaskModrinthUpload) {
+    onlyIf { System.getenv().MODRINTH_TOKEN }
+    apiURL = "https://staging-api.modrinth.com/api"
+    detectLoaders = false
+    token = System.getenv().MODRINTH_TOKEN
+    projectId = "COR7NNIz"
+    versionNumber = mod_version + "+" + project.name.toUpperCase().indexOf(1)
+    versionName = "${rootProject.release_title} (${project.name.toUpperCase().indexOf(1)})"
+    changelog = rootProject.changeLog
+    uploadFile = project.file("build/libs/${rootProject.archivesBaseName}-${rootProject.version}.jar")
+    addGameVersion(mc_version)
+    addLoader(project.name)
   }
 }

@@ -5,17 +5,14 @@
 ![](https://tokei.rs/b1/github/wafflecoffee/Empire-Minecraft-Utilities?category=files)
 ![](https://img.shields.io/badge/environment-client-1976d2)
 
-Empire Minecraft Utilities, aka emcutils, is a 1.16 and 1.17 mod containing a collection of small utilities for players
-of [Empire Minecraft](https://ref.emc.gs/GreenMeanie).  
+Empire Minecraft Utilities, aka emcutils, is a 1.16 and 1.17 mod containing a collection of small utilities for players of [Empire Minecraft](https://ref.emc.gs/GreenMeanie).  
 Feature idea credits go to [Giselbaer](https://u.emc.gs/Giselbaer) and [wafflecoffee](https://u.emc.gs/wafflecoffee).
 
 Made by [MrFrydae](https://u.emc.gs/GreenMeanie), and available under the MIT License.
 
 Modrinth page for downloads: https://modrinth.com/mod/emcutils
 
-There are no dependencies, but [Mod Menu](https://modrinth.com/mod/modmenu)
-, [Not Enough Crashes](https://modrinth.com/mod/notenoughcrashes),
-and [VoxelMap](https://www.curseforge.com/minecraft/mc-mods/voxelmap) are recommended.
+There are no dependencies, but [Mod Menu](https://modrinth.com/mod/modmenu), [Not Enough Crashes](https://modrinth.com/mod/notenoughcrashes), and [VoxelMap](https://www.curseforge.com/minecraft/mc-mods/voxelmap) are recommended.
 
 ## Feature List
 
@@ -31,8 +28,7 @@ and [VoxelMap](https://www.curseforge.com/minecraft/mc-mods/voxelmap) are recomm
 
 ## Maven/Development
 
-Technically, emcutils is on a Maven. Why you would ever want to use it, I'm not sure, but here it is documented
-nonetheless:
+Technically, emcutils is on a Maven. Why you would ever want to use it, I'm not sure, but here it is documented nonetheless:
 
 ```groovy
 repositories {
@@ -46,5 +42,4 @@ dependencies {
 
 ## Disclaimer
 
-This mod is not sponsored by nor affiliated with Empire Minecraft, Starlis LLC, or Mojang Studios. It has been approved
-for use on Empire Minecraft in accordance with its [approved mod](https://mods.emc.gs) policies.
+This mod is not sponsored by nor affiliated with Empire Minecraft, Starlis LLC, or Mojang Studios. It has been approved for use on Empire Minecraft in accordance with its [approved mod](https://mods.emc.gs) policies.

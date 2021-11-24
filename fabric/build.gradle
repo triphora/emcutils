@@ -1,3 +1,4 @@
+//file:noinspection GroovyAssignabilityCheck
 plugins {
   id "com.github.johnrengelman.shadow" version "7.0.0"
 }
@@ -38,11 +39,6 @@ configurations {
 
 dependencies {
   modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
-
-  Set<String> apiModules = ["api-base", "item-api-v1", "networking-api-v1"]
-  apiModules.forEach {
-    include(modImplementation(fabricApi.module("fabric-$it", "${rootProject.fabric_version}+${rootProject.mc_version_major}")))
-  }
 
   modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}") {
     exclude group: "net.fabricmc.fabric-api"
