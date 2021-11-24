@@ -33,27 +33,13 @@ import net.minecraft.sound.SoundEvents;
 
 @SuppressWarnings("unused")
 public class Config extends MidnightConfig {
-  @Getter
-  @Entry
-  public static boolean darkVaultScreen = false;
-  @Getter
-  @Entry
-  public static boolean tabListShowAllServers = true;
-  @Getter
-  @Entry
-  public static TabListSortType tabListSortType = TabListSortType.SERVER_ASCENDING;
-  @Getter
-  @Entry
-  public static TabListCurrentServerPlacement tabListCurrentServerPlacement = TabListCurrentServerPlacement.TOP;
-  @Getter
-  @Entry(min = -15, max = 30)
-  public static int chatAlertPitch = 0;
-  @Getter
-  @Entry
-  public static ChatAlertSound chatAlertSound = ChatAlertSound.LEVEL_UP;
-  @Getter
-  @Entry
-  public static boolean dontRunResidenceCollector = false;
+  @Getter @Entry public static boolean darkVaultScreen = false;
+  @Getter @Entry public static boolean tabListShowAllServers = true;
+  @Getter @Entry public static TabListSortType tabListSortType = TabListSortType.SERVER_ASCENDING;
+  @Getter @Entry public static TabListCurrentServerPlacement tabListCurrentServerPlacement = TabListCurrentServerPlacement.TOP;
+  @Getter @Entry(min = -15, max = 30) public static int chatAlertPitch = 0;
+  @Getter @Entry public static ChatAlertSound chatAlertSound = ChatAlertSound.LEVEL_UP;
+  @Getter @Entry public static boolean dontRunResidenceCollector = false;
 
   public static String returnVaultScreenOption() {
     return darkVaultScreen ? "textures/gui/container/generic_63_dark.png" : "textures/gui/container/generic_63.png";
@@ -99,10 +85,8 @@ public class Config extends MidnightConfig {
     NOTE_PLING(SoundEvents.BLOCK_NOTE_BLOCK_PLING),
     ITEM_PICKUP(SoundEvents.ENTITY_ITEM_PICKUP);
 
-    @Getter
-    private final String name;
-    @Getter
-    private final SoundEvent soundEvent;
+    @Getter private final String name;
+    @Getter private final SoundEvent soundEvent;
 
     ChatAlertSound(SoundEvent soundEvent) {
       this.name = name().toLowerCase();

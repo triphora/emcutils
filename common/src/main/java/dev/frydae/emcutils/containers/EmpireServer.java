@@ -28,11 +28,9 @@ package dev.frydae.emcutils.containers;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.utils.Util;
 import lombok.Getter;
 import net.minecraft.util.math.Vec3d;
-import org.apache.logging.log4j.LogManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,6 +38,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
+
+import static dev.frydae.emcutils.utils.Util.LOG;
 
 public enum EmpireServer {
   NULL(0, "NULL", 0, 'N'),
@@ -57,16 +57,11 @@ public enum EmpireServer {
   STAGE(200, "STAGE", 12, 'S');
 
   private final int id;
-  @Getter
-  private final String name;
-  @Getter
-  private final int tabListRank;
-  @Getter
-  private final char tabListDisplay;
-  @Getter
-  private final String command;
-  @Getter
-  private final List<EmpireResidence> residences;
+  @Getter private final String name;
+  @Getter private final int tabListRank;
+  @Getter private final char tabListDisplay;
+  @Getter private final String command;
+  @Getter private final List<EmpireResidence> residences;
   private static boolean didConnectionFail;
 
   EmpireServer(int id, String name, int tabListRank, char tabListDisplay) {
@@ -169,8 +164,7 @@ public enum EmpireServer {
       didConnectionFail = true;
     }
 
-    if (didConnectionFail)
-      LogManager.getLogger(EmpireMinecraftUtilities.MODID).info("Residence collector for " + name.toLowerCase() + " failed; you may find the 'Don't run residence collector' option to be useful. This option will prevent the residence collector from running at all, which, on very slow connections, will help prevent requests which will fail anyway.");
-    else LogManager.getLogger(EmpireMinecraftUtilities.MODID).info("Loaded Residences for: " + name.toLowerCase());
+    if (didConnectionFail) LOG.info("Residence collector for " + name.toLowerCase() + " failed; you may find the 'Don't run residence collector' option to be useful. This option will prevent the residence collector from running at all, which, on very slow connections, will help prevent requests which will fail anyway.");
+    else LOG.info("Loaded Residences for: " + name.toLowerCase());
   }
 }

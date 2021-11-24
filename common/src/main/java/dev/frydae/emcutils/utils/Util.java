@@ -36,39 +36,33 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static dev.frydae.emcutils.EmpireMinecraftUtilities.MODID;
-
 public class Util {
+  public static final String MODID = "emcutils";
+  public static final Logger LOG = LogManager.getLogger(MODID);
   public static boolean isOnEMC = false;
-  @Getter
-  public static String world;
+  @Getter public static String world;
   public static boolean hideFeatureMessages;
-  @Getter
-  @Setter
-  private static String serverAddress;
-  @Getter
-  private static EmpireServer currentServer;
+  @Getter @Setter private static String serverAddress;
+  @Getter private static EmpireServer currentServer;
   private static Queue<String> onJoinCommandQueue;
-  @Getter
-  @Setter
-  private static int playerGroupId = 0;
+  @Getter @Setter private static int playerGroupId = 0;
   private static volatile Util singleton;
-  @Getter
-  @Setter
-  private boolean shouldRunTasks = false;
-  @Setter
-  public static boolean worldLoaded = false;
-  @Getter
-  public static ClientPlayerEntity player = MinecraftClient.getInstance().player;
-  @Getter
-  public static final MinecraftClient client = MinecraftClient.getInstance();
+  @Getter @Setter private boolean shouldRunTasks = false;
+  @Setter public static boolean worldLoaded = false;
+  @Getter public static ClientPlayerEntity player = MinecraftClient.getInstance().player;
+  @Getter public static final MinecraftClient client = MinecraftClient.getInstance();
 
   public static void setCurrentServer(String name) {
     for (EmpireServer server : EmpireServer.values()) {

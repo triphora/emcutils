@@ -25,12 +25,12 @@
 
 package dev.frydae.emcutils.tasks;
 
-import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.interfaces.Task;
-import org.apache.logging.log4j.LogManager;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import static dev.frydae.emcutils.utils.Util.LOG;
 
 public class Tasks {
   public static void runTasks(Task... tasks) {
@@ -40,7 +40,7 @@ public class Tasks {
       for (Task task : tasks) {
         task.execute();
 
-        LogManager.getLogger(EmpireMinecraftUtilities.MODID).info("Executed Task: " + task.getDescription());
+        LOG.info("Executed Task: " + task.getDescription());
 
         if (task.shouldWait()) {
           try {

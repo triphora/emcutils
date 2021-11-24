@@ -33,20 +33,6 @@ allprojects {
   archivesBaseName = "emcutils"
   version = rootProject.mc_version + "-" + mod_version + System.getenv().SNAPSHOT
 
-  repositories {
-    maven {
-      url "https://maven.terraformersmc.com"
-      content { includeGroup "com.terraformersmc" }
-    }
-    maven {
-      url "https://maven.waffle.coffee/releases"
-      content {
-        includeGroup "com.mamiyaotaru"
-        includeGroup "xaero"
-      }
-    }
-  }
-
   // Comment this line out if you have good internet
   idea { module { downloadJavadoc = false } }
 

@@ -8,7 +8,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-import static dev.frydae.emcutils.EmpireMinecraftUtilities.MODID;
+import static dev.frydae.emcutils.utils.Util.MODID;
 
 @Mod("emcutils")
 public class EmpireMinecraftUtilitiesForge {

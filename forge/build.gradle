@@ -83,17 +83,7 @@ publishing {
   }
   repositories {
     maven {
-      name = "emmavenReleases"
-      url = "https://maven.waffle.coffee/releases"
-      credentials {
-        username = System.getenv().MAVEN_USER
-        password = System.getenv().MAVEN_PASS
-      }
-      authentication { basic(BasicAuthentication) }
-    }
-    maven {
-      name = "emmavenSnapshots"
-      url = "https://maven.waffle.coffee/snapshots"
+      url = System.getenv().MAVEN_URL
       credentials {
         username = System.getenv().MAVEN_USER
         password = System.getenv().MAVEN_PASS

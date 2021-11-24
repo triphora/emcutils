@@ -57,10 +57,12 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.math.NumberUtils;
 
+import static dev.frydae.emcutils.utils.Util.MODID;
+
 @SuppressWarnings("SpellCheckingInspection")
 public class VaultScreen extends HandledScreen<GenericContainerScreenHandler> implements ScreenHandlerProvider<GenericContainerScreenHandler> {
   public static final RegistrySupplier<ScreenHandlerType<GenericContainerScreenHandler>> GENERIC_9X7;
-  private static final Identifier TEXTURE = new Identifier(EmpireMinecraftUtilities.MODID, Config.returnVaultScreenOption());
+  private static final Identifier TEXTURE = new Identifier(MODID, Config.returnVaultScreenOption());
   private final int vaultPage;
   private final int[] slotOffsets = {8, 26, 44, 62, 80, 98, 116, 134, 152};
   private boolean shouldCallClose = true;
@@ -68,10 +70,6 @@ public class VaultScreen extends HandledScreen<GenericContainerScreenHandler> im
   static {
     Registrar<ScreenHandlerType<?>> screenHandlers = EmpireMinecraftUtilities.REGISTRIES.get(Registry.MENU_KEY);
     GENERIC_9X7 = screenHandlers.register(new Identifier("generic_9x7"), () -> MenuRegistry.of(CreateGeneric9x7::createGeneric9x7));
-  }
-
-  public static void initStatic() {
-
   }
 
   public VaultScreen(GenericContainerScreenHandler handler, PlayerInventory inventory, Text title) {
@@ -201,10 +199,7 @@ public class VaultScreen extends HandledScreen<GenericContainerScreenHandler> im
 
   @Override
   public void onClose() {
-    if (shouldCallClose) {
-      super.onClose();
-    } else {
-      shouldCallClose = true;
-    }
+    if (shouldCallClose) super.onClose();
+    else shouldCallClose = true;
   }
 }

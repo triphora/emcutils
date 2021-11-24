@@ -14,6 +14,20 @@ loom {
   accessWidenerPath.set(commonAW)
 }
 
+repositories {
+  maven {
+    url "https://maven.terraformersmc.com"
+    content { includeGroup "com.terraformersmc" }
+  }
+  maven {
+    url "https://maven.waffle.coffee/releases"
+    content {
+      includeGroup "com.mamiyaotaru"
+      includeGroup "xaero"
+    }
+  }
+}
+
 configurations {
   common
   shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
@@ -109,17 +123,7 @@ publishing {
   }
   repositories {
     maven {
-      name = "emmavenReleases"
-      url = "https://maven.waffle.coffee/releases"
-      credentials {
-        username = System.getenv().MAVEN_USER
-        password = System.getenv().MAVEN_PASS
-      }
-      authentication { basic(BasicAuthentication) }
-    }
-    maven {
-      name = "emmavenSnapshots"
-      url = "https://maven.waffle.coffee/snapshots"
+      url = System.getenv().MAVEN_URL
       credentials {
         username = System.getenv().MAVEN_USER
         password = System.getenv().MAVEN_PASS

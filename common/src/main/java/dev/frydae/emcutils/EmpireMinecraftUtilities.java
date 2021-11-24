@@ -34,17 +34,15 @@ import dev.frydae.emcutils.utils.MidnightConfig;
 import dev.frydae.emcutils.utils.Util;
 import net.minecraft.client.MinecraftClient;
 
-public class EmpireMinecraftUtilities {
-  public static final String MODID = "emcutils";
+import static dev.frydae.emcutils.utils.Util.MODID;
 
+public class EmpireMinecraftUtilities {
   public static final Registries REGISTRIES = Registries.get("emcutils");
 
   public static void initClient() {
     MidnightConfig.init(MODID, Config.class);
 
     Util.runResidenceCollector();
-
-    VaultScreen.initStatic();
 
     Util.getOnJoinCommandQueue();
 
