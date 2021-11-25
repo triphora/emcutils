@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[35,)"
+loaderVersion = "[37,)"
 issueTrackerURL = "https://github.com/wafflecoffee/Empire-Minecraft-Utilities/issues"
 license = "MIT"
 
@@ -10,6 +10,8 @@ displayName = "Empire Minecraft Utilities"
 authors = [
     "MrFrydae",
     "wafflecoffee",
+    "BasiqueEvangelist",
+    "BlockHead_56"
 ]
 description = '''
 A collection of various utilities for the Empire Minecraft server.
@@ -21,11 +23,18 @@ modId = "forge"
 mandatory = true
 versionRange = "[37,)"
 ordering = "NONE"
-side = "BOTH"
+side = "CLIENT"
 
 [[dependencies.emcutils]]
 modId = "minecraft"
 mandatory = true
 versionRange = "[1.17.1,)"
 ordering = "NONE"
-side = "BOTH"
+side = "CLIENT"
+
+[[dependencies.emcutils]]
+modId = "architectury"
+mandatory = true
+versionRange = "[2,)"
+ordering = "NONE"
+side = "CLIENT"

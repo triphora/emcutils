@@ -4,7 +4,7 @@
   "package": "dev.frydae.emcutils.mixins.fabric",
   "compatibilityLevel": "JAVA_16",
   "plugin": "dev.frydae.emcutils.mixins.fabric.EMCMixinPlugin",
-  "mixins": [
+  "client": [
     "voxelMap.GuiPersistentMapMixin",
     "voxelMap.GuiWaypointsMixin",
     "voxelMap.VoxelMapMixin",

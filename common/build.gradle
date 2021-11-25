@@ -1,6 +1,5 @@
 dependencies {
-  // We depend on fabric loader here to use the fabric @Environment annotations and get the mixin dependencies
-  // Do NOT use other classes from fabric loader
+  // For @Environment annotations and mixin dependencies
   modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
 
   modApi "dev.architectury:architectury:${rootProject.architectury_version}"
