@@ -27,6 +27,8 @@ public class EmpireMinecraftUtilities {
 
     Util.runResidenceCollector();
 
+    VaultScreen.initStatic();
+
     Util.getOnJoinCommandQueue();
 
     ClientLifecycleEvent.CLIENT_SETUP.register(EmpireMinecraftUtilities::onClientSetup);
@@ -56,9 +58,8 @@ public class EmpireMinecraftUtilities {
     }
   }
 
-  @SuppressWarnings("UnimplementedExpectPlatform")
   @ExpectPlatform
   public static void onPostJoinEmpireMinecraft() {
-    EmpireMinecraftUtilities.onPostJoinEmpireMinecraftCommon();
+    throw new AssertionError("ExpectPlatform didn't apply!");
   }
 }

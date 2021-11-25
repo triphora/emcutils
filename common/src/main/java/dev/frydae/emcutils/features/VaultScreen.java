@@ -9,10 +9,10 @@ import dev.architectury.registry.registries.RegistrySupplier;
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.interfaces.ScreenAccessor;
 import dev.frydae.emcutils.utils.Config;
-import dev.frydae.emcutils.utils.Util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.ScreenHandlerProvider;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerInventory;
@@ -47,6 +47,10 @@ public class VaultScreen extends HandledScreen<GenericContainerScreenHandler> im
     GENERIC_9X7 = screenHandlers.register(new Identifier("generic_9x7"), () -> MenuRegistry.of(CreateGeneric9x7::createGeneric9x7));
   }
 
+  // This is necessary because Basique said so
+  // also makes forge client not crash
+  public static void initStatic() {}
+
   public VaultScreen(GenericContainerScreenHandler handler, PlayerInventory inventory, Text title) {
     super(handler, inventory, title);
     super.init(MinecraftClient.getInstance(), MinecraftClient.getInstance().getWindow().getScaledWidth(), MinecraftClient.getInstance().getWindow().getScaledHeight());
@@ -64,7 +68,7 @@ public class VaultScreen extends HandledScreen<GenericContainerScreenHandler> im
 
   private static final class CreateGeneric9x7 {
     static GenericContainerScreenHandler createGeneric9x7(int syncId, PlayerInventory playerInventory) {
-      return new GenericContainerScreenHandler(GENERIC_9X7.get(), syncId, playerInventory, 6);
+      return new GenericContainerScreenHandler(GENERIC_9X7.get(), syncId, playerInventory, 7);
     }
   }
 
@@ -166,8 +170,10 @@ public class VaultScreen extends HandledScreen<GenericContainerScreenHandler> im
     if (mouseX >= x + buttonX && mouseX < x + buttonX + 16) {
       if (mouseY >= y + 126 && mouseY <= y + 141) {
         this.shouldCallClose = false;
-        Util.getPlayer().playSound(SoundEvents.BLOCK_NOTE_BLOCK_SNARE, 4F, 1F);
-        Util.getPlayer().sendChatMessage(command);
+        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        assert player != null;
+        player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_SNARE, 4F, 1F);
+        player.sendChatMessage(command);
       }
     }
   }
