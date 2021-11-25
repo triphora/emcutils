@@ -1,0 +1,21 @@
+dependencies {
+  // For @Environment annotations and mixin dependencies
+  modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
+
+  modApi "dev.architectury:architectury:${rootProject.architectury_version}"
+}
+
+architectury {
+  common()
+}
+
+loom {
+  accessWidenerPath.set(file("src/main/resources/emcutils.tsv"))
+}
+
+afterEvaluate {
+  remapJar {
+    //noinspection all
+    remapAccessWidener = false
+  }
+}

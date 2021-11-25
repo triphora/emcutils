@@ -14,9 +14,10 @@ jobs:
         with:
           distribution: adopt
           java-version: 16
-      - run: ./gradlew build modrinth publishAllPublicationsToEmmavenReleasesRepository
+      - run: "./gradlew build :forge:modrinth :fabric:modrinth :forge:publish :fabric:publish --no-daemon"
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          MAVEN_URL: "https://maven.waffle.coffee/releases"
           MAVEN_USER: ${{ secrets.MAVEN_USER }}
           MAVEN_PASS: ${{ secrets.MAVEN_PASS }}
           SNAPSHOT: ""

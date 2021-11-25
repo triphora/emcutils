@@ -5,9 +5,21 @@ pluginManagement {
       url = 'https://maven.fabricmc.net/'
     }
     maven {
+      name = 'Architectury'
+      url = 'https://maven.architectury.dev/'
+    }
+    maven {
+      name = 'Forge'
+      url = 'https://maven.minecraftforge.net/'
+    }
+    maven {
       name = 'Cotton'
       url = 'https://server.bbkr.space/artifactory/libs-release/'
     }
     gradlePluginPortal()
   }
 }
+
+include 'common'
+include 'fabric'
+include 'forge'
