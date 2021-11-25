@@ -8,8 +8,8 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import java.util.List;
 import java.util.Set;
 
-import static dev.frydae.emcutils.fabric.EmpireMinecraftUtilitiesFabric.hasVoxelMap;
-import static dev.frydae.emcutils.fabric.EmpireMinecraftUtilitiesFabric.hasXaeroMap;
+import static dev.frydae.emcutils.fabric.EmpireMinecraftUtilitiesImpl.hasVoxelMap;
+import static dev.frydae.emcutils.fabric.EmpireMinecraftUtilitiesImpl.hasXaeroMap;
 
 public class EMCMixinPlugin implements IMixinConfigPlugin {
   @Override

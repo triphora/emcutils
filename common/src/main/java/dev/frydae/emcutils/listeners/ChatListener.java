@@ -1,7 +1,7 @@
 package dev.frydae.emcutils.listeners;
 
 import com.google.common.collect.Lists;
-import dev.frydae.emcutils.EMUBehavior;
+import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.features.ChatChannels;
 import dev.frydae.emcutils.interfaces.ChatCallback;
 import dev.frydae.emcutils.utils.Util;
@@ -92,7 +92,7 @@ public class ChatListener {
     if (text.getString().matches(WELCOME_TO_EMC)) {
       Util.setCurrentServer(text.getSiblings().get(3).asString().trim());
 
-      EMUBehavior.onPostJoinEmpireMinecraft();
+      EmpireMinecraftUtilities.onPostJoinEmpireMinecraft();
     }
 
     return ActionResult.PASS;

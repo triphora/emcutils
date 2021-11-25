@@ -39,13 +39,9 @@ allprojects {
     options.release = 16
   }
 
-  java {
-    withSourcesJar()
-  }
+  java { withSourcesJar() }
 
-  jar {
-    from "LICENSE"
-  }
+  jar { from "LICENSE" }
 
   task modrinth(type: com.modrinth.minotaur.TaskModrinthUpload) {
     onlyIf { System.getenv().MODRINTH_TOKEN }

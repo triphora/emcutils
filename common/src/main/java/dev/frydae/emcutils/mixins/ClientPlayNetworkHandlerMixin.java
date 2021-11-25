@@ -1,6 +1,6 @@
 package dev.frydae.emcutils.mixins;
 
-import dev.frydae.emcutils.EMUBehavior;
+import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.features.VaultScreen;
 import dev.frydae.emcutils.interfaces.ChatCallback;
 import dev.frydae.emcutils.utils.Util;
@@ -38,7 +38,7 @@ public abstract class ClientPlayNetworkHandlerMixin {
   @Inject(at = @At("TAIL"), method = "onGameJoin")
   public void onGameJoin(GameJoinS2CPacket packet, CallbackInfo info) {
     if (Util.isOnEMC) {
-      EMUBehavior.onJoinEmpireMinecraft();
+      EmpireMinecraftUtilities.onJoinEmpireMinecraft();
 
       Util.executeJoinCommands();
     }

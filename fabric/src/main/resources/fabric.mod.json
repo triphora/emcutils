@@ -23,7 +23,7 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "dev.frydae.emcutils.fabric.EmpireMinecraftUtilitiesFabric"
+      "dev.frydae.emcutils.fabric.EmpireMinecraftUtilitiesImpl"
     ],
     "modmenu": [
       "dev.frydae.emcutils.utils.fabric.ModMenuIntegration"

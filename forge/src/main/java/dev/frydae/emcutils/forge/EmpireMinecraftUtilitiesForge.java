@@ -1,6 +1,7 @@
 package dev.frydae.emcutils.forge;
 
 import dev.architectury.platform.forge.EventBuses;
+import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.IExtensionPoint;
@@ -15,7 +16,7 @@ public class EmpireMinecraftUtilitiesForge {
   public EmpireMinecraftUtilitiesForge() {
     EventBuses.registerModEventBus(MODID, FMLJavaModLoadingContext.get().getModEventBus());
 
-    DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> EMUForgeClient::init);
+    DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> EmpireMinecraftUtilities::initClient);
 
     ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> "anything tm", (a, b) -> b));
   }
