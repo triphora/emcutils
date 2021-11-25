@@ -1,5 +1,6 @@
 name: Snapshot Publish
 on:
+  workflow_dispatch:
   push:
     branches:
       - 1.*
@@ -14,7 +15,7 @@ jobs:
         with:
           distribution: adopt
           java-version: 16
-      - run: "./gradlew :forge:publish :fabric:publish --no-daemon"
+      - run: ./gradlew publish --no-daemon
         env:
           MAVEN_URL: "https://maven.waffle.coffee/snapshots"
           MAVEN_USER: ${{ secrets.MAVEN_USER }}
