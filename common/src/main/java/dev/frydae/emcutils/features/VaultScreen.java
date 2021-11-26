@@ -44,11 +44,9 @@ public class VaultScreen extends HandledScreen<GenericContainerScreenHandler> im
 
   static {
     Registrar<ScreenHandlerType<?>> screenHandlers = EmpireMinecraftUtilities.REGISTRIES.get(Registry.MENU_KEY);
-    GENERIC_9X7 = screenHandlers.register(new Identifier("generic_9x7"), () -> MenuRegistry.of(CreateGeneric9x7::createGeneric9x7));
+    GENERIC_9X7 = screenHandlers.register(new Identifier(MODID, "generic_9x7"), () -> MenuRegistry.of(CreateGeneric9x7::createGeneric9x7));
   }
 
-  // This is necessary because Basique said so
-  // also makes forge client not crash
   public static void initStatic() {}
 
   public VaultScreen(GenericContainerScreenHandler handler, PlayerInventory inventory, Text title) {
