@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -36,8 +34,7 @@ public class Util {
   private static volatile Util singleton;
   @Getter @Setter private boolean shouldRunTasks = false;
   @Setter public static boolean worldLoaded = false;
-  @Getter public static ClientPlayerEntity player = MinecraftClient.getInstance().player;
-  @Getter public static final MinecraftClient client = MinecraftClient.getInstance();
+  private static final MinecraftClient client = MinecraftClient.getInstance();
 
   public static void setCurrentServer(String name) {
     for (EmpireServer server : EmpireServer.values()) {
@@ -52,7 +49,7 @@ public class Util {
 
   public static List<PlayerListEntry> getPlayerListEntries() {
     return Lists.newArrayList(((PlayerListHudAccessor) client.inGameHud.getPlayerListHud())
-            .getEntryOrdering().sortedCopy(Objects.requireNonNull(client.getNetworkHandler()).getPlayerList()));
+            .getEntryOrdering().sortedCopy(client.getNetworkHandler().getPlayerList()));
   }
 
   public static Queue<String> getOnJoinCommandQueue() {
@@ -74,7 +71,7 @@ public class Util {
         while ((command = onJoinCommandQueue.poll()) != null) {
           if (command.startsWith("/")) command = command.substring(1);
 
-          if (worldLoaded) Util.getPlayer().sendChatMessage("/" + command);
+          if (worldLoaded) client.player.sendChatMessage("/" + command);
 
           //noinspection BusyWait
           Thread.sleep(100);

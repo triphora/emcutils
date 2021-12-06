@@ -20,7 +20,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
-import net.minecraft.screen.GenericContainerScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.text.LiteralText;
@@ -35,21 +34,20 @@ import org.apache.commons.lang3.math.NumberUtils;
 import static dev.frydae.emcutils.utils.Util.MODID;
 
 @SuppressWarnings("SpellCheckingInspection")
-public class VaultScreen extends HandledScreen<GenericContainerScreenHandler> implements ScreenHandlerProvider<GenericContainerScreenHandler> {
-  public static final RegistrySupplier<ScreenHandlerType<GenericContainerScreenHandler>> GENERIC_9X7;
+public class VaultScreen extends HandledScreen<VaultScreenHandler> implements ScreenHandlerProvider<VaultScreenHandler> {
   private static final Identifier TEXTURE = new Identifier(MODID, Config.returnVaultScreenOption());
   private final int vaultPage;
   private final int[] slotOffsets = {8, 26, 44, 62, 80, 98, 116, 134, 152};
   private boolean shouldCallClose = true;
 
-  static {
-    Registrar<ScreenHandlerType<?>> screenHandlers = EmpireMinecraftUtilities.REGISTRIES.get(Registry.MENU_KEY);
-    GENERIC_9X7 = screenHandlers.register(new Identifier(MODID, "generic_9x7"), () -> MenuRegistry.of(CreateGeneric9x7::createGeneric9x7));
-  }
+  //static {
+    //Registrar<ScreenHandlerType<?>> screenHandlers = EmpireMinecraftUtilities.REGISTRIES.get(Registry.MENU_KEY);
+    //GENERIC_9X7 = screenHandlers.register(new Identifier(MODID, "generic_9x7"), () -> MenuRegistry.of(VaultScreenHandler::createGeneric9x7));
+  //}
 
-  public static void initStatic() {}
+  //public static void initStatic() {}
 
-  public VaultScreen(GenericContainerScreenHandler handler, PlayerInventory inventory, Text title) {
+  public VaultScreen(VaultScreenHandler handler, PlayerInventory inventory, Text title) {
     super(handler, inventory, title);
     super.init(MinecraftClient.getInstance(), MinecraftClient.getInstance().getWindow().getScaledWidth(), MinecraftClient.getInstance().getWindow().getScaledHeight());
     this.passEvents = false;
@@ -64,10 +62,8 @@ public class VaultScreen extends HandledScreen<GenericContainerScreenHandler> im
     }
   }
 
-  private static final class CreateGeneric9x7 {
-    static GenericContainerScreenHandler createGeneric9x7(int syncId, PlayerInventory playerInventory) {
-      return new GenericContainerScreenHandler(GENERIC_9X7.get(), syncId, playerInventory, 7);
-    }
+  public static VaultScreenHandler createGeneric9x7(int syncId, PlayerInventory playerInventory) {
+    return new VaultScreenHandler(EmpireMinecraftUtilities.get9x7(), syncId, playerInventory, 6);
   }
 
   /**

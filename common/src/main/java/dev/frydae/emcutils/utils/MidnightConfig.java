@@ -31,14 +31,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -225,7 +218,7 @@ public class MidnightConfig {
             }
           }
         }
-        Objects.requireNonNull(client).setScreen(parent);
+        client.setScreen(parent);
       }));
 
       ButtonWidget done = this.addDrawableChild(new ButtonWidget(this.width / 2 + 4, this.height - 28, 150, 20, ScreenTexts.DONE, (button) -> {
@@ -237,7 +230,7 @@ public class MidnightConfig {
             }
           }
         write(modid);
-        Objects.requireNonNull(client).setScreen(parent);
+        client.setScreen(parent);
       }));
 
       this.list = new MidnightConfigListWidget(this.client, this.width, this.height, 32, this.height - 32, 25);
@@ -249,7 +242,7 @@ public class MidnightConfig {
             info.value = info.defaultValue;
             info.tempValue = info.value.toString();
             double scrollAmount = list.getScrollAmount();
-            Objects.requireNonNull(client).setScreen(this);
+            client.setScreen(this);
             list.setScrollAmount(scrollAmount);
           }));
 

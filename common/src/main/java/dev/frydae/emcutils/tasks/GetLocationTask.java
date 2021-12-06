@@ -2,13 +2,13 @@ package dev.frydae.emcutils.tasks;
 
 import dev.frydae.emcutils.interfaces.Task;
 import dev.frydae.emcutils.listeners.ChatListener;
-import dev.frydae.emcutils.utils.Util;
+import net.minecraft.client.MinecraftClient;
 
 public class GetLocationTask implements Task {
   @Override
   public void execute() {
     ChatListener.currentMessage = ChatListener.ChatMessage.LOCATION;
-    Util.getPlayer().sendChatMessage("/loc");
+    MinecraftClient.getInstance().player.sendChatMessage("/loc");
   }
 
   @Override

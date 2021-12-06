@@ -3,7 +3,7 @@ package dev.frydae.emcutils.mixins;
 import com.google.common.collect.Lists;
 import dev.frydae.emcutils.interfaces.ChatCallback;
 import dev.frydae.emcutils.interfaces.CommandCallback;
-import dev.frydae.emcutils.utils.Util;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.ActionResult;
 import org.spongepowered.asm.mixin.Mixin;
@@ -16,18 +16,20 @@ import java.util.stream.Collectors;
 
 @Mixin(ClientPlayerEntity.class)
 public abstract class ClientEntityPlayerMixin {
+  private static final ClientPlayerEntity player = MinecraftClient.getInstance().player;
+
   @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayNetworkHandler;sendPacket(Lnet/minecraft/network/Packet;)V"), method = "sendChatMessage", cancellable = true)
   public void onPreSendMessage(String message, CallbackInfo info) {
     if (message.startsWith("/")) {
       message = message.substring(1);
       String[] parts = message.split(" ");
-      ActionResult commandResult = CommandCallback.PRE_EXECUTE_COMMAND.invoker().onPreExecuteCommand(Util.getPlayer(), parts[0], parts.length > 1 ? Arrays.stream(parts, 1, parts.length).collect(Collectors.toList()) : Lists.newArrayList());
+      ActionResult commandResult = CommandCallback.PRE_EXECUTE_COMMAND.invoker().onPreExecuteCommand(player, parts[0], parts.length > 1 ? Arrays.stream(parts, 1, parts.length).collect(Collectors.toList()) : Lists.newArrayList());
 
       if (commandResult == ActionResult.FAIL) {
         info.cancel();
       }
     } else {
-      ActionResult messageResult = ChatCallback.PRE_SEND_MESSAGE.invoker().onPreSendMessage(Util.getPlayer(), message);
+      ActionResult messageResult = ChatCallback.PRE_SEND_MESSAGE.invoker().onPreSendMessage(player, message);
 
       if (messageResult == ActionResult.FAIL) {
         info.cancel();
@@ -40,9 +42,9 @@ public abstract class ClientEntityPlayerMixin {
     if (message.startsWith("/")) {
       message = message.substring(1);
       String[] parts = message.split(" ");
-      CommandCallback.POST_EXECUTE_COMMAND.invoker().onPostExecuteCommand(Util.getPlayer(), parts[0], parts.length > 1 ? Arrays.stream(parts, 1, parts.length).collect(Collectors.toList()) : Lists.newArrayList());
+      CommandCallback.POST_EXECUTE_COMMAND.invoker().onPostExecuteCommand(player, parts[0], parts.length > 1 ? Arrays.stream(parts, 1, parts.length).collect(Collectors.toList()) : Lists.newArrayList());
     } else {
-      ChatCallback.POST_SEND_MESSAGE.invoker().onPostSendMessage(Util.getPlayer(), message);
+      ChatCallback.POST_SEND_MESSAGE.invoker().onPostSendMessage(player, message);
     }
   }
 }

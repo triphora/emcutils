@@ -58,7 +58,8 @@ public class Config extends MidnightConfig {
     LEVEL_UP(SoundEvents.ENTITY_PLAYER_LEVELUP),
     ORB_PICKUP(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP),
     NOTE_PLING(SoundEvents.BLOCK_NOTE_BLOCK_PLING),
-    ITEM_PICKUP(SoundEvents.ENTITY_ITEM_PICKUP);
+    ITEM_PICKUP(SoundEvents.ENTITY_ITEM_PICKUP),
+    NULL(null);
 
     @Getter private final String name;
     @Getter private final SoundEvent soundEvent;
