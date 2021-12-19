@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import net.minecraft.client.network.PlayerListEntry;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class TabListOrganizer {

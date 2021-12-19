@@ -14,7 +14,6 @@ import net.minecraft.util.ActionResult;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Objects;
 
 public class ChatListener {
   private static final String WELCOME_TO_EMC = "Welcome to Empire Minecraft - .*, .*!";

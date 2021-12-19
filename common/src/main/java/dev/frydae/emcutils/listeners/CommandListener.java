@@ -10,7 +10,6 @@ import net.minecraft.util.ActionResult;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.List;
-import java.util.Objects;
 
 public class CommandListener {
   public CommandListener() {

@@ -3,13 +3,11 @@ package dev.frydae.emcutils.fabric;
 import dev.architectury.registry.menu.MenuRegistry;
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.features.VaultScreen;
-import dev.frydae.emcutils.features.VaultScreenHandler;
 import dev.frydae.emcutils.features.fabric.VoxelMapIntegration;
 import dev.frydae.emcutils.tasks.GetLocationTask;
 import dev.frydae.emcutils.tasks.Tasks;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.screen.ScreenHandlerType;
 
 import static dev.frydae.emcutils.utils.Util.LOG;
 import static dev.frydae.emcutils.utils.Util.MODID;

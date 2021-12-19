@@ -15,8 +15,6 @@ import xaero.common.minimap.waypoints.WaypointWorld;
 import xaero.map.mods.SupportXaeroMinimap;
 import xaero.map.mods.gui.Waypoint;
 
-import java.util.Objects;
-
 @Pseudo
 @Mixin(SupportXaeroMinimap.class)
 public abstract class SupportXaeroMinimapMixin {
