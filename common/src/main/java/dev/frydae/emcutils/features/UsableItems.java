@@ -12,8 +12,6 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
-import java.util.Objects;
-
 public class UsableItems {
   public UsableItems() {
     ClientTooltipEvent.ITEM.register(((itemStack, list, tooltipContext) -> {
@@ -47,7 +45,7 @@ public class UsableItems {
   private static boolean isUsableItemWithCooldown(ItemStack item) {
     if (item != null && item.getNbt() != null) {
       if (item.getNbt().get("display") != null) {
-        String displayString = Objects.requireNonNull(item.getNbt().get("display")).toString();
+        String displayString = item.getNbt().get("display").toString();
 
         JsonObject display = new JsonParser().parse(displayString).getAsJsonObject();
         JsonArray originalLore = display.getAsJsonArray("OriginalLore");
@@ -81,7 +79,7 @@ public class UsableItems {
   private static long getSecondsUntilUsable(ItemStack item) {
     if (item != null && item.getNbt() != null) {
       if (item.getNbt().get("display") != null) {
-        String displayString = Objects.requireNonNull(item.getNbt().get("display")).toString();
+        String displayString = item.getNbt().get("display").toString();
 
         JsonObject display = new JsonParser().parse(displayString).getAsJsonObject();
         JsonArray originalLore = display.getAsJsonArray("OriginalLore");

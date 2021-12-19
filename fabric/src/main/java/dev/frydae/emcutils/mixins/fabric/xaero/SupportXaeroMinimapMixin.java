@@ -2,6 +2,7 @@ package dev.frydae.emcutils.mixins.fabric.xaero;
 
 import dev.frydae.emcutils.containers.EmpireResidence;
 import dev.frydae.emcutils.utils.Util;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,7 +28,7 @@ public abstract class SupportXaeroMinimapMixin {
                 new Vec3d(w.getX(), 64, w.getZ())
         );
 
-        if (res != null) Util.getPlayer().sendChatMessage(res.getVisitCommand());
+        if (res != null) MinecraftClient.getInstance().player.sendChatMessage(res.getVisitCommand());
       }
     }
   }

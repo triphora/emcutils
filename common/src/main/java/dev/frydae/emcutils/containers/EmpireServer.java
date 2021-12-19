@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import dev.frydae.emcutils.utils.Util;
 import lombok.Getter;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;
 
 import java.io.BufferedReader;
@@ -80,7 +81,7 @@ public enum EmpireServer {
   }
 
   public void sendToServer() {
-    Util.getPlayer().sendChatMessage(getCommand());
+    MinecraftClient.getInstance().player.sendChatMessage(getCommand());
     Util.setCurrentServer(getName());
   }
 

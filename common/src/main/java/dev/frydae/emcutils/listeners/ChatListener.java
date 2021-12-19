@@ -14,7 +14,6 @@ import net.minecraft.util.ActionResult;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Objects;
 
 public class ChatListener {
   private static final String WELCOME_TO_EMC = "Welcome to Empire Minecraft - .*, .*!";
@@ -80,7 +79,7 @@ public class ChatListener {
 
   private static ActionResult userGroupReceiver(ClientPlayerEntity player, Text text) {
     if (text.getString().matches(WELCOME_TO_EMC)) {
-      int group = getGroupIdFromColor(Objects.requireNonNull(text.getSiblings().get(5).getStyle().getColor()));
+      int group = getGroupIdFromColor(text.getSiblings().get(5).getStyle().getColor());
 
       Util.setPlayerGroupId(group);
     }
@@ -102,11 +101,11 @@ public class ChatListener {
     List<PlayerListEntry> entries = Util.getPlayerListEntries();
 
     for (PlayerListEntry entry : entries) {
-      if (Objects.requireNonNull(entry.getDisplayName()).getSiblings().get(1).getString().equalsIgnoreCase(user)) {
+      if (entry.getDisplayName().getSiblings().get(1).getString().equalsIgnoreCase(user)) {
         if (entry.getDisplayName().getSiblings().size() > 1) {
           Text coloredName = entry.getDisplayName().getSiblings().get(1);
 
-          return getGroupIdFromColor(Objects.requireNonNull(coloredName.getStyle().getColor()));
+          return getGroupIdFromColor(coloredName.getStyle().getColor());
         }
       }
     }

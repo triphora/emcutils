@@ -8,7 +8,6 @@ import dev.frydae.emcutils.tasks.GetLocationTask;
 import dev.frydae.emcutils.tasks.Tasks;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
 
 import static dev.frydae.emcutils.utils.Util.LOG;
 import static dev.frydae.emcutils.utils.Util.MODID;

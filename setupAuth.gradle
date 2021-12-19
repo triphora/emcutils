@@ -25,7 +25,7 @@ import com.mojang.authlib.yggdrasil.YggdrasilAuthenticationService
 
 rootProject.ext.credentials = new Properties()
 try {
-  rootProject.ext.credentials.load(new FileReader(file('credentials.properties')))
+  rootProject.ext.credentials.load(new FileReader(rootProject.file('credentials.properties')))
 } catch (IOException ignore) {
 }
 

@@ -5,8 +5,11 @@ import dev.frydae.emcutils.utils.Util;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
@@ -20,6 +23,8 @@ public class ChatChannels {
   @Setter private static String targetUsername = null;
   @Setter private static int targetGroupId = 0;
   private static long lastClickedButtonTime = 0L;
+  private static final ClientPlayerEntity player = MinecraftClient.getInstance().player;
+  private static final TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
 
   public static void handleChatScreenRender(Screen screen, MatrixStack matrices) {
     if (Util.isOnEMC) {
@@ -44,7 +49,8 @@ public class ChatChannels {
           currentChannel = channel;
           channel.executeCommand();
 
-          Util.getClient().player.playSound(Config.getChatAlertSound().getSoundEvent(), 5, Config.getChatAlertPitch());
+          if (Config.getChatAlertSound() != Config.ChatAlertSound.NULL)
+            player.playSound(Config.getChatAlertSound().getSoundEvent(), 5, Config.getChatAlertPitch());
 
           // Cancel private conversation if in one
           inPrivateConversation = false;
@@ -56,8 +62,8 @@ public class ChatChannels {
   }
 
   private static boolean isInBounds(Screen screen, String text, int offset, double mouseX, double mouseY) {
-    int width = Util.getClient().textRenderer.getWidth(text);
-    int height = Util.getClient().textRenderer.fontHeight;
+    int width = textRenderer.getWidth(text);
+    int height = textRenderer.fontHeight;
 
     // Check X coordinate
     if (mouseX < offset + 1 || mouseX >= offset + width) {
@@ -69,26 +75,26 @@ public class ChatChannels {
   }
 
   private static void drawButton(Screen screen, MatrixStack matrices, ChatChannel channel) {
-    int width = Util.getClient().textRenderer.getWidth(channel.name);
-    int height = Util.getClient().textRenderer.fontHeight;
+    int width = textRenderer.getWidth(channel.name);
+    int height = textRenderer.fontHeight;
 
     if (currentChannel == channel && !inPrivateConversation) {
       DrawableHelper.fill(matrices, channel.getOffset(), screen.height - 33, channel.getOffset() + width + 5, screen.height - (32 - height - 4), (0xff << 24) | channel.format.getColorValue());
     }
 
     DrawableHelper.fill(matrices, channel.getOffset() + 1, screen.height - 32, channel.getOffset() + width + 4, screen.height - (32 - height - 3), (0xc0 << 24));
-    Util.getClient().textRenderer.draw(matrices, new LiteralText(channel.name), channel.getOffset() + 3, screen.height - 30, channel.format.getColorValue());
+    textRenderer.draw(matrices, new LiteralText(channel.name), channel.getOffset() + 3, screen.height - 30, channel.format.getColorValue());
   }
 
   private static void drawPrivateConversation(Screen screen, MatrixStack matrices) {
-    int fullWidth = Util.getClient().textRenderer.getWidth("PM with: " + targetUsername);
-    int nameWidth = Util.getClient().textRenderer.getWidth(targetUsername);
-    int height = Util.getClient().textRenderer.fontHeight;
+    int fullWidth = textRenderer.getWidth("PM with: " + targetUsername);
+    int nameWidth = textRenderer.getWidth(targetUsername);
+    int height = textRenderer.fontHeight;
 
     DrawableHelper.fill(matrices, screen.width - 3, screen.height - 33, screen.width - fullWidth - 8, screen.height - (32 - height - 4), (0xff << 24) | Formatting.LIGHT_PURPLE.getColorValue());
     DrawableHelper.fill(matrices, screen.width - 4, screen.height - 32, screen.width - fullWidth - 7, screen.height - (32 - height - 3), (0xc0 << 24));
-    Util.getClient().textRenderer.draw(matrices, new LiteralText("PM with: "), screen.width - fullWidth - 5, screen.height - 30, Formatting.WHITE.getColorValue());
-    Util.getClient().textRenderer.draw(matrices, new LiteralText(targetUsername), screen.width - nameWidth - 5, screen.height - 30, groupIdToFormatting(targetGroupId).getColorValue());
+    textRenderer.draw(matrices, new LiteralText("PM with: "), screen.width - fullWidth - 5, screen.height - 30, Formatting.WHITE.getColorValue());
+    textRenderer.draw(matrices, new LiteralText(targetUsername), screen.width - nameWidth - 5, screen.height - 30, groupIdToFormatting(targetGroupId).getColorValue());
   }
 
   public static Formatting groupIdToFormatting(int groupId) {
@@ -131,11 +137,11 @@ public class ChatChannels {
         return 2;
       }
 
-      return adjustAgainst.getOffset() + Util.getClient().textRenderer.getWidth(adjustAgainst.name) + 6;
+      return adjustAgainst.getOffset() + textRenderer.getWidth(adjustAgainst.name) + 6;
     }
 
     public void executeCommand() {
-      Util.getClient().player.sendChatMessage(command);
+      player.sendChatMessage(command);
     }
   }
 }

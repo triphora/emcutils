@@ -4,6 +4,7 @@ import dev.frydae.emcutils.containers.EmpireServer;
 import dev.frydae.emcutils.features.VisitResidenceHandler;
 import dev.frydae.emcutils.interfaces.CommandCallback;
 import dev.frydae.emcutils.utils.Util;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.ActionResult;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -36,7 +37,7 @@ public class CommandListener {
         }
       } else return ActionResult.PASS;
 
-      String resName = Util.getPlayer().getEntityName() + (num > 1 ? "-" + num : ""); // FIXME: this is what causes #33
+      String resName = MinecraftClient.getInstance().player.getEntityName() + (num > 1 ? "-" + num : ""); // FIXME: this is what causes #33
 
       EmpireServer server = VisitResidenceHandler.getResidenceServer(resName);
 

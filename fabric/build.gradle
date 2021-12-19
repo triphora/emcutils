@@ -27,6 +27,10 @@ repositories {
       includeGroup "xaero"
     }
   }
+  maven {
+    url "https://api.modrinth.com/maven"
+    content { includeGroup "maven.modrinth" }
+  }
 }
 
 configurations {
@@ -52,6 +56,9 @@ dependencies {
   modApi "com.mamiyaotaru:voxelmap:${rootProject.voxel_version}+${rootProject.mc_version_major}"
   modCompileOnly "xaero:minimap:${rootProject.xmm_version}+${rootProject.mc_version_major}"
   modCompileOnly "xaero:map:${rootProject.xwm_version}+${rootProject.mc_version_major}"
+
+  modRuntimeOnly "maven.modrinth:clean-logs:1.0.1"
+  runtimeOnly "com.moandjiezana.toml:toml4j:0.7.2"
 
   common(project(path: ":common", configuration: "namedElements")) { transitive false }
   shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
