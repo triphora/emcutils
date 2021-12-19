@@ -35,17 +35,18 @@ import static dev.frydae.emcutils.utils.Util.MODID;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class VaultScreen extends HandledScreen<VaultScreenHandler> implements ScreenHandlerProvider<VaultScreenHandler> {
+  public static final RegistrySupplier<ScreenHandlerType<VaultScreenHandler>> GENERIC_9X7;
   private static final Identifier TEXTURE = new Identifier(MODID, Config.returnVaultScreenOption());
   private final int vaultPage;
   private final int[] slotOffsets = {8, 26, 44, 62, 80, 98, 116, 134, 152};
   private boolean shouldCallClose = true;
 
-  //static {
-    //Registrar<ScreenHandlerType<?>> screenHandlers = EmpireMinecraftUtilities.REGISTRIES.get(Registry.MENU_KEY);
-    //GENERIC_9X7 = screenHandlers.register(new Identifier(MODID, "generic_9x7"), () -> MenuRegistry.of(VaultScreenHandler::createGeneric9x7));
-  //}
+  static {
+    Registrar<ScreenHandlerType<?>> screenHandlers = EmpireMinecraftUtilities.REGISTRIES.get(Registry.MENU_KEY);
+    GENERIC_9X7 = screenHandlers.register(new Identifier(MODID, "generic_9x7"), () -> MenuRegistry.of(VaultScreenHandler::createGeneric9x7));
+  }
 
-  //public static void initStatic() {}
+  public static void initStatic() {}
 
   public VaultScreen(VaultScreenHandler handler, PlayerInventory inventory, Text title) {
     super(handler, inventory, title);
@@ -63,7 +64,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
   }
 
   public static VaultScreenHandler createGeneric9x7(int syncId, PlayerInventory playerInventory) {
-    return new VaultScreenHandler(EmpireMinecraftUtilities.get9x7(), syncId, playerInventory, 6);
+    return new VaultScreenHandler(GENERIC_9X7.get(), syncId, playerInventory, 6);
   }
 
   /**

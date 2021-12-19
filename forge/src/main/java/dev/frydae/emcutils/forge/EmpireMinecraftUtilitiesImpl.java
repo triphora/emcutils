@@ -5,9 +5,7 @@ import dev.architectury.platform.forge.EventBuses;
 import dev.architectury.registry.menu.MenuRegistry;
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.features.VaultScreen;
-import dev.frydae.emcutils.features.VaultScreenHandler;
 import dev.frydae.emcutils.utils.MidnightConfig;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.IExtensionPoint;
@@ -25,10 +23,8 @@ public class EmpireMinecraftUtilitiesImpl {
 
     DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> EmpireMinecraftUtilities::initClient);
 
-    new ScreenHandlerType<>(VaultScreenHandler::createGeneric9x7);
-
     ClientLifecycleEvent.CLIENT_SETUP.register(client ->
-            MenuRegistry.registerScreenFactory(get9x7(), VaultScreen::new));
+            MenuRegistry.registerScreenFactory(VaultScreen.GENERIC_9X7.get(), VaultScreen::new));
 
     ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () ->
             new IExtensionPoint.DisplayTest(() -> "", (a, b) -> b));
@@ -39,9 +35,5 @@ public class EmpireMinecraftUtilitiesImpl {
 
   public static void onPostJoinEmpireMinecraft() {
     EmpireMinecraftUtilities.onPostJoinEmpireMinecraftCommon();
-  }
-
-  public static ScreenHandlerType<VaultScreenHandler> get9x7() {
-    throw new UnsupportedOperationException();
   }
 }

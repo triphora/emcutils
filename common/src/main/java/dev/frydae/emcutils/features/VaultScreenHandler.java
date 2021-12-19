@@ -1,7 +1,5 @@
 package dev.frydae.emcutils.features;
 
-import dev.architectury.registry.registries.RegistrySupplier;
-import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
@@ -45,7 +43,7 @@ public class VaultScreenHandler extends ScreenHandler {
   }
 
   public static VaultScreenHandler createGeneric9x7(int syncId, PlayerInventory playerInventory) {
-    return new VaultScreenHandler(EmpireMinecraftUtilities.get9x7(), syncId, playerInventory, 6);
+    return new VaultScreenHandler(VaultScreen.GENERIC_9X7.get(), syncId, playerInventory, 6);
   }
 
   public boolean canUse(PlayerEntity player) {
