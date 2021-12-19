@@ -45,15 +45,16 @@ allprojects {
   jar { from "LICENSE" }
 
   task modrinth(type: com.modrinth.minotaur.TaskModrinthUpload) {
+    final String loader = project.name
     onlyIf { System.getenv().MODRINTH_TOKEN }
     detectLoaders = false
     token = System.getenv().MODRINTH_TOKEN
     projectId = "QYTT62S0"
-    versionNumber = mod_version + "+" + project.name
-    versionName = "${rootProject.release_title} (${project.name.toUpperCase().indexOf(0)})"
+    versionNumber = mod_version + "+" + loader
+    versionName = "${rootProject.release_title} (${loader.substring(0, 1).toUpperCase() + loader.substring(1)})"
     changelog = rootProject.changeLog
     uploadFile = project.file("build/libs/${rootProject.archivesBaseName}-${rootProject.version}.jar")
     addGameVersion(mc_version)
-    addLoader(project.name)
+    addLoader(loader)
   }
 }

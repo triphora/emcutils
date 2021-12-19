@@ -1,6 +1,7 @@
 package dev.frydae.emcutils.mixins;
 
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
+import dev.frydae.emcutils.features.VaultScreen;
 import dev.frydae.emcutils.interfaces.ChatCallback;
 import dev.frydae.emcutils.utils.Util;
 import net.minecraft.client.MinecraftClient;
@@ -50,7 +51,7 @@ public abstract class ClientPlayNetworkHandlerMixin {
     if (Util.isOnEMC) {
       if (!packet.getName().getString().startsWith("Page: ")) return;
       if (packet.getScreenHandlerType() != ScreenHandlerType.GENERIC_9X6) return;
-      HandledScreens.open(EmpireMinecraftUtilities.get9x7(), MinecraftClient.getInstance(), packet.getSyncId(), packet.getName());
+      HandledScreens.open(VaultScreen.GENERIC_9X7.get(), MinecraftClient.getInstance(), packet.getSyncId(), packet.getName());
       ci.cancel();
     }
   }
