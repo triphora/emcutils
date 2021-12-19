@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Util {
@@ -85,11 +84,11 @@ public class Util {
 
 
   public static int getMinValue(int[] arr) {
-    return Collections.min(Arrays.stream(arr).boxed().collect(Collectors.toList()));
+    return Collections.min(Arrays.stream(arr).boxed().toList());
   }
 
   public static int getMaxValue(int[] arr) {
-    return Collections.max(Arrays.stream(arr).boxed().collect(Collectors.toList()));
+    return Collections.max(Arrays.stream(arr).boxed().toList());
   }
 
   public static synchronized Util getInstance() {

@@ -40,6 +40,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
   private final int vaultPage;
   private final int[] slotOffsets = {8, 26, 44, 62, 80, 98, 116, 134, 152};
   private boolean shouldCallClose = true;
+  private static final MinecraftClient client = MinecraftClient.getInstance();
 
   static {
     Registrar<ScreenHandlerType<?>> screenHandlers = EmpireMinecraftUtilities.REGISTRIES.get(Registry.MENU_KEY);
@@ -50,7 +51,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
   public VaultScreen(VaultScreenHandler handler, PlayerInventory inventory, Text title) {
     super(handler, inventory, title);
-    super.init(MinecraftClient.getInstance(), MinecraftClient.getInstance().getWindow().getScaledWidth(), MinecraftClient.getInstance().getWindow().getScaledHeight());
+    super.init(client, client.getWindow().getScaledWidth(), client.getWindow().getScaledHeight());
     this.passEvents = false;
     this.backgroundHeight = 114 + 7 * 18;
     this.playerInventoryTitleY = this.backgroundHeight - 94;
@@ -61,10 +62,6 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
     if (vaultPage == 69) {
       ((ScreenAccessor) this).setTitle(new LiteralText(title.getString() + " ... nice"));
     }
-  }
-
-  public static VaultScreenHandler createGeneric9x7(int syncId, PlayerInventory playerInventory) {
-    return new VaultScreenHandler(GENERIC_9X7.get(), syncId, playerInventory, 6);
   }
 
   /**
@@ -165,7 +162,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
     if (mouseX >= x + buttonX && mouseX < x + buttonX + 16) {
       if (mouseY >= y + 126 && mouseY <= y + 141) {
         this.shouldCallClose = false;
-        ClientPlayerEntity player = MinecraftClient.getInstance().player;
+        ClientPlayerEntity player = client.player;
         assert player != null;
         player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_SNARE, 4F, 1F);
         player.sendChatMessage(command);
