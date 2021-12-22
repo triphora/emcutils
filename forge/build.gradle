@@ -9,12 +9,8 @@ architectury {
 }
 
 loom {
-  accessWidenerPath.set(project(":common").file("src/main/resources/emcutils.tsv"))
-
   forge {
     mixinConfig "emcutils-common.mixins.json"
-
-    convertAccessWideners.set(true)
   }
 }
 

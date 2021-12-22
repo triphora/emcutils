@@ -8,6 +8,7 @@
     "ClientEntityPlayerMixin",
     "ClientPlayNetworkHandlerMixin",
     "ConnectScreenMixin",
+    "HandledScreenAccessor",
     "IdentifierMixin",
     "MinecraftClientMixin",
     "PlayerListHudAccessor",

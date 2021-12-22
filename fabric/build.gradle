@@ -8,13 +8,6 @@ architectury {
   fabric()
 }
 
-var commonAW = project(":common").file("src/main/resources/emcutils.tsv")
-var generatedResources = file("src/generated/resources")
-
-loom {
-  accessWidenerPath.set(commonAW)
-}
-
 repositories {
   maven {
     url "https://maven.terraformersmc.com"
@@ -64,22 +57,7 @@ dependencies {
   shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 }
 
-sourceSets {
-  main {
-    resources {
-      srcDir generatedResources
-    }
-  }
-}
-
-task copyAW(type: Copy) {
-  from commonAW
-  into generatedResources
-}
-
 processResources {
-  dependsOn copyAW
-
   inputs.property "version", project.version
 
   filesMatching("fabric.mod.json") {
@@ -106,7 +84,6 @@ sourcesJar {
   def commonSources = project(":common").sourcesJar
   dependsOn commonSources
   from commonSources.archiveFile.map { zipTree(it) }
-  exclude "emcutils.tsv"
 }
 
 components.java {

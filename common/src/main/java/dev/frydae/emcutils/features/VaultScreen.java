@@ -8,6 +8,7 @@ import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.interfaces.ScreenAccessor;
+import dev.frydae.emcutils.mixins.HandledScreenAccessor;
 import dev.frydae.emcutils.utils.Config;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -119,7 +120,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
   }
 
   private void drawButton(MatrixStack matrices, ItemStack button, int mouseX, int mouseY, int buttonX, String amountText) {
-    this.drawItem(button, x + buttonX, y + 125, amountText);
+      ((HandledScreenAccessor) this).invokeDrawItem(button, x + buttonX, y + 125, amountText);
 
     if (mouseX >= x + buttonX && mouseX <= x + buttonX + 15) {
       if (mouseY >= y + 126 && mouseY <= y + 141) {

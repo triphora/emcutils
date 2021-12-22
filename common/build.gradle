@@ -8,14 +8,3 @@ dependencies {
 architectury {
   common()
 }
-
-loom {
-  accessWidenerPath.set(file("src/main/resources/emcutils.tsv"))
-}
-
-afterEvaluate {
-  remapJar {
-    //noinspection all
-    remapAccessWidener = false
-  }
-}
