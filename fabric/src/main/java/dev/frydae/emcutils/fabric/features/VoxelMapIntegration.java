@@ -1,4 +1,4 @@
-package dev.frydae.emcutils.features.fabric;
+package dev.frydae.emcutils.fabric.features;
 
 import com.mamiyaotaru.voxelmap.VoxelMap;
 import dev.frydae.emcutils.interfaces.Task;

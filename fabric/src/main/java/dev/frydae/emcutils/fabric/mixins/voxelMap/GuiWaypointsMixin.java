@@ -1,4 +1,4 @@
-package dev.frydae.emcutils.mixins.fabric.voxelMap;
+package dev.frydae.emcutils.fabric.mixins.voxelMap;
 
 import com.mamiyaotaru.voxelmap.gui.GuiWaypoints;
 import com.mamiyaotaru.voxelmap.util.Waypoint;

@@ -1,4 +1,4 @@
-package dev.frydae.emcutils.mixins.fabric;
+package dev.frydae.emcutils.fabric.mixins;
 
 import org.jetbrains.annotations.NotNull;
 import org.objectweb.asm.tree.ClassNode;

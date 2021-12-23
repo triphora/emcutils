@@ -1,4 +1,4 @@
-package dev.frydae.emcutils.utils.fabric;
+package dev.frydae.emcutils.fabric.utils;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;

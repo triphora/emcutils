@@ -1,4 +1,4 @@
-package dev.frydae.emcutils.mixins.fabric.voxelMap;
+package dev.frydae.emcutils.fabric.mixins.voxelMap;
 
 import com.mamiyaotaru.voxelmap.MapSettingsManager;
 import com.mamiyaotaru.voxelmap.RadarSettingsManager;

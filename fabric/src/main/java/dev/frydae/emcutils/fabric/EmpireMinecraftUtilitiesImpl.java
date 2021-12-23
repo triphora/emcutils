@@ -3,7 +3,7 @@ package dev.frydae.emcutils.fabric;
 import dev.architectury.registry.menu.MenuRegistry;
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.features.VaultScreen;
-import dev.frydae.emcutils.features.fabric.VoxelMapIntegration;
+import dev.frydae.emcutils.fabric.features.VoxelMapIntegration;
 import dev.frydae.emcutils.tasks.GetLocationTask;
 import dev.frydae.emcutils.tasks.Tasks;
 import net.fabricmc.api.ClientModInitializer;

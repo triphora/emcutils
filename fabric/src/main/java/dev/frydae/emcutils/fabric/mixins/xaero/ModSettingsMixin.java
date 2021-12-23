@@ -1,4 +1,4 @@
-package dev.frydae.emcutils.mixins.fabric.xaero;
+package dev.frydae.emcutils.fabric.mixins.xaero;
 
 import dev.frydae.emcutils.utils.Util;
 import org.spongepowered.asm.mixin.Mixin;

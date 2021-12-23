@@ -120,7 +120,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
   }
 
   private void drawButton(MatrixStack matrices, ItemStack button, int mouseX, int mouseY, int buttonX, String amountText) {
-      ((HandledScreenAccessor) this).invokeDrawItem(button, x + buttonX, y + 125, amountText);
+    ((HandledScreenAccessor) this).invokeDrawItem(button, x + buttonX, y + 125, amountText);
 
     if (mouseX >= x + buttonX && mouseX <= x + buttonX + 15) {
       if (mouseY >= y + 126 && mouseY <= y + 141) {
