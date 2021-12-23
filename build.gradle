@@ -1,7 +1,7 @@
 //file:noinspection UnnecessaryQualifiedReference
 plugins {
-  id "architectury-plugin" version "3.4-SNAPSHOT"
-  id "dev.architectury.loom" version "0.10.0-SNAPSHOT" apply false
+  id "architectury-plugin" version "3.4.+"
+  id "dev.architectury.loom" version "0.10.0.+" apply false
   id "com.modrinth.minotaur" version "1.2.+"
   id "io.github.juuxel.loom-quiltflower-mini" version "1.+" apply false
 }

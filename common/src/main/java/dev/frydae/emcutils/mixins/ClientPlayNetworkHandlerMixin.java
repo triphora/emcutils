@@ -1,5 +1,6 @@
 package dev.frydae.emcutils.mixins;
 
+import dev.architectury.event.events.client.ClientTickEvent;
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.features.VaultScreen;
 import dev.frydae.emcutils.interfaces.ChatCallback;
@@ -8,7 +9,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.network.packet.s2c.play.EntityTrackerUpdateS2CPacket;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.OpenScreenS2CPacket;
@@ -42,7 +42,7 @@ public abstract class ClientPlayNetworkHandlerMixin {
     if (Util.isOnEMC) {
       EmpireMinecraftUtilities.onJoinEmpireMinecraft();
 
-      Util.executeJoinCommands();
+      ClientTickEvent.CLIENT_LEVEL_POST.register(instance -> Util.executeJoinCommands());
     }
   }
 
@@ -54,10 +54,5 @@ public abstract class ClientPlayNetworkHandlerMixin {
       HandledScreens.open(VaultScreen.GENERIC_9X7.get(), MinecraftClient.getInstance(), packet.getSyncId(), packet.getName());
       ci.cancel();
     }
-  }
-
-  @Inject(at = @At("RETURN"), method = "onEntityTrackerUpdate")
-  public void checkIfWorldIsLoaded(EntityTrackerUpdateS2CPacket packet, CallbackInfo ci) {
-    Util.setWorldLoaded(true);
   }
 }

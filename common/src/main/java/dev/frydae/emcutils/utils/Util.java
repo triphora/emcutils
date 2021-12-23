@@ -32,7 +32,6 @@ public class Util {
   @Getter @Setter private static int playerGroupId = 0;
   private static volatile Util singleton;
   @Getter @Setter private boolean shouldRunTasks = false;
-  @Setter public static boolean worldLoaded = false;
   private static final MinecraftClient client = MinecraftClient.getInstance();
 
   public static void setCurrentServer(String name) {
@@ -70,7 +69,7 @@ public class Util {
         while ((command = onJoinCommandQueue.poll()) != null) {
           if (command.startsWith("/")) command = command.substring(1);
 
-          if (worldLoaded) client.player.sendChatMessage("/" + command);
+          client.player.sendChatMessage("/" + command);
 
           //noinspection BusyWait
           Thread.sleep(100);

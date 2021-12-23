@@ -1,6 +1,6 @@
 //file:noinspection GroovyAssignabilityCheck
 plugins {
-  id "com.github.johnrengelman.shadow" version "7.0.0"
+  id "com.github.johnrengelman.shadow" version "7.+"
 }
 
 architectury {
@@ -16,13 +16,10 @@ repositories {
   maven {
     url "https://maven.waffle.coffee/releases"
     content {
+      includeGroup "coffee.waffle"
       includeGroup "com.mamiyaotaru"
       includeGroup "xaero"
     }
-  }
-  maven {
-    url "https://api.modrinth.com/maven"
-    content { includeGroup "maven.modrinth" }
   }
 }
 
@@ -44,14 +41,20 @@ dependencies {
 
   modRuntimeOnly "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_version}+${rootProject.mc_version_major}"
 
-  modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
+  modApi("dev.architectury:architectury-fabric:${rootProject.architectury_version}") {
+    exclude group: "net.fabricmc.fabric-api"
+    exclude group: "net.fabricmc"
+  }
 
   modApi "com.mamiyaotaru:voxelmap:${rootProject.voxel_version}+${rootProject.mc_version_major}"
   modCompileOnly "xaero:minimap:${rootProject.xmm_version}+${rootProject.mc_version_major}"
   modCompileOnly "xaero:map:${rootProject.xwm_version}+${rootProject.mc_version_major}"
 
-  modRuntimeOnly "maven.modrinth:clean-logs:1.0.1"
-  runtimeOnly "com.moandjiezana.toml:toml4j:0.7.2"
+  modRuntimeOnly("coffee.waffle:clean-logs:1.0.1") {
+    exclude group: "net.fabricmc.fabric-api"
+    exclude group: "net.fabricmc"
+    exclude group: "com.terraformersmc"
+  }
 
   common(project(path: ":common", configuration: "namedElements")) { transitive false }
   shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
