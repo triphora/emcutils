@@ -5,7 +5,7 @@ import dev.architectury.platform.forge.EventBuses;
 import dev.architectury.registry.menu.MenuRegistry;
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.features.VaultScreen;
-import dev.frydae.emcutils.utils.MidnightConfig;
+import eu.midnightdust.lib.config.MidnightConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.IExtensionPoint;

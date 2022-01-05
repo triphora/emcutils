@@ -22,10 +22,19 @@ configurations {
   developmentForge.extendsFrom common
 }
 
+repositories {
+  maven {
+    url "https://maven.waffle.coffee/snapshots"
+    content { includeGroup "eu.midnightdust" }
+  }
+}
+
 dependencies {
   forge "net.minecraftforge:forge:${rootProject.mc_version}-${rootProject.forge_version}"
 
   modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
+
+  modApi "eu.midnightdust:MidnightLib:${rootProject.midnightlib_version_forge}"
 
   common(project(path: ":common", configuration: "namedElements")) { transitive false }
   shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
@@ -40,8 +49,6 @@ processResources {
 }
 
 shadowJar {
-  exclude "fabric.mod.json"
-
   configurations = [project.configurations.shadowCommon]
   classifier "dev-shadow"
 }
@@ -71,21 +78,7 @@ components.java {
 publishing {
   publications {
     mavenJavaForge(MavenPublication) {
-      groupId = 'coffee.waffle'
-      artifactId = rootProject.archivesBaseName + "-" + project.name
-      version = rootProject.mod_version + "+" + rootProject.mc_version + System.getenv().SNAPSHOT
-
       from components.java
-    }
-  }
-  repositories {
-    maven {
-      url = System.getenv().MAVEN_URL
-      credentials {
-        username = System.getenv().MAVEN_USER
-        password = System.getenv().MAVEN_PASS
-      }
-      authentication { basic(BasicAuthentication) }
     }
   }
 }

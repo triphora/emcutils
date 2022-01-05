@@ -10,8 +10,8 @@ import dev.frydae.emcutils.tasks.GetChatAlertPitchTask;
 import dev.frydae.emcutils.tasks.GetChatAlertSoundTask;
 import dev.frydae.emcutils.tasks.Tasks;
 import dev.frydae.emcutils.utils.Config;
-import dev.frydae.emcutils.utils.MidnightConfig;
 import dev.frydae.emcutils.utils.Util;
+import eu.midnightdust.lib.config.MidnightConfig;
 
 import static dev.frydae.emcutils.utils.Util.MODID;
 

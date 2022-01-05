@@ -1,7 +1,4 @@
 dependencies {
-  // For @Environment annotations and mixin dependencies
-  modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
-
   modApi "dev.architectury:architectury:${rootProject.architectury_version}"
 }
 

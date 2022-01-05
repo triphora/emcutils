@@ -1,4 +1,3 @@
-//file:noinspection UnnecessaryQualifiedReference
 plugins {
   id "architectury-plugin" version "3.4.+"
   id "dev.architectury.loom" version "0.10.0.+" apply false
@@ -15,9 +14,22 @@ subprojects {
   apply from: rootProject.file("setupAuth.gradle")
   apply plugin: "io.github.juuxel.loom-quiltflower-mini"
 
+  repositories {
+    maven {
+      url "https://api.modrinth.com/maven"
+      content { includeGroup "maven.modrinth" }
+    }
+  }
+
   dependencies {
     minecraft "com.mojang:minecraft:${rootProject.mc_version}"
     mappings "net.fabricmc:yarn:${rootProject.mc_version}+build.${rootProject.yarn_mappings}:v2"
+
+    if (project.name != "forge") {
+      modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
+
+      modApi include("maven.modrinth:midnightlib:${rootProject.midnightlib_version}")
+    }
 
     implementation annotationProcessor("org.projectlombok:lombok:${rootProject.lombok_version}")
   }
@@ -28,8 +40,9 @@ allprojects {
   apply plugin: "architectury-plugin"
   apply plugin: "maven-publish"
 
-  archivesBaseName = "emcutils"
-  version = rootProject.mc_version + "-" + mod_version + System.getenv().SNAPSHOT
+  group = "coffee.waffle"
+  archivesBaseName = "emcutils-${project.name}-${rootProject.mc_version}"
+  version = mod_version + System.getenv().SNAPSHOT
 
   // Comment this line out if you have good internet
   idea { module { downloadJavadoc = false } }
@@ -44,6 +57,7 @@ allprojects {
 
   jar { from "LICENSE" }
 
+  //noinspection UnnecessaryQualifiedReference
   task modrinth(type: com.modrinth.minotaur.TaskModrinthUpload) {
     final String loader = project.name
     onlyIf { System.getenv().MODRINTH_TOKEN }
@@ -56,5 +70,21 @@ allprojects {
     uploadFile = project.file("build/libs/${rootProject.archivesBaseName}-${rootProject.version}.jar")
     addGameVersion(mc_version)
     addLoader(loader)
+  }
+
+  publishing {
+    repositories {
+      maven {
+        url = System.getenv().MAVEN_URL
+        credentials {
+          username = System.getenv().MAVEN_USER
+          password = System.getenv().MAVEN_PASS
+        }
+        authentication {
+          //noinspection GroovyAssignabilityCheck
+          basic(BasicAuthentication)
+        }
+      }
+    }
   }
 }

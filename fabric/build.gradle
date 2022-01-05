@@ -14,12 +14,8 @@ repositories {
     content { includeGroup "com.terraformersmc" }
   }
   maven {
-    url "https://maven.waffle.coffee/releases"
-    content {
-      includeGroup "coffee.waffle"
-      includeGroup "com.mamiyaotaru"
-      includeGroup "xaero"
-    }
+    url "https://cursemaven.com"
+    content { includeGroup "curse.maven" }
   }
 }
 
@@ -39,22 +35,18 @@ dependencies {
     exclude group: "net.fabricmc"
   }
 
-  modRuntimeOnly "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_version}+${rootProject.mc_version_major}"
+  modRuntimeOnly "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_version}"
 
   modApi("dev.architectury:architectury-fabric:${rootProject.architectury_version}") {
     exclude group: "net.fabricmc.fabric-api"
     exclude group: "net.fabricmc"
   }
 
-  modApi "com.mamiyaotaru:voxelmap:${rootProject.voxel_version}+${rootProject.mc_version_major}"
-  modCompileOnly "xaero:minimap:${rootProject.xmm_version}+${rootProject.mc_version_major}"
-  modCompileOnly "xaero:map:${rootProject.xwm_version}+${rootProject.mc_version_major}"
+  modImplementation "curse.maven:voxel-225179:${rootProject.voxel_version}"
+  modCompileOnly "curse.maven:xmm-263420:${rootProject.xmm_version}"
+  modCompileOnly "curse.maven:xwm-317780:${rootProject.xwm_version}"
 
-  modRuntimeOnly("coffee.waffle:clean-logs:1.0.1") {
-    exclude group: "net.fabricmc.fabric-api"
-    exclude group: "net.fabricmc"
-    exclude group: "com.terraformersmc"
-  }
+  modRuntimeOnly "maven.modrinth:clean-logs:1.0.1"
 
   common(project(path: ":common", configuration: "namedElements")) { transitive false }
   shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
@@ -98,21 +90,7 @@ components.java {
 publishing {
   publications {
     mavenJavaFabric(MavenPublication) {
-      groupId = 'coffee.waffle'
-      artifactId = rootProject.archivesBaseName + "-" + project.name
-      version = rootProject.mod_version + "+" + rootProject.mc_version + System.getenv().SNAPSHOT
-
       from components.java
-    }
-  }
-  repositories {
-    maven {
-      url = System.getenv().MAVEN_URL
-      credentials {
-        username = System.getenv().MAVEN_USER
-        password = System.getenv().MAVEN_PASS
-      }
-      authentication { basic(BasicAuthentication) }
     }
   }
 }

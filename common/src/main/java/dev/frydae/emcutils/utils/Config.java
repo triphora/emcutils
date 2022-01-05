@@ -1,6 +1,7 @@
 package dev.frydae.emcutils.utils;
 
 import dev.frydae.emcutils.features.TabListOrganizer;
+import eu.midnightdust.lib.config.MidnightConfig;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.sound.SoundEvent;
