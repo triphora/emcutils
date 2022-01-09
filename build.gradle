@@ -28,7 +28,7 @@ subprojects {
     if (project.name != "forge") {
       modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
 
-      modApi include("maven.modrinth:midnightlib:${rootProject.midnightlib_version}")
+      modApi "maven.modrinth:midnightlib:${rootProject.midnightlib_version}"
     }
 
     implementation annotationProcessor("org.projectlombok:lombok:${rootProject.lombok_version}")

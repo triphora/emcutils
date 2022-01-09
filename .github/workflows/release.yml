@@ -13,7 +13,7 @@ jobs:
         with:
           distribution: adopt
           java-version: 16
-      - run: "./gradlew build :forge:modrinth :fabric:modrinth publish --no-daemon"
+      - run: "./gradlew build :forge:modrinth :fabric:modrinth --no-daemon" # publish -- maven is currently down
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
           MAVEN_URL: "https://maven.waffle.coffee/releases"

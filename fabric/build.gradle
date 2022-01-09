@@ -30,6 +30,8 @@ configurations {
 dependencies {
   modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
 
+  include "maven.modrinth:midnightlib:${rootProject.midnightlib_version}"
+
   modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}") {
     exclude group: "net.fabricmc.fabric-api"
     exclude group: "net.fabricmc"
