@@ -37,7 +37,9 @@ import static dev.frydae.emcutils.utils.Util.MODID;
 @SuppressWarnings("SpellCheckingInspection")
 public class VaultScreen extends HandledScreen<VaultScreenHandler> implements ScreenHandlerProvider<VaultScreenHandler> {
   public static final RegistrySupplier<ScreenHandlerType<VaultScreenHandler>> GENERIC_9X7;
-  private static final Identifier TEXTURE = new Identifier(MODID, Config.returnVaultScreenOption());
+  private static final Identifier TEXTURE = new Identifier(MODID, Config.darkVaultScreen() ?
+          "textures/gui/container/generic_63_dark.png" :
+          "textures/gui/container/generic_63.png");
   private final int vaultPage;
   private final int[] slotOffsets = {8, 26, 44, 62, 80, 98, 116, 134, 152};
   private boolean shouldCallClose = true;

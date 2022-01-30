@@ -31,14 +31,13 @@
   ],
   "depends": {
     "fabricloader": ">=0.12.12",
-    "architectury": ">=2.8",
+    "architectury": ">=3.5.12",
     "midnightlib": ">=0.3",
-    "minecraft": ">=1.17.1"
+    "minecraft": ">=1.18.1"
   },
   "suggests": {
-    "modmenu": ">=2.0.14",
-    "voxelmap": ">=1.10.15",
-    "xaeroworldmap": ">=1.18.0",
-    "xaerominimap": ">=21.20.0"
+    "modmenu": ">=3.0.1",
+    "xaeroworldmap": ">=1.20.1",
+    "xaerominimap": ">=22.1.2"
   }
 }

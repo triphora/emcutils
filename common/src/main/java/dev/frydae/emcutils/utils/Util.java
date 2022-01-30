@@ -103,12 +103,12 @@ public class Util {
   }
 
   public static void runResidenceCollector() {
-    if (!Config.isDontRunResidenceCollector()) {
+    if (!Config.dontRunResidenceCollector()) {
       ExecutorService executor = Executors.newCachedThreadPool();
       IntStream.rangeClosed(1, 10).forEach(i -> executor.submit(() -> EmpireServer.getById(i).collectResidences()));
       executor.shutdown();
     } else
-      LogManager.getLogger(MODID).info(MODID + " is not going to run the residence collector - some features will " +
-              "not work as intended. Disable 'Don't run residence collector' to get rid of this message.");
+      LOG.info(MODID + " is not going to run the residence collector - some features will not work as intended. " +
+              "Disable 'Don't run residence collector' to get rid of this message.");
   }
 }

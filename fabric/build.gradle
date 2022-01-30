@@ -30,7 +30,7 @@ configurations {
 dependencies {
   modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
 
-  include "maven.modrinth:midnightlib:${rootProject.midnightlib_version}"
+  modImplementation include("maven.modrinth:midnightlib:${rootProject.midnightlib_version}")
 
   modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}") {
     exclude group: "net.fabricmc.fabric-api"
@@ -44,11 +44,9 @@ dependencies {
     exclude group: "net.fabricmc"
   }
 
-  modImplementation "curse.maven:voxel-225179:${rootProject.voxel_version}"
-  modCompileOnly "curse.maven:xmm-263420:${rootProject.xmm_version}"
-  modCompileOnly "curse.maven:xwm-317780:${rootProject.xwm_version}"
-
-  modRuntimeOnly "maven.modrinth:clean-logs:1.0.1"
+  // modImplementation "curse.maven:voxel-225179:${rootProject.voxel_version}"
+  modImplementation "curse.maven:xmm-263420:${rootProject.xmm_version}"
+  modImplementation "curse.maven:xwm-317780:${rootProject.xwm_version}"
 
   common(project(path: ":common", configuration: "namedElements")) { transitive false }
   shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
@@ -68,7 +66,7 @@ shadowJar {
 }
 
 remapJar {
-  input.set shadowJar.archiveFile
+  inputFile.set shadowJar.archiveFile
   dependsOn shadowJar
   classifier null
 }

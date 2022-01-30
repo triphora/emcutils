@@ -1,6 +1,7 @@
 package dev.frydae.emcutils.features;
 
 import dev.frydae.emcutils.utils.Config;
+import dev.frydae.emcutils.utils.Config.ChatAlertSound;
 import dev.frydae.emcutils.utils.Util;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -49,8 +50,8 @@ public class ChatChannels {
           currentChannel = channel;
           channel.executeCommand();
 
-          if (Config.getChatAlertSound() != Config.ChatAlertSound.NULL)
-            player.playSound(Config.getChatAlertSound().getSoundEvent(), 5, Config.getChatAlertPitch());
+          if (Config.chatAlertSound() != ChatAlertSound.NULL)
+            player.playSound(Config.chatAlertSound().getSoundEvent(), 5, Config.chatAlertPitch());
 
           // Cancel private conversation if in one
           inPrivateConversation = false;

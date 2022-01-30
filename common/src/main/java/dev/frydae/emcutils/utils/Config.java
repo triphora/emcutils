@@ -1,24 +1,47 @@
 package dev.frydae.emcutils.utils;
 
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import dev.frydae.emcutils.features.TabListOrganizer;
-import eu.midnightdust.lib.config.MidnightConfig;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 
 @SuppressWarnings("unused")
-public class Config extends MidnightConfig {
-  @Getter @Entry public static boolean darkVaultScreen = false;
-  @Getter @Entry public static boolean tabListShowAllServers = true;
-  @Getter @Entry public static TabListSortType tabListSortType = TabListSortType.SERVER_ASCENDING;
-  @Getter @Entry public static TabListCurrentServerPlacement tabListCurrentServerPlacement = TabListCurrentServerPlacement.TOP;
-  @Getter @Entry(min = -15, max = 30) public static int chatAlertPitch = 0;
-  @Getter @Entry public static ChatAlertSound chatAlertSound = ChatAlertSound.LEVEL_UP;
-  @Getter @Entry public static boolean dontRunResidenceCollector = false;
+public class Config {
+  @ExpectPlatform
+  public static boolean darkVaultScreen() {
+    throw new AssertionError("ExpectPlatform didn't apply!");
+  }
 
-  public static String returnVaultScreenOption() {
-    return darkVaultScreen ? "textures/gui/container/generic_63_dark.png" : "textures/gui/container/generic_63.png";
+  @ExpectPlatform
+  public static boolean tabListShowAllServers() {
+    throw new AssertionError("ExpectPlatform didn't apply!");
+  }
+
+  @ExpectPlatform
+  public static TabListSortType tabListSortType() {
+    throw new AssertionError("ExpectPlatform didn't apply!");
+  }
+
+  @ExpectPlatform
+  public static TabListCurrentServerPlacement tabListCurrentServerPlacement() {
+    throw new AssertionError("ExpectPlatform didn't apply!");
+  }
+
+  @ExpectPlatform
+  public static int chatAlertPitch() {
+    throw new AssertionError("ExpectPlatform didn't apply!");
+  }
+
+  @ExpectPlatform
+  public static ChatAlertSound chatAlertSound() {
+    throw new AssertionError("ExpectPlatform didn't apply!");
+  }
+
+  @ExpectPlatform
+  public static boolean dontRunResidenceCollector() {
+    throw new AssertionError("ExpectPlatform didn't apply!");
   }
 
   @AllArgsConstructor

@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[37,)"
+loaderVersion = "[39,)"
 issueTrackerURL = "https://github.com/wafflecoffee/Empire-Minecraft-Utilities/issues"
 license = "MIT"
 
@@ -21,20 +21,27 @@ logoFile = "icon.png"
 [[dependencies.emcutils]]
 modId = "forge"
 mandatory = true
-versionRange = "[37,)"
+versionRange = "[39,)"
 ordering = "NONE"
 side = "CLIENT"
 
 [[dependencies.emcutils]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.17.1,)"
+versionRange = "[1.18.1,)"
 ordering = "NONE"
 side = "CLIENT"
 
 [[dependencies.emcutils]]
 modId = "architectury"
 mandatory = true
-versionRange = "[2,)"
+versionRange = "[3.5.12,)"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependencies.emcutils]]
+modId = "configmenusforge"
+mandatory = false
+versionRange = "[3.1.0,)"
 ordering = "NONE"
 side = "CLIENT"

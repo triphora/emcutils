@@ -1,8 +1,8 @@
 plugins {
   id "architectury-plugin" version "3.4.+"
-  id "dev.architectury.loom" version "0.10.0.+" apply false
+  id "dev.architectury.loom" version "0.11.0.+" apply false
   id "com.modrinth.minotaur" version "1.2.+"
-  id "io.github.juuxel.loom-quiltflower-mini" version "1.+" apply false
+  id "io.github.juuxel.loom-quiltflower" version "1.+" apply false
 }
 
 architectury {
@@ -12,7 +12,7 @@ architectury {
 subprojects {
   apply plugin: "dev.architectury.loom"
   apply from: rootProject.file("setupAuth.gradle")
-  apply plugin: "io.github.juuxel.loom-quiltflower-mini"
+  apply plugin: "io.github.juuxel.loom-quiltflower"
 
   repositories {
     maven {
@@ -27,8 +27,6 @@ subprojects {
 
     if (project.name != "forge") {
       modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
-
-      modApi "maven.modrinth:midnightlib:${rootProject.midnightlib_version}"
     }
 
     implementation annotationProcessor("org.projectlombok:lombok:${rootProject.lombok_version}")
@@ -50,7 +48,7 @@ allprojects {
   tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
     //noinspection all
-    options.release = 16
+    options.release = 17
   }
 
   java { withSourcesJar() }

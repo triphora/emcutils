@@ -24,8 +24,8 @@ configurations {
 
 repositories {
   maven {
-    url "https://maven.waffle.coffee/snapshots"
-    content { includeGroup "eu.midnightdust" }
+    url "https://cursemaven.com"
+    content { includeGroup "curse.maven" }
   }
 }
 
@@ -34,7 +34,7 @@ dependencies {
 
   modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
 
-  modApi "eu.midnightdust:MidnightLib:${rootProject.midnightlib_version_forge}"
+  modRuntimeOnly "curse.maven:configmenus-544048:${rootProject.config_menus_version}"
 
   common(project(path: ":common", configuration: "namedElements")) { transitive false }
   shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }

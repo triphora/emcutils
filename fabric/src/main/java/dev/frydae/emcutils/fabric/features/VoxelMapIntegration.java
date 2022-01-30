@@ -1,11 +1,12 @@
 package dev.frydae.emcutils.fabric.features;
 
+/*
 import com.mamiyaotaru.voxelmap.VoxelMap;
 import dev.frydae.emcutils.interfaces.Task;
 import dev.frydae.emcutils.utils.Util;
-
-public class VoxelMapIntegration implements Task {
-
+*/
+public class VoxelMapIntegration { //implements Task {
+/*
   @Override
   public void execute() {
     VoxelMap.getInstance().getWaypointManager()
@@ -21,4 +22,5 @@ public class VoxelMapIntegration implements Task {
   public String getDescription() {
     return "Set VoxelMap Information";
   }
+*/
 }

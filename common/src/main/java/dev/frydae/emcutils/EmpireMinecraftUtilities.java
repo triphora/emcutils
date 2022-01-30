@@ -9,19 +9,15 @@ import dev.frydae.emcutils.listeners.CommandListener;
 import dev.frydae.emcutils.tasks.GetChatAlertPitchTask;
 import dev.frydae.emcutils.tasks.GetChatAlertSoundTask;
 import dev.frydae.emcutils.tasks.Tasks;
-import dev.frydae.emcutils.utils.Config;
 import dev.frydae.emcutils.utils.Util;
-import eu.midnightdust.lib.config.MidnightConfig;
 
 import static dev.frydae.emcutils.utils.Util.MODID;
 
 public class EmpireMinecraftUtilities {
-  public static final Registries REGISTRIES = Registries.get("emcutils");
+  public static final Registries REGISTRIES = Registries.get(MODID);
   private static boolean online = false;
 
   public static void initClient() {
-    MidnightConfig.init(MODID, Config.class);
-
     Util.runResidenceCollector();
 
     VaultScreen.initStatic();

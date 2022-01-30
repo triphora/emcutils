@@ -1,5 +1,6 @@
 package dev.frydae.emcutils.fabric.mixins.voxelMap;
 
+/*
 import com.mamiyaotaru.voxelmap.gui.GuiWaypoints;
 import com.mamiyaotaru.voxelmap.util.Waypoint;
 import dev.frydae.emcutils.containers.EmpireResidence;
@@ -14,8 +15,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Pseudo
 @Mixin(GuiWaypoints.class)
+*/
 public abstract class GuiWaypointsMixin {
-
+/*
   protected Waypoint selectedWaypoint;
 
   @Inject(method = "teleportClicked", at = @At("HEAD"), remap = false, cancellable = true)
@@ -30,4 +32,5 @@ public abstract class GuiWaypointsMixin {
       ci.cancel();
     }
   }
+*/
 }

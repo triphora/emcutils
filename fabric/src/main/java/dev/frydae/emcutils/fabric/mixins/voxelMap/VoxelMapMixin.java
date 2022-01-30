@@ -1,5 +1,6 @@
 package dev.frydae.emcutils.fabric.mixins.voxelMap;
 
+/*
 import com.mamiyaotaru.voxelmap.MapSettingsManager;
 import com.mamiyaotaru.voxelmap.RadarSettingsManager;
 import com.mamiyaotaru.voxelmap.VoxelMap;
@@ -14,8 +15,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @SuppressWarnings("UnusedDeclaration")
 @Pseudo
 @Mixin(VoxelMap.class)
+*/
 public abstract class VoxelMapMixin {
-
+/*
   private RadarSettingsManager radarOptions;
   private MapSettingsManager mapOptions;
 
@@ -26,4 +28,5 @@ public abstract class VoxelMapMixin {
       mapOptions.cavesAllowed = false;
     }
   }
+*/
 }

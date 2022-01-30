@@ -5,9 +5,6 @@
   "compatibilityLevel": "JAVA_16",
   "plugin": "dev.frydae.emcutils.fabric.mixins.EMCMixinPlugin",
   "client": [
-    "voxelMap.GuiPersistentMapMixin",
-    "voxelMap.GuiWaypointsMixin",
-    "voxelMap.VoxelMapMixin",
     "xaero.ModSettingsMixin",
     "xaero.SupportXaeroMinimapMixin"
   ],
