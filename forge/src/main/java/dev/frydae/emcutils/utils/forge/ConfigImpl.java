@@ -1,5 +1,6 @@
 package dev.frydae.emcutils.utils.forge;
 
+import dev.frydae.emcutils.forge.EarlyForgeConfig;
 import dev.frydae.emcutils.forge.ForgeConfig;
 import dev.frydae.emcutils.utils.Config.ChatAlertSound;
 import dev.frydae.emcutils.utils.Config.TabListCurrentServerPlacement;
@@ -31,6 +32,6 @@ public class ConfigImpl {
   }
 
   public static boolean dontRunResidenceCollector() {
-    return ForgeConfig.dontRunResidenceCollector.get();
+    return !EarlyForgeConfig.load();
   }
 }

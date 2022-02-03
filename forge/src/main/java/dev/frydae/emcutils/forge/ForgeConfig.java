@@ -16,7 +16,6 @@ public class ForgeConfig {
   public static EnumValue<TabListCurrentServerPlacement> tabListCurrentServerPlacement;
   public static IntValue chatAlertPitch;
   public static EnumValue<ChatAlertSound> chatAlertSound;
-  public static BooleanValue dontRunResidenceCollector;
 
   static {
     ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder()
@@ -38,8 +37,6 @@ public class ForgeConfig {
     builder.push("misc").comment("Miscellaneous Settings");
     darkVaultScreen = builder.comment("Dark vault screen (requires restart)")
             .define("darkVaultScreen", false);
-    dontRunResidenceCollector = builder.comment("Don't run residence collector")
-            .define("dontRunResidenceCollector", false);
     builder.pop();
     SPEC = builder.build();
   }
