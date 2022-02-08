@@ -44,9 +44,11 @@ dependencies {
     exclude group: "net.fabricmc"
   }
 
-  // modImplementation "curse.maven:voxel-225179:${rootProject.voxel_version}"
-  modImplementation "curse.maven:xmm-263420:${rootProject.xmm_version}"
-  modImplementation "curse.maven:xwm-317780:${rootProject.xwm_version}"
+  modImplementation files("voxelmap-1.18.1-1.10.20.jar")
+  modCompileOnly "curse.maven:xmm-263420:${rootProject.xmm_version}"
+  modCompileOnly "curse.maven:xwm-317780:${rootProject.xwm_version}"
+
+  modRuntimeOnly "maven.modrinth:lazydfu:0.1.2"
 
   common(project(path: ":common", configuration: "namedElements")) { transitive false }
   shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }

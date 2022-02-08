@@ -8,12 +8,13 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import java.util.List;
 import java.util.Set;
 
+import static dev.frydae.emcutils.fabric.EmpireMinecraftUtilitiesImpl.hasVoxelMap;
 import static dev.frydae.emcutils.fabric.EmpireMinecraftUtilitiesImpl.hasXaeroMap;
 
 public class EMCMixinPlugin implements IMixinConfigPlugin {
   @Override
   public boolean shouldApplyMixin(@NotNull String targetClassName, String mixinClassName) {
-    if (mixinClassName.contains("voxelMap")) return false; //return hasVoxelMap;
+    if (mixinClassName.contains("voxelMap")) return hasVoxelMap;
     if (mixinClassName.contains("xaero")) return hasXaeroMap;
     return true;
   }

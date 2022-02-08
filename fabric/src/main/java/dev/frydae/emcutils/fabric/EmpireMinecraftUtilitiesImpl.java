@@ -2,9 +2,11 @@ package dev.frydae.emcutils.fabric;
 
 import dev.architectury.registry.menu.MenuRegistry;
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
+import dev.frydae.emcutils.fabric.features.VoxelMapIntegration;
 import dev.frydae.emcutils.features.VaultScreen;
 import dev.frydae.emcutils.tasks.GetLocationTask;
 import dev.frydae.emcutils.tasks.Tasks;
+import dev.frydae.emcutils.utils.Util;
 import dev.frydae.emcutils.utils.fabric.FabricConfig;
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ClientModInitializer;
@@ -14,18 +16,22 @@ import static dev.frydae.emcutils.utils.Util.LOG;
 import static dev.frydae.emcutils.utils.Util.MODID;
 
 public class EmpireMinecraftUtilitiesImpl implements ClientModInitializer {
-  // public static final boolean hasVoxelMap = FabricLoader.getInstance().isModLoaded("voxelmap");
+  public static final boolean hasVoxelMap = FabricLoader.getInstance().isModLoaded("voxelmap");
   public static final boolean hasXaeroMap = FabricLoader.getInstance().isModLoaded("xaeroworldmap");
 
   @Override
   public void onInitializeClient() {
     MidnightConfig.init(MODID, FabricConfig.class);
 
-    EmpireMinecraftUtilities.initClient();
+    Util.runResidenceCollector();
+
+    VaultScreen.initStatic();
+
+    Util.getOnJoinCommandQueue();
 
     MenuRegistry.registerScreenFactory(VaultScreen.GENERIC_9X7.get(), VaultScreen::new);
 
-    // if (hasVoxelMap) LOG.info(MODID + " found VoxelMap - enabling integrations");
+    if (hasVoxelMap) LOG.info(MODID + " found VoxelMap - enabling integrations");
     if (hasXaeroMap) LOG.info(MODID + " found Xaero's World Map - enabling integrations");
 
     LOG.info("Initialized " + MODID);
@@ -34,7 +40,7 @@ public class EmpireMinecraftUtilitiesImpl implements ClientModInitializer {
   public static void onPostJoinEmpireMinecraft() {
     EmpireMinecraftUtilities.onPostJoinEmpireMinecraftCommon();
 
-    if (/*hasVoxelMap ||*/ hasXaeroMap) Tasks.runTasks(new GetLocationTask());
-    // if (hasVoxelMap) Tasks.runTasks(new VoxelMapIntegration());
+    if (hasVoxelMap || hasXaeroMap) Tasks.runTasks(new GetLocationTask());
+    if (hasVoxelMap) Tasks.runTasks(new VoxelMapIntegration());
   }
 }

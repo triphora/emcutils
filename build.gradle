@@ -38,7 +38,7 @@ allprojects {
   apply plugin: "architectury-plugin"
   apply plugin: "maven-publish"
 
-  group = "coffee.waffle"
+  group = "coffee.waffle.emcutils" // FIXME this is a hack, should use archiveBaseName
   archivesBaseName = "emcutils-${project.name}-${rootProject.mc_version}"
   version = mod_version + System.getenv().SNAPSHOT
 
@@ -66,6 +66,7 @@ allprojects {
     versionName = "${rootProject.release_title} (${loader.substring(0, 1).toUpperCase() + loader.substring(1)})"
     changelog = rootProject.changeLog
     uploadFile = project.file("build/libs/${rootProject.archivesBaseName}-${rootProject.version}.jar")
+    versionType = "beta"
     addGameVersion(mc_version)
     addLoader(loader)
   }

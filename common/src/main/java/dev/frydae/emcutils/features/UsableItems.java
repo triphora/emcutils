@@ -47,14 +47,14 @@ public class UsableItems {
       if (item.getNbt().get("display") != null) {
         String displayString = item.getNbt().get("display").toString();
 
-        JsonObject display = new JsonParser().parse(displayString).getAsJsonObject();
+        JsonObject display = JsonParser.parseString(displayString).getAsJsonObject();
         JsonArray originalLore = display.getAsJsonArray("OriginalLore");
 
         boolean usable = false;
 
         if (originalLore != null) {
           for (int i = 0; i < originalLore.size(); i++) {
-            JsonObject metaLine = new JsonParser().parse(originalLore.get(i).getAsString()).getAsJsonObject();
+            JsonObject metaLine = JsonParser.parseString(originalLore.get(i).getAsString()).getAsJsonObject();
 
             if (metaLine.has("extra")) {
               JsonElement extra = metaLine.getAsJsonArray("extra").get(0);
@@ -81,14 +81,14 @@ public class UsableItems {
       if (item.getNbt().get("display") != null) {
         String displayString = item.getNbt().get("display").toString();
 
-        JsonObject display = new JsonParser().parse(displayString).getAsJsonObject();
+        JsonObject display = JsonParser.parseString(displayString).getAsJsonObject();
         JsonArray originalLore = display.getAsJsonArray("OriginalLore");
 
         int useTimerLine = -1;
 
         if (originalLore != null) {
           for (int i = 0; i < originalLore.size(); i++) {
-            JsonObject metaLine = new JsonParser().parse(originalLore.get(i).getAsString()).getAsJsonObject();
+            JsonObject metaLine = JsonParser.parseString(originalLore.get(i).getAsString()).getAsJsonObject();
 
             if (metaLine.has("extra")) {
               JsonElement extra = metaLine.getAsJsonArray("extra").get(0);
@@ -102,7 +102,7 @@ public class UsableItems {
           }
 
           if (useTimerLine != -1) {
-            long time = new JsonParser().parse(originalLore.get(useTimerLine + 1).getAsString()).getAsJsonObject().getAsJsonArray("extra").get(0).getAsJsonObject().get("text").getAsLong();
+            long time = JsonParser.parseString(originalLore.get(useTimerLine + 1).getAsString()).getAsJsonObject().getAsJsonArray("extra").get(0).getAsJsonObject().get("text").getAsLong();
 
             return Math.max(0, (time - System.currentTimeMillis()) / 1000L);
           }

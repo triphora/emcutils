@@ -130,7 +130,7 @@ public enum EmpireServer {
       str = str.replace("&#39;", "'").replace("<\\/h3>", "::");
       str = str.replace("<br \\/>", "::");
 
-      JsonObject object = new JsonParser().parse(str).getAsJsonObject()
+      JsonObject object = JsonParser.parseString(str).getAsJsonObject()
               .getAsJsonObject("sets")
               .getAsJsonObject("empire.residences")
               .getAsJsonObject("areas");

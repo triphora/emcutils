@@ -18,3 +18,4 @@ detonatedmods/
 generated/
 .architectury-transformer/
 credentials.properties
+*.jar

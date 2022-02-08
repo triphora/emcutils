@@ -18,8 +18,6 @@ public class EmpireMinecraftUtilities {
   private static boolean online = false;
 
   public static void initClient() {
-    Util.runResidenceCollector();
-
     VaultScreen.initStatic();
 
     Util.getOnJoinCommandQueue();

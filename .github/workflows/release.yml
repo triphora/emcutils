@@ -10,7 +10,10 @@ jobs:
         with:
           distribution: adopt
           java-version: 17
-      - run: "./gradlew build :forge:modrinth :fabric:modrinth --no-daemon"
+      - run: "./gradlew build :forge:modrinth :fabric:modrinth publish --no-daemon"
         env:
+          MAVEN_URL: "https://maven.frydae.dev/releases"
+          MAVEN_USER: ${{ secrets.MAVEN_USER }}
+          MAVEN_PASS: ${{ secrets.MAVEN_PASS }}
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
           SNAPSHOT: ""
