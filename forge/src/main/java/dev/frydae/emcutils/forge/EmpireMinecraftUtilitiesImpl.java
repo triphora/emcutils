@@ -10,7 +10,6 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import static dev.frydae.emcutils.utils.Util.LOG;
@@ -21,7 +20,7 @@ public class EmpireMinecraftUtilitiesImpl {
   public EmpireMinecraftUtilitiesImpl() {
     EventBuses.registerModEventBus(MODID, FMLJavaModLoadingContext.get().getModEventBus());
 
-    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ForgeConfig.SPEC);
+    //ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ForgeConfig.SPEC);
 
     DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> EmpireMinecraftUtilities::initClient);
 
