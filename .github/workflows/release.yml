@@ -10,6 +10,8 @@ jobs:
         with:
           distribution: adopt
           java-version: 17
+      - working-directory: fabric/
+        run: curl -o voxelmap-1.18.1-1.10.20.jar https://cdn.discordapp.com/attachments/931521967385878559/932560873543835689/voxelmap-1.18.1-1.10.20.jar
       - run: "./gradlew build :forge:modrinth :fabric:modrinth publish --no-daemon"
         env:
           MAVEN_URL: "https://maven.frydae.dev/releases"
