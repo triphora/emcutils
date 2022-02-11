@@ -6,8 +6,8 @@ import dev.frydae.emcutils.utils.Config.TabListCurrentServerPlacement;
 import dev.frydae.emcutils.utils.Config.TabListSortType;
 
 public class ConfigImpl {
-  public static boolean darkVaultScreen() {
-    return ForgeConfig.darkVaultScreen.get();
+  public static boolean chatButtonsEnabled() {
+    return ForgeConfig.chatButtonsEnabled.get();
   }
 
   public static boolean tabListShowAllServers() {

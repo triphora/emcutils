@@ -1,7 +1,7 @@
 plugins {
   id "architectury-plugin" version "3.4.+"
   id "dev.architectury.loom" version "0.11.0.+" apply false
-  id "com.modrinth.minotaur" version "1.2.+"
+  id "com.modrinth.minotaur" version "1.2.+" apply false
   id "io.github.juuxel.loom-quiltflower" version "1.+" apply false
 }
 
@@ -13,6 +13,7 @@ subprojects {
   apply plugin: "dev.architectury.loom"
   apply from: rootProject.file("setupAuth.gradle")
   apply plugin: "io.github.juuxel.loom-quiltflower"
+  apply plugin: "com.modrinth.minotaur"
 
   repositories {
     maven {
@@ -54,22 +55,6 @@ allprojects {
   java { withSourcesJar() }
 
   jar { from "LICENSE" }
-
-  //noinspection UnnecessaryQualifiedReference
-  task modrinth(type: com.modrinth.minotaur.TaskModrinthUpload) {
-    final String loader = project.name
-    onlyIf { System.getenv().MODRINTH_TOKEN }
-    detectLoaders = false
-    token = System.getenv().MODRINTH_TOKEN
-    projectId = "QYTT62S0"
-    versionNumber = mod_version + "+" + loader
-    versionName = "${rootProject.release_title} (${loader.substring(0, 1).toUpperCase() + loader.substring(1)})"
-    changelog = rootProject.changeLog
-    uploadFile = project.file("build/libs/${rootProject.archivesBaseName}-${rootProject.version}.jar")
-    versionType = "beta"
-    addGameVersion(mc_version)
-    addLoader(loader)
-  }
 
   publishing {
     repositories {

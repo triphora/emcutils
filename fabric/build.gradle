@@ -37,7 +37,7 @@ dependencies {
     exclude group: "net.fabricmc"
   }
 
-  modRuntimeOnly "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_version}"
+  modImplementation "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_version}"
 
   modApi("dev.architectury:architectury-fabric:${rootProject.architectury_version}") {
     exclude group: "net.fabricmc.fabric-api"
@@ -87,6 +87,20 @@ components.java {
   withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
     skip()
   }
+}
+
+//noinspection UnnecessaryQualifiedReference
+task modrinth(type: com.modrinth.minotaur.TaskModrinthUpload) {
+  onlyIf { System.getenv().MODRINTH_TOKEN }
+  token = System.getenv().MODRINTH_TOKEN
+  projectId = "QYTT62S0"
+  versionNumber = mod_version + "+fabric"
+  versionName = rootProject.release_title + " (Fabric)"
+  changelog = rootProject.changeLog
+  uploadFile = remapJar
+  versionType = "beta"
+  addGameVersion(mc_version)
+  addLoader("fabric")
 }
 
 publishing {

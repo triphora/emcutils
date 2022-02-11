@@ -6,7 +6,7 @@ import dev.frydae.emcutils.utils.Config.TabListSortType;
 import eu.midnightdust.lib.config.MidnightConfig;
 
 public class FabricConfig extends MidnightConfig {
-  @Entry public static boolean darkVaultScreen = false;
+  @Entry public static boolean chatButtonsEnabled = true;
   @Entry public static boolean tabListShowAllServers = true;
   @Entry public static TabListSortType tabListSortType = TabListSortType.SERVER_ASCENDING;
   @Entry public static TabListCurrentServerPlacement tabListCurrentServerPlacement = TabListCurrentServerPlacement.TOP;

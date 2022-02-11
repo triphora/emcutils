@@ -76,6 +76,20 @@ components.java {
   }
 }
 
+//noinspection UnnecessaryQualifiedReference
+task modrinth(type: com.modrinth.minotaur.TaskModrinthUpload) {
+  onlyIf { System.getenv().MODRINTH_TOKEN }
+  token = System.getenv().MODRINTH_TOKEN
+  projectId = "QYTT62S0"
+  versionNumber = mod_version + "+forge"
+  versionName = rootProject.release_title + " (Forge)"
+  changelog = rootProject.changeLog
+  uploadFile = remapJar
+  versionType = "beta"
+  addGameVersion(mc_version)
+  addLoader("forge")
+}
+
 publishing {
   publications {
     mavenJavaForge(MavenPublication) {

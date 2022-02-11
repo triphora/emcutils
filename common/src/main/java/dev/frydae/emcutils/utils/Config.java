@@ -10,7 +10,7 @@ import net.minecraft.sound.SoundEvents;
 @SuppressWarnings("unused")
 public class Config {
   @ExpectPlatform
-  public static boolean darkVaultScreen() {
+  public static boolean chatButtonsEnabled() {
     throw new AssertionError("ExpectPlatform didn't apply!");
   }
 

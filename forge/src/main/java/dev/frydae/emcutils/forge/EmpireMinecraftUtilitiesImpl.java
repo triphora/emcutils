@@ -16,6 +16,12 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import static dev.frydae.emcutils.utils.Util.LOG;
 import static dev.frydae.emcutils.utils.Util.MODID;
 
@@ -27,6 +33,8 @@ public class EmpireMinecraftUtilitiesImpl {
 
     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ForgeConfig.SPEC);
 
+    movePacks("vt-dark-vault");
+
     DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> EmpireMinecraftUtilities::initClient);
 
     ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () ->
@@ -37,6 +45,25 @@ public class EmpireMinecraftUtilitiesImpl {
 
   public static void onPostJoinEmpireMinecraft() {
     EmpireMinecraftUtilities.onPostJoinEmpireMinecraftCommon();
+  }
+
+  private static void movePacks(String... packs) {
+    try {
+      Files.createDirectories(Paths.get("resourcepacks"));
+    } catch (FileAlreadyExistsException ignored) {
+    } catch (IOException e) {
+      LOG.warn("Could not create resource packs folder");
+      return;
+    }
+
+    for (String pack : packs) {
+      try (InputStream packZip = EmpireMinecraftUtilitiesImpl.class.getResourceAsStream("/resourcepacks/" + pack + ".zip")) {
+        Files.copy(packZip, Paths.get("resourcepacks/" + pack + ".zip")); // This works in prod but not dev
+      } catch (FileAlreadyExistsException ignored) {
+      } catch (IOException | NullPointerException e) {
+        e.printStackTrace();
+      }
+    }
   }
 
   @SubscribeEvent

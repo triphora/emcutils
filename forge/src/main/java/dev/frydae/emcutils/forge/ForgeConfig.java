@@ -10,7 +10,7 @@ import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 
 public class ForgeConfig {
   public static final ForgeConfigSpec SPEC;
-  public static BooleanValue darkVaultScreen;
+  public static BooleanValue chatButtonsEnabled;
   public static BooleanValue tabListShowAllServers;
   public static EnumValue<TabListSortType> tabListSortType;
   public static EnumValue<TabListCurrentServerPlacement> tabListCurrentServerPlacement;
@@ -36,8 +36,8 @@ public class ForgeConfig {
             .defineEnum("chatAlertSound", ChatAlertSound.LEVEL_UP);
     builder.pop();
     builder.push("misc").comment("Miscellaneous Settings");
-    darkVaultScreen = builder.comment("Dark vault screen (requires restart)")
-            .define("darkVaultScreen", false);
+    chatButtonsEnabled = builder.comment("Whether chat buttons are enabled")
+            .define("chatButtonsEnabled", true);
     dontRunResidenceCollector = builder.comment("Don't run residence collector")
             .define("dontRunResidenceCollector", false);
     builder.pop();
