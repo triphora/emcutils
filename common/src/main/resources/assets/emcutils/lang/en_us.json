@@ -1,6 +1,6 @@
 {
   "emcutils.midnightconfig.title": "Empire Minecraft Utilities Config",
-  "emcutils.midnightconfig.darkVaultScreen": "Dark vault screen (requires restart)",
+  "emcutils.midnightconfig.chatButtonsEnabled": "Whether chat buttons are enabled",
   "emcutils.midnightconfig.tabListShowAllServers": "Show all servers in the Player Tab List",
   "emcutils.midnightconfig.tabListSortType": "How to sort players",
   "emcutils.midnightconfig.enum.TabListSortType.NAME_ASCENDING": "Players A to Z",
