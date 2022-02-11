@@ -33,7 +33,7 @@ public class EmpireMinecraftUtilitiesImpl {
 
     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ForgeConfig.SPEC);
 
-    movePacks("vt-dark-vault");
+    movePacks("vt-dark-vault", "dark-ui-vault");
 
     DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> EmpireMinecraftUtilities::initClient);
 
