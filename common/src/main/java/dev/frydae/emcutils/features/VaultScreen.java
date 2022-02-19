@@ -9,7 +9,6 @@ import dev.architectury.registry.registries.RegistrySupplier;
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.interfaces.ScreenAccessor;
 import dev.frydae.emcutils.mixins.HandledScreenAccessor;
-import dev.frydae.emcutils.utils.Config;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.ScreenHandlerProvider;

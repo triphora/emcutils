@@ -15,6 +15,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -49,7 +50,7 @@ public class EmpireMinecraftUtilitiesImpl {
 
   private static void movePacks(String... packs) {
     try {
-      Files.createDirectories(Paths.get("resourcepacks"));
+      Files.createDirectories(Paths.get(FMLPaths.GAMEDIR + "/resourcepacks"));
     } catch (FileAlreadyExistsException ignored) {
     } catch (IOException e) {
       LOG.warn("Could not create resource packs folder");
