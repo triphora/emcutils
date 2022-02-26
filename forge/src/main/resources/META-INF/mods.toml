@@ -5,7 +5,7 @@ license = "MIT"
 
 [[mods]]
 modId = "emcutils"
-version = "${version}"
+version = "${version}+forge"
 displayName = "Empire Minecraft Utilities"
 authors = [
     "MrFrydae",
@@ -17,6 +17,7 @@ description = '''
 A collection of various utilities for the Empire Minecraft server.
 '''
 logoFile = "icon.png"
+updateJSONURL = "https://api.modrinth.com/updates/emcutils/forge_updates.json"
 
 [[dependencies.emcutils]]
 modId = "forge"
