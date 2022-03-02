@@ -171,8 +171,8 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
   }
 
   @Override
-  public void onClose() {
-    if (shouldCallClose) super.onClose();
+  public void close() {
+    if (shouldCallClose) super.close();
     else shouldCallClose = true;
   }
 }

@@ -44,7 +44,7 @@ dependencies {
     exclude group: "net.fabricmc"
   }
 
-  modImplementation files("voxelmap-1.18.1-1.10.20.jar")
+  modImplementation files("voxelmap-1.18.2-1.11.1.jar")
   modCompileOnly "curse.maven:xmm-263420:${rootProject.xmm_version}"
   modCompileOnly "curse.maven:xwm-317780:${rootProject.xwm_version}"
 
@@ -89,18 +89,14 @@ components.java {
   }
 }
 
-//noinspection UnnecessaryQualifiedReference
-task modrinth(type: com.modrinth.minotaur.TaskModrinthUpload) {
-  onlyIf { System.getenv().MODRINTH_TOKEN }
-  token = System.getenv().MODRINTH_TOKEN
+modrinth {
   projectId = "QYTT62S0"
-  versionNumber = mod_version + "+fabric"
+  versionNumber = rootProject.mod_version + "+fabric"
   versionName = rootProject.release_title + " (Fabric)"
   changelog = rootProject.changeLog
   uploadFile = remapJar
-  versionType = "beta"
-  addGameVersion(mc_version)
-  addLoader("fabric")
+  gameVersions = ["1.18.2"]
+  loaders = ["fabric"]
 }
 
 publishing {

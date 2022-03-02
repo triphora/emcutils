@@ -19,3 +19,4 @@ generated/
 .architectury-transformer/
 credentials.properties
 *.jar
+!gradle/wrapper/gradle-wrapper.jar
