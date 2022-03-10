@@ -14,6 +14,6 @@ public abstract class ConnectScreenMixin {
   @Inject(method = "connect(Lnet/minecraft/client/MinecraftClient;Lnet/minecraft/client/network/ServerAddress;)V", at = @At(value = "HEAD"))
   public void onConnect(MinecraftClient client, ServerAddress address, CallbackInfo ci) {
     Util.setServerAddress(String.valueOf(address));
-    Util.isOnEMC = address.getAddress().matches(".*.emc.gs?.");
+    Util.isOnEMC = address.getAddress().matches("(.*\\.)?(emc\\.gs|empire\\.us|empireminecraft\\.com)");
   }
 }

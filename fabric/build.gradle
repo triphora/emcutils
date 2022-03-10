@@ -89,6 +89,7 @@ components.java {
   }
 }
 
+import com.modrinth.minotaur.dependencies.ModDependency
 modrinth {
   projectId = "QYTT62S0"
   versionNumber = rootProject.mod_version + "+fabric"
@@ -97,6 +98,11 @@ modrinth {
   uploadFile = remapJar
   gameVersions = ["1.18.2"]
   loaders = ["fabric"]
+  dependencies = [
+          new ModDependency("P7dR8mSH", "required"), // FAPI
+          new ModDependency("codAaoxh", "required"), // MidnightLib
+          new ModDependency("mOgUt4GM", "optional"), // Mod Menu
+  ]
 }
 
 publishing {
