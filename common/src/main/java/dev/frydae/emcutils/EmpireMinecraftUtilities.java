@@ -1,9 +1,9 @@
 package dev.frydae.emcutils;
 
 import dev.architectury.registry.registries.Registries;
+import dev.frydae.emcutils.events.ServerJoiningEvents;
 import dev.frydae.emcutils.features.UsableItems;
 import dev.frydae.emcutils.features.VaultScreen;
-import dev.frydae.emcutils.interfaces.ServerJoiningEvents;
 import dev.frydae.emcutils.listeners.ChatListener;
 import dev.frydae.emcutils.listeners.CommandListener;
 import dev.frydae.emcutils.tasks.GetChatAlertPitchTask;

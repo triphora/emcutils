@@ -1,6 +1,6 @@
 package dev.frydae.emcutils.xaero;
 
-import dev.frydae.emcutils.interfaces.ServerJoiningEvents;
+import dev.frydae.emcutils.events.ServerJoiningEvents;
 import dev.frydae.emcutils.tasks.GetLocationTask;
 import dev.frydae.emcutils.tasks.Tasks;
 import net.fabricmc.api.ClientModInitializer;

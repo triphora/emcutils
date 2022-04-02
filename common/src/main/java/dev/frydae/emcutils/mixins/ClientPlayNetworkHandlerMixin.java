@@ -2,8 +2,8 @@ package dev.frydae.emcutils.mixins;
 
 import dev.architectury.event.events.client.ClientTickEvent;
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
+import dev.frydae.emcutils.events.ChatCallback;
 import dev.frydae.emcutils.features.VaultScreen;
-import dev.frydae.emcutils.interfaces.ChatCallback;
 import dev.frydae.emcutils.utils.Util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;

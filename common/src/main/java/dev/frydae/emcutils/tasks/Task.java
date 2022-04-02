@@ -1,4 +1,4 @@
-package dev.frydae.emcutils.interfaces;
+package dev.frydae.emcutils.tasks;
 
 public interface Task {
   void execute();

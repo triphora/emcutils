@@ -1,7 +1,7 @@
 package dev.frydae.emcutils.voxel;
 
 import com.mamiyaotaru.voxelmap.VoxelMap;
-import dev.frydae.emcutils.interfaces.Task;
+import dev.frydae.emcutils.tasks.Task;
 import dev.frydae.emcutils.utils.Util;
 
 public class VoxelMapIntegration implements Task {

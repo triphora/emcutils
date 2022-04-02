@@ -1,4 +1,4 @@
-package dev.frydae.emcutils.interfaces;
+package dev.frydae.emcutils.utils;
 
 import net.minecraft.text.Text;
 

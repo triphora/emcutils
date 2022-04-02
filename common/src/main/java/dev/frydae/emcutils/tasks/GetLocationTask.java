@@ -1,6 +1,5 @@
 package dev.frydae.emcutils.tasks;
 
-import dev.frydae.emcutils.interfaces.Task;
 import dev.frydae.emcutils.listeners.ChatListener;
 import net.minecraft.client.MinecraftClient;
 

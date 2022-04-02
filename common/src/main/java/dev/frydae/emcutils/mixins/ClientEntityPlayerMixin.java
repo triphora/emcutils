@@ -1,8 +1,8 @@
 package dev.frydae.emcutils.mixins;
 
 import com.google.common.collect.Lists;
-import dev.frydae.emcutils.interfaces.ChatCallback;
-import dev.frydae.emcutils.interfaces.CommandCallback;
+import dev.frydae.emcutils.events.ChatCallback;
+import dev.frydae.emcutils.events.CommandCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.ActionResult;

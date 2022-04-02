@@ -1,7 +1,5 @@
 package dev.frydae.emcutils.tasks;
 
-import dev.frydae.emcutils.interfaces.Task;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

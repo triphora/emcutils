@@ -1,6 +1,5 @@
-package dev.frydae.emcutils.interfaces;
+package dev.frydae.emcutils.events;
 
-import dev.frydae.emcutils.event.Event;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;

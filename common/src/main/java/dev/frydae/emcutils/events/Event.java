@@ -1,4 +1,4 @@
-package dev.frydae.emcutils.event;
+package dev.frydae.emcutils.events;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;

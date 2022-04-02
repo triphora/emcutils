@@ -1,6 +1,5 @@
-package dev.frydae.emcutils.interfaces;
+package dev.frydae.emcutils.events;
 
-import dev.frydae.emcutils.event.Event;
 import org.jetbrains.annotations.ApiStatus;
 
 @ApiStatus.Internal
