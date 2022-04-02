@@ -15,7 +15,6 @@ subprojects {
   apply plugin: "com.modrinth.minotaur"
 
   repositories {
-    mavenLocal()
     maven {
       url "https://api.modrinth.com/maven"
       content { includeGroup "maven.modrinth" }
