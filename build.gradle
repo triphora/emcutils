@@ -19,6 +19,14 @@ subprojects {
       url "https://api.modrinth.com/maven"
       content { includeGroup "maven.modrinth" }
     }
+    maven {
+      url "https://maven.terraformersmc.com"
+      content { includeGroup "com.terraformersmc" }
+    }
+    maven {
+      url "https://cursemaven.com"
+      content { includeGroup "curse.maven" }
+    }
   }
 
   dependencies {

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "emcutils-voxel-compat",
+  "version": "${version}",
+  "name": "Empire Minecraft Utilities VoxelMap Compatibility",
+  "description": "VoxelMap compatibility for Empire Minecraft Utilities",
+  "authors": [
+    "MrFrydae",
+    "wafflecoffee"
+  ],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.frydae.emcutils.voxel.EmpireMinecraftUtilitiesVoxel"
+    ]
+  },
+  "mixins": [
+    "emcutils-voxel.mixins.json"
+  ],
+  "custom": {
+    "modmenu": {
+      "parent": "emcutils"
+    }
+  },
+  "depends": {
+    "voxelmap": ">=1.11.1",
+    "emcutils": ">=3.0.0"
+  }
+}

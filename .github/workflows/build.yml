@@ -18,6 +18,6 @@ jobs:
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/gradle-wrapper.properties') }}
           restore-keys: ${{ runner.os }}-gradle
-      - working-directory: fabric/
+      - working-directory: voxel/
         run: curl -o voxelmap-1.18.2-1.11.1.jar https://cdn.discordapp.com/attachments/931521967385878559/947927139330715668/voxelmap-1.18.2-1.11.1.jar
       - run: ./gradlew build --no-daemon

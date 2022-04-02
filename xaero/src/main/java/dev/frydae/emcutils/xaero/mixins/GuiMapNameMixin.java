@@ -1,4 +1,4 @@
-package dev.frydae.emcutils.fabric.mixins.xaero;
+package dev.frydae.emcutils.xaero.mixins;
 
 public abstract class GuiMapNameMixin {}
 /*

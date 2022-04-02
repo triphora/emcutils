@@ -1,9 +1,9 @@
 package dev.frydae.emcutils;
 
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import dev.architectury.registry.registries.Registries;
 import dev.frydae.emcutils.features.UsableItems;
 import dev.frydae.emcutils.features.VaultScreen;
+import dev.frydae.emcutils.interfaces.ServerJoiningEvents;
 import dev.frydae.emcutils.listeners.ChatListener;
 import dev.frydae.emcutils.listeners.CommandListener;
 import dev.frydae.emcutils.tasks.GetChatAlertPitchTask;
@@ -34,17 +34,14 @@ public class EmpireMinecraftUtilities {
     }
   }
 
-  public static void onPostJoinEmpireMinecraftCommon() {
+  public static void onPostJoinEmpireMinecraft() {
     if (Util.getInstance().isShouldRunTasks()) {
       Tasks.runTasks(
               new GetChatAlertPitchTask(),
               new GetChatAlertSoundTask(),
               () -> Util.getInstance().setShouldRunTasks(false));
     }
-  }
 
-  @ExpectPlatform
-  public static void onPostJoinEmpireMinecraft() {
-    throw new AssertionError("ExpectPlatform didn't apply!");
+    ServerJoiningEvents.POST_JOIN_EMC_EVENT.invoker().afterJoiningEMC();
   }
 }

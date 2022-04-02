@@ -1,0 +1,15 @@
+dependencies {
+  modCompileOnly "curse.maven:xmm-263420:${rootProject.xmm_version}"
+  modCompileOnly "curse.maven:xwm-317780:${rootProject.xwm_version}"
+
+  api project(":common")
+  api project(":fabric")
+}
+
+processResources {
+  inputs.property "version", rootProject.mod_version
+
+  filesMatching("fabric.mod.json") {
+    expand "version": rootProject.mod_version
+  }
+}

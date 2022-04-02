@@ -26,8 +26,7 @@
     ]
   },
   "mixins": [
-    "emcutils-common.mixins.json",
-    "emcutils-fabric.mixins.json"
+    "emcutils-common.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.12.12",
@@ -36,8 +35,6 @@
     "minecraft": ">=1.18.1"
   },
   "suggests": {
-    "modmenu": ">=3.0.1",
-    "xaeroworldmap": ">=1.20.1",
-    "xaerominimap": ">=22.1.2"
+    "modmenu": ">=3.0.1"
   }
 }

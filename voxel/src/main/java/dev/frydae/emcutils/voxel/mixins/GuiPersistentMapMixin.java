@@ -1,4 +1,4 @@
-package dev.frydae.emcutils.fabric.mixins.voxelMap;
+package dev.frydae.emcutils.voxel.mixins;
 
 import com.mamiyaotaru.voxelmap.gui.overridden.Popup;
 import com.mamiyaotaru.voxelmap.persistent.GuiPersistentMap;

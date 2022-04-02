@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.frydae.emcutils.voxel.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "client": [
+    "GuiPersistentMapMixin",
+    "GuiWaypointsMixin",
+    "VoxelMapMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

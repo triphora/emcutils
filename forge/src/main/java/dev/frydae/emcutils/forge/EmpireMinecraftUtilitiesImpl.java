@@ -44,10 +44,6 @@ public class EmpireMinecraftUtilitiesImpl {
     LOG.info("Initialized " + MODID);
   }
 
-  public static void onPostJoinEmpireMinecraft() {
-    EmpireMinecraftUtilities.onPostJoinEmpireMinecraftCommon();
-  }
-
   private static void movePacks(String... packs) {
     try {
       Files.createDirectories(Paths.get(FMLPaths.GAMEDIR + "/resourcepacks"));
