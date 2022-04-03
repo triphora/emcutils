@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "emcutils-jm-compat",
+  "version": "${version}",
+  "name": "Empire Minecraft Utilities JourneyMap Compatibility",
+  "description": "JourneyMap compatibility for Empire Minecraft Utilities",
+  "authors": [
+    "wafflecoffee"
+  ],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "journeymap": [
+      "dev.frydae.emcutils.journey.EmpireMinecraftUtilitiesJourney"
+    ]
+  },
+  "custom": {
+    "modmenu": {
+      "parent": "emcutils"
+    }
+  },
+  "depends": {
+    "journeymap-fabric": "*",
+    "emcutils": ">=3.0.0"
+  }
+}

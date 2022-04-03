@@ -9,8 +9,8 @@ import lombok.Setter;
 import lombok.SneakyThrows;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.PlayerListEntry;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -22,7 +22,7 @@ import java.util.stream.IntStream;
 
 public class Util {
   public static final String MODID = "emcutils";
-  public static final Logger LOG = LogManager.getLogger(MODID);
+  public static final Logger LOG = LoggerFactory.getLogger(MODID);
   public static boolean isOnEMC = false;
   @Getter public static String world;
   public static boolean hideFeatureMessages;

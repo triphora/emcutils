@@ -25,3 +25,5 @@ include 'fabric'
 include 'forge'
 include 'voxel'
 include 'xaero'
+include 'journey'
+

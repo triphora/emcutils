@@ -15,6 +15,7 @@ subprojects {
   apply plugin: "com.modrinth.minotaur"
 
   repositories {
+    mavenLocal()
     maven {
       url "https://api.modrinth.com/maven"
       content { includeGroup "maven.modrinth" }
@@ -31,7 +32,9 @@ subprojects {
 
   dependencies {
     minecraft "com.mojang:minecraft:${rootProject.mc_version}"
-    mappings "net.fabricmc:yarn:${rootProject.mc_version}+build.${rootProject.yarn_mappings}:v2"
+    if (project.name != "journey") {
+      mappings "net.fabricmc:yarn:${rootProject.mc_version}+build.${rootProject.yarn_mappings}:v2"
+    }
 
     if (project.name != "forge") {
       modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"

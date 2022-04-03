@@ -1,0 +1,24 @@
+repositories {
+  maven {
+    url "https://jm.gserv.me/repository/maven-public/"
+  }
+}
+
+loom.silentMojangMappingsLicense()
+
+dependencies {
+  mappings loom.officialMojangMappings()
+  modCompileOnlyApi "info.journeymap:journeymap-api:${project.jm_api_version}"
+  modRuntimeOnly "curse.maven:jm-32274:${project.jm_version}"
+
+  api project(":common")
+  api project(":fabric")
+}
+
+processResources {
+  inputs.property "version", rootProject.mod_version
+
+  filesMatching("fabric.mod.json") {
+    expand "version": rootProject.mod_version
+  }
+}
