@@ -33,6 +33,7 @@ dependencies {
     exclude group: "net.fabricmc"
   }
 
+  include project(":journey")
   include project(":voxel")
   include project(":xaero")
 
@@ -91,7 +92,9 @@ modrinth {
           new ModDependency("codAaoxh", "required"), // MidnightLib
           new ModDependency("mOgUt4GM", "optional"), // Mod Menu
   ]
+  syncBodyFrom = rootProject.file("README.md").text
 }
+tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
 
 publishing {
   publications {
