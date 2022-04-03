@@ -25,7 +25,7 @@ public class Util {
   public static final Logger LOG = LoggerFactory.getLogger(MODID);
   public static boolean isOnEMC = false;
   @Getter public static String world;
-  public static boolean hideFeatureMessages;
+  @Setter public static boolean hideFeatureMessages;
   @Getter @Setter private static String serverAddress;
   @Getter private static EmpireServer currentServer;
   private static Queue<String> onJoinCommandQueue;
@@ -96,10 +96,6 @@ public class Util {
     }
 
     return singleton;
-  }
-
-  public void setHideFeatureMessages(boolean hide) {
-    hideFeatureMessages = hide;
   }
 
   public static void runResidenceCollector() {

@@ -6,9 +6,7 @@ import com.google.gson.JsonParser;
 import dev.frydae.emcutils.utils.Util;
 import lombok.Getter;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Position;
-import net.minecraft.util.math.Vec3d;
 
 import java.io.BufferedReader;
 import java.io.IOException;

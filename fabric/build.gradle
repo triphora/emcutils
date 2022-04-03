@@ -92,7 +92,9 @@ modrinth {
           new ModDependency("codAaoxh", "required"), // MidnightLib
           new ModDependency("mOgUt4GM", "optional"), // Mod Menu
   ]
+  syncBodyFrom = rootProject.file("README.md").text
 }
+tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
 
 publishing {
   publications {

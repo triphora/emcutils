@@ -1,11 +1,16 @@
 package dev.frydae.emcutils.journey;
 
+import dev.frydae.emcutils.containers.EmpireResidence;
 import dev.frydae.emcutils.utils.Util;
 import journeymap.client.api.IClientAPI;
 import journeymap.client.api.IClientPlugin;
 import journeymap.client.api.display.Context;
+import journeymap.client.api.display.ModPopupMenu;
 import journeymap.client.api.event.ClientEvent;
 import journeymap.client.api.event.fabric.FabricEvents;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Position;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
@@ -34,11 +39,27 @@ public class EmpireMinecraftUtilitiesJourney implements IClientPlugin {
     return MODID;
   }
 
+  @SuppressWarnings("deprecation")
   @Override
   public void onEvent(@NotNull final ClientEvent event) {
     if (event.type.equals(MAPPING_STARTED) && Util.isOnEMC) {
       // Disable cave maps on EMC
       api.toggleDisplay(null, Context.MapType.Underground, Context.UI.Any, false);
+
+      // Set world names on EMC
+      api.setWorldId(Util.getCurrentServer().getName().toLowerCase());
+    }
+  }
+
+  private static class TeleportToResidenceAction implements ModPopupMenu.Action {
+    @Override
+    public void doAction(final @NotNull BlockPos blockPos) {
+      if (Util.isOnEMC) {
+        EmpireResidence res = Util.getCurrentServer().getResidenceByLoc((Position) blockPos);
+        if (res != null) {
+          MinecraftClient.getInstance().player.sendChatMessage(res.getVisitCommand());
+        }
+      }
     }
   }
 }

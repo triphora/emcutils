@@ -19,9 +19,9 @@ Architectury API is the only required dependency (download for [Fabric](https://
 * Easier viewing of usable Custom Items such as [Pot of Gold](https://wiki.emc.gs/pot-of-gold) or [EMC Peppermint](https://wiki.emc.gs/emc-peppermint)
 * Customizable tab list sorting
 * Vault buttons
-* Integration with VoxelMap and Xaero's World Map/Minimap
+* Integration with JourneyMap, VoxelMap, and Xaero's World Map/Minimap
   * Clicking on a residence will teleport you to that residence
-  * Automatic world detection and map confirmation/creation (Voxel only)
+  * Automatic world detection and map confirmation/creation (not available on Xaero's)
 * And more to come :)
 
 ## Disclaimer

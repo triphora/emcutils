@@ -20,7 +20,7 @@
     }
   },
   "depends": {
-    "journeymap-fabric": "*",
+    "journeymap-fabric": ">=5.8.1beta3",
     "emcutils": ">=3.0.0"
   }
 }
