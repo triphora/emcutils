@@ -22,7 +22,7 @@ public class EmpireResidence {
 
     int[] x = IntStream.range(0, 4).map(i -> object.getAsJsonArray("x").get(i).getAsInt()).toArray();
     int[] z = IntStream.range(0, 4).map(i -> object.getAsJsonArray("z").get(i).getAsInt()).toArray();
-    // TODO test from this point on
+
     this.northWestCorner = new BlockPos(Util.getMinValue(x), 64, Util.getMinValue(z));
     this.southEastCorner = new BlockPos(Util.getMaxValue(x), 64, Util.getMaxValue(z));
 

@@ -6,7 +6,7 @@ import com.google.gson.JsonParser;
 import dev.frydae.emcutils.utils.Util;
 import lombok.Getter;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.util.math.Position;
+import net.minecraft.util.math.Vec3d;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -38,7 +38,6 @@ public enum EmpireServer {
   @Getter private final char tabListDisplay;
   @Getter private final String command;
   @Getter private final List<EmpireResidence> residences;
-  private static boolean didConnectionFail;
 
   EmpireServer(int id, String name, int tabListRank, char tabListDisplay) {
     this.id = id;
@@ -95,7 +94,7 @@ public enum EmpireServer {
     }
   }
 
-  public EmpireResidence getResidenceByLoc(Position pos) {
+  public EmpireResidence getResidenceByLoc(Vec3d pos) {
     for (EmpireResidence residence : residences) {
       if (pos.getX() <= residence.getSouthEastCorner().getX() && pos.getX() >= residence.getNorthWestCorner().getX()) {
         if (pos.getZ() <= residence.getSouthEastCorner().getZ() && pos.getZ() >= residence.getNorthWestCorner().getZ()) {
@@ -136,11 +135,9 @@ public enum EmpireServer {
               .getAsJsonObject("areas");
 
       object.entrySet().forEach(e -> residences.add(new EmpireResidence(this, e.getValue().getAsJsonObject())));
-    } catch (IOException ioException) {
-      didConnectionFail = true;
+      LOG.info("Loaded Residences for: " + name.toLowerCase());
+    } catch (IOException e) {
+      LOG.info("Residence collector for " + name.toLowerCase() + " failed; you may find the 'Don't run residence collector' option to be useful. This option will prevent the residence collector from running at all, which, on very slow connections, will help prevent requests which will fail anyway.");
     }
-
-    if (didConnectionFail) LOG.info("Residence collector for " + name.toLowerCase() + " failed; you may find the 'Don't run residence collector' option to be useful. This option will prevent the residence collector from running at all, which, on very slow connections, will help prevent requests which will fail anyway.");
-    else LOG.info("Loaded Residences for: " + name.toLowerCase());
   }
 }

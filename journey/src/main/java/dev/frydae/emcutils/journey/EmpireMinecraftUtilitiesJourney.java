@@ -10,7 +10,7 @@ import journeymap.client.api.event.ClientEvent;
 import journeymap.client.api.event.fabric.FabricEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Position;
+import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
@@ -53,9 +53,9 @@ public class EmpireMinecraftUtilitiesJourney implements IClientPlugin {
 
   private static class TeleportToResidenceAction implements ModPopupMenu.Action {
     @Override
-    public void doAction(final @NotNull BlockPos blockPos) {
+    public void doAction(final @NotNull BlockPos pos) {
       if (Util.isOnEMC) {
-        EmpireResidence res = Util.getCurrentServer().getResidenceByLoc((Position) blockPos);
+        EmpireResidence res = Util.getCurrentServer().getResidenceByLoc(new Vec3d(pos.getX(), pos.getY(), pos.getZ()));
         if (res != null) {
           MinecraftClient.getInstance().player.sendChatMessage(res.getVisitCommand());
         }
