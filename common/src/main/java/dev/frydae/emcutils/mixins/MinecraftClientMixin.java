@@ -3,7 +3,7 @@ package dev.frydae.emcutils.mixins;
 import dev.frydae.emcutils.features.VaultScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.option.KeyBind;
 import net.minecraft.client.util.Window;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
@@ -33,7 +33,7 @@ public abstract class MinecraftClientMixin {
 
     mc.currentScreen = screen;
     mc.mouse.unlockCursor();
-    KeyBinding.unpressAll();
+    KeyBind.unpressAll();
     screen.init(mc, window.getScaledWidth(), window.getScaledHeight());
     mc.skipGameRender = false;
 

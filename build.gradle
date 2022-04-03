@@ -2,7 +2,8 @@ plugins {
   id "architectury-plugin" version "3.4.+"
   id "dev.architectury.loom" version "0.11.0.+" apply false
   id "com.modrinth.minotaur" version "2.+" apply false
-  id "io.github.juuxel.loom-quiltflower" version "1.+" apply false
+  id "org.quiltmc.quilt-mappings-on-loom" version "4.+"
+  //id "io.github.juuxel.loom-quiltflower" version "1.+" apply false
 }
 
 architectury {
@@ -11,7 +12,7 @@ architectury {
 
 subprojects {
   apply plugin: "dev.architectury.loom"
-  apply plugin: "io.github.juuxel.loom-quiltflower"
+  //apply plugin: "io.github.juuxel.loom-quiltflower"
   apply plugin: "com.modrinth.minotaur"
 
   repositories {
@@ -32,9 +33,9 @@ subprojects {
 
   dependencies {
     minecraft "com.mojang:minecraft:${rootProject.mc_version}"
-    if (project.name != "journey") {
-      mappings "net.fabricmc:yarn:${rootProject.mc_version}+build.${rootProject.yarn_mappings}:v2"
-    }
+    mappings(loom.layered {
+      it.addLayer(quiltMappings.mappings("org.quiltmc:quilt-mappings:${rootProject.mc_version}+build.21:v2"))
+    })
 
     if (project.name != "forge") {
       modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"

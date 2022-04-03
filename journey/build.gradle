@@ -1,13 +1,11 @@
 repositories {
+  mavenLocal()
   maven {
     url "https://jm.gserv.me/repository/maven-public/"
   }
 }
 
-loom.silentMojangMappingsLicense()
-
 dependencies {
-  mappings loom.officialMojangMappings()
   modCompileOnlyApi "info.journeymap:journeymap-api:${project.jm_api_version}"
   modRuntimeOnly "curse.maven:jm-32274:${project.jm_version}"
 

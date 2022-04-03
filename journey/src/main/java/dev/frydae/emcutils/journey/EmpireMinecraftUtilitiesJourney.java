@@ -23,6 +23,10 @@ public class EmpireMinecraftUtilitiesJourney implements IClientPlugin {
 
     // Turn off radars on EMC
     FabricEvents.ENTITY_RADAR_UPDATE_EVENT.register(event -> { if (Util.isOnEMC) event.setCanceled(true); });
+
+    // Add residence TP button
+    FabricEvents.FULLSCREEN_POPUP_MENU_EVENT.register(event ->
+            event.getPopupMenu().addMenuItem("Teleport to Residence", new TeleportToResidenceAction()));
   }
 
   @Override
