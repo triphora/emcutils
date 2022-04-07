@@ -52,7 +52,7 @@ allprojects {
 
   group = "coffee.waffle.emcutils" // FIXME this is a hack, should use archiveBaseName
   archivesBaseName = "emcutils-${project.name}-${rootProject.mc_version}"
-  version = mod_version + System.getenv().SNAPSHOT
+  version = rootProject.mod_version
 
   tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"

@@ -8,6 +8,7 @@ import journeymap.client.api.display.Context;
 import journeymap.client.api.display.ModPopupMenu;
 import journeymap.client.api.event.ClientEvent;
 import journeymap.client.api.event.fabric.FabricEvents;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -22,6 +23,10 @@ public class EmpireMinecraftUtilitiesJourney implements IClientPlugin {
   private IClientAPI api;
   @Override
   public void initialize(@NotNull final IClientAPI api) {
+    if (FabricLoader.getInstance().getModContainer("journeymap-fabric").get()
+            .getMetadata().getVersion().getFriendlyString().equals("5.8.1beta2"))
+      throw new UnsupportedOperationException("Invalid JM version! Update to 5.8.1beta3 or higher.");
+
     this.api = api;
 
     api.subscribe(getModId(), EnumSet.of(MAPPING_STARTED));
