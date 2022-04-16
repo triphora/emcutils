@@ -29,7 +29,8 @@ import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import static dev.frydae.emcutils.EmpireMinecraftUtilities.REGISTRIES;
-import static dev.frydae.emcutils.utils.Util.*;
+import static dev.frydae.emcutils.utils.Util.id;
+import static dev.frydae.emcutils.utils.Util.plural;
 import static net.minecraft.util.registry.Registry.MENU_KEY;
 
 @SuppressWarnings("SpellCheckingInspection")
@@ -100,7 +101,6 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
     for (int i = 1; i <= 4; i++) {
       if (vaultPage <= Config.totalVaultPages() - i) {
-        LOG.warn(Integer.toString(i));
         drawButton(matrices, getHead(i, true), mouseX, mouseY, slotOffsets[4 + i], (vaultPage + i) + "");
       }
     }
@@ -143,7 +143,6 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
     for (int i = 1; i <= 4; i++) {
       if (vaultPage <= Config.totalVaultPages() - i) {
-        LOG.warn(Integer.toString(i));
         handleClick(slotOffsets[4 + i], mouseX, mouseY, "/vault " + (vaultPage + i));
       }
     }
