@@ -17,12 +17,11 @@ import static dev.frydae.emcutils.utils.Util.plural;
 public class UsableItems {
   public UsableItems() {
     ClientTooltipEvent.ITEM.register((itemStack, list, tooltipContext) -> {
-      if (!Util.isOnEMC) return;
-      if (!isUsableItemWithCooldown(itemStack)) return;
+      if (!Util.isOnEMC || !isUsableItemWithCooldown(itemStack)) return;
 
       for (Text text : list) {
         if (text.getString().startsWith("Usable in: ") ||
-                text.getString().equalsIgnoreCase("Can be used now")) return;
+            text.getString().equalsIgnoreCase("Can be used now")) return;
       }
 
       list.add(LiteralText.EMPTY);
@@ -40,7 +39,7 @@ public class UsableItems {
   }
 
   private static boolean isUsableItemWithCooldown(ItemStack item) {
-    if ((item == null && item.getNbt() == null) || item.getNbt().get("display") == null) return false;
+    if (item == null || item.getNbt() == null || item.getNbt().get("display") == null) return false;
 
     String displayString = item.getNbt().get("display").toString();
 
