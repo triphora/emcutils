@@ -3,11 +3,9 @@ package dev.frydae.emcutils.features;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.blaze3d.systems.RenderSystem;
-import dev.architectury.registry.menu.MenuRegistry;
-import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrySupplier;
-import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.mixins.HandledScreenAccessor;
+import dev.frydae.emcutils.utils.Config;
 import dev.frydae.emcutils.utils.ScreenAccessor;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
@@ -28,23 +26,23 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import org.apache.commons.lang3.math.NumberUtils;
 
-import static dev.frydae.emcutils.utils.Util.MODID;
+import static dev.frydae.emcutils.EmpireMinecraftUtilities.REGISTRIES;
+import static dev.frydae.emcutils.utils.Util.*;
+import static net.minecraft.util.registry.Registry.MENU_KEY;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class VaultScreen extends HandledScreen<VaultScreenHandler> implements ScreenHandlerProvider<VaultScreenHandler> {
   public static final RegistrySupplier<ScreenHandlerType<VaultScreenHandler>> GENERIC_9X7;
-  private static final Identifier TEXTURE = new Identifier(MODID, "textures/gui/container/generic_63.png");
+  private static final Identifier TEXTURE = id("textures/gui/container/generic_63.png");
   private final int vaultPage;
   private final int[] slotOffsets = {8, 26, 44, 62, 80, 98, 116, 134, 152};
   private boolean shouldCallClose = true;
   private static final MinecraftClient client = MinecraftClient.getInstance();
 
   static {
-    Registrar<ScreenHandlerType<?>> screenHandlers = EmpireMinecraftUtilities.REGISTRIES.get(Registry.MENU_KEY);
-    GENERIC_9X7 = screenHandlers.register(new Identifier(MODID, "generic_9x7"), () -> MenuRegistry.of(VaultScreenHandler::createGeneric9x7));
+    GENERIC_9X7 = REGISTRIES.get(MENU_KEY).register(id("generic_9x7"), () -> new ScreenHandlerType<>(VaultScreenHandler::new));
   }
 
   public static void initStatic() {}
@@ -65,30 +63,19 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
   }
 
   /**
-   * @param amount the amount of pages to go back
-   * @return an {@link ItemStack player head} with a left arrow
+   * @param amount the amount of pages to move
+   * @param positive whether the amount of pages
+   * @return a {@link ItemStack player head} with a left or right arrow
    */
-  private ItemStack getPreviousHead(int amount) {
+  private ItemStack getHead(int amount, boolean positive) {
     ItemStack stack = Items.PLAYER_HEAD.getDefaultStack();
+    String head = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUv" + (positive ?
+            "ZTNmYzUyMjY0ZDhhZDllNjU0ZjQxNWJlZjAxYTIzOTQ3ZWRiY2NjY2Y2NDkzNzMyODliZWE0ZDE0OTU0MWY3MC" :
+            "NWYxMzNlOTE5MTlkYjBhY2VmZGMyNzJkNjdmZDg3YjRiZTg4ZGM0NGE5NTg5NTg4MjQ0NzRlMjFlMDZkNTNlNi") + "J9fX0=";
 
-    stack.setCustomName(new LiteralText("Go back " + amount + " page" + (amount > 1 ? "s" : "")).setStyle(Style.EMPTY.withColor(TextColor.fromFormatting(Formatting.GREEN)).withItalic(false)));
-
+    stack.setCustomName(formattedText(String.format("Go %s %s page%s", positive ? "forward" : "back", amount, plural(amount))));
     GameProfile profile = new GameProfile(null, "MrFrydae");
-    profile.getProperties().put("textures", new Property("Value", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWYxMzNlOTE5MTlkYjBhY2VmZGMyNzJkNjdmZDg3YjRiZTg4ZGM0NGE5NTg5NTg4MjQ0NzRlMjFlMDZkNTNlNiJ9fX0="));
-
-    assert stack.getNbt() != null;
-    stack.getNbt().put("SkullOwner", NbtHelper.writeGameProfile(new NbtCompound(), profile));
-
-    return stack;
-  }
-
-  private ItemStack getNextHead(int amount) {
-    ItemStack stack = Items.PLAYER_HEAD.getDefaultStack();
-
-    stack.setCustomName(new LiteralText("Go forward " + amount + " page" + (amount > 1 ? "s" : "")).setStyle(Style.EMPTY.withColor(TextColor.fromFormatting(Formatting.GREEN)).withItalic(false)));
-
-    GameProfile profile = new GameProfile(null, "MrFrydae");
-    profile.getProperties().put("textures", new Property("Value", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTNmYzUyMjY0ZDhhZDllNjU0ZjQxNWJlZjAxYTIzOTQ3ZWRiY2NjY2Y2NDkzNzMyODliZWE0ZDE0OTU0MWY3MCJ9fX0="));
+    profile.getProperties().put("textures", new Property("Value", head));
 
     assert stack.getNbt() != null;
     stack.getNbt().put("SkullOwner", NbtHelper.writeGameProfile(new NbtCompound(), profile));
@@ -103,16 +90,19 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
     for (int i = 4; i > 0; i--) {
       if (vaultPage > i) {
-        drawButton(matrices, getPreviousHead(i), mouseX, mouseY, slotOffsets[4 - i], (vaultPage - i) + "");
+        drawButton(matrices, getHead(i, false), mouseX, mouseY, slotOffsets[4 - i], (vaultPage - i) + "");
       }
     }
 
     ItemStack chest = Items.CHEST.getDefaultStack();
-    chest.setCustomName(new LiteralText("View your vaults").setStyle(Style.EMPTY.withColor(TextColor.fromFormatting(Formatting.GREEN)).withItalic(false)));
+    chest.setCustomName(formattedText("View your vaults"));
     drawButton(matrices, chest, mouseX, mouseY, slotOffsets[4], "");
 
     for (int i = 1; i <= 4; i++) {
-      drawButton(matrices, getNextHead(i), mouseX, mouseY, slotOffsets[4 + i], (vaultPage + i) + "");
+      if (vaultPage <= Config.totalVaultPages() - i) {
+        LOG.warn(Integer.toString(i));
+        drawButton(matrices, getHead(i, true), mouseX, mouseY, slotOffsets[4 + i], (vaultPage + i) + "");
+      }
     }
 
     this.drawMouseoverTooltip(matrices, mouseX, mouseY);
@@ -152,7 +142,10 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
     handleClick(slotOffsets[4], mouseX, mouseY, "/vaults");
 
     for (int i = 1; i <= 4; i++) {
-      handleClick(slotOffsets[4 + i], mouseX, mouseY, "/vault " + (vaultPage + i));
+      if (vaultPage <= Config.totalVaultPages() - i) {
+        LOG.warn(Integer.toString(i));
+        handleClick(slotOffsets[4 + i], mouseX, mouseY, "/vault " + (vaultPage + i));
+      }
     }
 
     return super.mouseClicked(mouseX, mouseY, button);
@@ -174,5 +167,11 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
   public void onClose() {
     if (shouldCallClose) super.onClose();
     else shouldCallClose = true;
+  }
+
+  private LiteralText formattedText(String text) {
+    LiteralText literalText = new LiteralText(text);
+    literalText.setStyle(Style.EMPTY.withColor(TextColor.fromFormatting(Formatting.GREEN)).withItalic(false));
+    return literalText;
   }
 }

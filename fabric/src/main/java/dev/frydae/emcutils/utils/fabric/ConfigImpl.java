@@ -32,4 +32,8 @@ public class ConfigImpl {
   public static boolean dontRunResidenceCollector() {
     return FabricConfig.dontRunResidenceCollector;
   }
+  
+  public static int totalVaultPages() {
+    return FabricConfig.totalVaultPages;
+  }
 }

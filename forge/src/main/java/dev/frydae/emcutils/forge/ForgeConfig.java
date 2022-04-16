@@ -17,6 +17,7 @@ public class ForgeConfig {
   public static IntValue chatAlertPitch;
   public static EnumValue<ChatAlertSound> chatAlertSound;
   public static BooleanValue dontRunResidenceCollector;
+  public static IntValue totalVaultPages;
 
   static {
     ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder()
@@ -40,6 +41,8 @@ public class ForgeConfig {
             .define("chatButtonsEnabled", true);
     dontRunResidenceCollector = builder.comment("Don't run residence collector")
             .define("dontRunResidenceCollector", false);
+    totalVaultPages = builder.comment("Limit for vault page buttons")
+            .defineInRange("totalVaultPages", 255, 1, 255);
     builder.pop();
     SPEC = builder.build();
   }

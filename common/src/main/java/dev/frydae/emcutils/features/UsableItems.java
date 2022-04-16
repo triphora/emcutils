@@ -12,64 +12,55 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
+import static dev.frydae.emcutils.utils.Util.plural;
+
 public class UsableItems {
   public UsableItems() {
-    ClientTooltipEvent.ITEM.register(((itemStack, list, tooltipContext) -> {
-      if (Util.isOnEMC) {
-        if (isUsableItemWithCooldown(itemStack)) {
+    ClientTooltipEvent.ITEM.register((itemStack, list, tooltipContext) -> {
+      if (!Util.isOnEMC) return;
+      if (!isUsableItemWithCooldown(itemStack)) return;
 
-          for (Text text : list) {
-            if (text.getString().startsWith("Usable in: ")) {
-              return;
-            } else if (text.getString().equalsIgnoreCase("Can be used now")) {
-              return;
-            }
-          }
-
-          list.add(new LiteralText(""));
-
-          long untilUsable = getSecondsUntilUsable(itemStack);
-
-          if (untilUsable > 0) {
-            list.add(new LiteralText("Usable in: " + formatTime(untilUsable, 1)).formatted(Formatting.RED));
-          } else {
-            list.add(new LiteralText("Can be used now").formatted(Formatting.GREEN));
-          }
-
-          itemStack.getItem().appendTooltip(itemStack, MinecraftClient.getInstance().world, list, tooltipContext);
-        }
+      for (Text text : list) {
+        if (text.getString().startsWith("Usable in: ") ||
+                text.getString().equalsIgnoreCase("Can be used now")) return;
       }
-    }));
+
+      list.add(LiteralText.EMPTY);
+
+      long untilUsable = getSecondsUntilUsable(itemStack);
+
+      if (untilUsable > 0) {
+        list.add(new LiteralText("Usable in: " + formatTime(untilUsable, 1)).formatted(Formatting.RED));
+      } else {
+        list.add(new LiteralText("Can be used now").formatted(Formatting.GREEN));
+      }
+
+      itemStack.getItem().appendTooltip(itemStack, MinecraftClient.getInstance().world, list, tooltipContext);
+    });
   }
 
   private static boolean isUsableItemWithCooldown(ItemStack item) {
-    if (item != null && item.getNbt() != null) {
-      if (item.getNbt().get("display") != null) {
-        String displayString = item.getNbt().get("display").toString();
+    if ((item == null && item.getNbt() == null) || item.getNbt().get("display") == null) return false;
 
-        JsonObject display = JsonParser.parseString(displayString).getAsJsonObject();
-        JsonArray originalLore = display.getAsJsonArray("OriginalLore");
+    String displayString = item.getNbt().get("display").toString();
 
-        boolean usable = false;
+    JsonObject display = JsonParser.parseString(displayString).getAsJsonObject();
+    JsonArray originalLore = display.getAsJsonArray("OriginalLore");
 
-        if (originalLore != null) {
-          for (int i = 0; i < originalLore.size(); i++) {
-            JsonObject metaLine = JsonParser.parseString(originalLore.get(i).getAsString()).getAsJsonObject();
+    boolean usable = false;
 
-            if (metaLine.has("extra")) {
-              JsonElement extra = metaLine.getAsJsonArray("extra").get(0);
+    if (originalLore != null) {
+      for (int i = 0; i < originalLore.size(); i++) {
+        JsonObject metaLine = JsonParser.parseString(originalLore.get(i).getAsString()).getAsJsonObject();
 
-              String text = extra.getAsJsonObject().get("text").getAsString();
+        if (metaLine.has("extra")) {
+          JsonElement extra = metaLine.getAsJsonArray("extra").get(0);
 
-              if (text.equals("__usableItem")) {
-                usable = true;
-              }
+          String text = extra.getAsJsonObject().get("text").getAsString();
 
-              if (text.equals("useTimer") && usable) {
-                return true;
-              }
-            }
-          }
+          if (text.equals("__usableItem")) usable = true;
+
+          if (text.equals("useTimer") && usable) return true;
         }
       }
     }
@@ -77,51 +68,44 @@ public class UsableItems {
   }
 
   private static long getSecondsUntilUsable(ItemStack item) {
-    if (item != null && item.getNbt() != null) {
-      if (item.getNbt().get("display") != null) {
-        String displayString = item.getNbt().get("display").toString();
+    String displayString = item.getNbt().get("display").toString();
 
-        JsonObject display = JsonParser.parseString(displayString).getAsJsonObject();
-        JsonArray originalLore = display.getAsJsonArray("OriginalLore");
+    JsonObject display = JsonParser.parseString(displayString).getAsJsonObject();
+    JsonArray originalLore = display.getAsJsonArray("OriginalLore");
 
-        int useTimerLine = -1;
+    if (originalLore == null) return 0L;
 
-        if (originalLore != null) {
-          for (int i = 0; i < originalLore.size(); i++) {
-            JsonObject metaLine = JsonParser.parseString(originalLore.get(i).getAsString()).getAsJsonObject();
+    int useTimerLine = -1;
 
-            if (metaLine.has("extra")) {
-              JsonElement extra = metaLine.getAsJsonArray("extra").get(0);
+    for (int i = 0; i < originalLore.size(); i++) {
+      JsonObject metaLine = JsonParser.parseString(originalLore.get(i).getAsString()).getAsJsonObject();
 
-              String text = extra.getAsJsonObject().get("text").getAsString();
+      if (metaLine.has("extra")) {
+        JsonElement extra = metaLine.getAsJsonArray("extra").get(0);
 
-              if (text.equals("useTimer")) {
-                useTimerLine = i;
-              }
-            }
-          }
+        String text = extra.getAsJsonObject().get("text").getAsString();
 
-          if (useTimerLine != -1) {
-            long time = JsonParser.parseString(originalLore.get(useTimerLine + 1).getAsString()).getAsJsonObject().getAsJsonArray("extra").get(0).getAsJsonObject().get("text").getAsLong();
-
-            return Math.max(0, (time - System.currentTimeMillis()) / 1000L);
-          }
-        }
+        if (text.equals("useTimer")) useTimerLine = i;
       }
     }
 
-    return 0L;
+    if (useTimerLine == -1) return 0L;
+
+    long time = JsonParser.parseString(originalLore.get(useTimerLine + 1).getAsString())
+            .getAsJsonObject().getAsJsonArray("extra").get(0).getAsJsonObject().get("text").getAsLong();
+
+    return Math.max(0, (time - System.currentTimeMillis()) / 1000L);
   }
 
   public static String formatTime(long seconds, int depth) {
     if (seconds < 60) {
-      return seconds + " second" + (seconds > 1 ? "s" : "");
+      return seconds + " second" + plural(seconds);
     }
 
     if (seconds < 3600) {
       long count = (long) Math.ceil(seconds) / 60;
 
-      String res = count + " minute" + (count > 1 ? "s" : "");
+      String res = String.format("%s minute%s", count, plural(count));
 
       long remaining = seconds % 60;
 
@@ -130,9 +114,10 @@ public class UsableItems {
       }
       return res;
     }
+
     if (seconds < 86400) {
       long count = (long) Math.ceil(seconds) / 3600;
-      String res = count + " hour" + (count > 1 ? "s" : "");
+      String res = count + " hour" + plural(count);
 
       if (depth > 0) {
         return res + ", " + formatTime(seconds % 3600, --depth);
@@ -141,7 +126,7 @@ public class UsableItems {
       return res;
     }
     long count = (long) Math.ceil(seconds) / 86400;
-    String res = count + " day" + (count > 1 ? "s" : "");
+    String res = count + " day" + plural(count);
 
     if (depth > 0) {
       return res + ", " + formatTime(seconds % 86400, --depth);

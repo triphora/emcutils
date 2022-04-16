@@ -33,4 +33,8 @@ public class ConfigImpl {
   public static boolean dontRunResidenceCollector() {
     return ForgeConfig.dontRunResidenceCollector.get();
   }
+
+  public static int totalVaultPages() {
+    return ForgeConfig.totalVaultPages.get();
+  }
 }

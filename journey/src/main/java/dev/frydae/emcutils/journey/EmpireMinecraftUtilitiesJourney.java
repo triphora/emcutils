@@ -21,6 +21,8 @@ import static journeymap.client.api.event.ClientEvent.Type.MAPPING_STARTED;
 
 public class EmpireMinecraftUtilitiesJourney implements IClientPlugin {
   private IClientAPI api;
+  private static final MinecraftClient client = MinecraftClient.getInstance();
+
   @Override
   public void initialize(@NotNull final IClientAPI api) {
     if (FabricLoader.getInstance().getModContainer("journeymap-fabric").get()
@@ -47,7 +49,8 @@ public class EmpireMinecraftUtilitiesJourney implements IClientPlugin {
   @SuppressWarnings("deprecation")
   @Override
   public void onEvent(@NotNull final ClientEvent event) {
-    if (event.type.equals(MAPPING_STARTED) && Util.isOnEMC) {
+    var world = client.world.getRegistryKey().getValue().getPath();
+    if (event.type.equals(MAPPING_STARTED) && Util.isOnEMC && !(world.contains("nether"))) {
       // Disable cave maps on EMC
       api.toggleDisplay(null, Context.MapType.Underground, Context.UI.Any, false);
 

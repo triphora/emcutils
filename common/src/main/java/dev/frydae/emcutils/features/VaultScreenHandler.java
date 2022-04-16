@@ -6,22 +6,15 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
 
 public class VaultScreenHandler extends ScreenHandler {
-  private final Inventory inventory;
-  private final int rows;
+  private final Inventory inventory = new SimpleInventory(9 * 6);
+  private final int rows = 6;
 
-  public VaultScreenHandler(ScreenHandlerType<VaultScreenHandler> type, int syncId, PlayerInventory playerInventory, int rows) {
-    this(type, syncId, playerInventory, new SimpleInventory(9 * rows), rows);
-  }
-
-  public VaultScreenHandler(ScreenHandlerType<VaultScreenHandler> type, int syncId, PlayerInventory playerInventory, Inventory inventory, int rows) {
-    super(type, syncId);
+  VaultScreenHandler(int syncId, PlayerInventory playerInventory) {
+    super(VaultScreen.GENERIC_9X7.get(), syncId);
     checkSize(inventory, rows * 9);
-    this.inventory = inventory;
-    this.rows = rows;
     inventory.onOpen(playerInventory.player);
     int i = (6 - 3) * 18;
 
@@ -40,10 +33,6 @@ public class VaultScreenHandler extends ScreenHandler {
     for (int row = 0; row < 9; ++row) {
       this.addSlot(new Slot(playerInventory, row, 8 + row * 18, 161 + i));
     }
-  }
-
-  public static VaultScreenHandler createGeneric9x7(int syncId, PlayerInventory playerInventory) {
-    return new VaultScreenHandler(VaultScreen.GENERIC_9X7.get(), syncId, playerInventory, 6);
   }
 
   public boolean canUse(PlayerEntity player) {

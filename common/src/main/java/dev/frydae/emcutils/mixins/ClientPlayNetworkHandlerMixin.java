@@ -40,8 +40,6 @@ public abstract class ClientPlayNetworkHandlerMixin {
   @Inject(at = @At("TAIL"), method = "onGameJoin")
   public void onGameJoin(GameJoinS2CPacket packet, CallbackInfo info) {
     if (Util.isOnEMC) {
-      Util.world = packet.dimensionId().getValue().getPath();
-
       EmpireMinecraftUtilities.onJoinEmpireMinecraft();
 
       ClientTickEvent.CLIENT_LEVEL_POST.register(instance -> Util.executeJoinCommands());

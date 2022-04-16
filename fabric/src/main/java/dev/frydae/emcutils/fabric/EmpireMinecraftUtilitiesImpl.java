@@ -7,10 +7,10 @@ import dev.frydae.emcutils.utils.fabric.FabricConfig;
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.util.Identifier;
 
 import static dev.frydae.emcutils.utils.Util.LOG;
 import static dev.frydae.emcutils.utils.Util.MODID;
+import static dev.frydae.emcutils.utils.Util.id;
 import static net.fabricmc.fabric.api.resource.ResourceManagerHelper.registerBuiltinResourcePack;
 import static net.fabricmc.fabric.api.resource.ResourcePackActivationType.NORMAL;
 
@@ -34,9 +34,5 @@ public class EmpireMinecraftUtilitiesImpl implements ClientModInitializer {
     MenuRegistry.registerScreenFactory(VaultScreen.GENERIC_9X7.get(), VaultScreen::new);
 
     LOG.info("Initialized " + MODID);
-  }
-
-  private static Identifier id(String id) {
-    return new Identifier(MODID, id);
   }
 }

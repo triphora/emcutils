@@ -11,11 +11,3 @@ dependencies {
   api project(":common")
   api project(":fabric")
 }
-
-processResources {
-  inputs.property "version", rootProject.mod_version
-
-  filesMatching("fabric.mod.json") {
-    expand "version": rootProject.mod_version
-  }
-}

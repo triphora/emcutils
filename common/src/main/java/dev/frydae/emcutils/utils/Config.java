@@ -44,6 +44,11 @@ public class Config {
     throw new AssertionError("ExpectPlatform didn't apply!");
   }
 
+  @ExpectPlatform
+  public static int totalVaultPages() {
+    throw new AssertionError("ExpectPlatform didn't apply!");
+  }
+
   @AllArgsConstructor
   public enum TabListSortType {
     NAME_ASCENDING() {

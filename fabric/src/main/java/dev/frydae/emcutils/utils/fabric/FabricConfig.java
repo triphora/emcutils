@@ -13,4 +13,5 @@ public class FabricConfig extends MidnightConfig {
   @Entry(min = -15, max = 30) public static int chatAlertPitch = 0;
   @Entry public static ChatAlertSound chatAlertSound = ChatAlertSound.LEVEL_UP;
   @Entry public static boolean dontRunResidenceCollector = false;
+  @Entry(min = 1, max = 255) public static int totalVaultPages = 255;
 }

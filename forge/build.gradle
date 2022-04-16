@@ -3,6 +3,8 @@ plugins {
   id "com.github.johnrengelman.shadow" version "7.+"
 }
 
+apply plugin: "io.github.juuxel.loom-quiltflower"
+
 architectury {
   platformSetupLoomIde()
   forge()

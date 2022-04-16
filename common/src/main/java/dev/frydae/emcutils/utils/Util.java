@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.SneakyThrows;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.PlayerListEntry;
+import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +25,6 @@ public class Util {
   public static final String MODID = "emcutils";
   public static final Logger LOG = LoggerFactory.getLogger(MODID);
   public static boolean isOnEMC = false;
-  @Getter public static String world;
   @Setter public static boolean hideFeatureMessages;
   @Getter @Setter private static String serverAddress;
   @Getter private static EmpireServer currentServer;
@@ -106,5 +106,14 @@ public class Util {
     } else
       LOG.info(MODID + " is not going to run the residence collector - some features will not work as intended. " +
               "Disable 'Don't run residence collector' to get rid of this message.");
+  }
+
+  public static String plural(long count) {
+    if (count > 1) return "s";
+    return "";
+  }
+
+  public static Identifier id(String id) {
+    return new Identifier(MODID, id);
   }
 }

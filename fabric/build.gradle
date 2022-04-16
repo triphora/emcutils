@@ -43,14 +43,6 @@ dependencies {
   shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
 }
 
-processResources {
-  inputs.property "version", rootProject.mod_version
-
-  filesMatching("fabric.mod.json") {
-    expand "version": rootProject.mod_version
-  }
-}
-
 shadowJar {
   configurations = [project.configurations.shadowCommon]
   classifier "dev-shadow"
