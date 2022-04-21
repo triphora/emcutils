@@ -1,7 +1,6 @@
 dependencies {
-  modApi "dev.architectury:architectury:${rootProject.architectury_version}"
+  modImplementation libs.fabric.loader
+  modApi libs.architectury
 }
 
-architectury {
-  common()
-}
+architectury.common("fabric", "forge")

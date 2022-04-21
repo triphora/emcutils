@@ -1,28 +1,19 @@
 plugins {
-  id "architectury-plugin" version "3.4.+"
-  id "dev.architectury.loom" version "0.11.0.+" apply false
-  id "com.modrinth.minotaur" version "2.+" apply false
-  id "org.quiltmc.quilt-mappings-on-loom" version "4.+"
-  id "io.github.juuxel.loom-quiltflower" version "1.+" apply false
+  alias(libs.plugins.architectury.plugin)
+  alias(libs.plugins.architectury.loom) apply false
+  alias(libs.plugins.quilt.mappings.on.loom)
 }
 
-architectury {
-  minecraft = rootProject.mc_version
-}
+architectury.minecraft = libs.versions.minecraft.get()
 
 subprojects {
   apply plugin: "dev.architectury.loom"
-  apply plugin: "com.modrinth.minotaur"
 
   repositories {
     mavenLocal()
     maven {
       url "https://api.modrinth.com/maven"
       content { includeGroup "maven.modrinth" }
-    }
-    maven {
-      url "https://maven.terraformersmc.com"
-      content { includeGroup "com.terraformersmc" }
     }
     maven {
       url "https://cursemaven.com"
@@ -35,26 +26,16 @@ subprojects {
   }
 
   dependencies {
-    minecraft "com.mojang:minecraft:${rootProject.mc_version}"
-    mappings(loom.layered{it.addLayer(quiltMappings.mappings(
-            "org.quiltmc:quilt-mappings:${rootProject.mc_version}+build.${rootProject.quilt_mappings}:v2"
-    ))})
+    minecraft libs.minecraft
+    mappings loom.layered { addLayer quiltMappings.mappings(
+            "org.quiltmc:quilt-mappings:${libs.versions.minecraft.get()}+build.${libs.versions.quilt.mappings.get()}:v2"
+    )}
 
-    if (project.name != "forge") {
-      modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
-      if (project.name != "common") processResources {
-        inputs.property "version", rootProject.mod_version
-
-        filesMatching("fabric.mod.json") {
-          expand "version": rootProject.mod_version
-        }
-      }
-    }
-
-    implementation annotationProcessor("org.projectlombok:lombok:${rootProject.lombok_version}")
+    implementation libs.lombok
+    annotationProcessor libs.lombok
 
     // -Dmixin.debug.export=true
-    runtimeOnly "org.quiltmc:quiltflower:1.8.0"
+    runtimeOnly libs.quiltflower
   }
 }
 
@@ -64,7 +45,7 @@ allprojects {
   apply plugin: "maven-publish"
 
   group = "coffee.waffle.emcutils" // FIXME this is a hack, should use archiveBaseName
-  archivesBaseName = "emcutils-${project.name}-${rootProject.mc_version}"
+  archivesBaseName = "emcutils-${project.name}-${libs.versions.minecraft.get()}"
   version = rootProject.mod_version
 
   tasks.withType(JavaCompile) {
@@ -72,9 +53,9 @@ allprojects {
     options.release.set(17)
   }
 
-  java { withSourcesJar() }
+  java.withSourcesJar()
 
-  jar { from "LICENSE" }
+  jar.from "LICENSE"
 
   publishing {
     repositories {

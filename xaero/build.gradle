@@ -1,7 +1,5 @@
-dependencies {
-  modApi "curse.maven:xmm-263420:${rootProject.xmm_version}"
-  modApi "curse.maven:xwm-317780:${rootProject.xwm_version}"
+apply from: "../gradle/map-integrations.gradle"
 
-  api project(":common")
-  api project(":fabric")
+dependencies {
+  modApi libs.bundles.xaero
 }

@@ -1,0 +1,47 @@
+architectury.platformSetupLoomIde()
+
+configurations {
+  common
+  shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
+  compileClasspath.extendsFrom common
+  runtimeClasspath.extendsFrom common
+}
+
+dependencies {
+  common(project(path: ":common", configuration: "namedElements")) { transitive false }
+}
+
+shadowJar {
+  configurations = [project.configurations.shadowCommon]
+  classifier "dev-shadow"
+}
+
+remapJar {
+  inputFile.set shadowJar.archiveFile
+  dependsOn shadowJar
+  classifier null
+}
+
+jar.classifier "dev"
+
+sourcesJar {
+  def commonSources = project(":common").sourcesJar
+  dependsOn commonSources
+  from commonSources.archiveFile.map { zipTree(it) }
+}
+
+components.java {
+  withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+    skip()
+  }
+}
+
+modrinth {
+  projectId = "QYTT62S0"
+  versionNumber = "$rootProject.mod_version+$name"
+  versionName = "$rootProject.release_title (${name.substring(0, 1).toUpperCase()}${name.substring(1)})"
+  changelog = rootProject.changeLog
+  uploadFile = remapJar
+  gameVersions = [libs.versions.minecraft.get()]
+  loaders = [name]
+}

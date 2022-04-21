@@ -1,84 +1,39 @@
 //file:noinspection GroovyAssignabilityCheck
 plugins {
-  id "com.github.johnrengelman.shadow" version "7.+"
+  alias(libs.plugins.minotaur)
+  alias(libs.plugins.shadow)
+  alias(libs.plugins.loom.quiltflower)
 }
 
-architectury {
-  platformSetupLoomIde()
-  fabric()
-}
+apply from: "../gradle/fabric-and-forge.gradle"
+apply from: "../gradle/fmj.gradle"
+
+architectury.fabric()
 
 configurations {
-  common
-  shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
-  compileClasspath.extendsFrom common
-  runtimeClasspath.extendsFrom common
   developmentFabric.extendsFrom common
 }
 
 dependencies {
-  modImplementation "net.fabricmc:fabric-loader:${rootProject.loader_version}"
+  modImplementation libs.fabric.loader
+  modImplementation libs.fabric.api
 
-  modImplementation include("maven.modrinth:midnightlib:${rootProject.midnightlib_version}")
+  modImplementation libs.midnightlib
+  include libs.midnightlib
 
-  modImplementation("com.terraformersmc:modmenu:${rootProject.modmenu_version}") {
-    exclude group: "net.fabricmc.fabric-api"
-    exclude group: "net.fabricmc"
-  }
+  modRuntimeOnly(libs.bundles.fabric.runtime) { transitive false }
 
-  modImplementation "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_version}"
-
-  modApi("dev.architectury:architectury-fabric:${rootProject.architectury_version}") {
-    exclude group: "net.fabricmc.fabric-api"
-    exclude group: "net.fabricmc"
-  }
+  modApi(libs.architectury.fabric) { transitive false }
 
   include project(":journey")
   include project(":voxel")
   include project(":xaero")
 
-  modRuntimeOnly "maven.modrinth:lazydfu:0.1.2"
-
-  common(project(path: ":common", configuration: "namedElements")) { transitive false }
   shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
-}
-
-shadowJar {
-  configurations = [project.configurations.shadowCommon]
-  classifier "dev-shadow"
-}
-
-remapJar {
-  inputFile.set shadowJar.archiveFile
-  dependsOn shadowJar
-  classifier null
-}
-
-jar {
-  classifier "dev"
-}
-
-sourcesJar {
-  def commonSources = project(":common").sourcesJar
-  dependsOn commonSources
-  from commonSources.archiveFile.map { zipTree(it) }
-}
-
-components.java {
-  withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-    skip()
-  }
 }
 
 import com.modrinth.minotaur.dependencies.ModDependency
 modrinth {
-  projectId = "QYTT62S0"
-  versionNumber = rootProject.mod_version + "+fabric"
-  versionName = rootProject.release_title + " (Fabric)"
-  changelog = rootProject.changeLog
-  uploadFile = remapJar
-  gameVersions = ["1.18.2"]
-  loaders = ["fabric"]
   dependencies = [
           new ModDependency("P7dR8mSH", "required"), // FAPI
           new ModDependency("codAaoxh", "required"), // MidnightLib
@@ -88,10 +43,6 @@ modrinth {
 }
 tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
 
-publishing {
-  publications {
-    mavenJavaFabric(MavenPublication) {
-      from components.java
-    }
-  }
+publishing.publications {
+  mavenJavaFabric(MavenPublication) from components.java
 }

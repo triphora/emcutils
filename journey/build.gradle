@@ -1,3 +1,5 @@
+apply from: "../gradle/map-integrations.gradle"
+
 repositories {
   maven {
     url "https://jm.gserv.me/repository/maven-public/"
@@ -5,9 +7,6 @@ repositories {
 }
 
 dependencies {
-  modCompileOnlyApi "info.journeymap:journeymap-api:${project.jm_api_version}"
-  modRuntimeOnly "curse.maven:jm-32274:${project.jm_version}"
-
-  api project(":common")
-  api project(":fabric")
+  modCompileOnlyApi libs.journeymap.api
+  modRuntimeOnly libs.journeymap
 }

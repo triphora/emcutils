@@ -1,46 +1,26 @@
 //file:noinspection GroovyAssignabilityCheck
 plugins {
-  id "com.github.johnrengelman.shadow" version "7.+"
+  alias(libs.plugins.minotaur)
+  alias(libs.plugins.shadow)
 }
 
-apply plugin: "io.github.juuxel.loom-quiltflower"
+apply from: "../gradle/fabric-and-forge.gradle"
 
-architectury {
-  platformSetupLoomIde()
-  forge()
-}
-
-loom {
-  forge {
-    mixinConfig "emcutils-common.mixins.json"
-  }
-}
+architectury.forge()
+loom.forge.mixinConfig "emcutils-common.mixins.json"
 
 configurations {
-  common
-  shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
-  compileClasspath.extendsFrom common
-  runtimeClasspath.extendsFrom common
   developmentForge.extendsFrom common
 }
 
-repositories {
-  maven {
-    url "https://cursemaven.com"
-    content { includeGroup "curse.maven" }
-  }
-}
-
 dependencies {
-  forge "net.minecraftforge:forge:${rootProject.mc_version}-${rootProject.forge_version}"
+  forge libs.forge
 
-  modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
+  modApi libs.architectury.forge
 
-  modRuntimeOnly "curse.maven:configmenus-544048:${rootProject.config_menus_version}"
-  modRuntimeOnly "curse.maven:lazydfu-460819:3544496"
+  modRuntimeOnly libs.bundles.forge.runtime
 
-  common(project(path: ":common", configuration: "namedElements")) { transitive false }
-  shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
+  shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive false }
 }
 
 processResources {
@@ -51,47 +31,6 @@ processResources {
   }
 }
 
-shadowJar {
-  configurations = [project.configurations.shadowCommon]
-  classifier "dev-shadow"
-}
-
-remapJar {
-  inputFile.set shadowJar.archiveFile
-  dependsOn shadowJar
-  classifier null
-}
-
-jar {
-  classifier "dev"
-}
-
-sourcesJar {
-  def commonSources = project(":common").sourcesJar
-  dependsOn commonSources
-  from commonSources.archiveFile.map { zipTree(it) }
-}
-
-components.java {
-  withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-    skip()
-  }
-}
-
-modrinth {
-  projectId = "QYTT62S0"
-  versionNumber = rootProject.mod_version + "+forge"
-  versionName = rootProject.release_title + " (Forge)"
-  changelog = rootProject.changeLog
-  uploadFile = remapJar
-  gameVersions = ["1.18.2"]
-  loaders = ["forge"]
-}
-
-publishing {
-  publications {
-    mavenJavaForge(MavenPublication) {
-      from components.java
-    }
-  }
+publishing.publications {
+  mavenJavaForge(MavenPublication) from components.java
 }

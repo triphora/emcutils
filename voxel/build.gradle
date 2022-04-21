@@ -1,6 +1,5 @@
+apply from: "../gradle/map-integrations.gradle"
+
 dependencies {
   modApi files("voxelmap-1.18.2-1.11.1.jar")
-
-  api project(":common")
-  api project(":fabric")
 }

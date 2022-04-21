@@ -1,0 +1,81 @@
+[versions]
+# MC, loaders, and mappings
+minecraft = "1.18.2"
+fabric_loader = "0.13.3" # https://fabricmc.net/develop
+forge = "1.18.2-40.1.0"  # https://files.minecraftforge.net/
+quilt_mappings = "22"    # https://lambdaurora.dev/tools/import_quilt.html
+
+# Dependencies for all subprojects
+lombok = "1.18.22"    # https://mvnrepository.com/artifact/org.projectlombok/lombok
+quiltflower = "1.8.0" # https://maven.quiltmc.org/repository/release/org/quiltmc/quiltflower/
+
+# Architectury dependencies
+architectury = "4.2.50" # https://maven.shedaniel.me/dev/architectury/architectury/
+
+# Fabric subproject
+fabric_api = "0.50.0+1.18.2" # https://fabricmc.net/develop
+midnightlib = "0.4.0"        # https://modrinth.com/mod/midnightlib/versions
+lazydfu = "0.1.2"            # https://modrinth.com/mod/lazydfu
+modmenu = "3.1.1"            # https://modrinth.com/mod/modmenu/versions
+
+# Forge subproject
+config_menus = "3671318"  # https://www.curseforge.com/minecraft/mc-mods/config-menus-forge/files/all
+lazydfu_forge = "3544496" # https://www.curseforge.com/minecraft/mc-mods/lazy-dfu-forge/files/all
+
+# Journey subproject
+# https://jm.gserv.me/service/rest/repository/browse/maven-public/info/journeymap/journeymap-api/
+journeymap_api = "1.18.2-1.8-fabric-SNAPSHOT"
+journeymap = "3751300" # https://www.curseforge.com/minecraft/mc-mods/journeymap/files/all
+
+# Xaero subproject
+xaeros_minimap = "3738198"   # https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap/files/all
+xaeros_world_map = "3732799" # https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map/files/all
+
+[libraries]
+# MC, loaders, and mappings
+minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
+fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric_loader" }
+forge = { module = "net.minecraftforge:forge", version.ref = "forge" }
+quilt_mappings = { module = "org.quiltmc:quilt-mappings", version.ref = "quilt_mappings" }
+
+# Dependencies for all subprojects
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+quiltflower = { module = "org.quiltmc:quiltflower", version.ref = "quiltflower" }
+
+# Architectury dependencies
+architectury = { module = "dev.architectury:architectury", version.ref = "architectury" }
+architectury_fabric = { module = "dev.architectury:architectury-fabric", version.ref = "architectury" }
+architectury_forge = { module = "dev.architectury:architectury-forge", version.ref = "architectury" }
+
+# Fabric subproject
+fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric_api" }
+midnightlib = { module = "maven.modrinth:midnightlib", version.ref = "midnightlib" }
+lazydfu = { module = "maven.modrinth:lazydfu", version.ref = "lazydfu" }
+modmenu = { module = "maven.modrinth:modmenu", version.ref = "modmenu" }
+
+# Forge subproject
+config_menus = { module = "curse.maven:configmenus-544048", version.ref = "config_menus" }
+lazydfu_forge = { module = "curse.maven:lazydfu-460819", version.ref = "lazydfu_forge" }
+
+# Journey subproject
+journeymap_api = { module = "info.journeymap:journeymap-api", version.ref = "journeymap_api" }
+journeymap = { module = "curse.maven:jm-32274", version.ref = "journeymap" }
+
+# Xaero subproject
+xaeros_minimap = { module = "curse.maven:xmm-263420", version.ref = "xaeros_minimap" }
+xaeros_world_map = { module = "curse.maven:xwm-317780", version.ref = "xaeros_world_map" }
+
+[bundles]
+xaero = ["xaeros_minimap", "xaeros_world_map"]
+fabric_runtime = ["lazydfu", "modmenu"]
+forge_runtime = ["config_menus", "lazydfu_forge"]
+
+[plugins]
+architectury_plugin = { id = "architectury-plugin", version = "3.4.+" }
+architectury_loom = { id = "dev.architectury.loom", version = "0.11.0.+" }
+
+quilt_mappings_on_loom = { id = "org.quiltmc.quilt-mappings-on-loom", version = "4.+" }
+loom_quiltflower = { id = "io.github.juuxel.loom-quiltflower", version = "1.+" }
+
+minotaur = { id = "com.modrinth.minotaur", version = "2.+" }
+shadow = { id = "com.github.johnrengelman.shadow", version = "7.+" }
