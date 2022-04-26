@@ -77,5 +77,6 @@ architectury_loom = { id = "dev.architectury.loom", version = "0.11.0.+" }
 quilt_mappings_on_loom = { id = "org.quiltmc.quilt-mappings-on-loom", version = "4.+" }
 loom_quiltflower = { id = "io.github.juuxel.loom-quiltflower", version = "1.+" }
 
+machete = { id = "io.github.p03w.machete", version = "1.0.3" }
 minotaur = { id = "com.modrinth.minotaur", version = "2.+" }
 shadow = { id = "com.github.johnrengelman.shadow", version = "7.+" }
