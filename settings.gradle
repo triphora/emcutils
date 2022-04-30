@@ -1,5 +1,6 @@
 pluginManagement {
   repositories {
+    mavenLocal()
     maven {
       name = 'Quilt'
       url = 'https://maven.quiltmc.org/repository/release/'
@@ -25,8 +26,8 @@ pluginManagement {
 }
 
 include 'common'
-include 'fabric'
 include 'forge'
 include 'journey'
+include 'quilt'
 include 'voxel'
 include 'xaero'

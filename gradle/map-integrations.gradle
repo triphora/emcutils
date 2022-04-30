@@ -1,8 +1,9 @@
-apply from: "../gradle/fmj.gradle"
+apply from: "../gradle/qmj.gradle"
 
 dependencies {
-  modImplementation libs.fabric.loader
+  modImplementation libs.quilt.loader
+  modImplementation libs.qsl.base
 
   api project(":common")
-  api project(":fabric")
+  api project(":quilt")
 }

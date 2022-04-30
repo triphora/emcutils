@@ -5,18 +5,18 @@ plugins {
   alias(libs.plugins.loom.quiltflower)
 }
 
-apply from: "../gradle/fabric-and-forge.gradle"
-apply from: "../gradle/fmj.gradle"
+apply from: "../gradle/loader.gradle"
+apply from: "../gradle/qmj.gradle"
 
-architectury.fabric()
+architectury.loader("quilt")
 
 configurations {
-  developmentFabric.extendsFrom common
+  developmentQuilt.extendsFrom common
 }
 
 dependencies {
-  modImplementation libs.fabric.loader
-  modImplementation libs.fabric.api
+  modImplementation libs.quilt.loader
+  modImplementation libs.quilted.fabric.api
 
   modImplementation libs.midnightlib
   include libs.midnightlib
@@ -29,13 +29,13 @@ dependencies {
   include project(":voxel")
   include project(":xaero")
 
-  shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
+  shadowCommon(project(path: ":common", configuration: "transformProductionQuilt")) { transitive false }
 }
 
 import com.modrinth.minotaur.dependencies.ModDependency
 modrinth {
   dependencies = [
-          new ModDependency("P7dR8mSH", "required"), // FAPI
+          new ModDependency("qvIfYCYJ", "required"), // QFAPI
           new ModDependency("codAaoxh", "required"), // MidnightLib
           new ModDependency("mOgUt4GM", "optional"), // Mod Menu
   ]
@@ -44,5 +44,5 @@ modrinth {
 tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
 
 publishing.publications {
-  mavenJavaFabric(MavenPublication) from components.java
+  mavenQuilt(MavenPublication) from components.java
 }

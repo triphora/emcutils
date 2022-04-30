@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "quilt_loader": {
+    "group": "coffee.waffle",
+    "id": "emcutils",
+    "version": "${version}",
+    "metadata": {
+      "name": "Empire Minecraft Utilities",
+      "description": "A collection of various utilities for the Empire Minecraft server.",
+      "contributors": {
+        "wafflecoffee": "Owner",
+        "MrFrydae": "Former Owner",
+        "BlockHead_56": "Contributor",
+        "BasiqueEvangelist": "Contributor"
+      },
+      "contact": {
+        "homepage": "https://emc.gs/t/84930",
+        "sources": "https://github.com/wafflecoffee/Empire-Minecraft-Utilities",
+        "issues": "https://github.com/wafflecoffee/Empire-Minecraft-Utilities/issues"
+      },
+      "license": "MIT",
+      "icon": "assets/emcutils/icon.png"
+    },
+    "intermediate_mappings": "net.fabricmc:intermediary",
+    "entrypoints": {
+      "client_init": "dev.frydae.emcutils.quilt.EmpireMinecraftUtilitiesImpl"
+    },
+    "depends": [
+      {
+        "id": "architectury",
+        "versions": ">=3.5.12"
+      },
+      {
+        "id": "midnightlib",
+        "versions": ">=0.4.0"
+      },
+      {
+        "id": "minecraft",
+        "versions": ">=1.18.2"
+      },
+      {
+        "id": "modmenu",
+        "versions": ">=3.2.1",
+        "mandatory": false
+      }
+    ]
+  },
+  "minecraft": {
+    "environment": "client"
+  },
+  "mixin": "emcutils-common.mixins.json"
+}

@@ -1,6 +1,6 @@
 dependencies {
-  modImplementation libs.fabric.loader
+  modImplementation libs.quilt.loader
   modApi libs.architectury
 }
 
-architectury.common("fabric", "forge")
+architectury.common("quilt", "forge")

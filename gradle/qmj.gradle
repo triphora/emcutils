@@ -1,7 +1,7 @@
 processResources {
   inputs.property "version", rootProject.mod_version
 
-  filesMatching("fabric.mod.json") {
+  filesMatching("quilt.mod.json") {
     expand "version": rootProject.mod_version
   }
 }

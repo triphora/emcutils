@@ -6,34 +6,34 @@ import dev.frydae.emcutils.utils.Config.TabListSortType;
 
 public class ConfigImpl {
   public static boolean chatButtonsEnabled() {
-    return FabricConfig.chatButtonsEnabled;
+    return QuiltConfig.chatButtonsEnabled;
   }
 
   public static boolean tabListShowAllServers() {
-    return FabricConfig.tabListShowAllServers;
+    return QuiltConfig.tabListShowAllServers;
   }
 
   public static TabListSortType tabListSortType() {
-    return FabricConfig.tabListSortType;
+    return QuiltConfig.tabListSortType;
   }
 
   public static TabListCurrentServerPlacement tabListCurrentServerPlacement() {
-    return FabricConfig.tabListCurrentServerPlacement;
+    return QuiltConfig.tabListCurrentServerPlacement;
   }
 
   public static int chatAlertPitch() {
-    return FabricConfig.chatAlertPitch;
+    return QuiltConfig.chatAlertPitch;
   }
 
   public static ChatAlertSound chatAlertSound() {
-    return FabricConfig.chatAlertSound;
+    return QuiltConfig.chatAlertSound;
   }
 
   public static boolean dontRunResidenceCollector() {
-    return FabricConfig.dontRunResidenceCollector;
+    return QuiltConfig.dontRunResidenceCollector;
   }
   
   public static int totalVaultPages() {
-    return FabricConfig.totalVaultPages;
+    return QuiltConfig.totalVaultPages;
   }
 }

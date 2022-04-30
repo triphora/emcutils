@@ -4,7 +4,7 @@ plugins {
   alias(libs.plugins.shadow)
 }
 
-apply from: "../gradle/fabric-and-forge.gradle"
+apply from: "../gradle/loader.gradle"
 
 architectury.forge()
 loom.forge.mixinConfig "emcutils-common.mixins.json"

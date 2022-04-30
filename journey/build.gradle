@@ -7,6 +7,7 @@ repositories {
 }
 
 dependencies {
-  modCompileOnlyApi libs.journeymap.api
+  modCompileOnlyApi(libs.journeymap.api) { transitive false }
+  modCompileOnlyApi(fabricApi.module("fabric-api-base", "0.51.1+1.18.2"))
   modRuntimeOnly libs.journeymap
 }

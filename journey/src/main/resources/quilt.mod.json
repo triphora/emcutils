@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "quilt_loader": {
+    "group": "coffee.waffle",
+    "id": "emcutils-jm-compat",
+    "version": "${version}",
+    "metadata": {
+      "name": "Empire Minecraft Utilities JourneyMap Compatibility",
+      "description": "JourneyMap compatibility for Empire Minecraft Utilities",
+      "contributors": {
+        "wafflecoffee": "Owner"
+      },
+      "license": "MIT"
+    },
+    "load_type": "if_possible",
+    "intermediate_mappings": "net.fabricmc:intermediary",
+    "entrypoints": {
+      "journeymap": "dev.frydae.emcutils.journey.EmpireMinecraftUtilitiesJourney"
+    },
+    "depends": [
+      {
+        "id": "journeymap-fabric",
+        "versions": ">=5.8.2"
+      },
+      {
+        "id": "emcutils",
+        "versions": ">=${version}"
+      }
+    ]
+  },
+  "minecraft": {
+    "environment": "client"
+  },
+  "modmenu": {
+    "parent": "emcutils"
+  }
+}
