@@ -1,6 +1,6 @@
 package dev.frydae.emcutils.voxel;
 
-import dev.frydae.emcutils.events.ServerJoiningEvents;
+import dev.frydae.emcutils.events.ServerJoinCallback;
 import dev.frydae.emcutils.tasks.GetLocationTask;
 import dev.frydae.emcutils.tasks.Tasks;
 import org.quiltmc.loader.api.ModContainer;
@@ -13,7 +13,7 @@ public class EmpireMinecraftUtilitiesVoxel implements ClientModInitializer {
   @Override
   public void onInitializeClient(ModContainer mod) {
     LOG.info(MODID + " found VoxelMap - enabling integrations");
-    ServerJoiningEvents.POST_JOIN_EMC_EVENT.register(() ->
+    ServerJoinCallback.POST_JOIN_EMC.register(() ->
             Tasks.runTasks(new VoxelMapIntegration(), new GetLocationTask()));
   }
 }

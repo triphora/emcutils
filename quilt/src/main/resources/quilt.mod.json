@@ -48,5 +48,6 @@
   "minecraft": {
     "environment": "client"
   },
-  "mixin": "emcutils-common.mixins.json"
+  "mixin": "emcutils-common.mixins.json",
+  "access_widener": "emcutils.accesswidener"
 }

@@ -3,7 +3,6 @@ package dev.frydae.emcutils.features;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.blaze3d.systems.RenderSystem;
-import dev.architectury.registry.registries.RegistrySupplier;
 import dev.frydae.emcutils.mixins.HandledScreenAccessor;
 import dev.frydae.emcutils.utils.Config;
 import dev.frydae.emcutils.utils.ScreenAccessor;
@@ -28,25 +27,17 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.math.NumberUtils;
 
-import static dev.frydae.emcutils.EmpireMinecraftUtilities.REGISTRIES;
 import static dev.frydae.emcutils.utils.Util.id;
 import static dev.frydae.emcutils.utils.Util.plural;
-import static net.minecraft.util.registry.Registry.MENU_KEY;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class VaultScreen extends HandledScreen<VaultScreenHandler> implements ScreenHandlerProvider<VaultScreenHandler> {
-  public static final RegistrySupplier<ScreenHandlerType<VaultScreenHandler>> GENERIC_9X7;
+  public static final ScreenHandlerType<VaultScreenHandler> GENERIC_9X7 = new ScreenHandlerType<>(VaultScreenHandler::new);
   private static final Identifier TEXTURE = id("textures/gui/container/generic_63.png");
   private final int vaultPage;
   private final int[] slotOffsets = {8, 26, 44, 62, 80, 98, 116, 134, 152};
   private boolean shouldCallClose = true;
   private static final MinecraftClient client = MinecraftClient.getInstance();
-
-  static {
-    GENERIC_9X7 = REGISTRIES.get(MENU_KEY).register(id("generic_9x7"), () -> new ScreenHandlerType<>(VaultScreenHandler::new));
-  }
-
-  public static void initStatic() {}
 
   public VaultScreen(VaultScreenHandler handler, PlayerInventory inventory, Text title) {
     super(handler, inventory, title);

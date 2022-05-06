@@ -1,9 +1,7 @@
 package dev.frydae.emcutils;
 
-import dev.architectury.registry.registries.Registries;
-import dev.frydae.emcutils.events.ServerJoiningEvents;
+import dev.frydae.emcutils.events.ServerJoinCallback;
 import dev.frydae.emcutils.features.UsableItems;
-import dev.frydae.emcutils.features.VaultScreen;
 import dev.frydae.emcutils.listeners.ChatListener;
 import dev.frydae.emcutils.listeners.CommandListener;
 import dev.frydae.emcutils.tasks.GetChatAlertPitchTask;
@@ -11,17 +9,8 @@ import dev.frydae.emcutils.tasks.GetChatAlertSoundTask;
 import dev.frydae.emcutils.tasks.Tasks;
 import dev.frydae.emcutils.utils.Util;
 
-import static dev.frydae.emcutils.utils.Util.MODID;
-
 public class EmpireMinecraftUtilities {
-  public static final Registries REGISTRIES = Registries.get(MODID);
   private static boolean online = false;
-
-  public static void initClient() {
-    VaultScreen.initStatic();
-
-    Util.getOnJoinCommandQueue();
-  }
 
   @SuppressWarnings("InstantiationOfUtilityClass")
   public static void onJoinEmpireMinecraft() {
@@ -42,6 +31,6 @@ public class EmpireMinecraftUtilities {
               () -> Util.getInstance().setShouldRunTasks(false));
     }
 
-    ServerJoiningEvents.POST_JOIN_EMC_EVENT.invoker().afterJoiningEMC();
+    ServerJoinCallback.POST_JOIN_EMC.invoker().afterJoiningEMC();
   }
 }

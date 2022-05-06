@@ -1,8 +1,8 @@
 package dev.frydae.emcutils.mixins;
 
-import dev.architectury.event.events.client.ClientTickEvent;
 import dev.frydae.emcutils.EmpireMinecraftUtilities;
 import dev.frydae.emcutils.events.ChatCallback;
+import dev.frydae.emcutils.events.ServerJoinCallback;
 import dev.frydae.emcutils.features.VaultScreen;
 import dev.frydae.emcutils.utils.Util;
 import net.minecraft.client.MinecraftClient;
@@ -42,16 +42,14 @@ public abstract class ClientPlayNetworkHandlerMixin {
     if (Util.isOnEMC) {
       EmpireMinecraftUtilities.onJoinEmpireMinecraft();
 
-      ClientTickEvent.CLIENT_LEVEL_POST.register(instance -> Util.executeJoinCommands());
+      ServerJoinCallback.WORLD_LOADED.register(Util::executeJoinCommands);
     }
   }
 
   @Inject(at = @At("HEAD"), method = "onOpenScreen", cancellable = true)
   public void onOpenScreen(OpenScreenS2CPacket packet, CallbackInfo ci) {
-    if (Util.isOnEMC) {
-      if (!packet.getName().getString().startsWith("Page: ")) return;
-      if (packet.getScreenHandlerType() != ScreenHandlerType.GENERIC_9X6) return;
-      HandledScreens.open(VaultScreen.GENERIC_9X7.get(), MinecraftClient.getInstance(), packet.getSyncId(), packet.getName());
+    if (Util.isOnEMC && packet.getName().getString().startsWith("Page: ") && packet.getScreenHandlerType() == ScreenHandlerType.GENERIC_9X6) {
+      HandledScreens.open(VaultScreen.GENERIC_9X7, MinecraftClient.getInstance(), packet.getSyncId(), packet.getName());
       ci.cancel();
     }
   }

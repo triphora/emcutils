@@ -12,8 +12,8 @@ public class VaultScreenHandler extends ScreenHandler {
   private final Inventory inventory = new SimpleInventory(9 * 6);
   private final int rows = 6;
 
-  VaultScreenHandler(int syncId, PlayerInventory playerInventory) {
-    super(VaultScreen.GENERIC_9X7.get(), syncId);
+  public VaultScreenHandler(int syncId, PlayerInventory playerInventory) {
+    super(VaultScreen.GENERIC_9X7, syncId);
     checkSize(inventory, rows * 9);
     inventory.onOpen(playerInventory.player);
     int i = (6 - 3) * 18;

@@ -7,7 +7,14 @@ plugins {
 apply from: "../gradle/loader.gradle"
 
 architectury.forge()
-loom.forge.mixinConfig "emcutils-common.mixins.json"
+
+loom {
+  forge {
+    mixinConfig "emcutils-common.mixins.json"
+    convertAccessWideners.set true
+  }
+  accessWidenerPath.set project(":common").file("src/main/resources/emcutils.accesswidener")
+}
 
 configurations {
   developmentForge.extendsFrom common
@@ -15,8 +22,6 @@ configurations {
 
 dependencies {
   forge libs.forge
-
-  modApi libs.architectury.forge
 
   modRuntimeOnly libs.bundles.forge.runtime
 

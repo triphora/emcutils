@@ -10,6 +10,11 @@ apply from: "../gradle/qmj.gradle"
 
 architectury.loader("quilt")
 
+var commonAW = project(":common").file("src/main/resources/emcutils.accesswidener")
+var generatedResources = file("src/generated/resources")
+
+loom.accessWidenerPath.set(commonAW)
+
 configurations {
   developmentQuilt.extendsFrom common
 }
@@ -23,14 +28,27 @@ dependencies {
 
   modRuntimeOnly(libs.bundles.fabric.runtime) { transitive false }
 
-  modApi(libs.architectury.fabric) { transitive false }
-
   include project(":journey")
   include project(":voxel")
   include project(":xaero")
 
   shadowCommon(project(path: ":common", configuration: "transformProductionQuilt")) { transitive false }
 }
+
+sourceSets {
+  main {
+    resources {
+      srcDir generatedResources
+    }
+  }
+}
+
+task copyAW(type: Copy) {
+  from commonAW
+  into generatedResources
+}
+
+processResources.dependsOn copyAW
 
 import com.modrinth.minotaur.dependencies.ModDependency
 modrinth {

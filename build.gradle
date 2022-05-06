@@ -2,7 +2,7 @@ plugins {
   alias(libs.plugins.architectury.plugin)
   alias(libs.plugins.architectury.loom) apply false
   alias(libs.plugins.quilt.mappings.on.loom)
-  alias(libs.plugins.machete)
+//  alias(libs.plugins.machete)
 }
 
 architectury.minecraft = libs.versions.minecraft.get()
@@ -47,7 +47,7 @@ allprojects {
   apply plugin: "java"
   apply plugin: "architectury-plugin"
   apply plugin: "maven-publish"
-  apply plugin: "io.github.p03w.machete"
+//  apply plugin: "io.github.p03w.machete"
 
   group = "coffee.waffle.emcutils" // FIXME this is a hack, should use archiveBaseName
   archivesBaseName = "emcutils-${project.name}-${libs.versions.minecraft.get()}"
@@ -62,19 +62,15 @@ allprojects {
 
   jar.from "LICENSE"
 
-  publishing {
-    repositories {
-      maven {
-        url = System.getenv().MAVEN_URL
-        credentials {
-          username = System.getenv().MAVEN_USER
-          password = System.getenv().MAVEN_PASS
-        }
-        authentication {
-          //noinspection GroovyAssignabilityCheck
-          basic(BasicAuthentication)
-        }
-      }
+  publishing.repositories.maven {
+    url = System.getenv().MAVEN_URL
+    credentials {
+      username = System.getenv().MAVEN_USER
+      password = System.getenv().MAVEN_PASS
+    }
+    authentication {
+      //noinspection GroovyAssignabilityCheck
+      basic(BasicAuthentication)
     }
   }
 }

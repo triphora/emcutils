@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import dev.architectury.event.events.client.ClientTooltipEvent;
+import dev.frydae.emcutils.events.TooltipCallback;
 import dev.frydae.emcutils.utils.Util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
@@ -16,7 +16,7 @@ import static dev.frydae.emcutils.utils.Util.plural;
 
 public class UsableItems {
   public UsableItems() {
-    ClientTooltipEvent.ITEM.register((itemStack, list, tooltipContext) -> {
+    TooltipCallback.ITEM.register((itemStack, list, tooltipContext) -> {
       if (!Util.isOnEMC || !isUsableItemWithCooldown(itemStack)) return;
 
       for (Text text : list) {
