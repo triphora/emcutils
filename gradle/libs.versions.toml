@@ -30,7 +30,7 @@ journeymap = "3779278" # https://www.curseforge.com/minecraft/mc-mods/journeymap
 
 # Xaero subproject
 xaeros_minimap = "3778435"   # https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap/files/all
-xaeros_world_map = "3779543" # https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map/files/all
+xaeros_world_map = "3782705" # https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map/files/all
 
 [libraries]
 # MC, loaders, and mappings
@@ -68,7 +68,7 @@ xaeros_world_map = { module = "curse.maven:xwm-317780", version.ref = "xaeros_wo
 [bundles]
 xaero = ["xaeros_minimap", "xaeros_world_map"]
 fabric_runtime = ["lazydfu", "modmenu"]
-forge_runtime = ["config_menus", "lazydfu_forge"]
+forge_runtime = ["lazydfu_forge"]
 
 [plugins]
 architectury_plugin = { id = "architectury-plugin", version = "3.4.+" }

@@ -28,7 +28,7 @@ dependencies {
 
   include project(":journey")
   include project(":voxel")
-  include project(":xaero")
+//  include project(":xaero")
 }
 
 sourceSets.main.resources.srcDir generatedResources

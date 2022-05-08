@@ -17,7 +17,7 @@ subprojects {
       content { includeGroup "maven.modrinth" }
     }
     maven {
-      url "https://cursemaven.com"
+      url "https://cfa2.cursemaven.com"
       content { includeGroup "curse.maven" }
     }
     maven {
