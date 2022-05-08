@@ -1,8 +1,8 @@
 //file:noinspection GroovyAssignabilityCheck
 plugins {
-  alias(libs.plugins.minotaur)
-  alias(libs.plugins.shadow)
-  alias(libs.plugins.loom.quiltflower)
+  alias libs.plugins.minotaur
+  alias libs.plugins.shadow
+  alias libs.plugins.loom.quiltflower
 }
 
 apply from: "../gradle/loader.gradle"
@@ -10,10 +10,8 @@ apply from: "../gradle/qmj.gradle"
 
 architectury.loader("quilt")
 
-var commonAW = project(":common").file("src/main/resources/emcutils.accesswidener")
-var generatedResources = file("src/generated/resources")
-
-loom.accessWidenerPath.set(commonAW)
+File commonAW = project ":common" file "src/main/resources/emcutils.accesswidener"
+File generatedResources = file "src/generated/resources"
 
 configurations {
   developmentQuilt.extendsFrom common
@@ -31,17 +29,9 @@ dependencies {
   include project(":journey")
   include project(":voxel")
   include project(":xaero")
-
-  shadowCommon(project(path: ":common", configuration: "transformProductionQuilt")) { transitive false }
 }
 
-sourceSets {
-  main {
-    resources {
-      srcDir generatedResources
-    }
-  }
-}
+sourceSets.main.resources.srcDir generatedResources
 
 task copyAW(type: Copy) {
   from commonAW

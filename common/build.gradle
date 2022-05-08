@@ -5,4 +5,4 @@ dependencies {
 
 architectury.common "quilt", "forge"
 
-loom.accessWidenerPath.set(file("src/main/resources/emcutils.accesswidener"))
+loom.accessWidenerPath.set file("src/main/resources/emcutils.accesswidener")

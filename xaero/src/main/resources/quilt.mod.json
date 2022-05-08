@@ -15,7 +15,7 @@
     "load_type": "if_possible",
     "intermediate_mappings": "net.fabricmc:intermediary",
     "entrypoints": {
-      "client_init": "dev.frydae.emcutils.xaero.EmpireMinecraftUtilitiesXaero"
+      "client_init": "coffee.waffle.emcutils.xaero.EMCUtilsXaero"
     },
     "depends": [
       {

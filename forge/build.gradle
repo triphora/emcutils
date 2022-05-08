@@ -1,19 +1,16 @@
 //file:noinspection GroovyAssignabilityCheck
 plugins {
-  alias(libs.plugins.minotaur)
-  alias(libs.plugins.shadow)
+  alias libs.plugins.minotaur
+  alias libs.plugins.shadow
 }
 
 apply from: "../gradle/loader.gradle"
 
 architectury.forge()
 
-loom {
-  forge {
-    mixinConfig "emcutils-common.mixins.json"
-    convertAccessWideners.set true
-  }
-  accessWidenerPath.set project(":common").file("src/main/resources/emcutils.accesswidener")
+loom.forge {
+  mixinConfig "emcutils-common.mixins.json"
+  convertAccessWideners.set true
 }
 
 configurations {
@@ -24,8 +21,6 @@ dependencies {
   forge libs.forge
 
   modRuntimeOnly libs.bundles.forge.runtime
-
-  shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive false }
 }
 
 processResources {

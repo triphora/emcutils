@@ -15,12 +15,12 @@
     "load_type": "if_possible",
     "intermediate_mappings": "net.fabricmc:intermediary",
     "entrypoints": {
-      "journeymap": "dev.frydae.emcutils.journey.EmpireMinecraftUtilitiesJourney"
+      "journeymap": "coffee.waffle.emcutils.journey.EMCUtilsJourney"
     },
     "depends": [
       {
         "id": "journeymap-fabric",
-        "versions": ">=5.8.2"
+        "versions": ">=5.8.3"
       },
       {
         "id": "emcutils",

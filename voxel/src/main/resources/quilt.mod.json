@@ -16,7 +16,7 @@
     "load_type": "if_possible",
     "intermediate_mappings": "net.fabricmc:intermediary",
     "entrypoints": {
-      "client_init": "dev.frydae.emcutils.voxel.EmpireMinecraftUtilitiesVoxel"
+      "client_init": "coffee.waffle.emcutils.voxel.EMCUtilsVoxel"
     },
     "depends": [
       {

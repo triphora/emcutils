@@ -2,9 +2,9 @@
 # MC, loaders, and mappings
 minecraft = "1.18.2"
 quilt_loader = "0.16.0-beta.16" # https://lambdaurora.dev/tools/import_quilt.html
-fabric_loader = "0.14.4"        # https://fabricmc.net/develop
-forge = "1.18.2-40.1.16"        # https://files.minecraftforge.net/
-quilt_mappings = "22"           # https://lambdaurora.dev/tools/import_quilt.html
+fabric_loader = "0.14.5"        # https://fabricmc.net/develop
+forge = "1.18.2-40.1.19"        # https://files.minecraftforge.net/
+quilt_mappings = "23"           # https://lambdaurora.dev/tools/import_quilt.html
 
 # Dependencies for all subprojects
 lombok = "1.18.22"    # https://mvnrepository.com/artifact/org.projectlombok/lombok
@@ -72,7 +72,7 @@ forge_runtime = ["config_menus", "lazydfu_forge"]
 
 [plugins]
 architectury_plugin = { id = "architectury-plugin", version = "3.4.+" }
-architectury_loom = { id = "dev.architectury.loom", version = "0.11.0.9999" }
+architectury_loom = { id = "dev.architectury.loom", version = "0.11.0.+" }
 
 quilt_mappings_on_loom = { id = "org.quiltmc.quilt-mappings-on-loom", version = "4.+" }
 loom_quiltflower = { id = "io.github.juuxel.loom-quiltflower", version = "1.+" }

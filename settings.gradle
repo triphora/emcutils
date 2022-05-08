@@ -1,6 +1,5 @@
 pluginManagement {
   repositories {
-    mavenLocal()
     maven {
       name = 'Quilt'
       url = 'https://maven.quiltmc.org/repository/release/'
@@ -16,10 +15,6 @@ pluginManagement {
     maven {
       name = 'Forge'
       url = 'https://maven.minecraftforge.net/'
-    }
-    maven {
-      name = 'Cotton'
-      url = 'https://server.bbkr.space/artifactory/libs-release/'
     }
     gradlePluginPortal()
   }

@@ -1,5 +1,10 @@
 architectury.platformSetupLoomIde()
 
+File commonAW = project ":common" file "src/main/resources/emcutils.accesswidener"
+loom.accessWidenerPath.set commonAW
+
+String projectName = "${name.substring(0, 1).toUpperCase()}${name.substring(1)}"
+
 configurations {
   common
   shadowCommon // Don't use shadow from the shadow plugin because we don't want IDEA to index this.
@@ -9,6 +14,7 @@ configurations {
 
 dependencies {
   common(project(path: ":common", configuration: "namedElements")) { transitive false }
+  shadowCommon(project(path: ":common", configuration: "transformProduction$projectName")) { transitive false }
 }
 
 shadowJar {
@@ -40,7 +46,7 @@ components.java {
 modrinth {
   projectId = "QYTT62S0"
   versionNumber = "$rootProject.mod_version+$name"
-  versionName = "$rootProject.release_title (${name.substring(0, 1).toUpperCase()}${name.substring(1)})"
+  versionName = "$rootProject.release_title ($projectName)"
   changelog = rootProject.changeLog
   uploadFile = remapJar
   gameVersions = [libs.versions.minecraft.get()]

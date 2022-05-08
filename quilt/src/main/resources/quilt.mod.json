@@ -15,21 +15,17 @@
       },
       "contact": {
         "homepage": "https://emc.gs/t/84930",
-        "sources": "https://github.com/wafflecoffee/Empire-Minecraft-Utilities",
-        "issues": "https://github.com/wafflecoffee/Empire-Minecraft-Utilities/issues"
+        "sources": "https://github.com/emmods/emcutils",
+        "issues": "https://github.com/emmods/emcutils/issues"
       },
       "license": "MIT",
       "icon": "assets/emcutils/icon.png"
     },
     "intermediate_mappings": "net.fabricmc:intermediary",
     "entrypoints": {
-      "client_init": "dev.frydae.emcutils.quilt.EmpireMinecraftUtilitiesImpl"
+      "client_init": "coffee.waffle.emcutils.EMCUtilsQuilt"
     },
     "depends": [
-      {
-        "id": "architectury",
-        "versions": ">=3.5.12"
-      },
       {
         "id": "midnightlib",
         "versions": ">=0.4.0"

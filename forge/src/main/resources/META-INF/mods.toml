@@ -1,6 +1,6 @@
 modLoader = "javafml"
-loaderVersion = "[39,)"
-issueTrackerURL = "https://github.com/wafflecoffee/Empire-Minecraft-Utilities/issues"
+loaderVersion = "[40,)"
+issueTrackerURL = "https://github.com/emmods/emcutils/issues"
 license = "MIT"
 
 [[mods]]
@@ -22,21 +22,14 @@ updateJSONURL = "https://api.modrinth.com/updates/emcutils/forge_updates.json"
 [[dependencies.emcutils]]
 modId = "forge"
 mandatory = true
-versionRange = "[39,)"
+versionRange = "[40,)"
 ordering = "NONE"
 side = "CLIENT"
 
 [[dependencies.emcutils]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.18.1,)"
-ordering = "NONE"
-side = "CLIENT"
-
-[[dependencies.emcutils]]
-modId = "architectury"
-mandatory = true
-versionRange = "[3.5.12,)"
+versionRange = "[1.18.2,)"
 ordering = "NONE"
 side = "CLIENT"
 
