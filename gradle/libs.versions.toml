@@ -1,10 +1,10 @@
 [versions]
 # MC, loaders, and mappings
 minecraft = "1.18.2"
-quilt_loader = "0.16.0-beta.16" # https://lambdaurora.dev/tools/import_quilt.html
-fabric_loader = "0.14.5"        # https://fabricmc.net/develop
-forge = "1.18.2-40.1.19"        # https://files.minecraftforge.net/
-quilt_mappings = "23"           # https://lambdaurora.dev/tools/import_quilt.html
+quilt_loader = "0.16.1"  # https://lambdaurora.dev/tools/import_quilt.html
+fabric_loader = "0.14.6" # https://fabricmc.net/develop
+forge = "1.18.2-40.1.25" # https://files.minecraftforge.net/
+quilt_mappings = "24"    # https://lambdaurora.dev/tools/import_quilt.html
 
 # Dependencies for all subprojects
 lombok = "1.18.22"    # https://mvnrepository.com/artifact/org.projectlombok/lombok
@@ -26,11 +26,11 @@ qsl_base = "1.1.0-beta.8+1.18.2" # https://lambdaurora.dev/tools/import_quilt.ht
 # Journey subproject
 # https://jm.gserv.me/service/rest/repository/browse/maven-public/info/journeymap/journeymap-api/
 journeymap_api = "1.18.2-1.8-fabric-SNAPSHOT"
-journeymap = "3779278" # https://www.curseforge.com/minecraft/mc-mods/journeymap/files/all
+journeymap = "3796377" # https://www.curseforge.com/minecraft/mc-mods/journeymap/files/all
 
 # Xaero subproject
-xaeros_minimap = "3778435"   # https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap/files/all
-xaeros_world_map = "3782705" # https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map/files/all
+xaeros_minimap = "3798916"   # https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap/files/all
+xaeros_world_map = "3796748" # https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map/files/all
 
 [libraries]
 # MC, loaders, and mappings
@@ -72,7 +72,7 @@ forge_runtime = ["lazydfu_forge"]
 
 [plugins]
 architectury_plugin = { id = "architectury-plugin", version = "3.4.+" }
-architectury_loom = { id = "dev.architectury.loom", version = "0.11.0.+" }
+architectury_loom = { id = "dev.architectury.loom", version = "0.12.0.+" }
 
 quilt_mappings_on_loom = { id = "org.quiltmc.quilt-mappings-on-loom", version = "4.+" }
 loom_quiltflower = { id = "io.github.juuxel.loom-quiltflower", version = "1.+" }

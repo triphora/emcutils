@@ -28,7 +28,7 @@ dependencies {
 
   include project(":journey")
   include project(":voxel")
-//  include project(":xaero")
+  include project(":xaero")
 }
 
 sourceSets.main.resources.srcDir generatedResources
@@ -40,13 +40,12 @@ task copyAW(type: Copy) {
 
 processResources.dependsOn copyAW
 
-import com.modrinth.minotaur.dependencies.ModDependency
 modrinth {
-  dependencies = [
-          new ModDependency("qvIfYCYJ", "required"), // QFAPI
-          new ModDependency("codAaoxh", "required"), // MidnightLib
-          new ModDependency("mOgUt4GM", "optional"), // Mod Menu
-  ]
+  dependencies {
+    required.project "qvIfYCYJ" // QFAPI
+    required.project "codAaoxh" // MidnightLib
+    required.project "mOgUt4GM" // Mod Menu
+  }
   syncBodyFrom = rootProject.file("README.md").text
 }
 tasks.modrinth.dependsOn(tasks.modrinthSyncBody)

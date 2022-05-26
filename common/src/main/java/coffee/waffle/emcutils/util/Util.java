@@ -46,7 +46,7 @@ public class Util {
   }
 
   public static List<PlayerListEntry> getPlayerListEntries() {
-    return Lists.newArrayList(((PlayerListHudAccessor) client.inGameHud.getPlayerListHud())
+    return Lists.newArrayList(PlayerListHudAccessor
             .getEntryOrdering().sortedCopy(client.getNetworkHandler().getPlayerList()));
   }
 

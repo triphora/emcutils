@@ -1,3 +1,5 @@
+import net.fabricmc.loom.configuration.providers.minecraft.MinecraftJarConfiguration
+
 dependencies {
   // TODO switch me to Quilt
   modImplementation libs.fabric.loader
@@ -5,4 +7,7 @@ dependencies {
 
 architectury.common "quilt", "forge"
 
-loom.accessWidenerPath.set file("src/main/resources/emcutils.accesswidener")
+loom {
+  accessWidenerPath.set file("src/main/resources/emcutils.accesswidener")
+  minecraftJarConfiguration = MinecraftJarConfiguration.CLIENT_ONLY
+}

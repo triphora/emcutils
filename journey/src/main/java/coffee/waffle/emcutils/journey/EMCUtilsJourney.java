@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
 
+import static coffee.waffle.emcutils.util.Util.LOG;
 import static coffee.waffle.emcutils.util.Util.MODID;
 import static journeymap.client.api.event.ClientEvent.Type.MAPPING_STARTED;
 
@@ -24,6 +25,7 @@ public class EMCUtilsJourney implements IClientPlugin {
 
   @Override
   public void initialize(@NotNull final IClientAPI api) {
+    LOG.info(MODID + " found JourneyMap - enabling integrations");
     this.api = api;
 
     api.subscribe(getModId(), EnumSet.of(MAPPING_STARTED));
@@ -50,7 +52,7 @@ public class EMCUtilsJourney implements IClientPlugin {
       api.toggleDisplay(null, Context.MapType.Underground, Context.UI.Any, false);
 
       // Set world names on EMC
-      //api.setWorldId(Util.getCurrentServer().getName().toLowerCase());
+      api.setWorldId(Util.getCurrentServer().getName().toLowerCase());
     }
   }
 

@@ -41,6 +41,11 @@ subprojects {
     // -Dmixin.debug.export=true
     runtimeOnly libs.quiltflower
   }
+
+  loom {
+    runtimeOnlyLog4j = true
+    clientOnlyMinecraftJar()
+  }
 }
 
 allprojects {
