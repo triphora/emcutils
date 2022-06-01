@@ -69,7 +69,7 @@ public class Util {
         while ((command = onJoinCommandQueue.poll()) != null) {
           if (command.startsWith("/")) command = command.substring(1);
 
-          client.player.sendChatMessage("/" + command);
+          client.player.method_44099(command);
 
           //noinspection BusyWait
           Thread.sleep(100);

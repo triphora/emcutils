@@ -44,7 +44,7 @@ public enum EmpireServer {
     this.name = name;
     this.tabListRank = tabListRank;
     this.tabListDisplay = tabListDisplay;
-    this.command = "/" + name.toLowerCase();
+    this.command = name.toLowerCase();
 
     this.residences = Lists.newArrayList();
   }
@@ -80,7 +80,7 @@ public enum EmpireServer {
   }
 
   public void sendToServer() {
-    MinecraftClient.getInstance().player.sendChatMessage(getCommand());
+    MinecraftClient.getInstance().player.method_44099(getCommand());
     Util.setCurrentServer(getName());
   }
 

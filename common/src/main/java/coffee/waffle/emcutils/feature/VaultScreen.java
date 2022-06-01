@@ -19,7 +19,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtHelper;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.text.TextColor;
@@ -50,7 +49,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
     this.vaultPage = NumberUtils.isParsable(page) ? Integer.parseInt(page) : 1;
 
     if (vaultPage == 69) {
-      ((ScreenAccessor) this).setTitle(new LiteralText(title.getString() + " ... nice"));
+      ((ScreenAccessor) this).setTitle(Text.of(title.getString() + " ... nice"));
     }
   }
 
@@ -148,20 +147,20 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
         ClientPlayerEntity player = client.player;
         assert player != null;
         player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_SNARE, 4F, 1F);
-        player.sendChatMessage(command);
+        player.method_3142(command);
       }
     }
   }
 
   @Override
-  public void onClose() {
-    if (shouldCallClose) super.onClose();
+  public void closeScreen() {
+    if (shouldCallClose) super.closeScreen();
     else shouldCallClose = true;
   }
 
-  private LiteralText formattedText(String text) {
-    LiteralText literalText = new LiteralText(text);
-    literalText.setStyle(Style.EMPTY.withColor(TextColor.fromFormatting(Formatting.GREEN)).withItalic(false));
+  private Text formattedText(String text) {
+    var literalText = Text.of(text);
+    literalText.copy().setStyle(Style.EMPTY.withColor(TextColor.fromFormatting(Formatting.GREEN)).withItalic(false));
     return literalText;
   }
 }

@@ -89,7 +89,7 @@ public class ChatListener {
 
   private static ActionResult currentServerReceiver(ClientPlayerEntity player, Text text) {
     if (text.getString().matches(WELCOME_TO_EMC)) {
-      Util.setCurrentServer(text.getSiblings().get(3).asString().trim());
+      Util.setCurrentServer(text.getSiblings().get(3).getString().trim());
 
       EMCUtils.onPostJoinEmpireMinecraft();
     }

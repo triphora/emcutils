@@ -25,7 +25,7 @@ public abstract class GuiWaypointsMixin {
 
       EmpireResidence res = Util.getCurrentServer().getResidenceByLoc(pos);
       if (res != null) {
-        MinecraftClient.getInstance().player.sendChatMessage(res.getVisitCommand());
+        MinecraftClient.getInstance().player.method_44099(res.getVisitCommand());
       }
       ci.cancel();
     }

@@ -8,7 +8,6 @@ import coffee.waffle.emcutils.event.TooltipCallback;
 import coffee.waffle.emcutils.util.Util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -24,14 +23,14 @@ public class UsableItems {
             text.getString().equalsIgnoreCase("Can be used now")) return;
       }
 
-      list.add(LiteralText.EMPTY);
+      list.add(Text.empty());
 
       long untilUsable = getSecondsUntilUsable(itemStack);
 
       if (untilUsable > 0) {
-        list.add(new LiteralText("Usable in: " + formatTime(untilUsable, 1)).formatted(Formatting.RED));
+        list.add(Text.of("Usable in: " + formatTime(untilUsable, 1)).copy().formatted(Formatting.RED));
       } else {
-        list.add(new LiteralText("Can be used now").formatted(Formatting.GREEN));
+        list.add(Text.of("Can be used now").copy().formatted(Formatting.GREEN));
       }
 
       itemStack.getItem().appendTooltip(itemStack, MinecraftClient.getInstance().world, list, tooltipContext);

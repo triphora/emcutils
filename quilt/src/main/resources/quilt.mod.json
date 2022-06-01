@@ -28,16 +28,16 @@
     "depends": [
       {
         "id": "midnightlib",
-        "versions": ">=0.4.0"
+        "versions": ">=0.4.1"
       },
       {
         "id": "minecraft",
-        "versions": ">=1.18.2"
+        "versions": ">=1.19-beta.4"
       },
       {
         "id": "modmenu",
-        "versions": ">=3.2.1",
-        "mandatory": false
+        "versions": ">=4.0.0-beta.3",
+        "optional": true
       }
     ]
   },

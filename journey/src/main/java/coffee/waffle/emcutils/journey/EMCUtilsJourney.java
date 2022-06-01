@@ -61,7 +61,7 @@ public class EMCUtilsJourney implements IClientPlugin {
     public void doAction(final @NotNull BlockPos pos) {
       if (Util.isOnEMC) {
         EmpireResidence res = Util.getCurrentServer().getResidenceByLoc(new Vec3d(pos.getX(), pos.getY(), pos.getZ()));
-        if (res != null) MinecraftClient.getInstance().player.sendChatMessage(res.getVisitCommand());
+        if (res != null) MinecraftClient.getInstance().player.method_44099(res.getVisitCommand());
       }
     }
   }

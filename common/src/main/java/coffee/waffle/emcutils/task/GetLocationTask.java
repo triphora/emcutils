@@ -7,7 +7,7 @@ public class GetLocationTask implements Task {
   @Override
   public void execute() {
     ChatListener.currentMessage = ChatListener.ChatMessage.LOCATION;
-    MinecraftClient.getInstance().player.sendChatMessage("/loc");
+    MinecraftClient.getInstance().player.method_44099("/loc");
   }
 
   @Override

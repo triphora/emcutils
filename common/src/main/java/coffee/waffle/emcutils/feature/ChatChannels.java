@@ -12,7 +12,7 @@ import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import java.util.Arrays;
@@ -84,7 +84,7 @@ public class ChatChannels {
     }
 
     DrawableHelper.fill(matrices, channel.getOffset() + 1, screen.height - 32, channel.getOffset() + width + 4, screen.height - (32 - height - 3), (0xc0 << 24));
-    textRenderer.draw(matrices, new LiteralText(channel.name), channel.getOffset() + 3, screen.height - 30, channel.format.getColorValue());
+    textRenderer.draw(matrices, Text.of(channel.name), channel.getOffset() + 3, screen.height - 30, channel.format.getColorValue());
   }
 
   private static void drawPrivateConversation(Screen screen, MatrixStack matrices) {
@@ -94,8 +94,8 @@ public class ChatChannels {
 
     DrawableHelper.fill(matrices, screen.width - 3, screen.height - 33, screen.width - fullWidth - 8, screen.height - (32 - height - 4), (0xff << 24) | Formatting.LIGHT_PURPLE.getColorValue());
     DrawableHelper.fill(matrices, screen.width - 4, screen.height - 32, screen.width - fullWidth - 7, screen.height - (32 - height - 3), (0xc0 << 24));
-    textRenderer.draw(matrices, new LiteralText("PM with: "), screen.width - fullWidth - 5, screen.height - 30, Formatting.WHITE.getColorValue());
-    textRenderer.draw(matrices, new LiteralText(targetUsername), screen.width - nameWidth - 5, screen.height - 30, groupIdToFormatting(targetGroupId).getColorValue());
+    textRenderer.draw(matrices, Text.of("PM with: "), screen.width - fullWidth - 5, screen.height - 30, Formatting.WHITE.getColorValue());
+    textRenderer.draw(matrices, Text.of(targetUsername), screen.width - nameWidth - 5, screen.height - 30, groupIdToFormatting(targetGroupId).getColorValue());
   }
 
   public static Formatting groupIdToFormatting(int groupId) {
@@ -115,14 +115,14 @@ public class ChatChannels {
 
   @AllArgsConstructor
   public enum ChatChannel {
-    COMMUNITY("Community", "/cc", Formatting.DARK_GREEN, null),
-    MARKET("Market", "/cm", Formatting.GOLD, COMMUNITY),
-    SERVER("Server", "/cs", Formatting.RED, MARKET),
-    LOCAL("Local", "/cl", Formatting.YELLOW, SERVER),
-    RESIDENCE("Residence", "/cr", Formatting.BLUE, LOCAL),
-    GROUP("Group", "/cg", Formatting.DARK_AQUA, RESIDENCE),
-    SUPPORTER("Supporter", "/cp", Formatting.AQUA, GROUP),
-    MODERATOR("Moderator", "/cx", Formatting.LIGHT_PURPLE, SUPPORTER);
+    COMMUNITY("Community", "cc", Formatting.DARK_GREEN, null),
+    MARKET("Market", "cm", Formatting.GOLD, COMMUNITY),
+    SERVER("Server", "cs", Formatting.RED, MARKET),
+    LOCAL("Local", "cl", Formatting.YELLOW, SERVER),
+    RESIDENCE("Residence", "cr", Formatting.BLUE, LOCAL),
+    GROUP("Group", "cg", Formatting.DARK_AQUA, RESIDENCE),
+    SUPPORTER("Supporter", "cp", Formatting.AQUA, GROUP),
+    MODERATOR("Moderator", "cx", Formatting.LIGHT_PURPLE, SUPPORTER);
 
     @Getter private final String name;
     @Getter private final String command;
@@ -142,7 +142,7 @@ public class ChatChannels {
     }
 
     public void executeCommand() {
-      player.sendChatMessage(command);
+      player.method_44099(command);
     }
   }
 }
