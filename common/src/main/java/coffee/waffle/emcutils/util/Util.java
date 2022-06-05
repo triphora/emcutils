@@ -24,7 +24,7 @@ import java.util.stream.IntStream;
 public class Util {
   public static final String MODID = "emcutils";
   public static final Logger LOG = LoggerFactory.getLogger(MODID);
-  public static boolean isOnEMC = true;
+  public static boolean isOnEMC = false;
   @Setter public static boolean hideFeatureMessages;
   @Getter @Setter private static String serverAddress;
   @Getter private static EmpireServer currentServer;
