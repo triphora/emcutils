@@ -1,6 +1,6 @@
 [versions]
 # MC, loaders, and mappings
-minecraft = "1.19-pre5"
+minecraft = "1.19-rc2"
 quilt_loader = "0.16.1"  # https://lambdaurora.dev/tools/import_quilt.html
 fabric_loader = "0.14.6" # https://fabricmc.net/develop
 forge = "1.18.2-40.1.25" # https://files.minecraftforge.net/
@@ -11,7 +11,7 @@ lombok = "1.18.22"    # https://mvnrepository.com/artifact/org.projectlombok/lom
 quiltflower = "1.8.1" # https://maven.quiltmc.org/repository/release/org/quiltmc/quiltflower/
 
 # Fabric subproject
-quilted_fabric_api = "1.0.0-beta.13+0.51.1-1.18.2" # https://modrinth.com/mod/qsl
+quilted_fabric_api = "1.0.0-beta.17+0.54.0-1.18.2" # https://modrinth.com/mod/qsl
 midnightlib = "0.4.1"                              # https://modrinth.com/mod/midnightlib/versions
 lazydfu = "0.1.2"                                  # https://modrinth.com/mod/lazydfu
 modmenu = "4.0.0-beta.4"                           # https://modrinth.com/mod/modmenu/versions
@@ -21,7 +21,7 @@ config_menus = "3671318"  # https://www.curseforge.com/minecraft/mc-mods/config-
 lazydfu_forge = "3544496" # https://www.curseforge.com/minecraft/mc-mods/lazy-dfu-forge/files/all
 
 # Minimap subprojects
-qsl_base = "2.0.0-beta.2+22w14a-SNAPSHOT" # https://lambdaurora.dev/tools/import_quilt.html
+qsl_base = "2.0.0-beta.2+1.19-rc2-SNAPSHOT" # https://lambdaurora.dev/tools/import_quilt.html
 
 # Journey subproject
 # https://jm.gserv.me/service/rest/repository/browse/maven-public/info/journeymap/journeymap-api/
