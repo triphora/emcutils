@@ -1,9 +1,9 @@
 [versions]
 # MC, loaders, and mappings
-minecraft = "1.19-rc2"
+minecraft = "1.19"
 quilt_loader = "0.16.1"  # https://lambdaurora.dev/tools/import_quilt.html
 fabric_loader = "0.14.6" # https://fabricmc.net/develop
-forge = "1.18.2-40.1.25" # https://files.minecraftforge.net/
+forge = "1.19-41.0.5"    # https://files.minecraftforge.net/
 quilt_mappings = "1"     # https://lambdaurora.dev/tools/import_quilt.html
 
 # Dependencies for all subprojects
@@ -14,7 +14,7 @@ quiltflower = "1.8.1" # https://maven.quiltmc.org/repository/release/org/quiltmc
 quilted_fabric_api = "1.0.0-beta.17+0.54.0-1.18.2" # https://modrinth.com/mod/qsl
 midnightlib = "0.4.1"                              # https://modrinth.com/mod/midnightlib/versions
 lazydfu = "0.1.2"                                  # https://modrinth.com/mod/lazydfu
-modmenu = "4.0.0-beta.4"                           # https://modrinth.com/mod/modmenu/versions
+modmenu = "4.0.0"                                  # https://modrinth.com/mod/modmenu/versions
 
 # Forge subproject
 config_menus = "3671318"  # https://www.curseforge.com/minecraft/mc-mods/config-menus-forge/files/all
@@ -25,12 +25,12 @@ qsl_base = "2.0.0-beta.2+1.19-rc2-SNAPSHOT" # https://lambdaurora.dev/tools/impo
 
 # Journey subproject
 # https://jm.gserv.me/service/rest/repository/browse/maven-public/info/journeymap/journeymap-api/
-journeymap_api = "1.18.2-1.8-fabric-SNAPSHOT"
-journeymap = "3796377" # https://www.curseforge.com/minecraft/mc-mods/journeymap/files/all
+journeymap_api = "1.19-1.8-fabric-SNAPSHOT"
+journeymap = "1.19-5.8.5-fabric" # https://modrinth.com/mod/journeymap
 
 # Xaero subproject
-xaeros_minimap = "3798916"   # https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap/files/all
-xaeros_world_map = "3796748" # https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map/files/all
+xaeros_minimap = "3819492"   # https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap/files/all
+xaeros_world_map = "3819495" # https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map/files/all
 
 [libraries]
 # MC, loaders, and mappings
@@ -59,7 +59,7 @@ qsl_base = { module = "org.quiltmc.qsl.core:qsl_base", version.ref = "qsl_base" 
 
 # Journey subproject
 journeymap_api = { module = "info.journeymap:journeymap-api", version.ref = "journeymap_api" }
-journeymap = { module = "curse.maven:jm-32274", version.ref = "journeymap" }
+journeymap = { module = "maven.modrinth:journeymap", version.ref = "journeymap" }
 
 # Xaero subproject
 xaeros_minimap = { module = "curse.maven:xmm-263420", version.ref = "xaeros_minimap" }
