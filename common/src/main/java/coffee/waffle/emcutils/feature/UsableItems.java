@@ -1,11 +1,11 @@
 package coffee.waffle.emcutils.feature;
 
+import coffee.waffle.emcutils.event.TooltipCallback;
+import coffee.waffle.emcutils.util.Util;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import coffee.waffle.emcutils.event.TooltipCallback;
-import coffee.waffle.emcutils.util.Util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;

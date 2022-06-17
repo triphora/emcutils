@@ -1,9 +1,9 @@
 package coffee.waffle.emcutils.voxel.mixin;
 
+import coffee.waffle.emcutils.util.Util;
 import com.mamiyaotaru.voxelmap.MapSettingsManager;
 import com.mamiyaotaru.voxelmap.RadarSettingsManager;
 import com.mamiyaotaru.voxelmap.VoxelMap;
-import coffee.waffle.emcutils.util.Util;
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Pseudo;

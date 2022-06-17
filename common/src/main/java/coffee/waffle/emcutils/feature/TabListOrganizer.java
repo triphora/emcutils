@@ -1,11 +1,11 @@
 package coffee.waffle.emcutils.feature;
 
-import com.google.common.collect.Lists;
 import coffee.waffle.emcutils.container.EmpireServer;
 import coffee.waffle.emcutils.util.Config;
 import coffee.waffle.emcutils.util.Config.TabListCurrentServerPlacement;
 import coffee.waffle.emcutils.util.Config.TabListSortType;
 import coffee.waffle.emcutils.util.Util;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import net.minecraft.client.network.PlayerListEntry;
 

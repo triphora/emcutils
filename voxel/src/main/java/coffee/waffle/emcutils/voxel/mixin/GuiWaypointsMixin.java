@@ -1,9 +1,9 @@
 package coffee.waffle.emcutils.voxel.mixin;
 
-import com.mamiyaotaru.voxelmap.gui.GuiWaypoints;
-import com.mamiyaotaru.voxelmap.util.Waypoint;
 import coffee.waffle.emcutils.container.EmpireResidence;
 import coffee.waffle.emcutils.util.Util;
+import com.mamiyaotaru.voxelmap.gui.GuiWaypoints;
+import com.mamiyaotaru.voxelmap.util.Waypoint;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,7 +1,7 @@
 package coffee.waffle.emcutils.util;
 
-import dev.architectury.injectables.annotations.ExpectPlatform;
 import coffee.waffle.emcutils.feature.TabListOrganizer;
+import dev.architectury.injectables.annotations.ExpectPlatform;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import net.minecraft.sound.SoundEvent;

@@ -1,11 +1,11 @@
 package coffee.waffle.emcutils.feature;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
-import com.mojang.blaze3d.systems.RenderSystem;
 import coffee.waffle.emcutils.mixin.HandledScreenAccessor;
 import coffee.waffle.emcutils.util.Config;
 import coffee.waffle.emcutils.util.ScreenAccessor;
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.ScreenHandlerProvider;

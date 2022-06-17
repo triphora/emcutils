@@ -1,8 +1,8 @@
 package coffee.waffle.emcutils.voxel;
 
-import com.mamiyaotaru.voxelmap.VoxelMap;
 import coffee.waffle.emcutils.task.Task;
 import coffee.waffle.emcutils.util.Util;
+import com.mamiyaotaru.voxelmap.VoxelMap;
 import net.minecraft.client.MinecraftClient;
 
 public class VoxelMapIntegration implements Task {

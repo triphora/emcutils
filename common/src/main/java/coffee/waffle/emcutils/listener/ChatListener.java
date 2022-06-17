@@ -1,10 +1,10 @@
 package coffee.waffle.emcutils.listener;
 
-import com.google.common.collect.Lists;
 import coffee.waffle.emcutils.EMCUtils;
 import coffee.waffle.emcutils.event.ChatCallback;
 import coffee.waffle.emcutils.feature.ChatChannels;
 import coffee.waffle.emcutils.util.Util;
+import com.google.common.collect.Lists;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.text.Text;

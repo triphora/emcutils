@@ -1,9 +1,9 @@
 package coffee.waffle.emcutils.container;
 
+import coffee.waffle.emcutils.util.Util;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import coffee.waffle.emcutils.util.Util;
 import lombok.Getter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;

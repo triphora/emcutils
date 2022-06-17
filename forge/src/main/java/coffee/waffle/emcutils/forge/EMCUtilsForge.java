@@ -2,11 +2,9 @@ package coffee.waffle.emcutils.forge;
 
 import coffee.waffle.emcutils.event.TooltipCallback;
 import coffee.waffle.emcutils.feature.VaultScreen;
-import coffee.waffle.emcutils.feature.VaultScreenHandler;
 import coffee.waffle.emcutils.util.Util;
 import coffee.waffle.emcutils.util.forge.ForgeConfig;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
-import net.minecraft.screen.ScreenHandlerType;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.IExtensionPoint.DisplayTest;
@@ -16,7 +14,6 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
-import net.minecraftforge.registries.RegisterEvent;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,10 +1,10 @@
 package coffee.waffle.emcutils.voxel.mixin;
 
+import coffee.waffle.emcutils.container.EmpireResidence;
+import coffee.waffle.emcutils.util.Util;
 import com.mamiyaotaru.voxelmap.gui.overridden.Popup;
 import com.mamiyaotaru.voxelmap.persistent.GuiPersistentMap;
 import com.mamiyaotaru.voxelmap.util.Waypoint;
-import coffee.waffle.emcutils.container.EmpireResidence;
-import coffee.waffle.emcutils.util.Util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;

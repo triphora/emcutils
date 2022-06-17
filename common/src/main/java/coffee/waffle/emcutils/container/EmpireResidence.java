@@ -1,7 +1,7 @@
 package coffee.waffle.emcutils.container;
 
-import com.google.gson.JsonObject;
 import coffee.waffle.emcutils.util.Util;
+import com.google.gson.JsonObject;
 import lombok.Data;
 import net.minecraft.util.math.BlockPos;
 

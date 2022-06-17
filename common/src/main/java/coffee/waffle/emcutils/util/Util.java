@@ -1,9 +1,9 @@
 package coffee.waffle.emcutils.util;
 
-import com.google.common.collect.Lists;
-import com.google.common.collect.Queues;
 import coffee.waffle.emcutils.container.EmpireServer;
 import coffee.waffle.emcutils.mixin.PlayerListHudAccessor;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Queues;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
