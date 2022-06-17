@@ -27,13 +27,6 @@ subprojects {
         includeGroupByRegex "org\\.quiltmc\\..*"
       }
     }
-    maven {
-      url "https://maven.quiltmc.org/repository/snapshot"
-      content {
-        includeGroup "org.quiltmc"
-        includeGroupByRegex "org\\.quiltmc\\..*"
-      }
-    }
   }
 
   dependencies {

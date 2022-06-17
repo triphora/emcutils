@@ -6,23 +6,26 @@ import coffee.waffle.emcutils.util.Util;
 import coffee.waffle.emcutils.util.fabric.QuiltConfig;
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
+import net.minecraft.client.item.TooltipContext;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
+import org.jetbrains.annotations.Nullable;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 import org.quiltmc.qsl.tooltip.api.client.ItemTooltipCallback;
 
+import java.util.List;
+
 import static coffee.waffle.emcutils.util.Util.LOG;
-import static coffee.waffle.emcutils.util.Util.MODID;
 import static coffee.waffle.emcutils.util.Util.id;
 import static org.quiltmc.qsl.resource.loader.api.ResourceLoader.registerBuiltinResourcePack;
 import static org.quiltmc.qsl.resource.loader.api.ResourcePackActivationType.NORMAL;
 
-public class EMCUtilsQuilt implements ClientModInitializer {
+public class EMCUtilsQuilt implements ClientModInitializer, ItemTooltipCallback {
   @Override
   public void onInitializeClient(ModContainer mod) {
-    MidnightConfig.init(MODID, QuiltConfig.class);
-
-    ItemTooltipCallback.EVENT.register((itemStack, player, tooltipContext, list) ->
-            TooltipCallback.ITEM.invoker().append(itemStack, list, tooltipContext));
+    MidnightConfig.init(mod.metadata().id(), QuiltConfig.class);
 
     // These don't work in dev for whatever reason, but work in prod
     registerBuiltinResourcePack(id("dark-ui-vault"), mod, NORMAL);
@@ -34,6 +37,11 @@ public class EMCUtilsQuilt implements ClientModInitializer {
 
     HandledScreens.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
 
-    LOG.info("Initialized " + MODID);
+    LOG.info("Initialized " + mod.metadata().id());
+  }
+
+  @Override
+  public void onTooltipRequest(ItemStack stack, @Nullable PlayerEntity player, TooltipContext context, List<Text> lines) {
+    TooltipCallback.ITEM.invoker().append(stack, lines, context);
   }
 }

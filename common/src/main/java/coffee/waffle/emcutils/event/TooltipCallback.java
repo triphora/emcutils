@@ -7,14 +7,12 @@ import org.jetbrains.annotations.ApiStatus;
 
 import java.util.List;
 
+@FunctionalInterface
 @ApiStatus.Internal
 public interface TooltipCallback {
-  Event<Tooltip> ITEM = new Event<>(Tooltip.class, (listeners) -> (itemStack, list, tooltipContext) -> {
-    for (Tooltip listener : listeners) listener.append(itemStack, list, tooltipContext);
+  Event<TooltipCallback> ITEM = new Event<>(TooltipCallback.class, (listeners) -> (itemStack, list, tooltipContext) -> {
+    for (TooltipCallback listener : listeners) listener.append(itemStack, list, tooltipContext);
   });
 
-  @FunctionalInterface
-  interface Tooltip {
-    void append(ItemStack itemStack, List<Text> list, TooltipContext tooltipContext);
-  }
+  void append(ItemStack itemStack, List<Text> list, TooltipContext tooltipContext);
 }

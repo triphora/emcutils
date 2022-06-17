@@ -7,7 +7,6 @@ import coffee.waffle.emcutils.util.Util;
 import coffee.waffle.emcutils.util.forge.ForgeConfig;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.screen.ScreenHandlerType;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.IExtensionPoint.DisplayTest;
@@ -17,6 +16,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.registries.RegisterEvent;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,12 +26,10 @@ import java.nio.file.Paths;
 
 import static coffee.waffle.emcutils.util.Util.LOG;
 import static coffee.waffle.emcutils.util.Util.MODID;
-import static coffee.waffle.emcutils.util.Util.id;
 
 @Mod(MODID)
 public class EMCUtilsForge {
   public EMCUtilsForge() {
-    FMLJavaModLoadingContext.get().getModEventBus().addGenericListener(ScreenHandlerType.class, this::screenRegistryEvent);
     FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetupEvent);
 
     ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ForgeConfig.SPEC);
@@ -68,11 +66,6 @@ public class EMCUtilsForge {
   public void clientSetupEvent(FMLClientSetupEvent event) {
     HandledScreens.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
     Util.runResidenceCollector();
-  }
-
-  @SubscribeEvent
-  public void screenRegistryEvent(RegistryEvent.Register<ScreenHandlerType<?>> event) {
-    event.getRegistry().register(new ScreenHandlerType<>(VaultScreenHandler::new).setRegistryName(id("generic_9x7")));
   }
 
   @SubscribeEvent
