@@ -1,6 +1,7 @@
 package coffee.waffle.emcutils.journey;
 
 import coffee.waffle.emcutils.container.EmpireResidence;
+import coffee.waffle.emcutils.event.ServerJoinCallback;
 import coffee.waffle.emcutils.util.Util;
 import journeymap.client.api.IClientAPI;
 import journeymap.client.api.IClientPlugin;
@@ -8,6 +9,7 @@ import journeymap.client.api.display.Context;
 import journeymap.client.api.display.ModPopupMenu;
 import journeymap.client.api.event.ClientEvent;
 import journeymap.client.api.event.fabric.FabricEvents;
+import lombok.SneakyThrows;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -46,10 +48,12 @@ public class EMCUtilsJourney implements IClientPlugin {
   @SuppressWarnings("deprecation")
   @Override
   public void onEvent(@NotNull final ClientEvent event) {
-    var world = client.world.getRegistryKey().getValue().getPath();
-    if (event.type.equals(MAPPING_STARTED) && Util.isOnEMC && !(world.contains("nether"))) {
+    if (event.type.equals(MAPPING_STARTED) && Util.isOnEMC) {
       // Disable cave maps on EMC
-      api.toggleDisplay(null, Context.MapType.Underground, Context.UI.Any, false);
+      assert client.world != null;
+      if (!client.world.getRegistryKey().getValue().getPath().contains("nether")) {
+        api.toggleDisplay(null, Context.MapType.Underground, Context.UI.Any, false);
+      }
 
       // Set world names on EMC
       api.setWorldId(Util.getCurrentServer().getName().toLowerCase());
@@ -61,7 +65,7 @@ public class EMCUtilsJourney implements IClientPlugin {
     public void doAction(final @NotNull BlockPos pos) {
       if (Util.isOnEMC) {
         EmpireResidence res = Util.getCurrentServer().getResidenceByLoc(new Vec3d(pos.getX(), pos.getY(), pos.getZ()));
-        if (res != null) MinecraftClient.getInstance().player.method_44099(res.getVisitCommand());
+        if (res != null) MinecraftClient.getInstance().player.sendCommand(res.getVisitCommand());
       }
     }
   }

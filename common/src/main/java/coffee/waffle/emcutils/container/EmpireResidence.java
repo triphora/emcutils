@@ -32,6 +32,6 @@ public class EmpireResidence {
 
     this.display = split[0];
     this.address = Integer.parseInt(split[1].split(" ")[1]);
-    this.visitCommand = "/v " + address;
+    this.visitCommand = "v " + address;
   }
 }

@@ -27,7 +27,7 @@ dependencies {
   modRuntimeOnly(libs.bundles.fabric.runtime) { transitive false }
 
   include project(":journey")
-  include project(":voxel")
+  // include project(":voxel")
   include project(":xaero")
 }
 
@@ -42,9 +42,10 @@ processResources.dependsOn copyAW
 
 modrinth {
   dependencies {
-    required.project "qvIfYCYJ" // QFAPI
-    required.project "codAaoxh" // MidnightLib
-    optional.project "mOgUt4GM" // Mod Menu
+    required.project "qsl"
+    required.project "midnightlib"
+    optional.project "modmenu"
+    optional.project "journeymap"
   }
   syncBodyFrom = rootProject.file("README.md").text
 }

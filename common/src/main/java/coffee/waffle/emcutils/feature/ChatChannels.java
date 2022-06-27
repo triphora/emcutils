@@ -142,7 +142,7 @@ public class ChatChannels {
     }
 
     public void executeCommand() {
-      player.method_44099(command);
+      player.sendCommand(command);
     }
   }
 }

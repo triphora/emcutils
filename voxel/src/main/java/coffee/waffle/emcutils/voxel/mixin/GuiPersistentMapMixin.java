@@ -34,7 +34,7 @@ public abstract class GuiPersistentMapMixin {
 
         EmpireResidence res = Util.getCurrentServer().getResidenceByLoc(pos);
         if (res != null) {
-          MinecraftClient.getInstance().player.method_44099(res.getVisitCommand());
+          MinecraftClient.getInstance().player.sendCommand(res.getVisitCommand());
 
           ci.cancel();
         }

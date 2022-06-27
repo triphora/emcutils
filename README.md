@@ -5,12 +5,12 @@
 ![](https://img.shields.io/badge/environment-client-1976d2)
 <!-- modrinth_exclude.end -->
 
-Empire Minecraft Utilities, aka emcutils, is a 1.16, 1.17, and 1.18 mod containing a collection of small utilities for players of [Empire Minecraft](https://ref.emc.gs/wafflecoffee).  
+Empire Minecraft Utilities, aka emcutils, is a 1.16-1.19 mod containing a collection of small utilities for players of [Empire Minecraft](https://ref.emc.gs/wafflecoffee).  
 Feature idea credits go to [Giselbaer](https://u.emc.gs/Giselbaer)/[gbl](https://github.com/gbl).
 
 Made by [MrFrydae](https://u.emc.gs/GreenMeanie) and [wafflecoffee/Emmaffle](https://u.emc.gs/wafflecoffee), available under the MIT License.
 
-Architectury API is the only required dependency (download for [Fabric](https://www.curseforge.com/minecraft/mc-mods/architectury-fabric) or [Forge](https://www.curseforge.com/minecraft/mc-mods/architectury-forge)). [Not Enough Crashes](https://modrinth.com/mod/notenoughcrashes) is recommended, as are [Mod Menu](https://modrinth.com/mod/modmenu) and [VoxelMap](https://www.curseforge.com/minecraft/mc-mods/voxelmap) when on Fabric.
+On Forge, there are no dependencies which you need to download. On Quilt, you need to download the [Quilt Standard Libraries](https://modrinth.com/mod/qsl) like most Quilt mods, and [MidnightLib](https://modrinth.com/mod/midnightlib) is embedded. [Mod Menu](https://modrinth.com/mod/modmenu) and [JourneyMap](https://modrinth.com/mod/journeymap) are recommended on Quilt.
 
 ## Feature List
 
@@ -19,9 +19,9 @@ Architectury API is the only required dependency (download for [Fabric](https://
 * Easier viewing of usable Custom Items such as [Pot of Gold](https://wiki.emc.gs/pot-of-gold) or [EMC Peppermint](https://wiki.emc.gs/emc-peppermint)
 * Customizable tab list sorting
 * Vault buttons
-* Quilt-only: Integration with JourneyMap, VoxelMap, and Xaero's World Map/Minimap
+* Quilt-only: Integration with JourneyMap and Xaero's World Map/Minimap
   * Clicking on a residence will teleport you to that residence
-  * Automatic world detection and map confirmation/creation (not available on Xaero's)
+  * Automatic world detection and map confirmation/creation (only with Journey)
 
 ## Disclaimer
 

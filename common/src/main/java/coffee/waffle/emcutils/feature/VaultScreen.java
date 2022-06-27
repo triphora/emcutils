@@ -6,7 +6,6 @@ import coffee.waffle.emcutils.util.ScreenAccessor;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.ScreenHandlerProvider;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -36,11 +35,9 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
   private final int vaultPage;
   private final int[] slotOffsets = {8, 26, 44, 62, 80, 98, 116, 134, 152};
   private boolean shouldCallClose = true;
-  private static final MinecraftClient client = MinecraftClient.getInstance();
 
   public VaultScreen(VaultScreenHandler handler, PlayerInventory inventory, Text title) {
     super(handler, inventory, title);
-    super.init(client, client.getWindow().getScaledWidth(), client.getWindow().getScaledHeight());
     this.passEvents = false;
     this.backgroundHeight = 114 + 7 * 18;
     this.playerInventoryTitleY = this.backgroundHeight - 94;
@@ -125,42 +122,40 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
   public boolean mouseClicked(double mouseX, double mouseY, int button) {
     for (int i = 4; i > 0; i--) {
       if (vaultPage > i) {
-        handleClick(slotOffsets[4 - i], mouseX, mouseY, "/vault " + (vaultPage - i));
+        handleClick(slotOffsets[4 - i], mouseX, mouseY, "vault " + (vaultPage - i));
       }
     }
 
-    handleClick(slotOffsets[4], mouseX, mouseY, "/vaults");
+    handleClick(slotOffsets[4], mouseX, mouseY, "vaults");
 
     for (int i = 1; i <= 4; i++) {
       if (vaultPage <= Config.totalVaultPages() - i) {
-        handleClick(slotOffsets[4 + i], mouseX, mouseY, "/vault " + (vaultPage + i));
+        handleClick(slotOffsets[4 + i], mouseX, mouseY, "vault " + (vaultPage + i));
       }
     }
 
     return super.mouseClicked(mouseX, mouseY, button);
   }
 
+  @SuppressWarnings("ConstantConditions")
   private void handleClick(int buttonX, double mouseX, double mouseY, String command) {
     if (mouseX >= x + buttonX && mouseX < x + buttonX + 16) {
       if (mouseY >= y + 126 && mouseY <= y + 141) {
         this.shouldCallClose = false;
         ClientPlayerEntity player = client.player;
-        assert player != null;
         player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_SNARE, 4F, 1F);
-        player.method_3142(command);
+        player.sendCommand(command);
       }
     }
   }
 
   @Override
-  public void closeScreen() {
-    if (shouldCallClose) super.closeScreen();
+  public void close() {
+    if (shouldCallClose) super.close();
     else shouldCallClose = true;
   }
 
   private Text formattedText(String text) {
-    var literalText = Text.of(text);
-    literalText.copy().setStyle(Style.EMPTY.withColor(TextColor.fromFormatting(Formatting.GREEN)).withItalic(false));
-    return literalText;
+    return Text.literal(text).setStyle(Style.EMPTY.withColor(TextColor.fromFormatting(Formatting.GREEN)).withItalic(false));
   }
 }

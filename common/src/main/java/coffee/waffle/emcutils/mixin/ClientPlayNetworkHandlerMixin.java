@@ -10,6 +10,7 @@ import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
+import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.OpenScreenS2CPacket;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.ActionResult;
@@ -24,18 +25,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ClientPlayNetworkHandlerMixin {
   @Shadow @Final private MinecraftClient client;
 
-  @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayNetworkHandler;handleChatMessage(Lnet/minecraft/network/MessageType;Lnet/minecraft/unmapped/C_zzdolisx;Lnet/minecraft/unmapped/C_tzcijmwg;)V"), method = "onChatMessage", cancellable = true)
-  void emcutils$onPreReceiveMessage(ChatMessageS2CPacket packet, CallbackInfo info) {
-    ActionResult result = ChatCallback.PRE_RECEIVE_MESSAGE.invoker().onPreReceiveMessage(client.player, packet.method_43885().signedContent());
+  @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;onGameMessage(Lnet/minecraft/network/message/MessageType;Lnet/minecraft/text/Text;)V"), method = "onGameMessage", cancellable = true)
+  void emcutils$onPreReceiveMessage(GameMessageS2CPacket packet, CallbackInfo info) {
+    ActionResult result = ChatCallback.PRE_RECEIVE_MESSAGE.invoker().onPreReceiveMessage(client.player, packet.content());
 
     if (result != ActionResult.PASS) {
       info.cancel();
     }
   }
 
-  @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayNetworkHandler;handleChatMessage(Lnet/minecraft/network/MessageType;Lnet/minecraft/unmapped/C_zzdolisx;Lnet/minecraft/unmapped/C_tzcijmwg;)V", shift = At.Shift.AFTER), method = "onChatMessage")
-  void emcutils$onPostReceiveMessage(ChatMessageS2CPacket packet, CallbackInfo info) {
-    ChatCallback.POST_RECEIVE_MESSAGE.invoker().onPostReceiveMessage(client.player, packet.method_43885().signedContent());
+  @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;onGameMessage(Lnet/minecraft/network/message/MessageType;Lnet/minecraft/text/Text;)V", shift = At.Shift.AFTER), method = "onGameMessage")
+  void emcutils$onPostReceiveMessage(GameMessageS2CPacket packet, CallbackInfo info) {
+    ChatCallback.POST_RECEIVE_MESSAGE.invoker().onPostReceiveMessage(client.player, packet.content());
   }
 
   @Inject(at = @At("TAIL"), method = "onGameJoin")

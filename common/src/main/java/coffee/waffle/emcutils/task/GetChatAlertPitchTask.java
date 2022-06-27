@@ -9,7 +9,7 @@ public class GetChatAlertPitchTask implements Task {
   public void execute() {
     Util.getInstance().setHideFeatureMessages(true);
     ChatListener.currentMessage = ChatListener.ChatMessage.CHAT_ALERT_SOUND_PITCH;
-    MinecraftClient.getInstance().player.method_44099("/ps set chatalertpitch");
+    MinecraftClient.getInstance().player.sendCommand("ps set chatalertpitch");
   }
 
   @Override

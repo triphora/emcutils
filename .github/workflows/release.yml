@@ -10,8 +10,15 @@ jobs:
         with:
           distribution: adopt
           java-version: 17
-      - working-directory: voxel/
-        run: curl -o voxelmap-1.18.2-1.11.1.jar https://cdn.discordapp.com/attachments/931521967385878559/947927139330715668/voxelmap-1.18.2-1.11.1.jar
-      - run: "./gradlew build :forge:modrinth :quilt:modrinth --no-daemon"
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+            build/loom-cache
+            .gradle/loom-cache
+          key: ${{ runner.os }}-gradle-${{ hashFiles('*/build.gradle', '*gradle.*', 'gradle/libs.versions.toml') }}
+          restore-keys: ${{ runner.os }}-gradle
+      - run: ./gradlew build :forge:modrinth :quilt:modrinth --no-daemon
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}

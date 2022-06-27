@@ -44,7 +44,7 @@ components.java {
 }
 
 modrinth {
-  projectId = "QYTT62S0"
+  projectId = "emcutils"
   versionNumber = "$rootProject.mod_version+$name"
   versionName = "$rootProject.release_title ($projectName)"
   changelog = rootProject.changeLog

@@ -19,8 +19,8 @@
     },
     "depends": [
       {
-        "id": "journeymap-fabric",
-        "versions": ">=5.8.3"
+        "id": "journeymap",
+        "versions": "*"
       },
       {
         "id": "emcutils",

@@ -80,7 +80,7 @@ public enum EmpireServer {
   }
 
   public void sendToServer() {
-    MinecraftClient.getInstance().player.method_44099(getCommand());
+    MinecraftClient.getInstance().player.sendCommand(getCommand());
     Util.setCurrentServer(getName());
   }
 
@@ -125,7 +125,7 @@ public enum EmpireServer {
 
       str = str.replace("<b>", "").replace("<\\/b>", "");
       str = str.replace("<div>", "").replace("<\\/div>", "");
-      str = str.replace("<h3>", "").replace("\\/v", "/v");
+      str = str.replace("<h3>", "").replace("\\/v", "v");
       str = str.replace("&#39;", "'").replace("<\\/h3>", "::");
       str = str.replace("<br \\/>", "::");
 

@@ -1,10 +1,10 @@
 package coffee.waffle.emcutils.mixin;
 
 import coffee.waffle.emcutils.feature.VaultScreen;
-import com.mojang.blaze3d.glfw.Window;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.option.KeyBind;
+import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.Window;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -31,7 +31,7 @@ public abstract class MinecraftClientMixin {
 
     mc.currentScreen = screen;
     mc.mouse.unlockCursor();
-    KeyBind.unpressAll();
+    KeyBinding.unpressAll();
     screen.init(mc, window.getScaledWidth(), window.getScaledHeight());
     mc.skipGameRender = false;
 
