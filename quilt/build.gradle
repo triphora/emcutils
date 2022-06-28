@@ -43,7 +43,7 @@ processResources.dependsOn copyAW
 modrinth {
   dependencies {
     required.project "qsl"
-    required.project "midnightlib"
+    embedded.project "midnightlib"
     optional.project "modmenu"
     optional.project "journeymap"
   }

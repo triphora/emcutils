@@ -8,7 +8,6 @@ import coffee.waffle.emcutils.util.Util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.OpenScreenS2CPacket;
@@ -48,7 +47,7 @@ public abstract class ClientPlayNetworkHandlerMixin {
     }
   }
 
-  @Inject(at = @At("HEAD"), method = "onOpenScreen", cancellable = true)
+  @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screen/ingame/HandledScreens;open(Lnet/minecraft/screen/ScreenHandlerType;Lnet/minecraft/client/MinecraftClient;ILnet/minecraft/text/Text;)V"), method = "onOpenScreen", cancellable = true)
   void emcutils$changeToVaultScreen(OpenScreenS2CPacket packet, CallbackInfo ci) {
     if (Util.isOnEMC && packet.getName().getString().startsWith("Page: ") && packet.getScreenHandlerType() == ScreenHandlerType.GENERIC_9X6) {
       HandledScreens.open(VaultScreen.GENERIC_9X7, MinecraftClient.getInstance(), packet.getSyncId(), packet.getName());

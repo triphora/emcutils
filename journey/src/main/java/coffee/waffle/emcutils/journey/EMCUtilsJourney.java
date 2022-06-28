@@ -1,7 +1,6 @@
 package coffee.waffle.emcutils.journey;
 
 import coffee.waffle.emcutils.container.EmpireResidence;
-import coffee.waffle.emcutils.event.ServerJoinCallback;
 import coffee.waffle.emcutils.util.Util;
 import journeymap.client.api.IClientAPI;
 import journeymap.client.api.IClientPlugin;
@@ -9,7 +8,6 @@ import journeymap.client.api.display.Context;
 import journeymap.client.api.display.ModPopupMenu;
 import journeymap.client.api.event.ClientEvent;
 import journeymap.client.api.event.fabric.FabricEvents;
-import lombok.SneakyThrows;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
