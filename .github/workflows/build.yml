@@ -5,18 +5,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-java@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-java@v3
         with:
           distribution: adopt
           java-version: 17
-      - uses: actions/cache@v2
+      - uses: gradle/gradle-build-action@v2
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-            build/loom-cache
-            .gradle/loom-cache
-          key: ${{ runner.os }}-gradle-${{ hashFiles('*/build.gradle', '*gradle.*', 'gradle/libs.versions.toml') }}
-          restore-keys: ${{ runner.os }}-gradle
-      - run: ./gradlew build --no-daemon
+          gradle-version: release-candidate
+          arguments: build
+          cache-read-only: ${{ github.repository_owner != 'emmods' }}
