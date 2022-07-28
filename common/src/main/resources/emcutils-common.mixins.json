@@ -11,6 +11,7 @@
     "ConnectScreenMixin",
     "HandledScreenAccessor",
     "IdentifierMixin",
+    "MainMixin",
     "PlayerListHudAccessor",
     "PlayerListHudMixin",
     "ScreenMixin"
