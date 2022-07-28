@@ -10,7 +10,6 @@ subprojects {
   apply plugin: "dev.architectury.loom"
 
   repositories {
-    mavenLocal()
     maven {
       url "https://api.modrinth.com/maven"
       content { includeGroup "maven.modrinth" }

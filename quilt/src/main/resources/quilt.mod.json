@@ -29,16 +29,15 @@
     "depends": [
       {
         "id": "midnightlib",
-        "versions": ">=0.5.2",
-        "unless": "maven_modrinth_midnightlib"
+        "versions": ">=0.5.2"
       },
       {
         "id": "minecraft",
-        "versions": ">=1.19"
+        "versions": ">=1.19.1"
       },
       {
         "id": "modmenu",
-        "versions": ">=4.0.0",
+        "versions": ">=4.0.5",
         "optional": true
       }
     ]

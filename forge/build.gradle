@@ -19,8 +19,6 @@ configurations {
 
 dependencies {
   forge libs.forge
-
-  modRuntimeOnly libs.bundles.forge.runtime
 }
 
 processResources {

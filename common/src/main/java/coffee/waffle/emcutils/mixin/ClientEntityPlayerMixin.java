@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public abstract class ClientEntityPlayerMixin {
   private static final ClientPlayerEntity player = MinecraftClient.getInstance().player;
 
-  @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;sendChatMessagePacket(Lnet/minecraft/network/message/ChatMessageSigner;Ljava/lang/String;Lnet/minecraft/text/Text;)V"), method = "sendChatMessage(Ljava/lang/String;Lnet/minecraft/text/Text;)V")
+  @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;sendChatMessagePacket(Ljava/lang/String;Lnet/minecraft/text/Text;)V"), method = "sendChatMessage(Ljava/lang/String;Lnet/minecraft/text/Text;)V")
   void emcutils$onPreSendMessage(String message, Text text, CallbackInfo info) {
     ChatCallback.PRE_SEND_MESSAGE.invoker().onPreSendMessage(player, message);
   }
@@ -28,7 +28,7 @@ public abstract class ClientEntityPlayerMixin {
     ChatCallback.POST_SEND_MESSAGE.invoker().onPostSendMessage(player, message);
   }
 
-  @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;sendCommand(Lnet/minecraft/network/message/ChatMessageSigner;Ljava/lang/String;Lnet/minecraft/text/Text;)V"), method = "sendCommand(Ljava/lang/String;Lnet/minecraft/text/Text;)V")
+  @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;sendCommandInternal(Ljava/lang/String;Lnet/minecraft/text/Text;)V"), method = "sendCommand(Ljava/lang/String;Lnet/minecraft/text/Text;)V")
   void emcutils$onPreExecuteCommand(String message, Text text, CallbackInfo info) {
     String[] parts = message.split(" ");
     CommandCallback.PRE_EXECUTE_COMMAND.invoker().onPreExecuteCommand(player, parts[0], parts.length > 1 ? Arrays.stream(parts, 1, parts.length).collect(Collectors.toList()) : Lists.newArrayList());

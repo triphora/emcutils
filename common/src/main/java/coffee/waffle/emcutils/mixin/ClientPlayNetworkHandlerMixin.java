@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ClientPlayNetworkHandlerMixin {
   @Shadow @Final private MinecraftClient client;
 
-  @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;onGameMessage(Lnet/minecraft/network/message/MessageType;Lnet/minecraft/text/Text;)V"), method = "onGameMessage", cancellable = true)
+  @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/message/MessageHandler;onGameMessage(Lnet/minecraft/text/Text;Z)V"), method = "onGameMessage", cancellable = true)
   void emcutils$onPreReceiveMessage(GameMessageS2CPacket packet, CallbackInfo info) {
     ActionResult result = ChatCallback.PRE_RECEIVE_MESSAGE.invoker().onPreReceiveMessage(client.player, packet.content());
 
@@ -33,7 +33,7 @@ public abstract class ClientPlayNetworkHandlerMixin {
     }
   }
 
-  @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;onGameMessage(Lnet/minecraft/network/message/MessageType;Lnet/minecraft/text/Text;)V", shift = At.Shift.AFTER), method = "onGameMessage")
+  @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/message/MessageHandler;onGameMessage(Lnet/minecraft/text/Text;Z)V", shift = At.Shift.AFTER), method = "onGameMessage")
   void emcutils$onPostReceiveMessage(GameMessageS2CPacket packet, CallbackInfo info) {
     ChatCallback.POST_RECEIVE_MESSAGE.invoker().onPostReceiveMessage(client.player, packet.content());
   }

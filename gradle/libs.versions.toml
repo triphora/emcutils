@@ -1,32 +1,31 @@
 [versions]
 # MC, loaders, and mappings
-minecraft = "1.19"
-quilt_loader = "0.17.0"  # https://lambdaurora.dev/tools/import_quilt.html
+minecraft = "1.19.1"
+quilt_loader = "0.17.1"  # https://lambdaurora.dev/tools/import_quilt.html
 fabric_loader = "0.14.8" # https://fabricmc.net/develop
-forge = "1.19-41.0.91"   # https://files.minecraftforge.net/
-yarn = "4"               # https://fabricmc.net/develop
+forge = "1.19.1-42.0.0"  # https://files.minecraftforge.net/
+yarn = "1"               # https://fabricmc.net/develop
 
 # Dependencies for all subprojects
 lombok = "1.18.24"    # https://mvnrepository.com/artifact/org.projectlombok/lombok
 quiltflower = "1.8.1" # https://maven.quiltmc.org/repository/release/org/quiltmc/quiltflower/
 
-# Fabric subproject
-quilted_fabric_api = "2.0.0-beta.5+0.57.0-1.19" # https://modrinth.com/mod/qsl
-midnightlib = "0.5.2"                           # https://modrinth.com/mod/midnightlib/versions
-lazydfu = "0.1.3"                               # https://modrinth.com/mod/lazydfu
-modmenu = "4.0.0"                               # https://modrinth.com/mod/modmenu/versions
+# Quilt subproject
+quilted_fabric_api = "4.0.0-beta.1+0.58.5-1.19.1" # https://modrinth.com/mod/qsl
+midnightlib = "0.5.2" # https://modrinth.com/mod/midnightlib/versions
+lazydfu = "0.1.3"     # https://modrinth.com/mod/lazydfu
+modmenu = "4.0.5"     # https://modrinth.com/mod/modmenu/versions
 
 # Forge subproject
 config_menus = "3671318"  # https://www.curseforge.com/minecraft/mc-mods/config-menus-forge/files/all
-lazydfu_forge = "3831644" # https://www.curseforge.com/minecraft/mc-mods/lazy-dfu-forge/files/all
 
 # Minimap subprojects
-qsl_base = "2.0.0-beta.12+1.19" # https://lambdaurora.dev/tools/import_quilt.html
+qsl_base = "3.0.0-beta.2+1.19.1" # https://lambdaurora.dev/tools/import_quilt.html
 
 # Journey subproject
 # https://jm.gserv.me/service/rest/repository/browse/maven-public/info/journeymap/journeymap-api/
-journeymap_api = "1.19-1.8-fabric-SNAPSHOT"
-journeymap = "1.19-5.8.5rc2-fabric" # https://modrinth.com/mod/journeymap
+journeymap_api = "1.19.1-1.9-fabric-SNAPSHOT"
+journeymap = "1.19.1-5.9.0beta1-fabric" # https://modrinth.com/mod/journeymap
 
 # Xaero subproject
 xaeros_minimap = "3861255"   # https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap/files/all
@@ -51,7 +50,6 @@ modmenu = { module = "maven.modrinth:modmenu", version.ref = "modmenu" }
 
 # Forge subproject
 config_menus = { module = "curse.maven:configmenus-544048", version.ref = "config_menus" }
-lazydfu_forge = { module = "curse.maven:lazydfu-460819", version.ref = "lazydfu_forge" }
 
 # Minimap subprojects
 qsl_base = { module = "org.quiltmc.qsl.core:qsl_base", version.ref = "qsl_base" }
@@ -67,7 +65,6 @@ xaeros_world_map = { module = "curse.maven:xwm-317780", version.ref = "xaeros_wo
 [bundles]
 xaero = ["xaeros_minimap", "xaeros_world_map"]
 fabric_runtime = ["lazydfu", "modmenu"]
-forge_runtime = ["lazydfu_forge"]
 
 [plugins]
 architectury_plugin = { id = "architectury-plugin", version = "3.4.+" }

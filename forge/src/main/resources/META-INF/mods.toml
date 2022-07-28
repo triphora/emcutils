@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[40,)"
+loaderVersion = "[42,)"
 issueTrackerURL = "https://github.com/emmods/emcutils/issues"
 license = "MIT"
 
@@ -22,14 +22,14 @@ updateJSONURL = "https://api.modrinth.com/updates/emcutils/forge_updates.json"
 [[dependencies.emcutils]]
 modId = "forge"
 mandatory = true
-versionRange = "[40,)"
+versionRange = "[42,)"
 ordering = "NONE"
 side = "CLIENT"
 
 [[dependencies.emcutils]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.18.2,)"
+versionRange = "[1.19.1,)"
 ordering = "NONE"
 side = "CLIENT"
 
