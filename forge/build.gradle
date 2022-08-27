@@ -1,15 +1,14 @@
-//file:noinspection GroovyAssignabilityCheck
 plugins {
   alias libs.plugins.minotaur
   alias libs.plugins.shadow
 }
 
-apply from: "../gradle/loader.gradle"
+apply from: '../gradle/loader.gradle'
 
 architectury.forge()
 
 loom.forge {
-  mixinConfig "emcutils-common.mixins.json"
+  mixinConfig 'emcutils-common.mixins.json'
   convertAccessWideners.set true
 }
 
@@ -22,13 +21,9 @@ dependencies {
 }
 
 processResources {
-  inputs.property "version", project.version
+  inputs.property 'version', project.version
 
-  filesMatching("META-INF/mods.toml") {
-    expand "version": project.version
+  filesMatching('META-INF/mods.toml') {
+    expand 'version': project.version
   }
-}
-
-publishing.publications {
-  mavenJavaForge(MavenPublication) from components.java
 }

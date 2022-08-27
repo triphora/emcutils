@@ -7,71 +7,64 @@ plugins {
 architectury.minecraft = libs.versions.minecraft.get()
 
 subprojects {
-  apply plugin: "dev.architectury.loom"
+  apply plugin: 'dev.architectury.loom'
 
   repositories {
     maven {
-      url "https://api.modrinth.com/maven"
-      content { includeGroup "maven.modrinth" }
+      url 'https://api.modrinth.com/maven'
+      content { includeGroup 'maven.modrinth' }
     }
     maven {
-      url "https://cfa2.cursemaven.com"
-      content { includeGroup "curse.maven" }
+      url 'https://cfa2.cursemaven.com'
+      content { includeGroup 'curse.maven' }
     }
     maven {
-      url "https://maven.quiltmc.org/repository/release"
+      url 'https://maven.quiltmc.org/repository/release'
       content {
-        includeGroup "org.quiltmc"
-        includeGroupByRegex "org\\.quiltmc\\..*"
+        includeGroup 'org.quiltmc'
+        includeGroupByRegex 'org\\.quiltmc\\..*'
       }
     }
   }
 
   dependencies {
     minecraft libs.minecraft
-    mappings "net.fabricmc:yarn:${libs.versions.minecraft.get()}+build.${libs.versions.yarn.get()}:v2"
+    mappings variantOf(libs.yarn) { classifier 'v2' }
 
     implementation libs.lombok
     annotationProcessor libs.lombok
 
-    // -Dmixin.debug.export=true
     runtimeOnly libs.quiltflower
   }
 
   loom {
     runtimeOnlyLog4j = true
     clientOnlyMinecraftJar()
+
+    runs {
+      configureEach {
+        vmArg '-Dmixin.debug.export=true'
+      }
+    }
   }
 }
 
 allprojects {
-  apply plugin: "java"
-  apply plugin: "architectury-plugin"
-  apply plugin: "maven-publish"
-  apply plugin: "io.github.p03w.machete"
+  apply plugin: 'java'
+  apply plugin: 'architectury-plugin'
+  apply plugin: 'maven-publish'
+  apply plugin: 'io.github.p03w.machete'
 
-  group = "coffee.waffle.emcutils" // FIXME this is a hack, should use archiveBaseName
+  group = 'coffee.waffle.emcutils' // FIXME this is a hack, should use archiveBaseName
   archivesBaseName = "emcutils-${project.name}-${libs.versions.minecraft.get()}"
   version = rootProject.mod_version
 
   tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
-    options.release.set(17)
+    options.encoding = 'UTF-8'
+    options.release.set 17
   }
 
   java.withSourcesJar()
 
-  jar.from "LICENSE"
-
-  publishing.repositories.maven {
-    url = System.getenv().MAVEN_URL
-    credentials {
-      username = System.getenv().MAVEN_USER
-      password = System.getenv().MAVEN_PASS
-    }
-    authentication {
-      //noinspection GroovyAssignabilityCheck
-      basic(BasicAuthentication)
-    }
-  }
+  jar.from 'LICENSE'
 }

@@ -1,13 +1,13 @@
-apply from: "../gradle/map-integrations.gradle"
+apply from: '../gradle/map-integrations.gradle'
 
 repositories {
   maven {
-    url "https://jm.gserv.me/repository/maven-public/"
+    url 'https://jm.gserv.me/repository/maven-public/'
+    content { includeModule 'info.journeymap', 'journeymap-api' }
   }
 }
 
 dependencies {
   modCompileOnlyApi(libs.journeymap.api) { transitive false }
-  modCompileOnlyApi(fabricApi.module("fabric-api-base", "0.51.1+1.18.2"))
   modRuntimeOnly libs.journeymap
 }

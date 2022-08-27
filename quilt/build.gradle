@@ -1,34 +1,31 @@
-//file:noinspection GroovyAssignabilityCheck
 plugins {
   alias libs.plugins.minotaur
   alias libs.plugins.shadow
   alias libs.plugins.loom.quiltflower
 }
 
-apply from: "../gradle/loader.gradle"
-apply from: "../gradle/qmj.gradle"
+apply from: '../gradle/loader.gradle'
+apply from: '../gradle/quilt-based.gradle'
 
-architectury.loader("quilt")
+architectury.loader 'quilt'
 
-File commonAW = project ":common" file "src/main/resources/emcutils.accesswidener"
-File generatedResources = file "src/generated/resources"
+File commonAW = project ':common' file 'src/main/resources/emcutils.accesswidener'
+File generatedResources = file 'src/generated/resources'
 
 configurations {
   developmentQuilt.extendsFrom common
 }
 
 dependencies {
-  modImplementation libs.quilt.loader
-  modImplementation libs.quilted.fabric.api
-
   modImplementation libs.midnightlib
   include libs.midnightlib
 
-  modRuntimeOnly(libs.bundles.fabric.runtime) { transitive false }
+  modRuntimeOnly libs.modmenu
+  modRuntimeOnly libs.lazydfu
 
-  include project(":journey")
-  // include project(":voxel")
-  include project(":xaero")
+  include project(':journey')
+  // include project(':voxel')
+  include project(':xaero')
 }
 
 sourceSets.main.resources.srcDir generatedResources
@@ -42,15 +39,11 @@ processResources.dependsOn copyAW
 
 modrinth {
   dependencies {
-    required.project "qsl"
-    embedded.project "midnightlib"
-    optional.project "modmenu"
-    optional.project "journeymap"
+    required.project 'qsl'
+    embedded.project 'midnightlib'
+    optional.project 'modmenu'
+    optional.project 'journeymap'
   }
-  syncBodyFrom = rootProject.file("README.md").text
+  syncBodyFrom = rootProject.file('README.md').text
 }
-tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
-
-publishing.publications {
-  mavenQuilt(MavenPublication) from components.java
-}
+tasks.modrinth.dependsOn tasks.modrinthSyncBody

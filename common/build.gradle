@@ -1,8 +1,7 @@
 dependencies {
-  // TODO switch me to Quilt
-  modImplementation libs.fabric.loader
+  modImplementation libs.quilt.loader
 }
 
-architectury.common "quilt", "forge"
+architectury.common 'quilt', 'forge'
 
-loom.accessWidenerPath.set file("src/main/resources/emcutils.accesswidener")
+loom.accessWidenerPath.set file('src/main/resources/emcutils.accesswidener')
