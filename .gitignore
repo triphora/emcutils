@@ -14,9 +14,6 @@ bin/
 .project
 *.DS_Store
 run/
-detonatedmods/
 generated/
 .architectury-transformer/
-credentials.properties
 *.jar
-!gradle/wrapper/gradle-wrapper.jar

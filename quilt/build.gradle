@@ -24,7 +24,6 @@ dependencies {
   modRuntimeOnly libs.lazydfu
 
   include project(':journey')
-  // include project(':voxel')
   include project(':xaero')
 }
 
