@@ -1,70 +1,70 @@
 plugins {
-  alias libs.plugins.architectury.plugin
-  alias libs.plugins.architectury.loom apply false
-  alias libs.plugins.machete
+	alias libs.plugins.architectury.plugin
+	alias libs.plugins.architectury.loom apply false
+	alias libs.plugins.machete
 }
 
 architectury.minecraft = libs.versions.minecraft.get()
 
 subprojects {
-  apply plugin: 'dev.architectury.loom'
+	apply plugin: 'dev.architectury.loom'
 
-  repositories {
-    maven {
-      url 'https://api.modrinth.com/maven'
-      content { includeGroup 'maven.modrinth' }
-    }
-    maven {
-      url 'https://cfa2.cursemaven.com'
-      content { includeGroup 'curse.maven' }
-    }
-    maven {
-      url 'https://maven.quiltmc.org/repository/release'
-      content {
-        includeGroup 'org.quiltmc'
-        includeGroupByRegex 'org\\.quiltmc\\..*'
-      }
-    }
-  }
+	repositories {
+		maven {
+			url 'https://api.modrinth.com/maven'
+			content { includeGroup 'maven.modrinth' }
+		}
+		maven {
+			url 'https://cfa2.cursemaven.com'
+			content { includeGroup 'curse.maven' }
+		}
+		maven {
+			url 'https://maven.quiltmc.org/repository/release'
+			content {
+				includeGroup 'org.quiltmc'
+				includeGroupByRegex 'org\\.quiltmc\\..*'
+			}
+		}
+	}
 
-  dependencies {
-    minecraft libs.minecraft
-    mappings variantOf(libs.yarn) { classifier 'v2' }
+	dependencies {
+		minecraft libs.minecraft
+		mappings variantOf(libs.yarn) { classifier 'v2' }
 
-    implementation libs.lombok
-    annotationProcessor libs.lombok
+		implementation libs.lombok
+		annotationProcessor libs.lombok
 
-    runtimeOnly libs.quiltflower
-  }
+		runtimeOnly libs.quiltflower
+	}
 
-  loom {
-    runtimeOnlyLog4j = true
-    clientOnlyMinecraftJar()
+	loom {
+		runtimeOnlyLog4j = true
+		clientOnlyMinecraftJar()
 
-    runs {
-      configureEach {
-        vmArg '-Dmixin.debug.export=true'
-      }
-    }
-  }
+		runs {
+			configureEach {
+				vmArg '-Dmixin.debug.export=true'
+			}
+		}
+	}
 }
 
 allprojects {
-  apply plugin: 'java'
-  apply plugin: 'architectury-plugin'
-  apply plugin: 'maven-publish'
-  apply plugin: 'io.github.p03w.machete'
+	apply plugin: 'java'
+	apply plugin: 'architectury-plugin'
+	apply plugin: 'maven-publish'
+	apply plugin: 'io.github.p03w.machete'
 
-  group = 'coffee.waffle'
-  archivesBaseName = "emcutils-${project.name}-${libs.versions.minecraft.get()}"
-  version = rootProject.mod_version
+	group = 'coffee.waffle'
+	archivesBaseName = "emcutils-${project.name}-${libs.versions.minecraft.get()}"
+	version = rootProject.mod_version
 
-  tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
-    options.release.set 17
-  }
+	tasks.withType(JavaCompile) {
+		options.encoding = 'UTF-8'
+		options.release.set 17
+	}
 
-  java.withSourcesJar()
+	java.withSourcesJar()
 
-  jar.from 'LICENSE'
+	jar.from 'LICENSE'
 }

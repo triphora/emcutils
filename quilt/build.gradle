@@ -1,7 +1,7 @@
 plugins {
-  alias libs.plugins.minotaur
-  alias libs.plugins.shadow
-  alias libs.plugins.loom.quiltflower
+	alias libs.plugins.minotaur
+	alias libs.plugins.shadow
+	alias libs.plugins.loom.quiltflower
 }
 
 apply from: '../gradle/loader.gradle'
@@ -13,36 +13,36 @@ File commonAW = project ':common' file 'src/main/resources/emcutils.accesswidene
 File generatedResources = file 'src/generated/resources'
 
 configurations {
-  developmentQuilt.extendsFrom common
+	developmentQuilt.extendsFrom common
 }
 
 dependencies {
-  modImplementation libs.midnightlib
-  include libs.midnightlib
+	modImplementation libs.midnightlib
+	include libs.midnightlib
 
-  modRuntimeOnly libs.modmenu
-  modRuntimeOnly libs.lazydfu
+	modRuntimeOnly libs.modmenu
+	modRuntimeOnly libs.lazydfu
 
-  include project(':journey')
-  include project(':xaero')
+	include project(':journey')
+	include project(':xaero')
 }
 
 sourceSets.main.resources.srcDir generatedResources
 
 task copyAW(type: Copy) {
-  from commonAW
-  into generatedResources
+	from commonAW
+	into generatedResources
 }
 
 processResources.dependsOn copyAW
 
 modrinth {
-  dependencies {
-    required.project 'qsl'
-    embedded.project 'midnightlib'
-    optional.project 'modmenu'
-    optional.project 'journeymap'
-  }
-  syncBodyFrom = rootProject.file('README.md').text
+	dependencies {
+		required.project 'qsl'
+		embedded.project 'midnightlib'
+		optional.project 'modmenu'
+		optional.project 'journeymap'
+	}
+	syncBodyFrom = rootProject.file('README.md').text
 }
 tasks.modrinth.dependsOn tasks.modrinthSyncBody

@@ -11,8 +11,8 @@ import java.util.List;
 
 @Mixin(PlayerListHud.class)
 public abstract class PlayerListHudMixin {
-  @ModifyVariable(method = "render", at = @At(value = "INVOKE_ASSIGN", remap = false, target = "Lcom/google/common/collect/Ordering;sortedCopy(Ljava/lang/Iterable;)Ljava/util/List;"))
-  List<PlayerListEntry> emcutils$customSortTabList(List<PlayerListEntry> original) {
-    return TabListOrganizer.sortPlayers(original);
-  }
+	@ModifyVariable(method = "render", at = @At(value = "INVOKE_ASSIGN", remap = false, target = "Lcom/google/common/collect/Ordering;sortedCopy(Ljava/lang/Iterable;)Ljava/util/List;"))
+	List<PlayerListEntry> emcutils$customSortTabList(List<PlayerListEntry> original) {
+		return TabListOrganizer.sortPlayers(original);
+	}
 }

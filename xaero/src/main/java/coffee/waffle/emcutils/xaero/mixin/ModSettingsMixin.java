@@ -11,13 +11,13 @@ import xaero.common.settings.ModSettings;
 @Pseudo
 @Mixin(ModSettings.class)
 public abstract class ModSettingsMixin {
-  @Inject(method = "caveMapsDisabled", at = @At("HEAD"), cancellable = true, remap = false)
-  private void disableCaveMapsOnEMC(CallbackInfoReturnable<Boolean> cir) {
-    if (Util.isOnEMC) cir.setReturnValue(true);
-  }
+	@Inject(method = "caveMapsDisabled", at = @At("HEAD"), cancellable = true, remap = false)
+	private void disableCaveMapsOnEMC(CallbackInfoReturnable<Boolean> cir) {
+		if (Util.isOnEMC) cir.setReturnValue(true);
+	}
 
-  @Inject(method = "getEntityRadar", at = @At("HEAD"), cancellable = true, remap = false)
-  private void disableRadarOnEMC(CallbackInfoReturnable<Boolean> cir) {
-    if (Util.isOnEMC) cir.setReturnValue(false);
-  }
+	@Inject(method = "getEntityRadar", at = @At("HEAD"), cancellable = true, remap = false)
+	private void disableRadarOnEMC(CallbackInfoReturnable<Boolean> cir) {
+		if (Util.isOnEMC) cir.setReturnValue(false);
+	}
 }

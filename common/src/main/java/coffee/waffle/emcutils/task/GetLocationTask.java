@@ -4,14 +4,14 @@ import coffee.waffle.emcutils.listener.ChatListener;
 import net.minecraft.client.MinecraftClient;
 
 public class GetLocationTask implements Task {
-  @Override
-  public void execute() {
-    ChatListener.currentMessage = ChatListener.ChatMessage.LOCATION;
-    MinecraftClient.getInstance().player.sendCommand("loc");
-  }
+	@Override
+	public void execute() {
+		ChatListener.currentMessage = ChatListener.ChatMessage.LOCATION;
+		MinecraftClient.getInstance().player.sendCommand("loc");
+	}
 
-  @Override
-  public String getDescription() {
-    return "Getting current location";
-  }
+	@Override
+	public String getDescription() {
+		return "Getting current location";
+	}
 }

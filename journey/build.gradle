@@ -1,13 +1,13 @@
 apply from: '../gradle/map-integrations.gradle'
 
 repositories {
-  maven {
-    url 'https://jm.gserv.me/repository/maven-public/'
-    content { includeModule 'info.journeymap', 'journeymap-api' }
-  }
+	maven {
+		url 'https://jm.gserv.me/repository/maven-public/'
+		content { includeModule 'info.journeymap', 'journeymap-api' }
+	}
 }
 
 dependencies {
-  modCompileOnlyApi(libs.journeymap.api) { transitive false }
-  modRuntimeOnly libs.journeymap
+	modCompileOnlyApi(libs.journeymap.api) { transitive false }
+	modRuntimeOnly libs.journeymap
 }

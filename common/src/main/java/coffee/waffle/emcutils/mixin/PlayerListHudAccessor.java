@@ -8,8 +8,8 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 
 @Mixin(PlayerListHud.class)
 public interface PlayerListHudAccessor {
-  @Accessor(value = "ENTRY_ORDERING")
-  static Ordering<PlayerListEntry> getEntryOrdering() {
-    throw new AssertionError();
-  }
+	@Accessor(value = "ENTRY_ORDERING")
+	static Ordering<PlayerListEntry> getEntryOrdering() {
+		throw new AssertionError();
+	}
 }

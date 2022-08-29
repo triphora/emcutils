@@ -6,49 +6,49 @@ loom.accessWidenerPath.set commonAW
 String projectName = "${name.substring(0, 1).toUpperCase()}${name.substring(1)}"
 
 configurations {
-  common
-  shadowCommon
-  compileClasspath.extendsFrom common
-  runtimeClasspath.extendsFrom common
+	common
+	shadowCommon
+	compileClasspath.extendsFrom common
+	runtimeClasspath.extendsFrom common
 }
 
 dependencies {
-  common(project(path: ':common', configuration: 'namedElements')) { transitive false }
-  shadowCommon(project(path: ':common', configuration: "transformProduction$projectName")) { transitive false }
+	common(project(path: ':common', configuration: 'namedElements')) { transitive false }
+	shadowCommon(project(path: ':common', configuration: "transformProduction$projectName")) { transitive false }
 }
 
 shadowJar {
-  configurations = [project.configurations.shadowCommon]
-  classifier 'dev-shadow'
+	configurations = [project.configurations.shadowCommon]
+	classifier 'dev-shadow'
 }
 
 remapJar {
-  inputFile.set shadowJar.archiveFile
-  dependsOn shadowJar
-  classifier null
+	inputFile.set shadowJar.archiveFile
+	dependsOn shadowJar
+	classifier null
 }
 
 jar.classifier 'dev'
 
 sourcesJar {
-  def commonSources = project(':common').sourcesJar
-  dependsOn commonSources
-  from commonSources.archiveFile.map { zipTree(it) }
-  exclude 'emcutils.accesswidener'
+	def commonSources = project(':common').sourcesJar
+	dependsOn commonSources
+	from commonSources.archiveFile.map { zipTree(it) }
+	exclude 'emcutils.accesswidener'
 }
 
 components.java {
-  withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-    skip()
-  }
+	withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+		skip()
+	}
 }
 
 modrinth {
-  projectId = 'emcutils'
-  versionNumber = rootProject.mod_version
-  versionName = "$rootProject.release_title ($projectName)"
-  changelog = rootProject.changeLog
-  uploadFile = remapJar
-  gameVersions = [libs.versions.minecraft.get()]
-  loaders = [name]
+	projectId = 'emcutils'
+	versionNumber = rootProject.mod_version
+	versionName = "$rootProject.release_title ($projectName)"
+	changelog = rootProject.changeLog
+	uploadFile = remapJar
+	gameVersions = [libs.versions.minecraft.get()]
+	loaders = [name]
 }

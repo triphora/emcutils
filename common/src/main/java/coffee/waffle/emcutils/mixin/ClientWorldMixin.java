@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientWorld.class)
 public class ClientWorldMixin {
-  @Inject(method = "tickEntities", at = @At("RETURN"))
-  void emcutils$onWorldLoad(CallbackInfo ci) {
-    ServerJoinCallback.WORLD_LOADED.invoker().onWorldLoaded();
-  }
+	@Inject(method = "tickEntities", at = @At("RETURN"))
+	void emcutils$onWorldLoad(CallbackInfo ci) {
+		ServerJoinCallback.WORLD_LOADED.invoker().onWorldLoaded();
+	}
 }

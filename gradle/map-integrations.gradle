@@ -1,6 +1,6 @@
 apply from: '../gradle/quilt-based.gradle'
 
 dependencies {
-  api project(':common')
-  api project(':quilt')
+	api project(':common')
+	api project(':quilt')
 }

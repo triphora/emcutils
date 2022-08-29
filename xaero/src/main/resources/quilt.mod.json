@@ -1,42 +1,42 @@
 {
-  "schema_version": 1,
-  "quilt_loader": {
-    "group": "coffee.waffle",
-    "id": "emcutils-xaero-compat",
-    "version": "${version}",
-    "metadata": {
-      "name": "Empire Minecraft Utilities Xaero's Compatibility",
-      "description": "Xaero's World Map and Minimap compatibility for Empire Minecraft Utilities",
-      "contributors": {
-        "wafflecoffee": "Owner"
-      },
-      "license": "MIT"
-    },
-    "load_type": "if_possible",
-    "intermediate_mappings": "net.fabricmc:intermediary",
-    "entrypoints": {
-      "client_init": "coffee.waffle.emcutils.xaero.EMCUtilsXaero"
-    },
-    "depends": [
-      {
-        "id": "xaeroworldmap",
-        "versions": ">=1.20.1"
-      },
-      {
-        "id": "xaerominimap",
-        "versions": ">=22.1.2"
-      },
-      {
-        "id": "emcutils",
-        "versions": ">=${version}"
-      }
-    ]
-  },
-  "minecraft": {
-    "environment": "client"
-  },
-  "mixin": "emcutils-xaero.mixins.json",
-  "modmenu": {
-    "parent": "emcutils"
-  }
+	"schema_version": 1,
+	"quilt_loader": {
+		"group": "coffee.waffle",
+		"id": "emcutils-xaero-compat",
+		"version": "${version}",
+		"metadata": {
+			"name": "Empire Minecraft Utilities Xaero's Compatibility",
+			"description": "Xaero's World Map and Minimap compatibility for Empire Minecraft Utilities",
+			"contributors": {
+				"wafflecoffee": "Owner"
+			},
+			"license": "MIT"
+		},
+		"load_type": "if_possible",
+		"intermediate_mappings": "net.fabricmc:intermediary",
+		"entrypoints": {
+			"client_init": "coffee.waffle.emcutils.xaero.EMCUtilsXaero"
+		},
+		"depends": [
+			{
+				"id": "xaeroworldmap",
+				"versions": ">=1.20.1"
+			},
+			{
+				"id": "xaerominimap",
+				"versions": ">=22.1.2"
+			},
+			{
+				"id": "emcutils",
+				"versions": ">=${version}"
+			}
+		]
+	},
+	"minecraft": {
+		"environment": "client"
+	},
+	"mixin": "emcutils-xaero.mixins.json",
+	"modmenu": {
+		"parent": "emcutils"
+	}
 }

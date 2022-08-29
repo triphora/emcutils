@@ -23,25 +23,25 @@ import static org.quiltmc.qsl.resource.loader.api.ResourceLoader.registerBuiltin
 import static org.quiltmc.qsl.resource.loader.api.ResourcePackActivationType.NORMAL;
 
 public class EMCUtilsQuilt implements ClientModInitializer, ItemTooltipCallback {
-  @Override
-  public void onInitializeClient(ModContainer mod) {
-    MidnightConfig.init(mod.metadata().id(), QuiltConfig.class);
+	@Override
+	public void onInitializeClient(ModContainer mod) {
+		MidnightConfig.init(mod.metadata().id(), QuiltConfig.class);
 
-    // These don't work in dev for whatever reason, but work in prod
-    registerBuiltinResourcePack(id("dark-ui-vault"), mod, NORMAL);
-    registerBuiltinResourcePack(id("vt-dark-vault"), mod, NORMAL);
+		// These don't work in dev for whatever reason, but work in prod
+		registerBuiltinResourcePack(id("dark-ui-vault"), mod, NORMAL);
+		registerBuiltinResourcePack(id("vt-dark-vault"), mod, NORMAL);
 
-    Util.runResidenceCollector();
+		Util.runResidenceCollector();
 
-    Util.getOnJoinCommandQueue();
+		Util.getOnJoinCommandQueue();
 
-    HandledScreens.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
+		HandledScreens.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
 
-    LOG.info("Initialized " + mod.metadata().id());
-  }
+		LOG.info("Initialized " + mod.metadata().id());
+	}
 
-  @Override
-  public void onTooltipRequest(ItemStack stack, @Nullable PlayerEntity player, TooltipContext context, List<Text> lines) {
-    TooltipCallback.ITEM.invoker().append(stack, lines, context);
-  }
+	@Override
+	public void onTooltipRequest(ItemStack stack, @Nullable PlayerEntity player, TooltipContext context, List<Text> lines) {
+		TooltipCallback.ITEM.invoker().append(stack, lines, context);
+	}
 }

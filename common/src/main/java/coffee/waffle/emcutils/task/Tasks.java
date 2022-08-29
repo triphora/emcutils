@@ -6,25 +6,25 @@ import java.util.concurrent.Executors;
 import static coffee.waffle.emcutils.util.Util.LOG;
 
 public class Tasks {
-  public static void runTasks(Task... tasks) {
-    ExecutorService executor = Executors.newSingleThreadExecutor();
+	public static void runTasks(Task... tasks) {
+		ExecutorService executor = Executors.newSingleThreadExecutor();
 
-    executor.submit(() -> {
-      for (Task task : tasks) {
-        task.execute();
+		executor.submit(() -> {
+			for (Task task : tasks) {
+				task.execute();
 
-        LOG.info("Executed Task: " + task.getDescription());
+				LOG.info("Executed Task: " + task.getDescription());
 
-        if (task.shouldWait()) {
-          try {
-            Thread.sleep(1000);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
-        }
-      }
-    });
+				if (task.shouldWait()) {
+					try {
+						Thread.sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
 
-    executor.shutdown();
-  }
+		executor.shutdown();
+	}
 }

@@ -1,13 +1,13 @@
 package coffee.waffle.emcutils.task;
 
 public interface Task {
-  void execute();
+	void execute();
 
-  default boolean shouldWait() {
-    return true;
-  }
+	default boolean shouldWait() {
+		return true;
+	}
 
-  default String getDescription() {
-    return toString();
-  }
+	default String getDescription() {
+		return toString();
+	}
 }

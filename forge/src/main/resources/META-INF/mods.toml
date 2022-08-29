@@ -8,10 +8,10 @@ modId = "emcutils"
 version = "${version}+forge"
 displayName = "Empire Minecraft Utilities"
 authors = [
-    "MrFrydae",
-    "wafflecoffee",
-    "BasiqueEvangelist",
-    "BlockHead_56"
+	"MrFrydae",
+	"wafflecoffee",
+	"BasiqueEvangelist",
+	"BlockHead_56"
 ]
 description = '''
 A collection of various utilities for the Empire Minecraft server.

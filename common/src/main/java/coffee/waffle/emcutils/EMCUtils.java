@@ -10,27 +10,27 @@ import coffee.waffle.emcutils.task.Tasks;
 import coffee.waffle.emcutils.util.Util;
 
 public class EMCUtils {
-  private static boolean online = false;
+	private static boolean online = false;
 
-  @SuppressWarnings("InstantiationOfUtilityClass")
-  public static void onJoinEmpireMinecraft() {
-    if (!online) {
-      new ChatListener();
-      new CommandListener();
-      new UsableItems();
+	@SuppressWarnings("InstantiationOfUtilityClass")
+	public static void onJoinEmpireMinecraft() {
+		if (!online) {
+			new ChatListener();
+			new CommandListener();
+			new UsableItems();
 
-      online = true;
-    }
-  }
+			online = true;
+		}
+	}
 
-  public static void onPostJoinEmpireMinecraft() {
-    if (Util.getInstance().isShouldRunTasks()) {
-      Tasks.runTasks(
-              new GetChatAlertPitchTask(),
-              new GetChatAlertSoundTask(),
-              () -> Util.getInstance().setShouldRunTasks(false));
-    }
+	public static void onPostJoinEmpireMinecraft() {
+		if (Util.getInstance().isShouldRunTasks()) {
+			Tasks.runTasks(
+				new GetChatAlertPitchTask(),
+				new GetChatAlertSoundTask(),
+				() -> Util.getInstance().setShouldRunTasks(false));
+		}
 
-    ServerJoinCallback.POST_JOIN_EMC.invoker().afterJoiningEMC();
-  }
+		ServerJoinCallback.POST_JOIN_EMC.invoker().afterJoiningEMC();
+	}
 }

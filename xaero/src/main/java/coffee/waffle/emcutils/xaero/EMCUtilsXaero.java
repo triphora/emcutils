@@ -10,9 +10,9 @@ import static coffee.waffle.emcutils.util.Util.LOG;
 import static coffee.waffle.emcutils.util.Util.MODID;
 
 public class EMCUtilsXaero implements ClientModInitializer {
-  @Override
-  public void onInitializeClient(ModContainer mod) {
-    LOG.info(MODID + " found Xaero's World Map - enabling integrations");
-    ServerJoinCallback.POST_JOIN_EMC.register(() -> Tasks.runTasks(new GetLocationTask()));
-  }
+	@Override
+	public void onInitializeClient(ModContainer mod) {
+		LOG.info(MODID + " found Xaero's World Map - enabling integrations");
+		ServerJoinCallback.POST_JOIN_EMC.register(() -> Tasks.runTasks(new GetLocationTask()));
+	}
 }

@@ -10,9 +10,9 @@ import java.util.List;
 @FunctionalInterface
 @ApiStatus.Internal
 public interface TooltipCallback {
-  Event<TooltipCallback> ITEM = new Event<>(TooltipCallback.class, (listeners) -> (itemStack, list, tooltipContext) -> {
-    for (TooltipCallback listener : listeners) listener.append(itemStack, list, tooltipContext);
-  });
+	Event<TooltipCallback> ITEM = new Event<>(TooltipCallback.class, (listeners) -> (itemStack, list, tooltipContext) -> {
+		for (TooltipCallback listener : listeners) listener.append(itemStack, list, tooltipContext);
+	});
 
-  void append(ItemStack itemStack, List<Text> list, TooltipContext tooltipContext);
+	void append(ItemStack itemStack, List<Text> list, TooltipContext tooltipContext);
 }

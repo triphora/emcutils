@@ -1,5 +1,5 @@
 dependencies {
-  modImplementation libs.quilt.loader
+	modImplementation libs.quilt.loader
 }
 
 architectury.common 'quilt', 'forge'

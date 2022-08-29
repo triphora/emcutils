@@ -26,47 +26,47 @@ import static coffee.waffle.emcutils.util.Util.MODID;
 
 @Mod(MODID)
 public class EMCUtilsForge {
-  public EMCUtilsForge() {
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetupEvent);
+	public EMCUtilsForge() {
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetupEvent);
 
-    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ForgeConfig.SPEC);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ForgeConfig.SPEC);
 
-    movePacks("vt-dark-vault", "dark-ui-vault");
+		movePacks("vt-dark-vault", "dark-ui-vault");
 
-    Util.getOnJoinCommandQueue();
+		Util.getOnJoinCommandQueue();
 
-    ModLoadingContext.get().registerExtensionPoint(DisplayTest.class, () -> new DisplayTest(() -> "", (a, b) -> b));
+		ModLoadingContext.get().registerExtensionPoint(DisplayTest.class, () -> new DisplayTest(() -> "", (a, b) -> b));
 
-    LOG.info("Initialized " + MODID);
-  }
+		LOG.info("Initialized " + MODID);
+	}
 
-  private static void movePacks(String... packs) {
-    try {
-      Files.createDirectories(Paths.get(FMLPaths.GAMEDIR + "/resourcepacks"));
-    } catch (FileAlreadyExistsException ignored) {
-    } catch (IOException e) {
-      LOG.warn("Could not create resource packs folder");
-      return;
-    }
+	private static void movePacks(String... packs) {
+		try {
+			Files.createDirectories(Paths.get(FMLPaths.GAMEDIR + "/resourcepacks"));
+		} catch (FileAlreadyExistsException ignored) {
+		} catch (IOException e) {
+			LOG.warn("Could not create resource packs folder");
+			return;
+		}
 
-    for (String pack : packs) {
-      try (InputStream packZip = EMCUtilsForge.class.getResourceAsStream("/resourcepacks/" + pack + ".zip")) {
-        Files.copy(packZip, Paths.get("resourcepacks/" + pack + ".zip")); // This works in prod but not dev
-      } catch (FileAlreadyExistsException ignored) {
-      } catch (IOException | NullPointerException e) {
-        e.printStackTrace();
-      }
-    }
-  }
+		for (String pack : packs) {
+			try (InputStream packZip = EMCUtilsForge.class.getResourceAsStream("/resourcepacks/" + pack + ".zip")) {
+				Files.copy(packZip, Paths.get("resourcepacks/" + pack + ".zip")); // This works in prod but not dev
+			} catch (FileAlreadyExistsException ignored) {
+			} catch (IOException | NullPointerException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
-  @SubscribeEvent
-  public void clientSetupEvent(FMLClientSetupEvent event) {
-    HandledScreens.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
-    Util.runResidenceCollector();
-  }
+	@SubscribeEvent
+	public void clientSetupEvent(FMLClientSetupEvent event) {
+		HandledScreens.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
+		Util.runResidenceCollector();
+	}
 
-  @SubscribeEvent
-  public static void tooltipEvent(ItemTooltipEvent event) {
-    TooltipCallback.ITEM.invoker().append(event.getItemStack(), event.getToolTip(), event.getFlags());
-  }
+	@SubscribeEvent
+	public static void tooltipEvent(ItemTooltipEvent event) {
+		TooltipCallback.ITEM.invoker().append(event.getItemStack(), event.getToolTip(), event.getFlags());
+	}
 }

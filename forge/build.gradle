@@ -1,6 +1,6 @@
 plugins {
-  alias libs.plugins.minotaur
-  alias libs.plugins.shadow
+	alias libs.plugins.minotaur
+	alias libs.plugins.shadow
 }
 
 apply from: '../gradle/loader.gradle'
@@ -8,22 +8,22 @@ apply from: '../gradle/loader.gradle'
 architectury.forge()
 
 loom.forge {
-  mixinConfig 'emcutils-common.mixins.json'
-  convertAccessWideners.set true
+	mixinConfig 'emcutils-common.mixins.json'
+	convertAccessWideners.set true
 }
 
 configurations {
-  developmentForge.extendsFrom common
+	developmentForge.extendsFrom common
 }
 
 dependencies {
-  forge libs.forge
+	forge libs.forge
 }
 
 processResources {
-  inputs.property 'version', project.version
+	inputs.property 'version', project.version
 
-  filesMatching('META-INF/mods.toml') {
-    expand 'version': project.version
-  }
+	filesMatching('META-INF/mods.toml') {
+		expand 'version': project.version
+	}
 }

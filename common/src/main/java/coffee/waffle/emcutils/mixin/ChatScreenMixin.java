@@ -13,17 +13,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ChatScreen.class)
 public abstract class ChatScreenMixin extends Screen {
-  protected ChatScreenMixin(Text title) {
-    super(title);
-  }
+	protected ChatScreenMixin(Text title) {
+		super(title);
+	}
 
-  @Inject(at = @At("HEAD"), method = "render")
-  void emcutils$handleChatScreenRender(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo info) {
-    ChatChannels.handleChatScreenRender(this, matrices);
-  }
+	@Inject(at = @At("HEAD"), method = "render")
+	void emcutils$handleChatScreenRender(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo info) {
+		ChatChannels.handleChatScreenRender(this, matrices);
+	}
 
-  @Inject(at = @At("RETURN"), method = "mouseClicked")
-  void emcutils$handleChatScreenMouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
-    ChatChannels.handleChatScreenMouseClicked(this, mouseX, mouseY);
-  }
+	@Inject(at = @At("RETURN"), method = "mouseClicked")
+	void emcutils$handleChatScreenMouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
+		ChatChannels.handleChatScreenMouseClicked(this, mouseX, mouseY);
+	}
 }

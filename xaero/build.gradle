@@ -1,6 +1,6 @@
 apply from: '../gradle/map-integrations.gradle'
 
 dependencies {
-  modApi libs.xaeros.minimap
-  modApi libs.xaeros.world.map
+	modApi libs.xaeros.minimap
+	modApi libs.xaeros.world.map
 }

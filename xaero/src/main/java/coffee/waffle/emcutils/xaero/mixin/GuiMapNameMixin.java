@@ -1,6 +1,7 @@
 package coffee.waffle.emcutils.xaero.mixin;
 
-public abstract class GuiMapNameMixin {}
+public abstract class GuiMapNameMixin {
+}
 /*
 import coffee.waffle.emcutils.utils.Util;
 import org.spongepowered.asm.mixin.Mixin;

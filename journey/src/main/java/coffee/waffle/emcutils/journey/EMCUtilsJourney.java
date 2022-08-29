@@ -20,51 +20,53 @@ import static coffee.waffle.emcutils.util.Util.MODID;
 import static journeymap.client.api.event.ClientEvent.Type.MAPPING_STARTED;
 
 public class EMCUtilsJourney implements IClientPlugin {
-  private IClientAPI api;
-  private static final MinecraftClient client = MinecraftClient.getInstance();
+	private IClientAPI api;
+	private static final MinecraftClient client = MinecraftClient.getInstance();
 
-  @Override
-  public void initialize(@NotNull final IClientAPI api) {
-    LOG.info(MODID + " found JourneyMap - enabling integrations");
-    this.api = api;
+	@Override
+	public void initialize(@NotNull final IClientAPI api) {
+		LOG.info(MODID + " found JourneyMap - enabling integrations");
+		this.api = api;
 
-    api.subscribe(getModId(), EnumSet.of(MAPPING_STARTED));
+		api.subscribe(getModId(), EnumSet.of(MAPPING_STARTED));
 
-    // Turn off radars on EMC
-    FabricEvents.ENTITY_RADAR_UPDATE_EVENT.register(event -> { if (Util.isOnEMC) event.setCanceled(true); });
+		// Turn off radars on EMC
+		FabricEvents.ENTITY_RADAR_UPDATE_EVENT.register(event -> {
+			if (Util.isOnEMC) event.setCanceled(true);
+		});
 
-    // Add residence TP button
-    FabricEvents.FULLSCREEN_POPUP_MENU_EVENT.register(event ->
-            event.getPopupMenu().addMenuItem("Teleport to Residence", new TeleportToResidenceAction()));
-  }
+		// Add residence TP button
+		FabricEvents.FULLSCREEN_POPUP_MENU_EVENT.register(event ->
+			event.getPopupMenu().addMenuItem("Teleport to Residence", new TeleportToResidenceAction()));
+	}
 
-  @Override
-  public String getModId() {
-    return MODID;
-  }
+	@Override
+	public String getModId() {
+		return MODID;
+	}
 
-  @SuppressWarnings("deprecation")
-  @Override
-  public void onEvent(@NotNull final ClientEvent event) {
-    if (event.type.equals(MAPPING_STARTED) && Util.isOnEMC) {
-      // Disable cave maps on EMC
-      assert client.world != null;
-      if (!client.world.getRegistryKey().getValue().getPath().contains("nether")) {
-        api.toggleDisplay(null, Context.MapType.Underground, Context.UI.Any, false);
-      }
+	@SuppressWarnings("deprecation")
+	@Override
+	public void onEvent(@NotNull final ClientEvent event) {
+		if (event.type.equals(MAPPING_STARTED) && Util.isOnEMC) {
+			// Disable cave maps on EMC
+			assert client.world != null;
+			if (!client.world.getRegistryKey().getValue().getPath().contains("nether")) {
+				api.toggleDisplay(null, Context.MapType.Underground, Context.UI.Any, false);
+			}
 
-      // Set world names on EMC
-      api.setWorldId(Util.getCurrentServer().getName().toLowerCase());
-    }
-  }
+			// Set world names on EMC
+			api.setWorldId(Util.getCurrentServer().getName().toLowerCase());
+		}
+	}
 
-  private static class TeleportToResidenceAction implements ModPopupMenu.Action {
-    @Override
-    public void doAction(final @NotNull BlockPos pos) {
-      if (Util.isOnEMC) {
-        EmpireResidence res = Util.getCurrentServer().getResidenceByLoc(new Vec3d(pos.getX(), pos.getY(), pos.getZ()));
-        if (res != null) MinecraftClient.getInstance().player.sendCommand(res.getVisitCommand());
-      }
-    }
-  }
+	private static class TeleportToResidenceAction implements ModPopupMenu.Action {
+		@Override
+		public void doAction(final @NotNull BlockPos pos) {
+			if (Util.isOnEMC) {
+				EmpireResidence res = Util.getCurrentServer().getResidenceByLoc(new Vec3d(pos.getX(), pos.getY(), pos.getZ()));
+				if (res != null) MinecraftClient.getInstance().player.sendCommand(res.getVisitCommand());
+			}
+		}
+	}
 }

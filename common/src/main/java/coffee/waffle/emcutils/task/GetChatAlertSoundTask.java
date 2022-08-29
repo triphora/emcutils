@@ -5,15 +5,15 @@ import coffee.waffle.emcutils.util.Util;
 import net.minecraft.client.MinecraftClient;
 
 public class GetChatAlertSoundTask implements Task {
-  @Override
-  public void execute() {
-    Util.getInstance().setHideFeatureMessages(true);
-    ChatListener.currentMessage = ChatListener.ChatMessage.CHAT_ALERT_SOUND;
-    MinecraftClient.getInstance().player.sendCommand("ps set chatalertsound");
-  }
+	@Override
+	public void execute() {
+		Util.getInstance().setHideFeatureMessages(true);
+		ChatListener.currentMessage = ChatListener.ChatMessage.CHAT_ALERT_SOUND;
+		MinecraftClient.getInstance().player.sendCommand("ps set chatalertsound");
+	}
 
-  @Override
-  public String getDescription() {
-    return "Getting Chat Alert Sound";
-  }
+	@Override
+	public String getDescription() {
+		return "Getting Chat Alert Sound";
+	}
 }
