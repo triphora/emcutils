@@ -55,7 +55,7 @@ allprojects {
   apply plugin: 'maven-publish'
   apply plugin: 'io.github.p03w.machete'
 
-  group = 'coffee.waffle.emcutils' // FIXME this is a hack, should use archiveBaseName
+  group = 'coffee.waffle'
   archivesBaseName = "emcutils-${project.name}-${libs.versions.minecraft.get()}"
   version = rootProject.mod_version
 
