@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public abstract class ClientEntityPlayerMixin {
   private static final ClientPlayerEntity player = MinecraftClient.getInstance().player;
 
-  @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;sendChatMessagePacket(Ljava/lang/String;Lnet/minecraft/text/Text;)V"), method = "sendChatMessage(Ljava/lang/String;Lnet/minecraft/text/Text;)V")
+  @Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;sendChatMessageInternal(Ljava/lang/String;Lnet/minecraft/text/Text;)V"), method = "sendChatMessage(Ljava/lang/String;Lnet/minecraft/text/Text;)V")
   void emcutils$onPreSendMessage(String message, Text text, CallbackInfo info) {
     ChatCallback.PRE_SEND_MESSAGE.invoker().onPreSendMessage(player, message);
   }
