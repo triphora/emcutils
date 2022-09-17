@@ -1,11 +1,9 @@
 <!-- modrinth_exclude.start -->
 # Empire Minecraft Utilities
-[![Modrinth](https://raw.githubusercontent.com/intergrav/devins-badges/main/badges/modrinth_64h.png)](https://modrinth.com/mod/emcutils)
 <!-- modrinth_exclude.end -->
 
-![Forge](https://raw.githubusercontent.com/intergrav/devins-badges/main/badges/forge_64h.png) ![Quilt](https://raw.githubusercontent.com/intergrav/devins-badges/main/badges/quilt_64h.png)
-
-![No Fabric](https://raw.githubusercontent.com/intergrav/devins-badges/main/badges/no-fabric_64h.png)
+![Forge](https://raw.githubusercontent.com/intergrav/devins-badges/v1/assets/supported/forge_64h.png) ![Quilt](https://raw.githubusercontent.com/intergrav/devins-badges/v1/assets/supported/quilt_64h.png) ![No Fabric](https://raw.githubusercontent.com/intergrav/devins-badges/v1/assets/unsupported/no-fabric_64h.png)<br>
+[![Modrinth](https://raw.githubusercontent.com/intergrav/devins-badges/v1/assets/download/modrinth_64h.png)](https://modrinth.com/mod/emcutils) [![Codeberg](https://raw.githubusercontent.com/intergrav/devins-badges/v1/assets/repository/codeberg_64h.png)](https://codeberg.org/emmods/emcutils) [![GitHub](https://raw.githubusercontent.com/intergrav/devins-badges/v1/assets/repository/github_64h.png)](https://github.com/emmods/emcutils)
 
 Empire Minecraft Utilities, aka emcutils, is a 1.16-1.19 client-side mod containing a collection of small utilities for players of [Empire Minecraft](https://ref.emc.gs/wafflecoffee).
 Feature idea credits go to [Giselbaer](https://u.emc.gs/Giselbaer)/[gbl](https://github.com/gbl).
@@ -24,9 +22,6 @@ On Forge, there are no dependencies which you need to download. On Quilt, you ne
 * Quilt-only: Integration with JourneyMap and Xaero's World Map/Minimap
 	* Clicking on a residence will teleport you to that residence
 	* Automatic world detection and map confirmation/creation
-
-[![Codeberg](https://raw.githubusercontent.com/intergrav/devins-badges/main/badges/codeberg-repository_64h.png)](https://codeberg.org/emmods/emcutils)
-[![Codeberg](https://raw.githubusercontent.com/intergrav/devins-badges/main/badges/github-repository_64h.png)](https://github.com/emmods/emcutils)
 
 ## Disclaimer
 
