@@ -4,6 +4,7 @@
 	"package": "coffee.waffle.emcutils.xaero.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"client": [
+		"GuiMapNameMixin",
 		"ModSettingsMixin",
 		"SupportXaeroMinimapMixin"
 	],
