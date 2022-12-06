@@ -33,8 +33,6 @@ public class EMCUtilsForge {
 
 		movePacks("vt-dark-vault", "dark-ui-vault");
 
-		Util.getOnJoinCommandQueue();
-
 		ModLoadingContext.get().registerExtensionPoint(DisplayTest.class, () -> new DisplayTest(() -> "", (a, b) -> b));
 
 		LOG.info("Initialized " + MODID);

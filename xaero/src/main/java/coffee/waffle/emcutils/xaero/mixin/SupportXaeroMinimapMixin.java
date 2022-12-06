@@ -28,7 +28,7 @@ public abstract class SupportXaeroMinimapMixin {
 					new Vec3d(w.getX(), 64, w.getZ())
 				);
 
-				if (res != null) MinecraftClient.getInstance().player.sendCommand(res.getVisitCommand());
+				if (res != null) MinecraftClient.getInstance().player.networkHandler.sendCommand(res.getVisitCommand());
 			}
 		}
 	}

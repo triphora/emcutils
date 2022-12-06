@@ -86,7 +86,7 @@ public class Config {
 	public enum ChatAlertSound {
 		LEVEL_UP(SoundEvents.ENTITY_PLAYER_LEVELUP),
 		ORB_PICKUP(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP),
-		NOTE_PLING(SoundEvents.BLOCK_NOTE_BLOCK_PLING),
+		NOTE_PLING(SoundEvents.BLOCK_NOTE_BLOCK_PLING.value()),
 		ITEM_PICKUP(SoundEvents.ENTITY_ITEM_PICKUP),
 		NULL(null);
 

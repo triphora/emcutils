@@ -14,7 +14,7 @@ import net.minecraft.util.Formatting;
 import static coffee.waffle.emcutils.util.Util.plural;
 
 public class UsableItems {
-	public UsableItems() {
+	public static void init() {
 		TooltipCallback.ITEM.register((itemStack, list, tooltipContext) -> {
 			if (!Util.isOnEMC || !isUsableItemWithCooldown(itemStack)) return;
 

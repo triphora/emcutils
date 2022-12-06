@@ -12,7 +12,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import java.util.List;
 
 public class CommandListener {
-	public CommandListener() {
+	public static void init() {
 		CommandCallback.PRE_EXECUTE_COMMAND.register(CommandListener::handleResidenceVisitCommand);
 		CommandCallback.PRE_EXECUTE_COMMAND.register(CommandListener::handleResidenceHomeCommand);
 	}
@@ -42,7 +42,7 @@ public class CommandListener {
 			EmpireServer server = VisitResidenceHandler.getResidenceServer(resName);
 
 			if (server != EmpireServer.NULL && server != Util.getCurrentServer()) {
-				Util.getOnJoinCommandQueue().add("v " + resName + " " + loc);
+				Util.onJoinCommandQueue.add("v " + resName + " " + loc);
 
 				server.sendToServer();
 
@@ -72,7 +72,7 @@ public class CommandListener {
 			EmpireServer server = VisitResidenceHandler.getResidenceServer(res);
 
 			if (server != EmpireServer.NULL && server != Util.getCurrentServer()) {
-				Util.getOnJoinCommandQueue().add("v " + res + " " + loc);
+				Util.onJoinCommandQueue.add("v " + res + " " + loc);
 
 				server.sendToServer();
 

@@ -5,10 +5,11 @@ import net.minecraft.util.ActionResult;
 
 import java.util.List;
 
+@FunctionalInterface
 public interface CommandCallback {
-	Event<PreExecuteCommand> PRE_EXECUTE_COMMAND = new Event<>(PreExecuteCommand.class,
+	Event<CommandCallback> PRE_EXECUTE_COMMAND = new Event<>(CommandCallback.class,
 		(listeners) -> (player, command, args) -> {
-			for (PreExecuteCommand listener : listeners) {
+			for (CommandCallback listener : listeners) {
 				ActionResult result = listener.onPreExecuteCommand(player, command, args);
 
 				if (result != ActionResult.PASS) {
@@ -20,28 +21,5 @@ public interface CommandCallback {
 		}
 	);
 
-	Event<PostExecuteCommand> POST_EXECUTE_COMMAND = new Event<>(PostExecuteCommand.class,
-		(listeners) -> (player, command, args) -> {
-			for (PostExecuteCommand listener : listeners) {
-				ActionResult result = listener.onPostExecuteCommand(player, command, args);
-
-				if (result != ActionResult.PASS) {
-					return result;
-				}
-			}
-
-			return ActionResult.PASS;
-		}
-	);
-
-
-	@FunctionalInterface
-	interface PreExecuteCommand {
-		ActionResult onPreExecuteCommand(ClientPlayerEntity player, String command, List<String> args);
-	}
-
-	@FunctionalInterface
-	interface PostExecuteCommand {
-		ActionResult onPostExecuteCommand(ClientPlayerEntity player, String command, List<String> args);
-	}
+	ActionResult onPreExecuteCommand(ClientPlayerEntity player, String command, List<String> args);
 }

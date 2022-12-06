@@ -1,8 +1,5 @@
 package coffee.waffle.emcutils.event;
 
-import org.jetbrains.annotations.ApiStatus;
-
-@ApiStatus.Internal
 public interface ServerJoinCallback {
 	Event<PostJoinEMC> POST_JOIN_EMC = new Event<>(PostJoinEMC.class, (listeners) -> () -> {
 		for (PostJoinEMC listener : listeners) listener.afterJoiningEMC();

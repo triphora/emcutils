@@ -1,31 +1,31 @@
 [versions]
-minecraft = '1.19.2'
+minecraft = '1.19.3-rc2'
 
 [libraries]
 # MC, loaders, and mappings
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
-yarn = 'net.fabricmc:yarn:1.19.2+build.8' # https://fabricmc.net/develop
-quilt_loader = 'org.quiltmc:quilt-loader:0.17.4' # https://lambdaurora.dev/tools/import_quilt.html
+yarn = 'net.fabricmc:yarn:1.19.3-rc1+build.4' # https://fabricmc.net/develop
+quilt_loader = 'org.quiltmc:quilt-loader:0.17.6' # https://lambdaurora.dev/tools/import_quilt.html
 forge = 'net.minecraftforge:forge:1.19.2-43.1.3' # https://files.minecraftforge.net/
 
 # Dependencies for all subprojects
 lombok = 'org.projectlombok:lombok:1.18.24' # https://mvnrepository.com/artifact/org.projectlombok/lombok
-quiltflower = 'org.quiltmc:quiltflower:1.8.1' # https://maven.quiltmc.org/repository/release/org/quiltmc/quiltflower/
+quiltflower = 'org.quiltmc:quiltflower:1.9.0' # https://maven.quiltmc.org/repository/release/org/quiltmc/quiltflower/
 
 # Quilt subproject
-quilted_fabric_api = 'org.quiltmc.quilted-fabric-api:quilted-fabric-api:4.0.0-beta.9+0.60.0-1.19.2' # https://modrinth.com/mod/qsl
-midnightlib = 'maven.modrinth:midnightlib:0.6.0' # https://modrinth.com/mod/midnightlib/versions
+quilted_fabric_api = 'org.quiltmc.quilted-fabric-api:quilted-fabric-api:5.0.0-alpha.2+0.68.1-1.19.3' # https://modrinth.com/mod/qsl
+midnightlib = 'maven.modrinth:midnightlib:1.1.0-fabric' # https://modrinth.com/mod/midnightlib/versions
 lazydfu = 'maven.modrinth:lazydfu:0.1.3' # https://modrinth.com/mod/lazydfu
-modmenu = 'maven.modrinth:modmenu:4.0.6' # https://modrinth.com/mod/modmenu/versions
+modmenu = 'maven.modrinth:modmenu:5.0.0-alpha.4' # https://modrinth.com/mod/modmenu/versions
 
 # Journey subproject
 # https://jm.gserv.me/service/rest/repository/browse/maven-public/info/journeymap/journeymap-api/
-journeymap_api = 'info.journeymap:journeymap-api:1.19.1-1.9-fabric-SNAPSHOT'
-journeymap = 'maven.modrinth:journeymap:1.19.1-5.9.0beta2-fabric' # https://modrinth.com/mod/journeymap
+journeymap_api = 'info.journeymap:journeymap-api:1.19.3-rc1-1.9-fabric-SNAPSHOT'
+journeymap = 'maven.modrinth:journeymap:1.19.2-5.9.0beta3-fabric' # https://modrinth.com/mod/journeymap
 
 # Xaero subproject
-xaeros_minimap = 'curse.maven:xmm-263420:3937635' # https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap/files/all
-xaeros_world_map = 'curse.maven:xwm-317780:3948205' # https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map/files/all
+xaeros_minimap = 'curse.maven:xmm-263420:4127323' # https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap/files/all
+xaeros_world_map = 'curse.maven:xwm-317780:4127339' # https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map/files/all
 
 [plugins]
 architectury_plugin = 'architectury-plugin:3.4.+'

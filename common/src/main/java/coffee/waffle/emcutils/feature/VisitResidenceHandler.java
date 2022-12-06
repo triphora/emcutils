@@ -5,7 +5,6 @@ import coffee.waffle.emcutils.container.EmpireServer;
 import org.apache.commons.lang3.math.NumberUtils;
 
 public class VisitResidenceHandler {
-
 	public static EmpireServer getResidenceServer(String name) {
 		for (EmpireResidence residence : EmpireServer.getAllResidences()) {
 			if (name.contains(".")) {

@@ -8,11 +8,12 @@ import lombok.Getter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.net.http.HttpResponse.BodyHandlers;
 import java.util.List;
 
 import static coffee.waffle.emcutils.util.Util.LOG;
@@ -80,7 +81,7 @@ public enum EmpireServer {
 	}
 
 	public void sendToServer() {
-		MinecraftClient.getInstance().player.sendCommand(getCommand());
+		MinecraftClient.getInstance().player.networkHandler.sendCommand(getCommand());
 		Util.setCurrentServer(getName());
 	}
 
@@ -106,37 +107,40 @@ public enum EmpireServer {
 		return null;
 	}
 
-	public void collectResidences() {
+	public void collectResidences(HttpClient client) {
+		HttpRequest request = HttpRequest.newBuilder()
+			.uri(URI.create("https://" + name.toLowerCase() + ".emc.gs/tiles/_markers_/marker_town.json"))
+			.header("Accept", "application/json")
+			.header("User-Agent", "emcutils residence collector")
+			.GET()
+			.build();
+
 		try {
-			URL url = new URL("https://" + name.toLowerCase() + ".emc.gs/tiles/_markers_/marker_town.json");
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-			con.setRequestMethod("GET");
+			HttpResponse<String> content = client.send(request, BodyHandlers.ofString());
 
-			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			String inputLine;
-			StringBuilder content = new StringBuilder();
-			while ((inputLine = in.readLine()) != null) {
-				content.append(inputLine);
-			}
-			in.close();
-			con.disconnect();
-
-			String str = content.toString();
-
-			str = str.replace("<b>", "").replace("<\\/b>", "");
-			str = str.replace("<div>", "").replace("<\\/div>", "");
-			str = str.replace("<h3>", "").replace("\\/v", "v");
-			str = str.replace("&#39;", "'").replace("<\\/h3>", "::");
-			str = str.replace("<br \\/>", "::");
+			String str = content.body()
+				.replace("<b>", "").replace("<\\/b>", "")
+				.replace("<div>", "").replace("<\\/div>", "")
+				.replace("<h3>", "").replace("\\/v", "v")
+				.replace("&#39;", "'").replace("<\\/h3>", "::")
+				.replace("<br \\/>", "::");
 
 			JsonObject object = JsonParser.parseString(str).getAsJsonObject()
 				.getAsJsonObject("sets")
 				.getAsJsonObject("empire.residences")
 				.getAsJsonObject("areas");
 
-			object.entrySet().forEach(e -> residences.add(new EmpireResidence(this, e.getValue().getAsJsonObject())));
-			LOG.info("Loaded Residences for: " + name.toLowerCase());
-		} catch (IOException e) {
+			object.entrySet().forEach(e -> {
+				var resDesc = e.getValue().getAsJsonObject().get("desc").getAsString();
+				var resLabel = e.getValue().getAsJsonObject().get("label").getAsString();
+				if (!resDesc.contains("Address") || resLabel.contains(".")) {
+					return;
+				}
+
+				residences.add(new EmpireResidence(this, e.getValue().getAsJsonObject()));
+			});
+			LOG.info("Loaded residences for: " + name.toLowerCase());
+		} catch (IOException | InterruptedException e) {
 			LOG.info("Residence collector for " + name.toLowerCase() + " failed; you may find the 'Don't run residence collector' option to be useful. This option will prevent the residence collector from running at all, which, on very slow connections, will help prevent requests which will fail anyway.");
 		}
 	}

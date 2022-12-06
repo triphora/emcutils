@@ -33,8 +33,6 @@ public class EMCUtilsQuilt implements ClientModInitializer, ItemTooltipCallback 
 
 		Util.runResidenceCollector();
 
-		Util.getOnJoinCommandQueue();
-
 		HandledScreens.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
 
 		LOG.info("Initialized " + mod.metadata().id());

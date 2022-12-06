@@ -9,7 +9,7 @@ version = "${version}+forge"
 displayName = "Empire Minecraft Utilities"
 authors = [
 	"MrFrydae",
-	"wafflecoffee",
+	"triphora",
 	"BasiqueEvangelist",
 	"BlockHead_56"
 ]

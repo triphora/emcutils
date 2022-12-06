@@ -2,7 +2,6 @@ package coffee.waffle.emcutils.feature;
 
 import coffee.waffle.emcutils.mixin.HandledScreenAccessor;
 import coffee.waffle.emcutils.util.Config;
-import coffee.waffle.emcutils.util.ScreenAccessor;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -44,10 +43,6 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
 		String page = title.getString().split(" ")[1];
 		this.vaultPage = NumberUtils.isParsable(page) ? Integer.parseInt(page) : 1;
-
-		if (vaultPage == 69) {
-			((ScreenAccessor) this).setTitle(Text.of(title.getString() + " ... nice"));
-		}
 	}
 
 	/**
@@ -110,7 +105,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
 	@Override
 	protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+		RenderSystem.setShader(GameRenderer::getPositionTexProgram);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderSystem.setShaderTexture(0, TEXTURE);
 		int x = (width - backgroundWidth) / 2;
@@ -143,8 +138,8 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 			if (mouseY >= y + 126 && mouseY <= y + 141) {
 				this.shouldCallClose = false;
 				ClientPlayerEntity player = client.player;
-				player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_SNARE, 4F, 1F);
-				player.sendCommand(command);
+				player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_SNARE.value(), 4F, 1F);
+				player.networkHandler.sendCommand(command);
 			}
 		}
 	}

@@ -37,6 +37,12 @@ subprojects {
 		runtimeOnly libs.quiltflower
 	}
 
+	tasks.named('prepareRemapJar') {
+		dependsOn {
+			tasks.named('optimizeOutputsOfJar')
+		}
+	}
+
 	loom {
 		runtimeOnlyLog4j = true
 		clientOnlyMinecraftJar()
