@@ -15,8 +15,8 @@ public class VisitResidenceHandler {
 				return getResidenceServer(Integer.parseInt(name));
 			}
 
-			if (residence.getLabel() != null && residence.getLabel().equalsIgnoreCase(name)) {
-				return residence.getServer();
+			if (residence.label != null && residence.label.equalsIgnoreCase(name)) {
+				return residence.server;
 			}
 		}
 
@@ -25,8 +25,8 @@ public class VisitResidenceHandler {
 
 	public static EmpireServer getResidenceServer(int address) {
 		for (EmpireResidence residence : EmpireServer.getAllResidences()) {
-			if (residence.getAddress() == address) {
-				return residence.getServer();
+			if (residence.address == address) {
+				return residence.server;
 			}
 		}
 

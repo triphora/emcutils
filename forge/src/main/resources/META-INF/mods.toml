@@ -1,11 +1,11 @@
 modLoader = "javafml"
-loaderVersion = "[42,)"
+loaderVersion = "[44,)"
 issueTrackerURL = "https://github.com/emmods/emcutils/issues"
 license = "MIT"
 
 [[mods]]
 modId = "emcutils"
-version = "${version}+forge"
+version = "${version}"
 displayName = "Empire Minecraft Utilities"
 authors = [
 	"MrFrydae",
@@ -16,26 +16,26 @@ authors = [
 description = '''
 A collection of various utilities for the Empire Minecraft server.
 '''
-logoFile = "icon.png"
+logoFile = "emcutils.png"
 updateJSONURL = "https://api.modrinth.com/updates/emcutils/forge_updates.json"
 
 [[dependencies.emcutils]]
 modId = "forge"
 mandatory = true
-versionRange = "[42,)"
+versionRange = "[44,)"
 ordering = "NONE"
 side = "CLIENT"
 
 [[dependencies.emcutils]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.19.1,)"
+versionRange = "[1.19.3,)"
 ordering = "NONE"
 side = "CLIENT"
 
 [[dependencies.emcutils]]
-modId = "configmenusforge"
+modId = "configured"
 mandatory = false
-versionRange = "[3.1.0,)"
+versionRange = "[2.0.2,)"
 ordering = "NONE"
 side = "CLIENT"

@@ -1,9 +1,9 @@
 package coffee.waffle.emcutils.listener;
 
+import coffee.waffle.emcutils.Util;
 import coffee.waffle.emcutils.container.EmpireServer;
 import coffee.waffle.emcutils.event.CommandCallback;
 import coffee.waffle.emcutils.feature.VisitResidenceHandler;
-import coffee.waffle.emcutils.util.Util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.ActionResult;
@@ -64,8 +64,8 @@ public class CommandListener {
 	private static ActionResult handleResCommandsCommon(String res, String loc) {
 		EmpireServer server = VisitResidenceHandler.getResidenceServer(res);
 
-		if (server != EmpireServer.NULL && server != Util.getCurrentServer()) {
-			Util.onJoinCommandQueue.add("v " + res + " " + loc);
+		if (server != EmpireServer.NULL && server != Util.currentServer) {
+			Util.onJoinCommand = "v " + res + " " + loc;
 
 			server.sendToServer();
 

@@ -1,14 +1,14 @@
-package coffee.waffle.emcutils.util.forge;
+package coffee.waffle.emcutils.forge;
 
-import coffee.waffle.emcutils.util.Config.ChatAlertSound;
-import coffee.waffle.emcutils.util.Config.TabListCurrentServerPlacement;
-import coffee.waffle.emcutils.util.Config.TabListSortType;
+import coffee.waffle.emcutils.Config.ChatAlertSound;
+import coffee.waffle.emcutils.Config.TabListCurrentServerPlacement;
+import coffee.waffle.emcutils.Config.TabListSortType;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 
-public class ForgeConfig {
+public class ConfigImpl {
 	public static final ForgeConfigSpec SPEC;
 	public static BooleanValue chatButtonsEnabled;
 	public static BooleanValue tabListShowAllServers;
@@ -45,5 +45,37 @@ public class ForgeConfig {
 			.defineInRange("totalVaultPages", 255, 1, 255);
 		builder.pop();
 		SPEC = builder.build();
+	}
+
+	public static boolean chatButtonsEnabled() {
+		return chatButtonsEnabled.get();
+	}
+
+	public static boolean tabListShowAllServers() {
+		return tabListShowAllServers.get();
+	}
+
+	public static TabListSortType tabListSortType() {
+		return tabListSortType.get();
+	}
+
+	public static TabListCurrentServerPlacement tabListCurrentServerPlacement() {
+		return tabListCurrentServerPlacement.get();
+	}
+
+	public static int chatAlertPitch() {
+		return chatAlertPitch.get();
+	}
+
+	public static ChatAlertSound chatAlertSound() {
+		return chatAlertSound.get();
+	}
+
+	public static boolean dontRunResidenceCollector() {
+		return dontRunResidenceCollector.get();
+	}
+
+	public static int totalVaultPages() {
+		return totalVaultPages.get();
 	}
 }

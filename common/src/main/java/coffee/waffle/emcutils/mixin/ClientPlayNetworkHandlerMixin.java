@@ -1,13 +1,12 @@
 package coffee.waffle.emcutils.mixin;
 
+import coffee.waffle.emcutils.Util;
 import coffee.waffle.emcutils.event.ChatCallback;
 import coffee.waffle.emcutils.event.CommandCallback;
-import coffee.waffle.emcutils.event.ServerJoinCallback;
 import coffee.waffle.emcutils.feature.UsableItems;
 import coffee.waffle.emcutils.feature.VaultScreen;
 import coffee.waffle.emcutils.listener.ChatListener;
 import coffee.waffle.emcutils.listener.CommandListener;
-import coffee.waffle.emcutils.util.Util;
 import com.google.common.collect.Lists;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
@@ -48,16 +47,12 @@ public abstract class ClientPlayNetworkHandlerMixin {
 
 	@Inject(at = @At("TAIL"), method = "onGameJoin")
 	void emcutils$onJoinEMC(GameJoinS2CPacket packet, CallbackInfo info) {
-		if (Util.isOnEMC) {
-			if (!emcutils$online) {
-				ChatListener.init();
-				CommandListener.init();
-				UsableItems.init();
+		if (Util.isOnEMC && !emcutils$online) {
+			ChatListener.init();
+			CommandListener.init();
+			UsableItems.init();
 
-				emcutils$online = true;
-			}
-
-			ServerJoinCallback.WORLD_LOADED.register(Util::executeJoinCommands);
+			emcutils$online = true;
 		}
 	}
 

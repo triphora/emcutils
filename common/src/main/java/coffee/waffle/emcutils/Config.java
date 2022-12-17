@@ -1,9 +1,7 @@
-package coffee.waffle.emcutils.util;
+package coffee.waffle.emcutils;
 
-import coffee.waffle.emcutils.feature.TabListOrganizer;
+import coffee.waffle.emcutils.feature.TabListOrganizer.EnhancedTabListEntry;
 import dev.architectury.injectables.annotations.ExpectPlatform;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 
@@ -49,34 +47,33 @@ public class Config {
 		throw new AssertionError("ExpectPlatform didn't apply!");
 	}
 
-	@AllArgsConstructor
 	public enum TabListSortType {
-		NAME_ASCENDING() {
+		NAME_ASCENDING {
 			@Override
-			public int compare(TabListOrganizer.EnhancedTabListEntry entry1, TabListOrganizer.EnhancedTabListEntry entry2) {
-				return entry1.playerName.toLowerCase().compareTo(entry2.playerName.toLowerCase());
+			public int compare(EnhancedTabListEntry entry1, EnhancedTabListEntry entry2) {
+				return entry1.playerName.compareToIgnoreCase(entry2.playerName);
 			}
 		},
-		NAME_DESCENDING() {
+		NAME_DESCENDING {
 			@Override
-			public int compare(TabListOrganizer.EnhancedTabListEntry entry1, TabListOrganizer.EnhancedTabListEntry entry2) {
-				return entry2.playerName.toLowerCase().compareTo(entry1.playerName.toLowerCase());
+			public int compare(EnhancedTabListEntry entry1, EnhancedTabListEntry entry2) {
+				return entry2.playerName.compareToIgnoreCase(entry1.playerName);
 			}
 		},
-		SERVER_ASCENDING() {
+		SERVER_ASCENDING {
 			@Override
-			public int compare(TabListOrganizer.EnhancedTabListEntry entry1, TabListOrganizer.EnhancedTabListEntry entry2) {
-				return entry1.server.compareTabListRankTo(entry2.server);
+			public int compare(EnhancedTabListEntry entry1, EnhancedTabListEntry entry2) {
+				return Integer.compare(entry1.server.tabListRank, entry2.server.tabListRank);
 			}
 		},
-		SERVER_DESCENDING() {
+		SERVER_DESCENDING {
 			@Override
-			public int compare(TabListOrganizer.EnhancedTabListEntry entry1, TabListOrganizer.EnhancedTabListEntry entry2) {
-				return entry2.server.compareTabListRankTo(entry1.server);
+			public int compare(EnhancedTabListEntry entry1, EnhancedTabListEntry entry2) {
+				return Integer.compare(entry1.server.tabListRank, entry2.server.tabListRank);
 			}
 		};
 
-		public int compare(TabListOrganizer.EnhancedTabListEntry entry1, TabListOrganizer.EnhancedTabListEntry entry2) {
+		public int compare(EnhancedTabListEntry entry1, EnhancedTabListEntry entry2) {
 			return 0;
 		}
 	}
@@ -90,11 +87,9 @@ public class Config {
 		ITEM_PICKUP(SoundEvents.ENTITY_ITEM_PICKUP),
 		NULL(null);
 
-		@Getter private final String name;
-		@Getter private final SoundEvent soundEvent;
+		public final SoundEvent soundEvent;
 
 		ChatAlertSound(SoundEvent soundEvent) {
-			this.name = name().toLowerCase();
 			this.soundEvent = soundEvent;
 		}
 	}

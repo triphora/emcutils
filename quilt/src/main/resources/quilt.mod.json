@@ -23,21 +23,21 @@
 		},
 		"intermediate_mappings": "net.fabricmc:intermediary",
 		"entrypoints": {
-			"client_init": "coffee.waffle.emcutils.EMCUtilsQuilt",
-			"client_events": "coffee.waffle.emcutils.EMCUtilsQuilt"
+			"client_init": "coffee.waffle.emcutils.fabric.EMCUtilsQuilt",
+			"client_events": "coffee.waffle.emcutils.fabric.EMCUtilsQuilt"
 		},
 		"depends": [
 			{
 				"id": "midnightlib",
-				"versions": ">=0.5.2"
+				"versions": ">=1.1.0"
 			},
 			{
 				"id": "minecraft",
-				"versions": ">=1.19.1"
+				"versions": ">=1.19.3"
 			},
 			{
 				"id": "modmenu",
-				"versions": ">=4.0.5",
+				"versions": ">=5.0.2",
 				"optional": true
 			}
 		]
@@ -46,5 +46,11 @@
 		"environment": "client"
 	},
 	"mixin": "emcutils-common.mixins.json",
-	"access_widener": "emcutils.accesswidener"
+	"access_widener": "emcutils.accesswidener",
+	"modmenu": {
+		"links": {
+			"modmenu.github_sponsors": "https://github.com/sponsors/triphora",
+			"modmenu.modrinth": "https://modrinth.com/mod/emcutils"
+		}
+	}
 }

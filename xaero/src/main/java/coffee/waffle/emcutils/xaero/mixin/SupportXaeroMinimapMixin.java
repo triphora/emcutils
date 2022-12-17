@@ -1,7 +1,7 @@
 package coffee.waffle.emcutils.xaero.mixin;
 
 import coffee.waffle.emcutils.container.EmpireResidence;
-import coffee.waffle.emcutils.util.Util;
+import coffee.waffle.emcutils.Util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.math.Vec3d;
@@ -24,11 +24,11 @@ public abstract class SupportXaeroMinimapMixin {
 	public void emcutils$xaero$teleportToResidence(Screen screen, Waypoint w, CallbackInfo ci) {
 		if (waypointWorld != null) {
 			if (Util.isOnEMC) {
-				EmpireResidence res = Util.getCurrentServer().getResidenceByLoc(
+				EmpireResidence res = Util.currentServer.getResidenceByLoc(
 					new Vec3d(w.getX(), 64, w.getZ())
 				);
 
-				if (res != null) MinecraftClient.getInstance().player.networkHandler.sendCommand(res.getVisitCommand());
+				if (res != null) MinecraftClient.getInstance().player.networkHandler.sendCommand(res.visitCommand);
 			}
 		}
 	}

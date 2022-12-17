@@ -1,11 +1,6 @@
-package coffee.waffle.emcutils.util;
+package coffee.waffle.emcutils;
 
 import coffee.waffle.emcutils.container.EmpireServer;
-import com.google.common.collect.Queues;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.SneakyThrows;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +9,6 @@ import java.net.http.HttpClient;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
@@ -23,45 +17,19 @@ public class Util {
 	public static final String MODID = "emcutils";
 	public static final Logger LOG = LoggerFactory.getLogger(MODID);
 	public static boolean isOnEMC = false;
-	@Setter public static boolean hideFeatureMessages;
-	@Getter @Setter private static String serverAddress;
-	@Getter private static EmpireServer currentServer;
-	public static Queue<String> onJoinCommandQueue = Queues.newArrayBlockingQueue(100);
-	@Getter @Setter private static int playerGroupId = 0;
-	private static final MinecraftClient client = MinecraftClient.getInstance();
+	public static EmpireServer currentServer;
+	public static String onJoinCommand;
+	public static int playerGroupId = 0;
 
 	public static void setCurrentServer(String name) {
 		for (EmpireServer server : EmpireServer.values()) {
-			if (server.getName().equalsIgnoreCase(name)) {
+			if (server.name.equalsIgnoreCase(name)) {
 				currentServer = server;
 				return;
 			}
 		}
 
 		currentServer = EmpireServer.NULL;
-	}
-
-	public static void executeJoinCommands() {
-		//noinspection Convert2Lambda
-		Thread thread = new Thread(new Runnable() {
-			@SneakyThrows
-			@Override
-			public void run() {
-				String command;
-
-				while ((command = onJoinCommandQueue.poll()) != null) {
-					if (command.startsWith("/")) command = command.substring(1);
-
-					client.player.networkHandler.sendCommand(command);
-
-					//noinspection BusyWait
-					Thread.sleep(100);
-				}
-			}
-		});
-
-		thread.setName("join_cmds");
-		thread.start();
 	}
 
 	public static int getMinValue(int[] arr) {

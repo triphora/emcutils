@@ -1,7 +1,6 @@
 package coffee.waffle.emcutils.feature;
 
-import coffee.waffle.emcutils.mixin.HandledScreenAccessor;
-import coffee.waffle.emcutils.util.Config;
+import coffee.waffle.emcutils.Config;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -24,8 +23,8 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.math.NumberUtils;
 
-import static coffee.waffle.emcutils.util.Util.id;
-import static coffee.waffle.emcutils.util.Util.plural;
+import static coffee.waffle.emcutils.Util.id;
+import static coffee.waffle.emcutils.Util.plural;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class VaultScreen extends HandledScreen<VaultScreenHandler> implements ScreenHandlerProvider<VaultScreenHandler> {
@@ -81,6 +80,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 		chest.setCustomName(formattedText("View your vaults"));
 		drawButton(matrices, chest, mouseX, mouseY, slotOffsets[4], "");
 
+		//noinspection ConstantValue
 		for (int i = 1; i <= 4; i++) {
 			if (vaultPage <= Config.totalVaultPages() - i) {
 				drawButton(matrices, getHead(i, true), mouseX, mouseY, slotOffsets[4 + i], (vaultPage + i) + "");
@@ -91,7 +91,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 	}
 
 	private void drawButton(MatrixStack matrices, ItemStack button, int mouseX, int mouseY, int buttonX, String amountText) {
-		((HandledScreenAccessor) this).invokeDrawItem(button, x + buttonX, y + 125, amountText);
+		this.drawItem(button, x + buttonX, y + 125, amountText);
 
 		if (mouseX >= x + buttonX && mouseX <= x + buttonX + 15) {
 			if (mouseY >= y + 126 && mouseY <= y + 141) {
@@ -123,6 +123,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
 		handleClick(slotOffsets[4], mouseX, mouseY, "vaults");
 
+		//noinspection ConstantValue
 		for (int i = 1; i <= 4; i++) {
 			if (vaultPage <= Config.totalVaultPages() - i) {
 				handleClick(slotOffsets[4 + i], mouseX, mouseY, "vault " + (vaultPage + i));

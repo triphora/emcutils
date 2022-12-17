@@ -3,8 +3,8 @@ package coffee.waffle.emcutils.xaero;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
 
-import static coffee.waffle.emcutils.util.Util.LOG;
-import static coffee.waffle.emcutils.util.Util.MODID;
+import static coffee.waffle.emcutils.Util.LOG;
+import static coffee.waffle.emcutils.Util.MODID;
 
 public class EMCUtilsXaero implements ClientModInitializer {
 	@Override

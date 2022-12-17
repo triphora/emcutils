@@ -45,9 +45,9 @@ components.java {
 
 modrinth {
 	projectId = 'emcutils'
-	versionNumber = rootProject.mod_version
-	versionName = "$rootProject.release_title ($projectName)"
-	changelog = rootProject.changeLog
+	versionName = "${System.getenv().VERSION_NAME ?: versionNumber} ($projectName)"
+	changelog = System.getenv().CHANGELOG ?: DEFAULT_CHANGELOG
+	versionType = System.getenv().VERSION_TYPE ?: DEFAULT_VERSION_TYPE
 	uploadFile = remapJar
 	gameVersions = [libs.versions.minecraft.get()]
 	loaders = [name]

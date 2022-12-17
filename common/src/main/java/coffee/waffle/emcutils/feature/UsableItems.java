@@ -1,7 +1,7 @@
 package coffee.waffle.emcutils.feature;
 
+import coffee.waffle.emcutils.Util;
 import coffee.waffle.emcutils.event.TooltipCallback;
-import coffee.waffle.emcutils.util.Util;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
-import static coffee.waffle.emcutils.util.Util.plural;
+import static coffee.waffle.emcutils.Util.plural;
 
 public class UsableItems {
 	public static void init() {

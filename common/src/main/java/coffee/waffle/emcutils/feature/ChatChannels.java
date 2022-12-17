@@ -1,11 +1,8 @@
 package coffee.waffle.emcutils.feature;
 
-import coffee.waffle.emcutils.util.Config;
-import coffee.waffle.emcutils.util.Config.ChatAlertSound;
-import coffee.waffle.emcutils.util.Util;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import coffee.waffle.emcutils.Config;
+import coffee.waffle.emcutils.Config.ChatAlertSound;
+import coffee.waffle.emcutils.Util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;
@@ -19,10 +16,10 @@ import java.util.Arrays;
 
 @SuppressWarnings("ConstantConditions")
 public class ChatChannels {
-	@Setter private static ChatChannel currentChannel = null;
-	@Setter private static boolean inPrivateConversation = false;
-	@Setter private static String targetUsername = null;
-	@Setter private static int targetGroupId = 0;
+	public static ChatChannel currentChannel = null;
+	public static boolean inPrivateConversation = false;
+	public static String targetUsername = null;
+	public static int targetGroupId = 0;
 	private static long lastClickedButtonTime = 0L;
 	private static final ClientPlayerEntity player = MinecraftClient.getInstance().player;
 	private static final TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
@@ -30,8 +27,8 @@ public class ChatChannels {
 	public static void handleChatScreenRender(Screen screen, MatrixStack matrices) {
 		if (Util.isOnEMC && Config.chatButtonsEnabled()) {
 			for (ChatChannel channel : ChatChannel.values()) {
-				if (channel == ChatChannel.SUPPORTER && Util.getPlayerGroupId() < 2) break;
-				if (channel == ChatChannel.MODERATOR && Util.getPlayerGroupId() < 5) break;
+				if (channel == ChatChannel.SUPPORTER && Util.playerGroupId < 2) break;
+				if (channel == ChatChannel.MODERATOR && Util.playerGroupId < 5) break;
 				drawButton(screen, matrices, channel);
 			}
 
@@ -42,8 +39,8 @@ public class ChatChannels {
 	public static void handleChatScreenMouseClicked(Screen screen, double mouseX, double mouseY) {
 		if (Util.isOnEMC && Config.chatButtonsEnabled()) {
 			for (ChatChannel channel : ChatChannel.values()) {
-				if (channel == ChatChannel.SUPPORTER && Util.getPlayerGroupId() < 2) break;
-				if (channel == ChatChannel.MODERATOR && Util.getPlayerGroupId() < 5) break;
+				if (channel == ChatChannel.SUPPORTER && Util.playerGroupId < 2) break;
+				if (channel == ChatChannel.MODERATOR && Util.playerGroupId < 5) break;
 
 				if (isInBounds(screen, channel.name, channel.getOffset(), mouseX, mouseY) && (System.currentTimeMillis() - lastClickedButtonTime) >= 1000L && currentChannel != channel) {
 					lastClickedButtonTime = System.currentTimeMillis();
@@ -51,7 +48,7 @@ public class ChatChannels {
 					channel.executeCommand();
 
 					if (Config.chatAlertSound() != ChatAlertSound.NULL)
-						player.playSound(Config.chatAlertSound().getSoundEvent(), 5, Config.chatAlertPitch());
+						player.playSound(Config.chatAlertSound().soundEvent, 5, Config.chatAlertPitch());
 
 					// Cancel private conversation if in one
 					inPrivateConversation = false;
@@ -113,7 +110,6 @@ public class ChatChannels {
 		};
 	}
 
-	@AllArgsConstructor
 	public enum ChatChannel {
 		COMMUNITY("Community", "cc", Formatting.DARK_GREEN, null),
 		MARKET("Market", "cm", Formatting.GOLD, COMMUNITY),
@@ -124,13 +120,20 @@ public class ChatChannels {
 		SUPPORTER("Supporter", "cp", Formatting.AQUA, GROUP),
 		MODERATOR("Moderator", "cx", Formatting.LIGHT_PURPLE, SUPPORTER);
 
-		@Getter private final String name;
-		@Getter private final String command;
+		private final String name;
+		private final String command;
 		private final Formatting format;
 		private final ChatChannel adjustAgainst;
 
+		ChatChannel(String name, String command, Formatting format, ChatChannel adjustAgainst) {
+			this.name = name;
+			this.command = command;
+			this.format = format;
+			this.adjustAgainst = adjustAgainst;
+		}
+
 		public static ChatChannel getChannelByName(String name) {
-			return Arrays.stream(values()).filter(value -> value.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
+			return Arrays.stream(values()).filter(value -> value.name.equalsIgnoreCase(name)).findFirst().orElse(null);
 		}
 
 		public int getOffset() {

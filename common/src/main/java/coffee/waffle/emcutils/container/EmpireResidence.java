@@ -1,21 +1,18 @@
 package coffee.waffle.emcutils.container;
 
-import coffee.waffle.emcutils.util.Util;
+import coffee.waffle.emcutils.Util;
 import com.google.gson.JsonObject;
-import lombok.Data;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.stream.IntStream;
 
-@Data
 public class EmpireResidence {
-	private final BlockPos northWestCorner;
-	private final BlockPos southEastCorner;
-	private final String label;
-	private final int address;
-	private final String display;
-	private final String visitCommand;
-	private EmpireServer server;
+	public final BlockPos northWestCorner;
+	public final BlockPos southEastCorner;
+	public final String label;
+	public final int address;
+	public final String visitCommand;
+	public EmpireServer server;
 
 	public EmpireResidence(EmpireServer server, JsonObject object) {
 		this.server = server;
@@ -28,10 +25,7 @@ public class EmpireResidence {
 
 		this.label = object.get("label").getAsString();
 
-		String[] split = object.get("desc").getAsString().split("::");
-
-		this.display = split[0];
-		this.address = Integer.parseInt(split[1].split(" ")[1]);
+		this.address = Integer.parseInt(object.get("desc").getAsString().split("::")[1].split(" ")[1]);
 		this.visitCommand = "v " + address;
 	}
 }

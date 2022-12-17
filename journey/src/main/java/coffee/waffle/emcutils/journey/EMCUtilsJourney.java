@@ -1,7 +1,7 @@
 package coffee.waffle.emcutils.journey;
 
 import coffee.waffle.emcutils.container.EmpireResidence;
-import coffee.waffle.emcutils.util.Util;
+import coffee.waffle.emcutils.Util;
 import journeymap.client.api.IClientAPI;
 import journeymap.client.api.IClientPlugin;
 import journeymap.client.api.display.Context;
@@ -15,8 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
 
-import static coffee.waffle.emcutils.util.Util.LOG;
-import static coffee.waffle.emcutils.util.Util.MODID;
+import static coffee.waffle.emcutils.Util.LOG;
+import static coffee.waffle.emcutils.Util.MODID;
 import static journeymap.client.api.event.ClientEvent.Type.MAPPING_STARTED;
 
 public class EMCUtilsJourney implements IClientPlugin {
@@ -56,7 +56,7 @@ public class EMCUtilsJourney implements IClientPlugin {
 			}
 
 			// Set world names on EMC
-			api.setWorldId(Util.getCurrentServer().getName().toLowerCase());
+			api.setWorldId(Util.currentServer.name.toLowerCase());
 		}
 	}
 
@@ -64,8 +64,8 @@ public class EMCUtilsJourney implements IClientPlugin {
 		@Override
 		public void doAction(final @NotNull BlockPos pos) {
 			if (Util.isOnEMC) {
-				EmpireResidence res = Util.getCurrentServer().getResidenceByLoc(new Vec3d(pos.getX(), pos.getY(), pos.getZ()));
-				if (res != null) MinecraftClient.getInstance().player.networkHandler.sendCommand(res.getVisitCommand());
+				EmpireResidence res = Util.currentServer.getResidenceByLoc(new Vec3d(pos.getX(), pos.getY(), pos.getZ()));
+				if (res != null) MinecraftClient.getInstance().player.networkHandler.sendCommand(res.visitCommand);
 			}
 		}
 	}

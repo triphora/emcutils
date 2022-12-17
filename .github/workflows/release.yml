@@ -1,5 +1,23 @@
 name: Release
-on: [ workflow_dispatch ]
+on:
+  workflow_dispatch:
+    inputs:
+      version_name:
+        type: string
+        description: Modrinth version name to use
+        required: true
+      changelog:
+        type: string
+        description: Modrinth changelog to use
+        required: true
+      version_type:
+        type: choice
+        description: Modrinth version type to use
+        default: release
+        options:
+          - release
+          - beta
+          - alpha
 
 jobs:
   release:
@@ -17,3 +35,6 @@ jobs:
           cache-read-only: ${{ github.repository_owner != 'emmods' }}
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          VERSION_NAME: ${{ inputs.version_name }}
+          CHANGELOG: ${{ inputs.changelog }}
+          VERSION_TYPE: ${{ inputs.version_type }}

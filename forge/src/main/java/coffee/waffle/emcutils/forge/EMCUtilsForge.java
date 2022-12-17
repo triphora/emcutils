@@ -2,8 +2,7 @@ package coffee.waffle.emcutils.forge;
 
 import coffee.waffle.emcutils.event.TooltipCallback;
 import coffee.waffle.emcutils.feature.VaultScreen;
-import coffee.waffle.emcutils.util.Util;
-import coffee.waffle.emcutils.util.forge.ForgeConfig;
+import coffee.waffle.emcutils.Util;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,15 +20,15 @@ import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static coffee.waffle.emcutils.util.Util.LOG;
-import static coffee.waffle.emcutils.util.Util.MODID;
+import static coffee.waffle.emcutils.Util.LOG;
+import static coffee.waffle.emcutils.Util.MODID;
 
 @Mod(MODID)
 public class EMCUtilsForge {
 	public EMCUtilsForge() {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetupEvent);
 
-		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ForgeConfig.SPEC);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ConfigImpl.SPEC);
 
 		movePacks("vt-dark-vault", "dark-ui-vault");
 

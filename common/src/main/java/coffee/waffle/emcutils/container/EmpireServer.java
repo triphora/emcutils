@@ -1,10 +1,9 @@
 package coffee.waffle.emcutils.container;
 
-import coffee.waffle.emcutils.util.Util;
+import coffee.waffle.emcutils.Util;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import lombok.Getter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.math.Vec3d;
 
@@ -16,7 +15,7 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.List;
 
-import static coffee.waffle.emcutils.util.Util.LOG;
+import static coffee.waffle.emcutils.Util.LOG;
 
 public enum EmpireServer {
 	NULL(0, "NULL", 0, 'N'),
@@ -34,11 +33,11 @@ public enum EmpireServer {
 	STAGE(200, "STAGE", 12, 'S');
 
 	private final int id;
-	@Getter private final String name;
-	@Getter private final int tabListRank;
-	@Getter private final char tabListDisplay;
-	@Getter private final String command;
-	@Getter private final List<EmpireResidence> residences;
+	public final String name;
+	public final int tabListRank;
+	private final char tabListDisplay;
+	private final String command;
+	private final List<EmpireResidence> residences;
 
 	EmpireServer(int id, String name, int tabListRank, char tabListDisplay) {
 		this.id = id;
@@ -74,31 +73,21 @@ public enum EmpireServer {
 		List<EmpireResidence> list = Lists.newArrayList();
 
 		for (EmpireServer value : values()) {
-			list.addAll(value.getResidences());
+			list.addAll(value.residences);
 		}
 
 		return list;
 	}
 
 	public void sendToServer() {
-		MinecraftClient.getInstance().player.networkHandler.sendCommand(getCommand());
-		Util.setCurrentServer(getName());
-	}
-
-	public int compareTabListRankTo(EmpireServer other) {
-		if (tabListRank < other.getTabListRank()) {
-			return -1;
-		} else if (tabListRank > other.tabListRank) {
-			return 1;
-		} else {
-			return 0;
-		}
+		MinecraftClient.getInstance().player.networkHandler.sendCommand(command);
+		Util.setCurrentServer(name);
 	}
 
 	public EmpireResidence getResidenceByLoc(Vec3d pos) {
 		for (EmpireResidence residence : residences) {
-			if (pos.getX() <= residence.getSouthEastCorner().getX() && pos.getX() >= residence.getNorthWestCorner().getX()) {
-				if (pos.getZ() <= residence.getSouthEastCorner().getZ() && pos.getZ() >= residence.getNorthWestCorner().getZ()) {
+			if (pos.getX() <= residence.southEastCorner.getX() && pos.getX() >= residence.northWestCorner.getX()) {
+				if (pos.getZ() <= residence.southEastCorner.getZ() && pos.getZ() >= residence.northWestCorner.getZ()) {
 					return residence;
 				}
 			}

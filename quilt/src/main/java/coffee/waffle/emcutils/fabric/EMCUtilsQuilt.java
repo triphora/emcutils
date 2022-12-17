@@ -1,9 +1,8 @@
-package coffee.waffle.emcutils;
+package coffee.waffle.emcutils.fabric;
 
+import coffee.waffle.emcutils.Util;
 import coffee.waffle.emcutils.event.TooltipCallback;
 import coffee.waffle.emcutils.feature.VaultScreen;
-import coffee.waffle.emcutils.util.Util;
-import coffee.waffle.emcutils.util.fabric.QuiltConfig;
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
 import net.minecraft.client.item.TooltipContext;
@@ -17,15 +16,15 @@ import org.quiltmc.qsl.tooltip.api.client.ItemTooltipCallback;
 
 import java.util.List;
 
-import static coffee.waffle.emcutils.util.Util.LOG;
-import static coffee.waffle.emcutils.util.Util.id;
+import static coffee.waffle.emcutils.Util.LOG;
+import static coffee.waffle.emcutils.Util.id;
 import static org.quiltmc.qsl.resource.loader.api.ResourceLoader.registerBuiltinResourcePack;
 import static org.quiltmc.qsl.resource.loader.api.ResourcePackActivationType.NORMAL;
 
 public class EMCUtilsQuilt implements ClientModInitializer, ItemTooltipCallback {
 	@Override
 	public void onInitializeClient(ModContainer mod) {
-		MidnightConfig.init(mod.metadata().id(), QuiltConfig.class);
+		MidnightConfig.init(mod.metadata().id(), ConfigImpl.class);
 
 		// These don't work in dev for whatever reason, but work in prod
 		registerBuiltinResourcePack(id("dark-ui-vault"), mod, NORMAL);

@@ -1,12 +1,11 @@
 package coffee.waffle.emcutils.feature;
 
+import coffee.waffle.emcutils.Config;
+import coffee.waffle.emcutils.Config.TabListCurrentServerPlacement;
+import coffee.waffle.emcutils.Config.TabListSortType;
+import coffee.waffle.emcutils.Util;
 import coffee.waffle.emcutils.container.EmpireServer;
-import coffee.waffle.emcutils.util.Config;
-import coffee.waffle.emcutils.util.Config.TabListCurrentServerPlacement;
-import coffee.waffle.emcutils.util.Config.TabListSortType;
-import coffee.waffle.emcutils.util.Util;
 import com.google.common.collect.Lists;
-import lombok.AllArgsConstructor;
 import net.minecraft.client.network.PlayerListEntry;
 
 import java.util.List;
@@ -29,13 +28,13 @@ public class TabListOrganizer {
 
 			enhanced.add(enhancedEntry);
 
-			if (EmpireServer.getByTabListDisplay(server) == Util.getCurrentServer()) {
+			if (EmpireServer.getByTabListDisplay(server) == Util.currentServer) {
 				currentServer.add(enhancedEntry);
 			}
 		}
 
 		if (!Config.tabListShowAllServers()) {
-			enhanced = enhanced.stream().filter(e -> e.server == Util.getCurrentServer()).collect(Collectors.toList());
+			enhanced = enhanced.stream().filter(e -> e.server == Util.currentServer).collect(Collectors.toList());
 		}
 
 		// This ensures that the names are in alphabetical order before any other sort.
@@ -62,10 +61,15 @@ public class TabListOrganizer {
 		return sorted.stream().map(e -> e.entry).collect(Collectors.toList());
 	}
 
-	@AllArgsConstructor
 	public static class EnhancedTabListEntry {
 		public EmpireServer server;
 		public String playerName;
 		public PlayerListEntry entry;
+
+		public EnhancedTabListEntry(EmpireServer server, String playerName, PlayerListEntry entry) {
+			this.server = server;
+			this.playerName = playerName;
+			this.entry = entry;
+		}
 	}
 }
