@@ -10,6 +10,7 @@ apply from: '../gradle/quilt-based.gradle'
 architectury.loader 'quilt'
 
 File commonAW = project ':common' file 'src/main/resources/emcutils.accesswidener'
+File commonMixins = project ':common' file 'src/main/resources/emcutils-common.mixins.json'
 File generatedResources = file 'src/generated/resources'
 
 configurations {
@@ -29,12 +30,19 @@ dependencies {
 
 sourceSets.main.resources.srcDir generatedResources
 
-task copyAW(type: Copy) {
+task copyFromCommon(type: Copy) {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
 	from commonAW
+	from commonMixins
 	into generatedResources
 }
 
-processResources.dependsOn copyAW
+processResources.dependsOn copyFromCommon
+
+sourcesJar {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
 
 modrinth {
 	dependencies {
