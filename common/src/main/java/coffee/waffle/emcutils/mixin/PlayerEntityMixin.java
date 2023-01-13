@@ -1,6 +1,7 @@
 package coffee.waffle.emcutils.mixin;
 
 import coffee.waffle.emcutils.Caches;
+import coffee.waffle.emcutils.Util;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,12 +16,14 @@ public abstract class PlayerEntityMixin {
 
 	@Inject(method = "getDisplayName", at = @At("HEAD"), cancellable = true)
 	private void emcutils$getDisplayName(CallbackInfoReturnable<Text> cir) {
-		PlayerEntity e = ((PlayerEntity) (Object) this);
+		if (Util.isOnEMC) {
+			PlayerEntity e = ((PlayerEntity) (Object) this);
 
-		try {
-			cir.setReturnValue(Caches.namePlateCache.get(e));
-		} catch (ExecutionException ex) {
-			throw new RuntimeException(ex);
+			try {
+				cir.setReturnValue(Caches.namePlateCache.get(e));
+			} catch (ExecutionException ex) {
+				throw new RuntimeException(ex);
+			}
 		}
 	}
 }
