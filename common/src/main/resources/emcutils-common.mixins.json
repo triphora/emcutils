@@ -9,12 +9,10 @@
 		"ConnectScreenMixin",
 		"IdentifierMixin",
 		"MainMixin",
-		"PlayerListHudMixin"
+		"PlayerListHudMixin",
+		"PlayerEntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
-	},
-	"mixins": [
-		"PlayerEntityMixin"
-	]
+	}
 }
