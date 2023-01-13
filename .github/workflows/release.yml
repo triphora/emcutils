@@ -30,7 +30,7 @@ jobs:
           java-version: 17
       - uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: release-candidate
+          gradle-version: 7.6
           arguments: forge:modrinth quilt:modrinth
           cache-read-only: ${{ github.repository_owner != 'emmods' }}
         env:
