@@ -15,7 +15,7 @@ import xaero.map.gui.GuiMapName;
 public abstract class GuiMapNameMixin {
 	@Shadow(remap = false) private String currentNameFieldContent;
 
-	@Inject(method = "init()V", at = @At(value = "INVOKE", shift = At.Shift.AFTER, target = "Lnet/minecraft/client/gui/widget/TextFieldWidget;setText(Ljava/lang/String;)V", remap = false), remap = false)
+	@Inject(method = "init()V", at = @At(value = "INVOKE", shift = At.Shift.AFTER, target = "Lnet/minecraft/client/gui/widget/TextFieldWidget;setText(Ljava/lang/String;)V"))
 	public void emcutils$xaero$setSubworldName(CallbackInfo ci) {
 		var server = Util.currentServer.name.toLowerCase();
 		var world = MinecraftClient.getInstance().world.getRegistryKey().getValue().getPath();

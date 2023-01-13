@@ -21,7 +21,7 @@ journeymap = 'maven.modrinth:journeymap:1.19.3-5.9.0beta5-fabric' # https://modr
 
 # Xaero subproject
 xaeros_minimap = 'curse.maven:xmm-263420:4181109' # https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap/files/all
-xaeros_world_map = 'curse.maven:xwm-317780:4181123' # https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map/files/all
+xaeros_world_map = 'curse.maven:xwm-317780:4193010' # https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map/files/all
 
 [plugins]
 architectury_plugin = 'architectury-plugin:3.4.+'
