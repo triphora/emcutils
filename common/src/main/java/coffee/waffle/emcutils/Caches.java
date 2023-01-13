@@ -1,7 +1,9 @@
 package coffee.waffle.emcutils;
 
 import coffee.waffle.emcutils.feature.Nameplates;
-import com.google.common.cache.*;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;

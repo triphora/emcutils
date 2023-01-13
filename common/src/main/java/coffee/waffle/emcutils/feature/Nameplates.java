@@ -6,7 +6,6 @@ import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -29,9 +28,8 @@ public final class Nameplates {
 		return entry;
 	}
 
-	@NotNull
 	public static MutableText parseDisplayName(PlayerListEntry entry) {
-		List<Text> siblings = Lists.newArrayList(entry.getDisplayName().getSiblings());
+		List<Text> siblings = Lists.newArrayList(Objects.requireNonNull(entry.getDisplayName()).getSiblings());
 		siblings.remove(0); // Remove Server Tag
 
 		MutableText text = Text.empty();
