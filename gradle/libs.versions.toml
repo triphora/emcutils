@@ -5,7 +5,7 @@ minecraft = '1.19.3'
 # MC, loaders, and mappings
 minecraft = { module = 'com.mojang:minecraft', version.ref = 'minecraft' }
 yarn = 'net.fabricmc:yarn:1.19.3+build.3' # https://fabricmc.net/develop
-quilt_loader = 'org.quiltmc:quilt-loader:0.18.1-beta.25' # https://lambdaurora.dev/tools/import_quilt.html
+quilt_loader = 'org.quiltmc:quilt-loader:0.18.1-beta.27' # https://lambdaurora.dev/tools/import_quilt.html
 forge = 'net.minecraftforge:forge:1.19.3-44.0.30' # https://files.minecraftforge.net/net/minecraftforge/forge/index_1.19.3.html
 
 # Quilt subproject
