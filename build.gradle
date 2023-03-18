@@ -2,7 +2,7 @@ plugins {
 	alias libs.plugins.architectury.plugin
 	alias libs.plugins.architectury.loom apply false
 	alias libs.plugins.loom.quiltflower apply false
-	alias libs.plugins.machete
+	//alias libs.plugins.machete
 }
 
 String mcVer = libs.versions.minecraft.get()
@@ -13,38 +13,26 @@ subprojects {
 	apply plugin: 'io.github.juuxel.loom-quiltflower'
 
 	repositories {
-		exclusiveContent {
-			forRepository {
-				maven {
-					name = 'Modrinth'
-					url = 'https://api.modrinth.com/maven'
+		[
+			['Modrinth', 'api.modrinth.com/maven', ['maven.modrinth'], []],
+			['CurseMaven', 'cfa2.cursemaven.com', ['curse.maven'], []],
+			['QuiltMC', 'maven.quiltmc.org/repository/release', ['org.quiltmc'], ['org\\.quiltmc\\..*']],
+		].forEach { var mavenInfo ->
+			exclusiveContent {
+				forRepository {
+					maven {
+						name = mavenInfo[0]
+						url = 'https://' + mavenInfo[1]
+					}
 				}
-			}
-			filter {
-				includeGroup 'maven.modrinth'
-			}
-		}
-		exclusiveContent {
-			forRepository {
-				maven {
-					name = 'CurseMaven'
-					url = 'https://cfa2.cursemaven.com'
+				filter {
+					mavenInfo[2].forEach { String group ->
+						includeGroup group
+					}
+					mavenInfo[3].forEach { String group ->
+						includeGroupByRegex group
+					}
 				}
-			}
-			filter {
-				includeGroup 'curse.maven'
-			}
-		}
-		exclusiveContent {
-			forRepository {
-				maven {
-					name = 'QuiltMC'
-					url = 'https://maven.quiltmc.org/repository/release'
-				}
-			}
-			filter {
-				includeGroup 'org.quiltmc'
-				includeGroupByRegex 'org\\.quiltmc\\..*'
 			}
 		}
 	}
@@ -55,12 +43,6 @@ subprojects {
 	}
 
 	quiltflower.addToRuntimeClasspath = true
-
-	tasks.named('prepareRemapJar') {
-		dependsOn {
-			tasks.named('optimizeOutputsOfJar')
-		}
-	}
 
 	loom {
 		runtimeOnlyLog4j = true
@@ -78,7 +60,7 @@ allprojects {
 	apply plugin: 'java'
 	apply plugin: 'architectury-plugin'
 	apply plugin: 'maven-publish'
-	apply plugin: 'io.github.p03w.machete'
+	//apply plugin: 'io.github.p03w.machete'
 
 	group = 'coffee.waffle'
 	archivesBaseName = "emcutils-$project.name-$mcVer"

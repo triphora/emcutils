@@ -1,33 +1,32 @@
 [versions]
-minecraft = '1.19.3'
+minecraft = '1.19.4'
 
 [libraries]
 # MC, loaders, and mappings
 minecraft = { module = 'com.mojang:minecraft', version.ref = 'minecraft' }
-yarn = 'net.fabricmc:yarn:1.19.3+build.3' # https://fabricmc.net/develop
-quilt_loader = 'org.quiltmc:quilt-loader:0.18.1-beta.27' # https://lambdaurora.dev/tools/import_quilt.html
-forge = 'net.minecraftforge:forge:1.19.3-44.0.30' # https://files.minecraftforge.net/net/minecraftforge/forge/index_1.19.3.html
+yarn = 'net.fabricmc:yarn:1.19.4+build.1' # https://fabricmc.net/develop
+quilt_loader = 'org.quiltmc:quilt-loader:0.18.5' # https://lambdaurora.dev/tools/import_quilt.html
+forge = 'net.minecraftforge:forge:1.19.4-45.0.9' # https://files.minecraftforge.net/net/minecraftforge/forge/index_1.19.4.html
 
 # Quilt subproject
-quilted_fabric_api = 'org.quiltmc.quilted-fabric-api:quilted-fabric-api:5.0.0-alpha.5+0.68.1-1.19.3' # https://modrinth.com/mod/qsl
-midnightlib = 'maven.modrinth:midnightlib:1.1.0-quilt' # https://modrinth.com/mod/midnightlib/versions
-lazydfu = 'maven.modrinth:lazydfu:0.1.3' # https://modrinth.com/mod/lazydfu
-modmenu = 'maven.modrinth:modmenu:5.0.2' # https://modrinth.com/mod/modmenu/versions
+quilted_fabric_api = 'org.quiltmc.quilted-fabric-api:quilted-fabric-api:6.0.0-beta.2+0.76.0-1.19.4' # https://modrinth.com/mod/qsl
+midnightlib = 'maven.modrinth:midnightlib:1.2.1-fabric' # https://modrinth.com/mod/midnightlib/versions
+modmenu = 'maven.modrinth:modmenu:6.1.0-rc.4' # https://modrinth.com/mod/modmenu/versions
 
 # Journey subproject
 # https://jm.gserv.me/service/rest/repository/browse/maven-public/info/journeymap/journeymap-api/
 journeymap_api = 'info.journeymap:journeymap-api:1.19.3-1.9-fabric-SNAPSHOT'
-journeymap = 'maven.modrinth:journeymap:1.19.3-5.9.0beta5-fabric' # https://modrinth.com/mod/journeymap
+journeymap = 'maven.modrinth:journeymap:1.19.4-5.9.4beta1-fabric' # https://modrinth.com/mod/journeymap
 
 # Xaero subproject
-xaeros_minimap = 'curse.maven:xmm-263420:4181109' # https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap/files/all
-xaeros_world_map = 'curse.maven:xwm-317780:4193010' # https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map/files/all
+xaeros_minimap = 'curse.maven:xmm-263420:4440701' # https://www.curseforge.com/minecraft/mc-mods/xaeros-minimap/files/all
+xaeros_world_map = 'curse.maven:xwm-317780:4440704' # https://www.curseforge.com/minecraft/mc-mods/xaeros-world-map/files/all
 
 [plugins]
 architectury_plugin = 'architectury-plugin:3.4.+'
 architectury_loom = 'dev.architectury.loom:1.0.+'
 loom_quiltflower = 'io.github.juuxel.loom-quiltflower:1.+'
 
-machete = 'io.github.p03w.machete:1.+'
+machete = 'io.github.p03w.machete:2.+'
 minotaur = 'com.modrinth.minotaur:2.+'
-shadow = 'com.github.johnrengelman.shadow:7.+'
+shadow = 'com.github.johnrengelman.shadow:8.+'

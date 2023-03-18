@@ -28,7 +28,7 @@ import static coffee.waffle.emcutils.Util.plural;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class VaultScreen extends HandledScreen<VaultScreenHandler> implements ScreenHandlerProvider<VaultScreenHandler> {
-	public static final ScreenHandlerType<VaultScreenHandler> GENERIC_9X7 = new ScreenHandlerType<>(VaultScreenHandler::new);
+	public static final ScreenHandlerType<VaultScreenHandler> GENERIC_9X7 = ScreenHandlerType.register("generic_63", VaultScreenHandler::new);
 	private static final Identifier TEXTURE = id("textures/gui/container/generic_63.png");
 	private final int vaultPage;
 	private final int[] slotOffsets = {8, 26, 44, 62, 80, 98, 116, 134, 152};
@@ -91,7 +91,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 	}
 
 	private void drawButton(MatrixStack matrices, ItemStack button, int mouseX, int mouseY, int buttonX, String amountText) {
-		this.drawItem(button, x + buttonX, y + 125, amountText);
+		this.drawItem(matrices, button, x + buttonX, y + 125, amountText);
 
 		if (mouseX >= x + buttonX && mouseX <= x + buttonX + 15) {
 			if (mouseY >= y + 126 && mouseY <= y + 141) {

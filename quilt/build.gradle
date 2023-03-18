@@ -21,7 +21,6 @@ dependencies {
 	include libs.midnightlib
 
 	modRuntimeOnly libs.modmenu
-	modRuntimeOnly libs.lazydfu
 
 	include project(':journey')
 	include project(':xaero')
@@ -35,6 +34,7 @@ task copyAW(type: Copy) {
 }
 
 processResources.dependsOn copyAW
+sourcesJar.dependsOn copyAW
 
 modrinth {
 	dependencies {

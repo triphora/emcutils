@@ -8,7 +8,6 @@
 		"ClientPlayNetworkHandlerMixin",
 		"ConnectScreenMixin",
 		"IdentifierMixin",
-		"MainMixin",
 		"PlayerListHudMixin",
 		"PlayerEntityMixin"
 	],
