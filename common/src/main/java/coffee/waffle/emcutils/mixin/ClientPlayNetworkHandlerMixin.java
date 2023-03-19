@@ -67,9 +67,4 @@ public abstract class ClientPlayNetworkHandlerMixin {
 			ci.cancel();
 		}
 	}
-
-	@Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/toast/ToastManager;add(Lnet/minecraft/client/toast/Toast;)V"), method = "onServerMetadata", require = 0)
-	void emcutils$noInsecureChatWarning(ToastManager tm, Toast toast) {
-		if (!Util.isOnEMC) tm.add(toast);
-	}
 }
