@@ -4,3 +4,5 @@ dependencies {
 	api project(':common')
 	api project(':quilt')
 }
+
+loom.enableTransitiveAccessWideners = false

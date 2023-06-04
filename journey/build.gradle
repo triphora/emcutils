@@ -11,5 +11,3 @@ dependencies {
 	modCompileOnlyApi(libs.journeymap.api) { transitive false }
 	modRuntimeOnly libs.journeymap
 }
-
-loom.enableTransitiveAccessWideners = false
