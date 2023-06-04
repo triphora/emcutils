@@ -21,8 +21,9 @@ public class TabListOrganizer {
 		}
 
 		for (PlayerListEntry entry : original) {
-			char server = entry.getDisplayName().getSiblings().get(0).getString().charAt(1);
-			String playerName = entry.getDisplayName().getSiblings().get(1).getString();
+			// literal{[U] }
+			char server = entry.getDisplayName().toString().charAt(9);
+			String playerName = entry.getDisplayName().getSiblings().get(0).getString();
 
 			EnhancedTabListEntry enhancedEntry = new EnhancedTabListEntry(EmpireServer.getByTabListDisplay(server), playerName, entry);
 

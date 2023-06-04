@@ -24,7 +24,7 @@ xaeros_world_map = 'curse.maven:xwm-317780:4440704' # https://www.curseforge.com
 
 [plugins]
 architectury_plugin = 'architectury-plugin:3.4.+'
-architectury_loom = 'dev.architectury.loom:1.0.+'
+architectury_loom = 'dev.architectury.loom:1.1.+'
 loom_quiltflower = 'io.github.juuxel.loom-quiltflower:1.+'
 
 machete = 'io.github.p03w.machete:2.+'
