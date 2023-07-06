@@ -10,9 +10,11 @@ import net.minecraft.text.TextColor;
 import net.minecraft.util.ActionResult;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ChatListener {
-	private static final String WELCOME_TO_EMC = "Welcome to Empire Minecraft - .*, .*!";
+	private static final String WELCOME_TO_EMC = "Welcome to Empire Minecraft - .*, .*!\n?";
 	private static final String CHAT_FOCUS_MESSAGE = "Chat focus set to channel (.*)";
 	private static final String CHAT_PRIVATE_MESSAGE = "Started private conversation with (.*)";
 
@@ -26,12 +28,12 @@ public class ChatListener {
 
 	private static ActionResult handlePrivateMessageStart(ClientPlayerEntity player, Text text) {
 		if (text.getString().matches(CHAT_PRIVATE_MESSAGE)) {
-			String user = text.getSiblings().get(1).getString();
+			var user = text.getSiblings().get(0);
 
 			ChatChannels.inPrivateConversation = true;
 			ChatChannels.currentChannel = null;
-			ChatChannels.targetUsername = user;
-			ChatChannels.targetGroupId = getPlayerGroupIdFromTabList(user, player);
+			ChatChannels.targetUsername = user.getString();
+			ChatChannels.targetGroupId = getGroupIdFromColor(user.getStyle().getColor());
 		}
 
 		return ActionResult.PASS;
@@ -39,10 +41,10 @@ public class ChatListener {
 
 	private static ActionResult handleChatChannelChange(ClientPlayerEntity player, Text text) {
 		if (text.getString().matches(CHAT_FOCUS_MESSAGE)) {
-			String channel = text.getSiblings().get(1).getString().trim();
+			var channel = ChatChannels.ChatChannel.getChannelByName(text.getSiblings().get(0).getString().trim());
 
-			if (ChatChannels.ChatChannel.getChannelByName(channel) != null) {
-				ChatChannels.currentChannel = ChatChannels.ChatChannel.getChannelByName(channel);
+			if (channel != null) {
+				ChatChannels.currentChannel = channel;
 				ChatChannels.inPrivateConversation = false;
 			}
 		}
@@ -52,9 +54,18 @@ public class ChatListener {
 
 	private static ActionResult initialServerInfo(ClientPlayerEntity player, Text text) {
 		if (text.getString().matches(WELCOME_TO_EMC)) {
-			var group = text.getSiblings().get(5).getStyle().getColor();
+			var currentServer = text // Welcome to
+				.getSiblings().get(0) // Empire Minecraft
+				.getSiblings().get(0) // -
+				.getSiblings().get(0); // SMPx
+			Util.setCurrentServer(currentServer.getString().substring(0, 4));
+			System.out.println(currentServer.getString().substring(0, 4));
+
+			var group = currentServer
+				.getSiblings().get(0) // ,
+				.getSiblings().get(0) // PLAYERNAME
+				.getStyle().getColor();
 			if (group != null) Util.playerGroupId = getGroupIdFromColor(group);
-			Util.setCurrentServer(text.getSiblings().get(3).getString().trim());
 
 			if (Util.onJoinCommand != null) {
 				player.networkHandler.sendCommand(Util.onJoinCommand);

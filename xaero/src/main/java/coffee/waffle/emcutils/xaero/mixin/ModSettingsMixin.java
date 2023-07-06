@@ -10,7 +10,7 @@ import xaero.common.settings.ModSettings;
 
 @Pseudo
 @Mixin(ModSettings.class)
-public abstract class ModSettingsMixin {
+abstract class ModSettingsMixin {
 	@Inject(method = "caveMapsDisabled", at = @At("HEAD"), cancellable = true, remap = false)
 	private void emcutils$xaero$disableCaveMaps(CallbackInfoReturnable<Boolean> cir) {
 		if (Util.isOnEMC) cir.setReturnValue(true);

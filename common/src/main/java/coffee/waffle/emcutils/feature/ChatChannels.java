@@ -5,10 +5,9 @@ import coffee.waffle.emcutils.Config.ChatAlertSound;
 import coffee.waffle.emcutils.Util;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -24,15 +23,15 @@ public class ChatChannels {
 	private static final ClientPlayerEntity player = MinecraftClient.getInstance().player;
 	private static final TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
 
-	public static void handleChatScreenRender(Screen screen, MatrixStack matrices) {
+	public static void handleChatScreenRender(Screen screen, DrawContext context) {
 		if (Util.isOnEMC && Config.chatButtonsEnabled()) {
 			for (ChatChannel channel : ChatChannel.values()) {
 				if (channel == ChatChannel.SUPPORTER && Util.playerGroupId < 2) break;
 				if (channel == ChatChannel.MODERATOR && Util.playerGroupId < 5) break;
-				drawButton(screen, matrices, channel);
+				drawButton(screen, context, channel);
 			}
 
-			if (inPrivateConversation) drawPrivateConversation(screen, matrices);
+			if (inPrivateConversation) drawPrivateConversation(screen, context);
 		}
 	}
 
@@ -72,27 +71,27 @@ public class ChatChannels {
 		return !(mouseY < screen.height - 32) && !(mouseY >= screen.height - (32 - height - 4));
 	}
 
-	private static void drawButton(Screen screen, MatrixStack matrices, ChatChannel channel) {
+	private static void drawButton(Screen screen, DrawContext context, ChatChannel channel) {
 		int width = textRenderer.getWidth(channel.name);
 		int height = textRenderer.fontHeight;
 
 		if (currentChannel == channel && !inPrivateConversation) {
-			DrawableHelper.fill(matrices, channel.getOffset(), screen.height - 33, channel.getOffset() + width + 5, screen.height - (32 - height - 4), (0xff << 24) | channel.format.getColorValue());
+			context.fill(channel.getOffset(), screen.height - 33, channel.getOffset() + width + 5, screen.height - (32 - height - 4), (0xff << 24) | channel.format.getColorValue());
 		}
 
-		DrawableHelper.fill(matrices, channel.getOffset() + 1, screen.height - 32, channel.getOffset() + width + 4, screen.height - (32 - height - 3), (0xc0 << 24));
-		textRenderer.draw(matrices, Text.of(channel.name), channel.getOffset() + 3, screen.height - 30, channel.format.getColorValue());
+		context.fill(channel.getOffset() + 1, screen.height - 32, channel.getOffset() + width + 4, screen.height - (32 - height - 3), (0xc0 << 24));
+		context.drawText(textRenderer, Text.of(channel.name), channel.getOffset() + 3, screen.height - 30, channel.format.getColorValue(), true);
 	}
 
-	private static void drawPrivateConversation(Screen screen, MatrixStack matrices) {
+	private static void drawPrivateConversation(Screen screen, DrawContext context) {
 		int fullWidth = textRenderer.getWidth("PM with: " + targetUsername);
 		int nameWidth = textRenderer.getWidth(targetUsername);
 		int height = textRenderer.fontHeight;
 
-		DrawableHelper.fill(matrices, screen.width - 3, screen.height - 33, screen.width - fullWidth - 8, screen.height - (32 - height - 4), (0xff << 24) | Formatting.LIGHT_PURPLE.getColorValue());
-		DrawableHelper.fill(matrices, screen.width - 4, screen.height - 32, screen.width - fullWidth - 7, screen.height - (32 - height - 3), (0xc0 << 24));
-		textRenderer.draw(matrices, Text.of("PM with: "), screen.width - fullWidth - 5, screen.height - 30, Formatting.WHITE.getColorValue());
-		textRenderer.draw(matrices, Text.of(targetUsername), screen.width - nameWidth - 5, screen.height - 30, groupIdToFormatting(targetGroupId).getColorValue());
+		context.fill(screen.width - 3, screen.height - 33, screen.width - fullWidth - 8, screen.height - (32 - height - 4), (0xff << 24) | Formatting.LIGHT_PURPLE.getColorValue());
+		context.fill(screen.width - 4, screen.height - 32, screen.width - fullWidth - 7, screen.height - (32 - height - 3), (0xc0 << 24));
+		context.drawText(textRenderer, Text.of("PM with: "), screen.width - fullWidth - 5, screen.height - 30, Formatting.WHITE.getColorValue(), true);
+		context.drawText(textRenderer, Text.of(targetUsername), screen.width - nameWidth - 5, screen.height - 30, groupIdToFormatting(targetGroupId).getColorValue(), true);
 	}
 
 	public static Formatting groupIdToFormatting(int groupId) {

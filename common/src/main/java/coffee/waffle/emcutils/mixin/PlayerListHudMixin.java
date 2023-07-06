@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import java.util.List;
 
 @Mixin(PlayerListHud.class)
-public abstract class PlayerListHudMixin {
+abstract class PlayerListHudMixin {
 	@ModifyVariable(method = "render", at = @At("STORE"), ordinal = 0)
 	List<PlayerListEntry> emcutils$customSortTabList(List<PlayerListEntry> original) {
 		return TabListOrganizer.sortPlayers(original);

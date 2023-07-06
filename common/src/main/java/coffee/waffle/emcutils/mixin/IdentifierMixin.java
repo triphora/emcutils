@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Identifier.class)
-public abstract class IdentifierMixin {
+abstract class IdentifierMixin {
 	@Inject(method = "isPathCharacterValid", at = @At("HEAD"), cancellable = true)
 	private static void emcutils$fixForgeInvalidCharacter(char c, CallbackInfoReturnable<Boolean> cir) {
 		if (c == '|') cir.setReturnValue(true);

@@ -15,7 +15,6 @@ subprojects {
 	repositories {
 		[
 			['Modrinth', 'api.modrinth.com/maven', ['maven.modrinth'], []],
-			['CurseMaven', 'cfa2.cursemaven.com', ['curse.maven'], []],
 			['QuiltMC', 'maven.quiltmc.org/repository/release', ['org.quiltmc'], ['org\\.quiltmc\\..*']],
 		].forEach { var mavenInfo ->
 			exclusiveContent {
@@ -46,7 +45,6 @@ subprojects {
 
 	loom {
 		runtimeOnlyLog4j = true
-		clientOnlyMinecraftJar()
 
 		runs {
 			configureEach {

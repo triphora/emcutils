@@ -12,7 +12,7 @@ import xaero.map.gui.GuiMapName;
 
 @Pseudo
 @Mixin(GuiMapName.class)
-public abstract class GuiMapNameMixin {
+abstract class GuiMapNameMixin {
 	@Shadow(remap = false) private String currentNameFieldContent;
 
 	@Inject(method = "init()V", at = @At(value = "INVOKE", shift = At.Shift.AFTER, target = "Lnet/minecraft/client/gui/widget/TextFieldWidget;setText(Ljava/lang/String;)V"))

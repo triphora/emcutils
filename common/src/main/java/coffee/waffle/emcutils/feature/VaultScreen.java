@@ -1,9 +1,11 @@
 package coffee.waffle.emcutils.feature;
 
 import coffee.waffle.emcutils.Config;
+import coffee.waffle.emcutils.Util;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.ScreenHandlerProvider;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -36,7 +38,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
 	public VaultScreen(VaultScreenHandler handler, PlayerInventory inventory, Text title) {
 		super(handler, inventory, title);
-		this.passEvents = false;
+		//this.passEvents = false;
 		this.backgroundHeight = 114 + 7 * 18;
 		this.playerInventoryTitleY = this.backgroundHeight - 94;
 
@@ -66,51 +68,51 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 	}
 
 	@Override
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-		this.renderBackground(matrices);
-		super.render(matrices, mouseX, mouseY, delta);
+	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+		this.renderBackground(context);
+		super.render(context, mouseX, mouseY, delta);
 
 		for (int i = 4; i > 0; i--) {
 			if (vaultPage > i) {
-				drawButton(matrices, getHead(i, false), mouseX, mouseY, slotOffsets[4 - i], (vaultPage - i) + "");
+				drawButton(context, getHead(i, false), mouseX, mouseY, slotOffsets[4 - i], (vaultPage - i) + "");
 			}
 		}
 
 		ItemStack chest = Items.CHEST.getDefaultStack();
 		chest.setCustomName(formattedText("View your vaults"));
-		drawButton(matrices, chest, mouseX, mouseY, slotOffsets[4], "");
+		drawButton(context, chest, mouseX, mouseY, slotOffsets[4], "");
 
 		//noinspection ConstantValue
 		for (int i = 1; i <= 4; i++) {
 			if (vaultPage <= Config.totalVaultPages() - i) {
-				drawButton(matrices, getHead(i, true), mouseX, mouseY, slotOffsets[4 + i], (vaultPage + i) + "");
+				drawButton(context, getHead(i, true), mouseX, mouseY, slotOffsets[4 + i], (vaultPage + i) + "");
 			}
 		}
 
-		this.drawMouseoverTooltip(matrices, mouseX, mouseY);
+		this.drawMouseoverTooltip(context, mouseX, mouseY);
 	}
 
-	private void drawButton(MatrixStack matrices, ItemStack button, int mouseX, int mouseY, int buttonX, String amountText) {
-		this.drawItem(matrices, button, x + buttonX, y + 125, amountText);
+	private void drawButton(DrawContext context, ItemStack button, int mouseX, int mouseY, int buttonX, String amountText) {
+		this.drawItem(context, button, x + buttonX, y + 125, amountText);
 
 		if (mouseX >= x + buttonX && mouseX <= x + buttonX + 15) {
 			if (mouseY >= y + 126 && mouseY <= y + 141) {
-				matrices.translate(0, 0, 225);
-				this.fillGradient(matrices, x + buttonX, y + 125, x + buttonX + 16, y + 125 + 16, 0x80ffffff, 0x80ffffff);
-				this.renderTooltip(matrices, button, mouseX, mouseY);
-				matrices.translate(0, 0, -225);
+				context.getMatrices().translate(0, 0, 225);
+				context.fillGradient(x + buttonX, y + 125, x + buttonX + 16, y + 125 + 16, 0x80ffffff, 0x80ffffff);
+				context.drawItemTooltip(textRenderer, button, mouseX, mouseY);
+				context.getMatrices().translate(0, 0, -225);
 			}
 		}
 	}
 
 	@Override
-	protected void drawBackground(MatrixStack matrices, float delta, int mouseX, int mouseY) {
+	protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
 		RenderSystem.setShader(GameRenderer::getPositionTexProgram);
 		RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 		RenderSystem.setShaderTexture(0, TEXTURE);
 		int x = (width - backgroundWidth) / 2;
 		int y = (height - backgroundHeight) / 2;
-		drawTexture(matrices, x, y, 0, 0, backgroundWidth, backgroundHeight);
+		context.drawTexture(TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight);
 	}
 
 	@Override
