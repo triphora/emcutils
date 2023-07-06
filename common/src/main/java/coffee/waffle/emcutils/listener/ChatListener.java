@@ -59,7 +59,6 @@ public class ChatListener {
 				.getSiblings().get(0) // -
 				.getSiblings().get(0); // SMPx
 			Util.setCurrentServer(currentServer.getString().substring(0, 4));
-			System.out.println(currentServer.getString().substring(0, 4));
 
 			var group = currentServer
 				.getSiblings().get(0) // ,
