@@ -1,7 +1,7 @@
 dependencies {
-	modImplementation libs.quilt.loader
+	modImplementation libs.fabric.loader
 }
 
-architectury.common 'quilt', 'forge'
+architectury.common 'fabric', 'forge'
 
 loom.accessWidenerPath.set file('src/main/resources/emcutils.accesswidener')

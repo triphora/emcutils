@@ -25,6 +25,8 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import org.apache.commons.lang3.math.NumberUtils;
 
+import java.util.UUID;
+
 import static coffee.waffle.emcutils.Util.id;
 import static coffee.waffle.emcutils.Util.plural;
 
@@ -58,7 +60,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 			"NWYxMzNlOTE5MTlkYjBhY2VmZGMyNzJkNjdmZDg3YjRiZTg4ZGM0NGE5NTg5NTg4MjQ0NzRlMjFlMDZkNTNlNi") + "J9fX0=";
 
 		stack.setCustomName(formattedText(String.format("Go %s %s page%s", positive ? "forward" : "back", amount, plural(amount))));
-		GameProfile profile = new GameProfile(null, "MrFrydae");
+		GameProfile profile = new GameProfile(UUID.fromString("1635371d-8f8b-4a90-8495-4e7df6c946b2"), "MrFrydae");
 		profile.getProperties().put("textures", new Property("Value", head));
 
 		assert stack.getNbt() != null;
@@ -69,7 +71,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
 	@Override
 	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-		this.renderBackground(context);
+		this.renderBackground(context, mouseX, mouseY, delta);
 		super.render(context, mouseX, mouseY, delta);
 
 		for (int i = 4; i > 0; i--) {

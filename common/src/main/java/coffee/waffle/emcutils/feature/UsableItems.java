@@ -90,7 +90,7 @@ public class UsableItems {
 		if (useTimerLine == -1) return 0L;
 
 		long time = JsonParser.parseString(originalLore.get(useTimerLine + 1).getAsString())
-			.getAsJsonObject().getAsJsonArray("extra").get(0).getAsJsonObject().get("text").getAsLong();
+			.getAsJsonObject().get("text").getAsLong();
 
 		return Math.max(0, (time - System.currentTimeMillis()) / 1000L);
 	}

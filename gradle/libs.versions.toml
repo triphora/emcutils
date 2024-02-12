@@ -1,41 +1,37 @@
 [versions]
-minecraft = '1.20.1'
+minecraft = '1.20.4'
 
 [libraries]
 # MC, loaders, and mappings
 minecraft = { module = 'com.mojang:minecraft', version.ref = 'minecraft' }
 # https://fabricmc.net/develop
-yarn = 'net.fabricmc:yarn:1.20.1+build.9'
-# https://lambdaurora.dev/tools/import_quilt.html
-quilt_loader = 'org.quiltmc:quilt-loader:0.20.0-beta.1'
-# https://files.minecraftforge.net/net/minecraftforge/forge/index_1.20.1.html
-forge = 'net.minecraftforge:forge:1.20.1-47.0.43'
+yarn = 'net.fabricmc:yarn:1.20.4+build.3'
+fabric_loader = 'net.fabricmc:fabric-loader:0.15.6'
+fabric_api = 'net.fabricmc.fabric-api:fabric-api:0.93.1+1.20.4'
+# https://files.minecraftforge.net/net/minecraftforge/forge/index_1.20.4.html
+forge = 'net.minecraftforge:forge:1.20.4-49.0.27'
 
-# Quilt subproject
-# https://modrinth.com/mod/qsl/version/latest?loader=quilt&game_version=1.20.1
-quilted_fabric_api = 'org.quiltmc.quilted-fabric-api:quilted-fabric-api:7.0.5+0.84.0-1.20.1'
-# https://modrinth.com/mod/midnightlib/version/latest?loader=quilt&game_version=1.20.1
-midnightlib = 'maven.modrinth:midnightlib:1.4.1-quilt'
-# https://modrinth.com/mod/modmenu/version/latest?loader=quilt&game_version=1.20.1
-modmenu = 'maven.modrinth:modmenu:7.1.0'
+# Fabric subproject
+# https://modrinth.com/mod/midnightlib/version/latest?loader=fabric&game_version=1.20.4
+midnightlib = 'maven.modrinth:midnightlib:1.5.3-fabric'
+# https://modrinth.com/mod/modmenu/version/latest?loader=fabric&game_version=1.20.4
+modmenu = 'maven.modrinth:modmenu:9.0.0'
 
 # Journey subproject
 # https://jm.gserv.me/service/rest/repository/browse/maven-public/info/journeymap/journeymap-api/
-journeymap_api = 'info.journeymap:journeymap-api:2.0+1.20-fabric-SNAPSHOT'
-# https://modrinth.com/mod/journeymap/version/latest?loader=quilt&game_version=1.20.1
-journeymap = 'maven.modrinth:journeymap:1.19.4-5.9.4beta1-fabric'
+journeymap_api = 'info.journeymap:journeymap-api:1.20.2-1.9-fabric-SNAPSHOT'
+# https://modrinth.com/mod/journeymap/version/latest?loader=fabric&game_version=1.20.4
+journeymap = 'maven.modrinth:journeymap:1.20.4-5.9.20-fabric'
 
 # Xaero subproject
-# https://modrinth.com/mod/xaeros-minimap/version/latest?loader=quilt&game_version=1.20.1
-xaeros_minimap = 'maven.modrinth:xaeros-minimap:23.5.0_Fabric_1.20'
-# https://modrinth.com/mod/xaeros-world-map/version/latest?loader=quilt&game_version=1.20.1
-xaeros_world_map = 'maven.modrinth:xaeros-world-map:1.30.6_Fabric_1.20'
+# https://modrinth.com/mod/xaeros-minimap/version/latest?loader=fabric&game_version=1.20.4
+xaeros_minimap = 'maven.modrinth:xaeros-minimap:23.9.7_Fabric_1.20.4'
+# https://modrinth.com/mod/xaeros-world-map/version/latest?loader=fabric&game_version=1.20.4
+xaeros_world_map = 'maven.modrinth:xaeros-world-map:1.37.8_Fabric_1.20.4'
 
 [plugins]
 architectury_plugin = 'architectury-plugin:3.4.+'
-architectury_loom = 'dev.architectury.loom:1.1.+'
-loom_quiltflower = 'io.github.juuxel.loom-quiltflower:1.+'
+architectury_loom = 'dev.architectury.loom:1.4.+'
 
-machete = 'io.github.p03w.machete:2.+'
 minotaur = 'com.modrinth.minotaur:2.+'
 shadow = 'com.github.johnrengelman.shadow:8.+'

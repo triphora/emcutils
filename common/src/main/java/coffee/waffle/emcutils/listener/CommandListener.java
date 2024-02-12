@@ -5,7 +5,6 @@ import coffee.waffle.emcutils.container.EmpireServer;
 import coffee.waffle.emcutils.event.CommandCallback;
 import coffee.waffle.emcutils.feature.VisitResidenceHandler;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.ActionResult;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -17,7 +16,7 @@ public class CommandListener {
 		CommandCallback.PRE_EXECUTE_COMMAND.register(CommandListener::handleResidenceHomeCommand);
 	}
 
-	private static ActionResult handleResidenceHomeCommand(ClientPlayerEntity player, String command, List<String> args) {
+	private static ActionResult handleResidenceHomeCommand(String command, List<String> args) {
 		if (!command.equalsIgnoreCase("home")) {
 			return ActionResult.PASS;
 		}
@@ -38,12 +37,12 @@ public class CommandListener {
 			}
 		}
 
-		String resName = MinecraftClient.getInstance().player.getEntityName() + (num > 1 ? "-" + num : "");
+		String resName = MinecraftClient.getInstance().player.getName().getLiteralString() + (num > 1 ? "-" + num : "");
 
 		return handleResCommandsCommon(resName, loc);
 	}
 
-	private static ActionResult handleResidenceVisitCommand(ClientPlayerEntity player, String command, List<String> args) {
+	private static ActionResult handleResidenceVisitCommand(String command, List<String> args) {
 		if (!(command.equalsIgnoreCase("v") || command.equalsIgnoreCase("visit")) || args.isEmpty()) {
 			return ActionResult.PASS;
 		}

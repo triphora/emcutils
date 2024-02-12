@@ -1,19 +1,18 @@
 plugins {
 	alias libs.plugins.minotaur
 	alias libs.plugins.shadow
-	alias libs.plugins.loom.quiltflower
 }
 
 apply from: '../gradle/loader.gradle'
-apply from: '../gradle/quilt-based.gradle'
+apply from: '../gradle/fabric-based.gradle'
 
-architectury.loader 'quilt'
+architectury.loader 'fabric'
 
 File commonAW = project ':common' file 'src/main/resources/emcutils.accesswidener'
 File generatedResources = file 'src/generated/resources'
 
 configurations {
-	developmentQuilt.extendsFrom common
+	developmentFabric.extendsFrom common
 }
 
 dependencies {

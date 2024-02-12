@@ -14,6 +14,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.http.HttpResponse.BodyHandlers;
 import java.util.List;
+import java.util.Objects;
 
 import static coffee.waffle.emcutils.Util.LOG;
 
@@ -80,7 +81,7 @@ public enum EmpireServer {
 	}
 
 	public void sendToServer() {
-		MinecraftClient.getInstance().player.networkHandler.sendCommand(command);
+		Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).sendCommand(command);
 		Util.setCurrentServer(name);
 	}
 

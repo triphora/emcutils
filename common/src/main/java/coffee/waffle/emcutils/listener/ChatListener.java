@@ -3,6 +3,7 @@ package coffee.waffle.emcutils.listener;
 import coffee.waffle.emcutils.Util;
 import coffee.waffle.emcutils.event.ChatCallback;
 import coffee.waffle.emcutils.feature.ChatChannels;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.text.Text;
@@ -10,8 +11,6 @@ import net.minecraft.text.TextColor;
 import net.minecraft.util.ActionResult;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ChatListener {
 	private static final String WELCOME_TO_EMC = "Welcome to Empire Minecraft - .*, .*!\n?";
@@ -26,7 +25,7 @@ public class ChatListener {
 		ChatCallback.POST_RECEIVE_MESSAGE.register(ChatListener::handlePrivateMessageStart);
 	}
 
-	private static ActionResult handlePrivateMessageStart(ClientPlayerEntity player, Text text) {
+	private static ActionResult handlePrivateMessageStart(Text text) {
 		if (text.getString().matches(CHAT_PRIVATE_MESSAGE)) {
 			var user = text.getSiblings().get(0);
 
@@ -39,7 +38,7 @@ public class ChatListener {
 		return ActionResult.PASS;
 	}
 
-	private static ActionResult handleChatChannelChange(ClientPlayerEntity player, Text text) {
+	private static ActionResult handleChatChannelChange(Text text) {
 		if (text.getString().matches(CHAT_FOCUS_MESSAGE)) {
 			var channel = ChatChannels.ChatChannel.getChannelByName(text.getSiblings().get(0).getString().trim());
 
@@ -52,7 +51,7 @@ public class ChatListener {
 		return ActionResult.PASS;
 	}
 
-	private static ActionResult initialServerInfo(ClientPlayerEntity player, Text text) {
+	private static ActionResult initialServerInfo(Text text) {
 		if (text.getString().matches(WELCOME_TO_EMC)) {
 			var currentServer = text // Welcome to
 				.getSiblings().get(0) // Empire Minecraft
@@ -67,7 +66,7 @@ public class ChatListener {
 			if (group != null) Util.playerGroupId = getGroupIdFromColor(group);
 
 			if (Util.onJoinCommand != null) {
-				player.networkHandler.sendCommand(Util.onJoinCommand);
+				MinecraftClient.getInstance().getNetworkHandler().sendCommand(Util.onJoinCommand);
 				Util.onJoinCommand = null;
 			}
 		}

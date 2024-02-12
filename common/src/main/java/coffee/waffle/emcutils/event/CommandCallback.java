@@ -8,9 +8,9 @@ import java.util.List;
 @FunctionalInterface
 public interface CommandCallback {
 	Event<CommandCallback> PRE_EXECUTE_COMMAND = new Event<>(CommandCallback.class,
-		(listeners) -> (player, command, args) -> {
+		(listeners) -> (command, args) -> {
 			for (CommandCallback listener : listeners) {
-				ActionResult result = listener.onPreExecuteCommand(player, command, args);
+				ActionResult result = listener.onPreExecuteCommand(command, args);
 
 				if (result != ActionResult.PASS) {
 					return result;
@@ -21,5 +21,5 @@ public interface CommandCallback {
 		}
 	);
 
-	ActionResult onPreExecuteCommand(ClientPlayerEntity player, String command, List<String> args);
+	ActionResult onPreExecuteCommand(String command, List<String> args);
 }

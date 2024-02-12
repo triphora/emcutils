@@ -1,8 +1,6 @@
 plugins {
 	alias libs.plugins.architectury.plugin
 	alias libs.plugins.architectury.loom apply false
-	alias libs.plugins.loom.quiltflower apply false
-	//alias libs.plugins.machete
 }
 
 String mcVer = libs.versions.minecraft.get()
@@ -10,12 +8,10 @@ architectury.minecraft = mcVer
 
 subprojects {
 	apply plugin: 'dev.architectury.loom'
-	apply plugin: 'io.github.juuxel.loom-quiltflower'
 
 	repositories {
 		[
 			['Modrinth', 'api.modrinth.com/maven', ['maven.modrinth'], []],
-			['QuiltMC', 'maven.quiltmc.org/repository/release', ['org.quiltmc'], ['org\\.quiltmc\\..*']],
 		].forEach { var mavenInfo ->
 			exclusiveContent {
 				forRepository {
@@ -41,8 +37,6 @@ subprojects {
 		mappings variantOf(libs.yarn) { classifier 'v2' }
 	}
 
-	quiltflower.addToRuntimeClasspath = true
-
 	loom {
 		runtimeOnlyLog4j = true
 
@@ -58,7 +52,6 @@ allprojects {
 	apply plugin: 'java'
 	apply plugin: 'architectury-plugin'
 	apply plugin: 'maven-publish'
-	//apply plugin: 'io.github.p03w.machete'
 
 	group = 'coffee.waffle'
 	archivesBaseName = "emcutils-$project.name-$mcVer"

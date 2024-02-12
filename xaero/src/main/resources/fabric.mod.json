@@ -1,0 +1,30 @@
+{
+	"schemaVersion": 1,
+	"id": "emcutils-xaero-compat",
+	"version": "${version}",
+	"name": "Empire Minecraft Utilities Xaero's Compatibility",
+	"description": "Xaero's World Map and Minimap compatibility for Empire Minecraft Utilities",
+	"authors": [
+		"triphora"
+	],
+	"environment": "client",
+	"license": "MIT",
+	"entrypoints": {
+		"client": [
+			"coffee.waffle.emcutils.xaero.EMCUtilsXaero"
+		]
+	},
+	"mixins": [
+		"emcutils-xaero.mixins.json"
+	],
+	"depends": {
+		"xaerominimap": ">=23.9.7",
+		"xaeroworldmap": ">=1.37.8",
+		"emcutils": ">=${version}"
+	},
+	"custom": {
+		"modmenu": {
+			"parent": "emcutils"
+		}
+	}
+}

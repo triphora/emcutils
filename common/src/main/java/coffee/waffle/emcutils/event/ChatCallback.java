@@ -6,9 +6,9 @@ import net.minecraft.util.ActionResult;
 
 public interface ChatCallback {
 	Event<ChatCallback> POST_RECEIVE_MESSAGE = new Event<>(ChatCallback.class,
-		(listeners) -> (player, text) -> {
+		(listeners) -> (text) -> {
 			for (ChatCallback listener : listeners) {
-				ActionResult result = listener.onPostReceiveMessage(player, text);
+				ActionResult result = listener.onPostReceiveMessage(text);
 
 				if (result != ActionResult.PASS) {
 					return result;
@@ -19,5 +19,5 @@ public interface ChatCallback {
 		}
 	);
 
-	ActionResult onPostReceiveMessage(ClientPlayerEntity player, Text message);
+	ActionResult onPostReceiveMessage(Text message);
 }

@@ -1,12 +1,12 @@
 dependencies {
-	modImplementation libs.quilt.loader
-	modImplementation libs.quilted.fabric.api
+	modImplementation libs.fabric.loader
+	modImplementation libs.fabric.api
 }
 
 processResources {
 	inputs.property 'version', rootProject.mod_version
 
-	filesMatching('quilt.mod.json') {
+	filesMatching('fabric.mod.json') {
 		expand 'version': rootProject.mod_version
 	}
 }

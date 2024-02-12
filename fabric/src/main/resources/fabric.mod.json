@@ -1,0 +1,47 @@
+{
+	"schemaVersion": 1,
+	"id": "emcutils",
+	"version": "${version}",
+	"name": "Empire Minecraft Utilities",
+	"description": "A collection of various utilities for the Empire Minecraft server.",
+	"contact": {
+		"homepage": "https://emc.gs/t/84930",
+		"sources": "https://github.com/triphora/emcutils",
+		"issues": "https://github.com/triphora/emcutils/issues"
+	},
+	"authors": [
+		"triphora",
+		"MrFrydae"
+	],
+	"contributors": [
+		"BlockHead_56",
+		"BasiqueEvangelist"
+	],
+	"environment": "client",
+	"license": "MIT",
+	"icon": "emcutils.png",
+	"entrypoints": {
+		"client": [
+			"coffee.waffle.emcutils.fabric.EMCUtilsFabric"
+		]
+	},
+	"mixins": [
+		"emcutils-common.mixins.json"
+	],
+	"accessWidener": "emcutils.accesswidener",
+	"depends": {
+		"minecraft": ">=1.20.4",
+		"midnightlib": ">=1.5.3"
+	},
+	"recommends": {
+		"modmenu": ">=9.1.0"
+	},
+	"custom": {
+		"modmenu": {
+			"links": {
+				"modmenu.github_sponsors": "https://github.com/sponsors/triphora",
+				"modmenu.modrinth": "https://modrinth.com/mod/emcutils"
+			}
+		}
+	}
+}

@@ -16,9 +16,7 @@ import net.minecraft.network.packet.s2c.play.GameMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.OpenScreenS2CPacket;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.text.Text;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -28,18 +26,17 @@ import java.util.Arrays;
 
 @Mixin(ClientPlayNetworkHandler.class)
 abstract class ClientPlayNetworkHandlerMixin {
-	@Shadow @Final private MinecraftClient client;
 	@Unique private boolean emcutils$online = false;
 
 	@Inject(at = @At("HEAD"), method = "sendChatCommand")
 	void emcutils$onPreExecuteCommand(String message, CallbackInfo info) {
 		String[] parts = message.split(" ");
-		CommandCallback.PRE_EXECUTE_COMMAND.invoker().onPreExecuteCommand(client.player, parts[0], parts.length > 1 ? Arrays.stream(parts, 1, parts.length).toList() : Lists.newArrayList());
+		CommandCallback.PRE_EXECUTE_COMMAND.invoker().onPreExecuteCommand(parts[0], parts.length > 1 ? Arrays.stream(parts, 1, parts.length).toList() : Lists.newArrayList());
 	}
 
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/message/MessageHandler;onGameMessage(Lnet/minecraft/text/Text;Z)V", shift = At.Shift.AFTER), method = "onGameMessage")
 	void emcutils$onPostReceiveMessage(GameMessageS2CPacket packet, CallbackInfo info) {
-		ChatCallback.POST_RECEIVE_MESSAGE.invoker().onPostReceiveMessage(client.player, packet.content());
+		ChatCallback.POST_RECEIVE_MESSAGE.invoker().onPostReceiveMessage(packet.content());
 	}
 
 	@Inject(at = @At("TAIL"), method = "onGameJoin")
