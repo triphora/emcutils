@@ -37,10 +37,12 @@ sourcesJar.dependsOn copyAW
 
 modrinth {
 	dependencies {
-		required.project 'qsl'
+		required.project 'fabric-api'
 		embedded.project 'midnightlib'
 		optional.project 'modmenu'
 		optional.project 'journeymap'
+		optional.project 'xaeros-minimap'
+		optional.project 'xaeros-world-map'
 	}
 	syncBodyFrom = rootProject.file('README.md').text
 }
