@@ -1,110 +1,50 @@
 package coffee.waffle.emcutils.feature;
 
 import coffee.waffle.emcutils.Util;
-import coffee.waffle.emcutils.event.TooltipCallback;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.minecraft.component.DataComponentTypes;
-import net.minecraft.item.ItemStack;
+import net.minecraft.component.type.NbtComponent;
+import net.minecraft.item.tooltip.TooltipAppender;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import static coffee.waffle.emcutils.Util.plural;
 
 public class UsableItems {
-	public static void init() {
-		TooltipCallback.ITEM.register((itemStack, list, tooltipContext, type) -> {
-			if (!Util.isOnEMC() || !isUsableItemWithCooldown(itemStack)) return;
+	public interface UsableItem extends TooltipAppender {
+		UsableItem ITEM = (context, textConsumer, type, components) -> {
+			if (!Util.isOnEMC()) return;
 
-			for (Text text : list) {
-				if (text.getString().startsWith("Usable in: ") ||
-					text.getString().equalsIgnoreCase("Can be used now")) return;
-			}
+			var customData = components.get(DataComponentTypes.CUSTOM_DATA);
 
-			list.add(Text.empty());
-
-			long untilUsable = getSecondsUntilUsable(itemStack);
-
-			if (untilUsable > 0) {
-				list.add(Text.of("Usable in: " + formatTime(untilUsable, 1)).copy().formatted(Formatting.RED));
-			} else {
-				list.add(Text.of("Can be used now").copy().formatted(Formatting.GREEN));
-			}
-
-			itemStack.getItem().appendTooltip(itemStack, tooltipContext, list, type);
-		});
-	}
-
-	private static boolean isUsableItemWithCooldown(ItemStack item) {
-		if (item == null ||
-			item.get(DataComponentTypes.CUSTOM_DATA) == null ||
-			item.get(DataComponentTypes.CUSTOM_DATA).copyNbt().get("display") == null) return false;
-
-		String displayString = item.get(DataComponentTypes.CUSTOM_DATA).copyNbt().get("display").toString();
-
-		JsonObject display = JsonParser.parseString(displayString).getAsJsonObject();
-		JsonArray originalLore = display.getAsJsonArray("OriginalLore");
-
-		boolean usable = false;
-
-		if (originalLore != null) {
-			for (int i = 0; i < originalLore.size(); i++) {
-				JsonObject metaLine;
-				try {
-					metaLine = JsonParser.parseString(originalLore.get(i).getAsString()).getAsJsonObject();
-				} catch (IllegalStateException e) {
-					continue;
+			if (customData != null) {
+				long untilUsable = getSecondsUntilUsable(customData);
+				if (untilUsable == Long.MIN_VALUE) {
+					return;
 				}
 
-				if (metaLine.has("extra")) {
-					String text = metaLine.getAsJsonArray("extra").get(0).toString();
+				textConsumer.accept(Text.empty());
 
-					if (text.equals("\"__usableItem\"")) usable = true;
-
-					if (text.equals("\"useTimer\"") && usable) return true;
+				if (untilUsable > 0) {
+					textConsumer.accept(Text.of("Usable in: " + formatTime(untilUsable, 1)).copy().formatted(Formatting.RED));
+				} else {
+					textConsumer.accept(Text.of("Can be used now").copy().formatted(Formatting.GREEN));
 				}
 			}
-		}
-		return false;
+		};
 	}
 
-	private static long getSecondsUntilUsable(ItemStack item) {
-		String displayString = item.get(DataComponentTypes.CUSTOM_DATA).copyNbt().get("display").toString();
+	private static long getSecondsUntilUsable(NbtComponent item) {
+		String valuesString = item.copyNbt().get("PublicBukkitValues").toString();
 
-		JsonObject display = JsonParser.parseString(displayString).getAsJsonObject();
-		JsonArray originalLore = display.getAsJsonArray("OriginalLore");
+		JsonObject values = JsonParser.parseString(valuesString).getAsJsonObject();
 
-		if (originalLore == null) return 0L;
+		if (!values.has("empire:use_timer")) return Long.MIN_VALUE;
 
-		int useTimerLine = -1;
+		long useTimerLine = values.get("empire:use_timer").getAsLong();
 
-		for (int i = 0; i < originalLore.size(); i++) {
-			JsonObject metaLine;
-			try {
-				metaLine = JsonParser.parseString(originalLore.get(i).getAsString()).getAsJsonObject();
-			} catch (IllegalStateException e) {
-				continue;
-			}
-
-			if (metaLine.has("extra")) {
-				String text = metaLine.getAsJsonArray("extra").get(0).toString();
-
-				if (text.equals("\"useTimer\"")) useTimerLine = i;
-			}
-		}
-
-		if (useTimerLine == -1) return 0L;
-
-		String unparsed = originalLore.get(useTimerLine + 1).getAsString();
-		try {
-			long time = Long.parseLong(unparsed.substring(1, unparsed.length() - 1));
-
-			return Math.max(0, (time - System.currentTimeMillis()) / 1000L);
-		} catch (NumberFormatException e) {
-			// item has not been used since before NBT format was changed and is therefore safe to use
-			return 0;
-		}
+		return Math.max(0, (useTimerLine - System.currentTimeMillis()) / 1000L);
 	}
 
 	public static String formatTime(long seconds, int depth) {

@@ -34,11 +34,7 @@ shadowJar {
 
 remapJar {
 	inputFile.set shadowJar.archiveFile
-
-	//archiveClassifier = null
 }
-
-//jar.archiveClassifier = 'dev'
 
 sourcesJar {
 	def commonSources = project(':common').sourcesJar
@@ -46,12 +42,6 @@ sourcesJar {
 	from commonSources.archiveFile.map { zipTree(it) }
 	exclude 'emcutils.accesswidener'
 }
-
-//components.java {
-//	withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-//		skip()
-//	}
-//}
 
 modrinth {
 	projectId = 'emcutils'

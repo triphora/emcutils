@@ -80,7 +80,7 @@ public class ChatChannels {
 		}
 
 		context.fill(channel.getOffset() + 1, screen.height - 32, channel.getOffset() + width + 4, screen.height - (32 - height - 3), (0xc0 << 24));
-		context.drawText(textRenderer, Text.of(channel.name), channel.getOffset() + 3, screen.height - 30, channel.color, true);
+		context.drawText(textRenderer, Text.literal(channel.name), channel.getOffset() + 3, screen.height - 30, channel.color, false);
 	}
 
 	private static void drawPrivateConversation(Screen screen, DrawContext context) {
@@ -145,7 +145,7 @@ public class ChatChannels {
 		}
 
 		public void executeCommand() {
-			player.networkHandler.sendCommand(command);
+			player.networkHandler.sendChatCommand(command);
 		}
 	}
 }

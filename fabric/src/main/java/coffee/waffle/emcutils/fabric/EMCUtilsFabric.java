@@ -1,15 +1,18 @@
 package coffee.waffle.emcutils.fabric;
 
+import coffee.waffle.emcutils.EMCDataComponentTypes;
 import coffee.waffle.emcutils.Util;
-import coffee.waffle.emcutils.event.TooltipCallback;
+import coffee.waffle.emcutils.feature.UsableItems;
 import coffee.waffle.emcutils.feature.VaultScreen;
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
+import net.fabricmc.fabric.api.item.v1.ComponentTooltipAppenderRegistry;
+import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
+import net.minecraft.component.DataComponentTypes;
 
 import static coffee.waffle.emcutils.Util.LOG;
 import static coffee.waffle.emcutils.Util.MODID;
@@ -30,11 +33,17 @@ public class EMCUtilsFabric implements ClientModInitializer {
 
 		Util.runResidenceCollector();
 
-		HandledScreens.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
+		EMCDataComponentTypes.init();
+		ComponentTooltipAppenderRegistry.addLast(EMCDataComponentTypes.USABLE_ITEM);
 
-		ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
-			TooltipCallback.ITEM.invoker().append(stack, lines, context, type);
+		DefaultItemComponentEvents.MODIFY.register(context -> {
+			context.modify(
+				x -> true,
+				(builder, item) -> builder.add(EMCDataComponentTypes.USABLE_ITEM, UsableItems.UsableItem.ITEM)
+			);
 		});
+
+		HandledScreens.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
 
 		LOG.info("Initialized " + MODID);
 	}

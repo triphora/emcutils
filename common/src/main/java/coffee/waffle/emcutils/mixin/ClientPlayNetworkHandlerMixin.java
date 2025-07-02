@@ -44,7 +44,6 @@ abstract class ClientPlayNetworkHandlerMixin {
 		if (Util.isOnEMC() && !emcutils$online) {
 			ChatListener.init();
 			CommandListener.init();
-			UsableItems.init();
 
 			emcutils$online = true;
 		}

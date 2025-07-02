@@ -1,6 +1,5 @@
 package coffee.waffle.emcutils.event;
 
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.ActionResult;
 
 import java.util.List;

@@ -16,13 +16,14 @@ configurations {
 }
 
 dependencies {
+	modImplementation libs.fabric.api
 	modImplementation libs.midnightlib
 	include libs.midnightlib
 
 	modRuntimeOnly libs.modmenu
 
-	include project(':journey')
-	include project(':xaero')
+	//include project(':journey')
+	//include project(':xaero')
 }
 
 sourceSets.main.resources.srcDir generatedResources

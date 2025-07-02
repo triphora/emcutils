@@ -1,18 +1,21 @@
 package coffee.waffle.emcutils.neoforge;
 
-import coffee.waffle.emcutils.event.TooltipCallback;
-import coffee.waffle.emcutils.feature.VaultScreen;
+import coffee.waffle.emcutils.feature.UsableItems;
 import coffee.waffle.emcutils.Util;
+import com.mojang.serialization.Codec;
+import net.minecraft.component.ComponentType;
+import net.minecraft.registry.Registries;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.loading.FMLPaths;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,14 +28,27 @@ import static coffee.waffle.emcutils.Util.MODID;
 
 @Mod(MODID)
 public class EMCUtilsNeoForge {
+	public static final DeferredRegister<ComponentType<?>> COMPONENTS = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, MODID);
+
+	public static final DeferredHolder<ComponentType<?>, ComponentType<Object>> USABLE_ITEM =
+		COMPONENTS.register("usable_item", () ->
+			ComponentType.builder()
+				.codec(Codec.unit(UsableItems.UsableItem.ITEM))
+				.build()
+		);
+
 	public EMCUtilsNeoForge(ModContainer container, IEventBus modBus) {
 		modBus.addListener(this::clientSetupEvent);
 		modBus.addListener(this::registerScreen);
-		NeoForge.EVENT_BUS.addListener(this::tooltipEvent);
+		modBus.addListener(this::componentEvent);
 
 		var registry = DeferredRegister.create(Registries.SCREEN_HANDLER, MODID);
 		registry.register(modBus);
-		registry.register("generic_63", () -> VaultScreen.GENERIC_9X7);
+		//registry.register("generic_63", () -> VaultScreen.GENERIC_9X7);
+
+		COMPONENTS.register(modBus);
+
+		//EMCDataComponentTypes.init();
 
 		container.registerConfig(ModConfig.Type.CLIENT, ConfigImpl.SPEC);
 
@@ -62,7 +78,7 @@ public class EMCUtilsNeoForge {
 
 	@SubscribeEvent
 	public void registerScreen(RegisterMenuScreensEvent event) {
-		event.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
+		//event.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
 	}
 
 	@SubscribeEvent
@@ -71,7 +87,10 @@ public class EMCUtilsNeoForge {
 	}
 
 	@SubscribeEvent
-	public void tooltipEvent(ItemTooltipEvent event) {
-		TooltipCallback.ITEM.invoker().append(event.getItemStack(), event.getToolTip(), event.getContext(), event.getFlags());
+	public void componentEvent(ModifyDefaultComponentsEvent event) {
+		event.modifyMatching(
+			x -> true,
+			builder -> builder.add(USABLE_ITEM.get(), UsableItems.UsableItem.ITEM)
+		);
 	}
 }

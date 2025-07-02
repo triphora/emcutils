@@ -3,11 +3,11 @@ package coffee.waffle.emcutils.feature;
 import coffee.waffle.emcutils.Config;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
+import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.screen.ingame.ScreenHandlerProvider;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.ProfileComponent;
 import net.minecraft.entity.player.PlayerInventory;
@@ -94,10 +94,8 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
 		if (mouseX >= x + buttonX && mouseX <= x + buttonX + 15) {
 			if (mouseY >= y + 126 && mouseY <= y + 141) {
-				context.getMatrices().translate(0, 0, 225);
 				context.fillGradient(x + buttonX, y + 125, x + buttonX + 16, y + 125 + 16, 0x80ffffff, 0x80ffffff);
 				context.drawItemTooltip(textRenderer, button, mouseX, mouseY);
-				context.getMatrices().translate(0, 0, -225);
 			}
 		}
 	}
@@ -106,7 +104,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 	protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
 		int x = (width - backgroundWidth) / 2;
 		int y = (height - backgroundHeight) / 2;
-		context.drawTexture(RenderLayer::getGuiTextured, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
+		context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
 	}
 
 	@Override
@@ -136,7 +134,7 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 				this.shouldCallClose = false;
 				ClientPlayerEntity player = client.player;
 				player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_SNARE.value(), 4F, 1F);
-				player.networkHandler.sendCommand(command);
+				player.networkHandler.sendChatCommand(command);
 			}
 		}
 	}

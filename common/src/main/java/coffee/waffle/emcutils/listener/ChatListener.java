@@ -66,7 +66,7 @@ public class ChatListener {
 			if (group != null) Util.playerGroupId = getGroupIdFromColor(group);
 
 			if (Util.onJoinCommand != null) {
-				MinecraftClient.getInstance().getNetworkHandler().sendCommand(Util.onJoinCommand);
+				MinecraftClient.getInstance().getNetworkHandler().sendChatCommand(Util.onJoinCommand);
 				Util.onJoinCommand = null;
 			}
 		}

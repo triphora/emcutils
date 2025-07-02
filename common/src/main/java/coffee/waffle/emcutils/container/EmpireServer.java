@@ -81,7 +81,7 @@ public enum EmpireServer {
 	}
 
 	public void sendToServer() {
-		Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).sendCommand(command);
+		Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).sendChatCommand(command);
 		Util.setCurrentServer(name);
 	}
 
