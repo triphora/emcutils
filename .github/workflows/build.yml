@@ -10,8 +10,7 @@ jobs:
         with:
           distribution: adopt
           java-version: 21
-      - uses: gradle/gradle-build-action@v2
+      - uses: gradle/actions/setup-gradle@v4
         with:
-          gradle-version: 8.10.2
-          arguments: build
-          cache-read-only: ${{ github.repository_owner != 'triphora' }}
+          gradle-version: current
+      - run: gradle build
