@@ -1,10 +1,10 @@
 package coffee.waffle.emcutils.mixin;
 
 import coffee.waffle.emcutils.feature.ChatChannels;
+import net.minecraft.client.gui.Click;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,7 +24,7 @@ abstract class ChatScreenMixin extends Screen {
 	}
 
 	@Inject(at = @At("RETURN"), method = "mouseClicked")
-	void emcutils$handleChatScreenMouseClicked(double mouseX, double mouseY, int button, CallbackInfoReturnable<Boolean> cir) {
-		ChatChannels.handleChatScreenMouseClicked(this, mouseX, mouseY);
+	void emcutils$handleChatScreenMouseClicked(Click click, boolean doubled, CallbackInfoReturnable<Boolean> cir) {
+		ChatChannels.handleChatScreenMouseClicked(this, click, doubled);
 	}
 }

@@ -10,6 +10,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.client.gui.Click;
 
 import java.util.Arrays;
 
@@ -35,13 +36,13 @@ public class ChatChannels {
 		}
 	}
 
-	public static void handleChatScreenMouseClicked(Screen screen, double mouseX, double mouseY) {
+	public static void handleChatScreenMouseClicked(Screen screen, Click click, boolean doubled) {
 		if (Util.isOnEMC() && Config.chatButtonsEnabled()) {
 			for (ChatChannel channel : ChatChannel.values()) {
 				if (channel == ChatChannel.SUPPORTER && Util.playerGroupId < 2) break;
 				if (channel == ChatChannel.MODERATOR && Util.playerGroupId < 5) break;
 
-				if (isInBounds(screen, channel.name, channel.getOffset(), mouseX, mouseY) && (System.currentTimeMillis() - lastClickedButtonTime) >= 1000L && currentChannel != channel) {
+				if (isInBounds(screen, channel.name, channel.getOffset(), click.x(), click.y()) && (System.currentTimeMillis() - lastClickedButtonTime) >= 1000L && currentChannel != channel) {
 					lastClickedButtonTime = System.currentTimeMillis();
 					currentChannel = channel;
 					channel.executeCommand();
