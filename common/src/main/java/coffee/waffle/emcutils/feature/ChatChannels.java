@@ -10,6 +10,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.client.gui.Click;
 
 import java.util.Arrays;
 
@@ -35,13 +36,13 @@ public class ChatChannels {
 		}
 	}
 
-	public static void handleChatScreenMouseClicked(Screen screen, double mouseX, double mouseY) {
+	public static void handleChatScreenMouseClicked(Screen screen, Click click, boolean doubled) {
 		if (Util.isOnEMC() && Config.chatButtonsEnabled()) {
 			for (ChatChannel channel : ChatChannel.values()) {
 				if (channel == ChatChannel.SUPPORTER && Util.playerGroupId < 2) break;
 				if (channel == ChatChannel.MODERATOR && Util.playerGroupId < 5) break;
 
-				if (isInBounds(screen, channel.name, channel.getOffset(), mouseX, mouseY) && (System.currentTimeMillis() - lastClickedButtonTime) >= 1000L && currentChannel != channel) {
+				if (isInBounds(screen, channel.name, channel.getOffset(), click.x(), click.y()) && (System.currentTimeMillis() - lastClickedButtonTime) >= 1000L && currentChannel != channel) {
 					lastClickedButtonTime = System.currentTimeMillis();
 					currentChannel = channel;
 					channel.executeCommand();
@@ -80,7 +81,7 @@ public class ChatChannels {
 		}
 
 		context.fill(channel.getOffset() + 1, screen.height - 32, channel.getOffset() + width + 4, screen.height - (32 - height - 3), (0xc0 << 24));
-		context.drawText(textRenderer, Text.literal(channel.name), channel.getOffset() + 3, screen.height - 30, channel.color, false);
+		context.drawText(textRenderer, Text.literal(channel.name), channel.getOffset() + 3, screen.height - 30, (0xff << 24) | channel.color, false);
 	}
 
 	private static void drawPrivateConversation(Screen screen, DrawContext context) {
@@ -90,8 +91,8 @@ public class ChatChannels {
 
 		context.fill(screen.width - 3, screen.height - 33, screen.width - fullWidth - 8, screen.height - (32 - height - 4), (0xff << 24) | Formatting.LIGHT_PURPLE.getColorValue());
 		context.fill(screen.width - 4, screen.height - 32, screen.width - fullWidth - 7, screen.height - (32 - height - 3), (0xc0 << 24));
-		context.drawText(textRenderer, Text.of("PM with: "), screen.width - fullWidth - 5, screen.height - 30, Formatting.WHITE.getColorValue(), true);
-		context.drawText(textRenderer, Text.of(targetUsername), screen.width - nameWidth - 5, screen.height - 30, groupIdToFormatting(targetGroupId).getColorValue(), true);
+		context.drawText(textRenderer, Text.of("PM with: "), screen.width - fullWidth - 5, screen.height - 30, (0xff << 24) | Formatting.WHITE.getColorValue(), true);
+		context.drawText(textRenderer, Text.of(targetUsername), screen.width - nameWidth - 5, screen.height - 30, (0xff << 24) | groupIdToFormatting(targetGroupId).getColorValue(), true);
 	}
 
 	public static Formatting groupIdToFormatting(int groupId) {
