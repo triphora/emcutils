@@ -36,15 +36,20 @@ public class UsableItems {
 	}
 
 	private static long getSecondsUntilUsable(NbtComponent item) {
-		String valuesString = item.copyNbt().get("PublicBukkitValues").toString();
+		try {
+			Util.LOG.info("Item {}", item.copyNbt());
+			String valuesString = item.copyNbt().get("PublicBukkitValues").toString();
 
-		JsonObject values = JsonParser.parseString(valuesString).getAsJsonObject();
+			JsonObject values = JsonParser.parseString(valuesString).getAsJsonObject();
 
-		if (!values.has("empire:use_timer")) return Long.MIN_VALUE;
+			if (!values.has("empire:use_timer")) return Long.MIN_VALUE;
 
-		long useTimerLine = values.get("empire:use_timer").getAsLong();
+			long useTimerLine = values.get("empire:use_timer").getAsLong();
 
-		return Math.max(0, (useTimerLine - System.currentTimeMillis()) / 1000L);
+			return Math.max(0, (useTimerLine - System.currentTimeMillis()) / 1000L);
+		} catch (Exception e) {
+			return Long.MIN_VALUE;
+		}
 	}
 
 	public static String formatTime(long seconds, int depth) {

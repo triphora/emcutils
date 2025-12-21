@@ -2,9 +2,6 @@
 # Empire Minecraft Utilities
 <!-- modrinth_exclude.end -->
 
-![Forge](https://raw.githubusercontent.com/intergrav/devins-badges/v1/assets/supported/forge_64h.png) ![Fabric](https://raw.githubusercontent.com/intergrav/devins-badges/v1/assets/supported/fabric_64h.png)<br>
-[![Modrinth](https://raw.githubusercontent.com/intergrav/devins-badges/v1/assets/download/modrinth_64h.png)](https://modrinth.com/mod/emcutils) [![GitHub](https://raw.githubusercontent.com/intergrav/devins-badges/v1/assets/repository/github_64h.png)](https://github.com/triphora/emcutils)
-
 Empire Minecraft Utilities, aka emcutils, is a client-side mod containing a collection of small utilities for players of [Empire Minecraft](https://ref.emc.gs/triphora).
 Feature idea credits go to [Giselbaer](https://u.emc.gs/Giselbaer)/[gbl](https://github.com/gbl).
 
