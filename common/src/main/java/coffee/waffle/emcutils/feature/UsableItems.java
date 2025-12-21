@@ -37,7 +37,6 @@ public class UsableItems {
 
 	private static long getSecondsUntilUsable(NbtComponent item) {
 		try {
-			Util.LOG.info("Item {}", item.copyNbt());
 			String valuesString = item.copyNbt().get("PublicBukkitValues").toString();
 
 			JsonObject values = JsonParser.parseString(valuesString).getAsJsonObject();
