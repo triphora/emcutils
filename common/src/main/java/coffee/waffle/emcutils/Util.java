@@ -66,7 +66,6 @@ public class Util {
 		if (Config.dontRunResidenceCollector()) {
 			LOG.info(MODID + " is not going to run the residence collector - some features will not work as intended. " +
 				"Disable 'Don't run residence collector' to get rid of this message.");
-			return;
 		}
 
 		HttpClient client = HttpClient.newBuilder()
