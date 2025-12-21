@@ -66,10 +66,8 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 		PropertyMap properties = new PropertyMap(builder.build());
 
 		GameProfile profile = new GameProfile(UUID.fromString("1635371d-8f8b-4a90-8495-4e7df6c946b2"), "MrFrydae", properties);
-		//profile.properties().put("textures", new Property("Value", head));
 
 		stack.set(DataComponentTypes.PROFILE, ProfileComponent.ofStatic(profile));
-		//stack.set(DataComponentTypes.PROFILE, new ProfileComponent(profile));
 
 		return stack;
 	}

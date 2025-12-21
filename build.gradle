@@ -58,7 +58,7 @@ allprojects {
 	apply plugin: 'maven-publish'
 
 	group = 'coffee.waffle'
-	archivesBaseName = "emcutils-$project.name-$mcVer"
+	base.archivesName = "emcutils-$project.name-$mcVer"
 	version = rootProject.mod_version
 
 	tasks.withType(JavaCompile).configureEach {
