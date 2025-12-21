@@ -4,8 +4,8 @@ import coffee.waffle.emcutils.Util;
 import coffee.waffle.emcutils.container.EmpireServer;
 import coffee.waffle.emcutils.event.CommandCallback;
 import coffee.waffle.emcutils.feature.VisitResidenceHandler;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.util.ActionResult;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.InteractionResult;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.List;
@@ -16,9 +16,9 @@ public class CommandListener {
 		CommandCallback.PRE_EXECUTE_COMMAND.register(CommandListener::handleResidenceHomeCommand);
 	}
 
-	private static ActionResult handleResidenceHomeCommand(String command, List<String> args) {
+	private static InteractionResult handleResidenceHomeCommand(String command, List<String> args) {
 		if (!command.equalsIgnoreCase("home")) {
-			return ActionResult.PASS;
+			return InteractionResult.PASS;
 		}
 
 		int num = 1;
@@ -37,14 +37,14 @@ public class CommandListener {
 			}
 		}
 
-		String resName = MinecraftClient.getInstance().player.getName().getLiteralString() + (num > 1 ? "-" + num : "");
+		String resName = Minecraft.getInstance().player.getName().tryCollapseToString() + (num > 1 ? "-" + num : "");
 
 		return handleResCommandsCommon(resName, loc);
 	}
 
-	private static ActionResult handleResidenceVisitCommand(String command, List<String> args) {
+	private static InteractionResult handleResidenceVisitCommand(String command, List<String> args) {
 		if (!(command.equalsIgnoreCase("v") || command.equalsIgnoreCase("visit")) || args.isEmpty()) {
-			return ActionResult.PASS;
+			return InteractionResult.PASS;
 		}
 
 		String res = args.get(0);
@@ -60,7 +60,7 @@ public class CommandListener {
 		return handleResCommandsCommon(res, loc);
 	}
 
-	private static ActionResult handleResCommandsCommon(String res, String loc) {
+	private static InteractionResult handleResCommandsCommon(String res, String loc) {
 		EmpireServer server = VisitResidenceHandler.getResidenceServer(res);
 
 		if (server != EmpireServer.NULL && server != Util.currentServer) {
@@ -68,9 +68,9 @@ public class CommandListener {
 
 			server.sendToServer();
 
-			return ActionResult.FAIL;
+			return InteractionResult.FAIL;
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 }

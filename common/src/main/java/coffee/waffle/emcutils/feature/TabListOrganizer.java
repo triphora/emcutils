@@ -6,13 +6,13 @@ import coffee.waffle.emcutils.Config.TabListSortType;
 import coffee.waffle.emcutils.Util;
 import coffee.waffle.emcutils.container.EmpireServer;
 import com.google.common.collect.Lists;
-import net.minecraft.client.network.PlayerListEntry;
+import net.minecraft.client.multiplayer.PlayerInfo;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class TabListOrganizer {
-	public static List<PlayerListEntry> sortPlayers(List<PlayerListEntry> original) {
+	public static List<PlayerInfo> sortPlayers(List<PlayerInfo> original) {
 		List<EnhancedTabListEntry> enhanced = Lists.newArrayList();
 		List<EnhancedTabListEntry> currentServer = Lists.newArrayList();
 
@@ -20,10 +20,10 @@ public class TabListOrganizer {
 			return original;
 		}
 
-		for (PlayerListEntry entry : original) {
+		for (PlayerInfo entry : original) {
 			// literal{[U] }
-			char server = entry.getDisplayName().toString().charAt(9);
-			String playerName = entry.getDisplayName().getSiblings().get(0).getString();
+			char server = entry.getTabListDisplayName().toString().charAt(9);
+			String playerName = entry.getTabListDisplayName().getSiblings().get(0).getString();
 
 			EnhancedTabListEntry enhancedEntry = new EnhancedTabListEntry(EmpireServer.getByTabListDisplay(server), playerName, entry);
 
@@ -65,9 +65,9 @@ public class TabListOrganizer {
 	public static class EnhancedTabListEntry {
 		public EmpireServer server;
 		public String playerName;
-		public PlayerListEntry entry;
+		public PlayerInfo entry;
 
-		public EnhancedTabListEntry(EmpireServer server, String playerName, PlayerListEntry entry) {
+		public EnhancedTabListEntry(EmpireServer server, String playerName, PlayerInfo entry) {
 			this.server = server;
 			this.playerName = playerName;
 			this.entry = entry;

@@ -2,8 +2,8 @@ package coffee.waffle.emcutils;
 
 import coffee.waffle.emcutils.feature.TabListOrganizer.EnhancedTabListEntry;
 import dev.architectury.injectables.annotations.ExpectPlatform;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.sound.SoundEvents;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 
 @SuppressWarnings("unused")
 public class Config {
@@ -81,10 +81,10 @@ public class Config {
 	public enum TabListCurrentServerPlacement {TOP, BOTTOM, MIXED}
 
 	public enum ChatAlertSound {
-		LEVEL_UP(SoundEvents.ENTITY_PLAYER_LEVELUP),
-		ORB_PICKUP(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP),
-		NOTE_PLING(SoundEvents.BLOCK_NOTE_BLOCK_PLING.value()),
-		ITEM_PICKUP(SoundEvents.ENTITY_ITEM_PICKUP),
+		LEVEL_UP(SoundEvents.PLAYER_LEVELUP),
+		ORB_PICKUP(SoundEvents.EXPERIENCE_ORB_PICKUP),
+		NOTE_PLING(SoundEvents.NOTE_BLOCK_PLING.value()),
+		ITEM_PICKUP(SoundEvents.ITEM_PICKUP),
 		NULL(null);
 
 		public final SoundEvent soundEvent;

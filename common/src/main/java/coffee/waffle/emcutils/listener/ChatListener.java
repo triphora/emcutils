@@ -3,12 +3,12 @@ package coffee.waffle.emcutils.listener;
 import coffee.waffle.emcutils.Util;
 import coffee.waffle.emcutils.event.ChatCallback;
 import coffee.waffle.emcutils.feature.ChatChannels;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.network.PlayerListEntry;
-import net.minecraft.text.Text;
-import net.minecraft.text.TextColor;
-import net.minecraft.util.ActionResult;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.world.InteractionResult;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class ChatListener {
 		ChatCallback.POST_RECEIVE_MESSAGE.register(ChatListener::handlePrivateMessageStart);
 	}
 
-	private static ActionResult handlePrivateMessageStart(Text text) {
+	private static InteractionResult handlePrivateMessageStart(Component text) {
 		if (text.getString().matches(CHAT_PRIVATE_MESSAGE)) {
 			var user = text.getSiblings().getFirst();
 
@@ -35,10 +35,10 @@ public class ChatListener {
 			ChatChannels.targetGroupId = getGroupIdFromColor(user.getStyle().getColor());
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
-	private static ActionResult handleChatChannelChange(Text text) {
+	private static InteractionResult handleChatChannelChange(Component text) {
 		if (text.getString().matches(CHAT_FOCUS_MESSAGE)) {
 			var channel = ChatChannels.ChatChannel.getChannelByName(text.getSiblings().getFirst().getString().trim());
 
@@ -48,10 +48,10 @@ public class ChatListener {
 			}
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
-	private static ActionResult initialServerInfo(Text text) {
+	private static InteractionResult initialServerInfo(Component text) {
 		if (text.getString().matches(WELCOME_TO_EMC)) {
 			var currentServer = text // Welcome to
 				.getSiblings().getFirst() // Empire Minecraft
@@ -66,21 +66,21 @@ public class ChatListener {
 			if (group != null) Util.playerGroupId = getGroupIdFromColor(group);
 
 			if (Util.onJoinCommand != null) {
-				MinecraftClient.getInstance().getNetworkHandler().sendChatCommand(Util.onJoinCommand);
+				Minecraft.getInstance().getConnection().sendCommand(Util.onJoinCommand);
 				Util.onJoinCommand = null;
 			}
 		}
 
-		return ActionResult.PASS;
+		return InteractionResult.PASS;
 	}
 
-	private static int getPlayerGroupIdFromTabList(String user, ClientPlayerEntity player) {
-		List<PlayerListEntry> entries = player.networkHandler.getListedPlayerListEntries().stream().toList();
+	private static int getPlayerGroupIdFromTabList(String user, LocalPlayer player) {
+		List<PlayerInfo> entries = player.connection.getListedOnlinePlayers().stream().toList();
 
-		for (PlayerListEntry entry : entries) {
-			if (entry.getDisplayName().getSiblings().get(1).getString().equalsIgnoreCase(user)) {
-				if (entry.getDisplayName().getSiblings().size() > 1) {
-					Text coloredName = entry.getDisplayName().getSiblings().get(1);
+		for (PlayerInfo entry : entries) {
+			if (entry.getTabListDisplayName().getSiblings().get(1).getString().equalsIgnoreCase(user)) {
+				if (entry.getTabListDisplayName().getSiblings().size() > 1) {
+					Component coloredName = entry.getTabListDisplayName().getSiblings().get(1);
 
 					return getGroupIdFromColor(coloredName.getStyle().getColor());
 				}
@@ -91,7 +91,7 @@ public class ChatListener {
 	}
 
 	private static int getGroupIdFromColor(TextColor color) {
-		return switch (color.getName()) {
+		return switch (color.serialize()) {
 			case "white" -> 1;
 			case "gray" -> 2;
 			case "gold" -> 3;

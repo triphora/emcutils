@@ -1,22 +1,22 @@
 package coffee.waffle.emcutils.event;
 
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionResult;
 
 public interface ChatCallback {
 	Event<ChatCallback> POST_RECEIVE_MESSAGE = new Event<>(ChatCallback.class,
 		(listeners) -> (text) -> {
 			for (ChatCallback listener : listeners) {
-				ActionResult result = listener.onPostReceiveMessage(text);
+				InteractionResult result = listener.onPostReceiveMessage(text);
 
-				if (result != ActionResult.PASS) {
+				if (result != InteractionResult.PASS) {
 					return result;
 				}
 			}
 
-			return ActionResult.PASS;
+			return InteractionResult.PASS;
 		}
 	);
 
-	ActionResult onPostReceiveMessage(Text message);
+	InteractionResult onPostReceiveMessage(Component message);
 }

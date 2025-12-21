@@ -1,9 +1,9 @@
 package coffee.waffle.emcutils;
 
 import coffee.waffle.emcutils.container.EmpireServer;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,11 +23,11 @@ public class Util {
 	public static int playerGroupId = 0;
 
 	public static boolean isOnEMC() {
-		if (MinecraftClient.getInstance().isInSingleplayer()) {
+		if (Minecraft.getInstance().isLocalServer()) {
 			return false;
 		}
 
-		ClientPlayNetworkHandler networkHandler = MinecraftClient.getInstance().getNetworkHandler();
+		ClientPacketListener networkHandler = Minecraft.getInstance().getConnection();
 
 		if (networkHandler == null) {
 			return false;
@@ -37,7 +37,7 @@ public class Util {
 			return false;
 		}
 
-		String address = networkHandler.getConnection().getAddressAsString(true);
+		String address = networkHandler.getConnection().getLoggableAddress(true);
 
 		return address.contains("emc.gs") || address.contains("empire.us") || address.contains("empireminecraft.com");
 	}
@@ -87,6 +87,6 @@ public class Util {
 	}
 
 	public static Identifier id(String id) {
-		return Identifier.of(MODID, id);
+		return Identifier.fromNamespaceAndPath(MODID, id);
 	}
 }

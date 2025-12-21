@@ -1,21 +1,21 @@
 package coffee.waffle.emcutils.feature;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.slot.Slot;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 
-public class VaultScreenHandler extends ScreenHandler {
-	private final Inventory inventory = new SimpleInventory(9 * 6);
+public class VaultScreenHandler extends AbstractContainerMenu {
+	private final Container inventory = new SimpleContainer(9 * 6);
 	private final int rows = 6;
 
-	public VaultScreenHandler(int syncId, PlayerInventory playerInventory) {
+	public VaultScreenHandler(int syncId, Inventory playerInventory) {
 		super(VaultScreen.GENERIC_9X7, syncId);
-		checkSize(inventory, rows * 9);
-		inventory.onOpen(playerInventory.player);
+		checkContainerSize(inventory, rows * 9);
+		inventory.startOpen(playerInventory.player);
 		int i = (6 - 3) * 18;
 
 		for (int row = 0; row < 6; ++row) {
@@ -35,31 +35,31 @@ public class VaultScreenHandler extends ScreenHandler {
 		}
 	}
 
-	public boolean canUse(PlayerEntity player) {
-		return this.inventory.canPlayerUse(player);
+	public boolean stillValid(Player player) {
+		return this.inventory.stillValid(player);
 	}
 
 	@Override
-	public ItemStack quickMove(PlayerEntity player, int index) {
+	public ItemStack quickMoveStack(Player player, int index) {
 		ItemStack itemStack = ItemStack.EMPTY;
 		Slot slot = this.slots.get(index);
 
-		if (slot.hasStack()) {
-			ItemStack itemStack2 = slot.getStack();
+		if (slot.hasItem()) {
+			ItemStack itemStack2 = slot.getItem();
 			itemStack = itemStack2.copy();
 
 			if (index < this.rows * 9) {
-				if (!this.insertItem(itemStack2, this.rows * 9, this.slots.size(), true)) {
+				if (!this.moveItemStackTo(itemStack2, this.rows * 9, this.slots.size(), true)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (!this.insertItem(itemStack2, 0, this.rows * 9, false)) {
+			} else if (!this.moveItemStackTo(itemStack2, 0, this.rows * 9, false)) {
 				return ItemStack.EMPTY;
 			}
 
 			if (itemStack2.isEmpty()) {
-				slot.setStack(ItemStack.EMPTY);
+				slot.setByPlayer(ItemStack.EMPTY);
 			} else {
-				slot.markDirty();
+				slot.setChanged();
 			}
 		}
 
@@ -67,8 +67,8 @@ public class VaultScreenHandler extends ScreenHandler {
 	}
 
 	@Override
-	public void onClosed(PlayerEntity player) {
-		super.onClosed(player);
-		this.inventory.onClose(player);
+	public void removed(Player player) {
+		super.removed(player);
+		this.inventory.stopOpen(player);
 	}
 }

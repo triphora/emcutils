@@ -3,20 +3,20 @@ package coffee.waffle.emcutils.feature;
 import coffee.waffle.emcutils.Util;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.NbtComponent;
-import net.minecraft.item.tooltip.TooltipAppender;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.component.TooltipProvider;
 
 import static coffee.waffle.emcutils.Util.plural;
 
 public class UsableItems {
-	public interface UsableItem extends TooltipAppender {
+	public interface UsableItem extends TooltipProvider {
 		UsableItem ITEM = (context, textConsumer, type, components) -> {
 			if (!Util.isOnEMC()) return;
 
-			var customData = components.get(DataComponentTypes.CUSTOM_DATA);
+			var customData = components.get(DataComponents.CUSTOM_DATA);
 
 			if (customData != null) {
 				long untilUsable = getSecondsUntilUsable(customData);
@@ -24,20 +24,20 @@ public class UsableItems {
 					return;
 				}
 
-				textConsumer.accept(Text.empty());
+				textConsumer.accept(Component.empty());
 
 				if (untilUsable > 0) {
-					textConsumer.accept(Text.of("Usable in: " + formatTime(untilUsable, 1)).copy().formatted(Formatting.RED));
+					textConsumer.accept(Component.nullToEmpty("Usable in: " + formatTime(untilUsable, 1)).copy().withStyle(ChatFormatting.RED));
 				} else {
-					textConsumer.accept(Text.of("Can be used now").copy().formatted(Formatting.GREEN));
+					textConsumer.accept(Component.nullToEmpty("Can be used now").copy().withStyle(ChatFormatting.GREEN));
 				}
 			}
 		};
 	}
 
-	private static long getSecondsUntilUsable(NbtComponent item) {
+	private static long getSecondsUntilUsable(CustomData item) {
 		try {
-			String valuesString = item.copyNbt().get("PublicBukkitValues").toString();
+			String valuesString = item.copyTag().get("PublicBukkitValues").toString();
 
 			JsonObject values = JsonParser.parseString(valuesString).getAsJsonObject();
 

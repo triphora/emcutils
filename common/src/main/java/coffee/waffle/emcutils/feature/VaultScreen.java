@@ -1,47 +1,46 @@
 package coffee.waffle.emcutils.feature;
 
 import coffee.waffle.emcutils.Config;
+import com.google.common.collect.ImmutableMultimap;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
-import net.minecraft.client.gl.RenderPipelines;
-import net.minecraft.client.gui.Click;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
-import net.minecraft.client.gui.screen.ingame.ScreenHandlerProvider;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ProfileComponent;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.screen.ScreenHandlerType;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.Style;
-import net.minecraft.text.Text;
-import net.minecraft.text.TextColor;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.gui.screens.inventory.MenuAccess;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.RenderPipelines;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.resources.Identifier;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.ResolvableProfile;
 import org.apache.commons.lang3.math.NumberUtils;
-import com.google.common.collect.ImmutableMultimap;
 
 import java.util.UUID;
 
 import static coffee.waffle.emcutils.Util.id;
 import static coffee.waffle.emcutils.Util.plural;
 
-@SuppressWarnings("SpellCheckingInspection")
-public class VaultScreen extends HandledScreen<VaultScreenHandler> implements ScreenHandlerProvider<VaultScreenHandler> {
-	public static final ScreenHandlerType<VaultScreenHandler> GENERIC_9X7 = ScreenHandlerType.register("generic_63", VaultScreenHandler::new);
+public class VaultScreen extends AbstractContainerScreen<VaultScreenHandler> implements MenuAccess<VaultScreenHandler> {
+	public static final MenuType<VaultScreenHandler> GENERIC_9X7 = MenuType.register("generic_63", VaultScreenHandler::new);
 	private static final Identifier TEXTURE = id("textures/gui/container/generic_63.png");
 	private final int vaultPage;
 	private final int[] slotOffsets = {8, 26, 44, 62, 80, 98, 116, 134, 152};
 	private boolean shouldCallClose = true;
 
-	public VaultScreen(VaultScreenHandler handler, PlayerInventory inventory, Text title) {
+	public VaultScreen(VaultScreenHandler handler, Inventory inventory, Component title) {
 		super(handler, inventory, title);
-		this.backgroundHeight = 114 + 7 * 18;
-		this.playerInventoryTitleY = this.backgroundHeight - 94;
+		this.imageHeight = 114 + 7 * 18;
+		this.inventoryLabelY = this.imageHeight - 94;
 
 		String page = title.getString().split(" ")[1];
 		this.vaultPage = NumberUtils.isParsable(page) ? Integer.parseInt(page) : 1;
@@ -54,12 +53,12 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 	 */
 	private ItemStack getHead(int amount, boolean positive) {
 
-		ItemStack stack = Items.PLAYER_HEAD.getDefaultStack();
+		ItemStack stack = Items.PLAYER_HEAD.getDefaultInstance();
 		String head = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUv" + (positive ?
 			"ZTNmYzUyMjY0ZDhhZDllNjU0ZjQxNWJlZjAxYTIzOTQ3ZWRiY2NjY2Y2NDkzNzMyODliZWE0ZDE0OTU0MWY3MC" :
 			"NWYxMzNlOTE5MTlkYjBhY2VmZGMyNzJkNjdmZDg3YjRiZTg4ZGM0NGE5NTg5NTg4MjQ0NzRlMjFlMDZkNTNlNi") + "J9fX0=";
 
-		stack.set(DataComponentTypes.CUSTOM_NAME, formattedText(String.format("Go %s %s page%s", positive ? "forward" : "back", amount, plural(amount))));
+		stack.set(DataComponents.CUSTOM_NAME, formattedText(String.format("Go %s %s page%s", positive ? "forward" : "back", amount, plural(amount))));
 
 		final ImmutableMultimap.Builder<String, Property> builder = ImmutableMultimap.builder();
 		builder.put("textures", new Property("Value", head));
@@ -67,13 +66,13 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
 		GameProfile profile = new GameProfile(UUID.fromString("1635371d-8f8b-4a90-8495-4e7df6c946b2"), "MrFrydae", properties);
 
-		stack.set(DataComponentTypes.PROFILE, ProfileComponent.ofStatic(profile));
+		stack.set(DataComponents.PROFILE, ResolvableProfile.createResolved(profile));
 
 		return stack;
 	}
 
 	@Override
-	public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+	public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
 		this.renderBackground(context, mouseX, mouseY, delta);
 		super.render(context, mouseX, mouseY, delta);
 
@@ -83,8 +82,8 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 			}
 		}
 
-		ItemStack chest = Items.CHEST.getDefaultStack();
-		chest.set(DataComponentTypes.CUSTOM_NAME, formattedText("View your vaults"));
+		ItemStack chest = Items.CHEST.getDefaultInstance();
+		chest.set(DataComponents.CUSTOM_NAME, formattedText("View your vaults"));
 		drawButton(context, chest, mouseX, mouseY, slotOffsets[4], "");
 
 		//noinspection ConstantValue
@@ -94,29 +93,29 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 			}
 		}
 
-		this.drawMouseoverTooltip(context, mouseX, mouseY);
+		this.renderTooltip(context, mouseX, mouseY);
 	}
 
-	private void drawButton(DrawContext context, ItemStack button, int mouseX, int mouseY, int buttonX, String amountText) {
-		this.drawItem(context, button, x + buttonX, y + 125, amountText);
+	private void drawButton(GuiGraphics context, ItemStack button, int mouseX, int mouseY, int buttonX, String amountText) {
+		this.renderFloatingItem(context, button, leftPos + buttonX, topPos + 125, amountText);
 
-		if (mouseX >= x + buttonX && mouseX <= x + buttonX + 15) {
-			if (mouseY >= y + 126 && mouseY <= y + 141) {
-				context.fillGradient(x + buttonX, y + 125, x + buttonX + 16, y + 125 + 16, 0x80ffffff, 0x80ffffff);
-				context.drawItemTooltip(textRenderer, button, mouseX, mouseY);
+		if (mouseX >= leftPos + buttonX && mouseX <= leftPos + buttonX + 15) {
+			if (mouseY >= topPos + 126 && mouseY <= topPos + 141) {
+				context.fillGradient(leftPos + buttonX, topPos + 125, leftPos + buttonX + 16, topPos + 125 + 16, 0x80ffffff, 0x80ffffff);
+				context.setTooltipForNextFrame(font, button, mouseX, mouseY);
 			}
 		}
 	}
 
 	@Override
-	protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-		int x = (width - backgroundWidth) / 2;
-		int y = (height - backgroundHeight) / 2;
-		context.drawTexture(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, backgroundWidth, backgroundHeight, 256, 256);
+	protected void renderBg(GuiGraphics context, float delta, int mouseX, int mouseY) {
+		int x = (width - imageWidth) / 2;
+		int y = (height - imageHeight) / 2;
+		context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);
 	}
 
 	@Override
-	public boolean mouseClicked(Click click, boolean doubled) {
+	public boolean mouseClicked(MouseButtonEvent click, boolean doubled) {
 		for (int i = 4; i > 0; i--) {
 			if (vaultPage > i) {
 				handleClick(slotOffsets[4 - i], click.x(), click.y(), "vault " + (vaultPage - i));
@@ -137,23 +136,23 @@ public class VaultScreen extends HandledScreen<VaultScreenHandler> implements Sc
 
 	@SuppressWarnings("ConstantConditions")
 	private void handleClick(int buttonX, double mouseX, double mouseY, String command) {
-		if (mouseX >= x + buttonX && mouseX < x + buttonX + 16) {
-			if (mouseY >= y + 126 && mouseY <= y + 141) {
+		if (mouseX >= leftPos + buttonX && mouseX < leftPos + buttonX + 16) {
+			if (mouseY >= topPos + 126 && mouseY <= topPos + 141) {
 				this.shouldCallClose = false;
-				ClientPlayerEntity player = client.player;
-				player.playSound(SoundEvents.BLOCK_NOTE_BLOCK_SNARE.value(), 4F, 1F);
-				player.networkHandler.sendChatCommand(command);
+				LocalPlayer player = minecraft.player;
+				player.playSound(SoundEvents.NOTE_BLOCK_SNARE.value(), 4F, 1F);
+				player.connection.sendCommand(command);
 			}
 		}
 	}
 
 	@Override
-	public void close() {
-		if (shouldCallClose) super.close();
+	public void onClose() {
+		if (shouldCallClose) super.onClose();
 		else shouldCallClose = true;
 	}
 
-	private Text formattedText(String text) {
-		return Text.literal(text).setStyle(Style.EMPTY.withColor(TextColor.fromFormatting(Formatting.GREEN)).withItalic(false));
+	private Component formattedText(String text) {
+		return Component.literal(text).setStyle(Style.EMPTY.withColor(TextColor.fromLegacyFormat(ChatFormatting.GREEN)).withItalic(false));
 	}
 }

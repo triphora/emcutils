@@ -35,10 +35,7 @@ subprojects {
 
 	dependencies {
 		minecraft libs.minecraft
-		mappings loom.layered() {
-			it.mappings variantOf(libs.yarn) { classifier 'v2' }
-			it.mappings libs.yarn.patch
-		}
+		mappings loom.officialMojangMappings()
 	}
 
 	loom {

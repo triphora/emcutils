@@ -1,6 +1,6 @@
 package coffee.waffle.emcutils.event;
 
-import net.minecraft.util.ActionResult;
+import net.minecraft.world.InteractionResult;
 
 import java.util.List;
 
@@ -9,16 +9,16 @@ public interface CommandCallback {
 	Event<CommandCallback> PRE_EXECUTE_COMMAND = new Event<>(CommandCallback.class,
 		(listeners) -> (command, args) -> {
 			for (CommandCallback listener : listeners) {
-				ActionResult result = listener.onPreExecuteCommand(command, args);
+				InteractionResult result = listener.onPreExecuteCommand(command, args);
 
-				if (result != ActionResult.PASS) {
+				if (result != InteractionResult.PASS) {
 					return result;
 				}
 			}
 
-			return ActionResult.PASS;
+			return InteractionResult.PASS;
 		}
 	);
 
-	ActionResult onPreExecuteCommand(String command, List<String> args);
+	InteractionResult onPreExecuteCommand(String command, List<String> args);
 }

@@ -11,8 +11,7 @@ import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.minecraft.client.gui.screen.ingame.HandledScreens;
-import net.minecraft.component.DataComponentTypes;
+import net.minecraft.client.gui.screens.MenuScreens;
 
 import static coffee.waffle.emcutils.Util.LOG;
 import static coffee.waffle.emcutils.Util.MODID;
@@ -39,11 +38,11 @@ public class EMCUtilsFabric implements ClientModInitializer {
 		DefaultItemComponentEvents.MODIFY.register(context -> {
 			context.modify(
 				x -> true,
-				(builder, item) -> builder.add(EMCDataComponentTypes.USABLE_ITEM, UsableItems.UsableItem.ITEM)
+				(builder, item) -> builder.set(EMCDataComponentTypes.USABLE_ITEM, UsableItems.UsableItem.ITEM)
 			);
 		});
 
-		HandledScreens.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
+		MenuScreens.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
 
 		LOG.info("Initialized " + MODID);
 	}

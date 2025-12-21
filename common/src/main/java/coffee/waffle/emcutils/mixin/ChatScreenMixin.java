@@ -1,11 +1,11 @@
 package coffee.waffle.emcutils.mixin;
 
 import coffee.waffle.emcutils.feature.ChatChannels;
-import net.minecraft.client.gui.Click;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.ChatScreen;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.ChatScreen;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.input.MouseButtonEvent;
+import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -14,17 +14,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ChatScreen.class)
 abstract class ChatScreenMixin extends Screen {
-	protected ChatScreenMixin(Text title) {
+	protected ChatScreenMixin(Component title) {
 		super(title);
 	}
 
 	@Inject(at = @At("HEAD"), method = "render")
-	void emcutils$handleChatScreenRender(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+	void emcutils$handleChatScreenRender(GuiGraphics context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
 		ChatChannels.handleChatScreenRender(this, context);
 	}
 
 	@Inject(at = @At("RETURN"), method = "mouseClicked")
-	void emcutils$handleChatScreenMouseClicked(Click click, boolean doubled, CallbackInfoReturnable<Boolean> cir) {
-		ChatChannels.handleChatScreenMouseClicked(this, click, doubled);
+	void emcutils$handleChatScreenMouseClicked(MouseButtonEvent click, boolean doubled, CallbackInfoReturnable<Boolean> cir) {
+		ChatChannels.handleChatScreenMouseClicked(this, click);
 	}
 }

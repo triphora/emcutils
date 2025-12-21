@@ -4,8 +4,8 @@ import coffee.waffle.emcutils.Util;
 import com.google.common.collect.Lists;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.phys.Vec3;
 
 import java.io.IOException;
 import java.net.URI;
@@ -81,14 +81,14 @@ public enum EmpireServer {
 	}
 
 	public void sendToServer() {
-		Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).sendChatCommand(command);
+		Objects.requireNonNull(Minecraft.getInstance().getConnection()).sendCommand(command);
 		Util.setCurrentServer(name);
 	}
 
-	public EmpireResidence getResidenceByLoc(Vec3d pos) {
+	public EmpireResidence getResidenceByLoc(Vec3 pos) {
 		for (EmpireResidence residence : residences) {
-			if (pos.getX() <= residence.southEastCorner.getX() && pos.getX() >= residence.northWestCorner.getX()) {
-				if (pos.getZ() <= residence.southEastCorner.getZ() && pos.getZ() >= residence.northWestCorner.getZ()) {
+			if (pos.x() <= residence.southEastCorner.getX() && pos.x() >= residence.northWestCorner.getX()) {
+				if (pos.z() <= residence.southEastCorner.getZ() && pos.z() >= residence.northWestCorner.getZ()) {
 					return residence;
 				}
 			}

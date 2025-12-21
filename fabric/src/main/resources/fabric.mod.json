@@ -30,7 +30,7 @@
 	],
 	"accessWidener": "emcutils.accesswidener",
 	"depends": {
-		"minecraft": ">=1.21.4",
+		"minecraft": ">=1.21.11",
 		"fabric-api": "*",
 		"midnightlib": ">=1.6.6"
 	},

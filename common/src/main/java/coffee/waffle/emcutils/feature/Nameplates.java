@@ -1,11 +1,11 @@
 package coffee.waffle.emcutils.feature;
 
 import com.google.common.collect.Lists;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.PlayerListEntry;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
@@ -14,12 +14,12 @@ import java.util.Objects;
 
 public final class Nameplates {
 	@Nullable
-	public static PlayerListEntry findPlayerListEntry(PlayerEntity player) {
-		Collection<PlayerListEntry> playerList = Objects.requireNonNull(MinecraftClient.getInstance().getNetworkHandler()).getPlayerList();
+	public static PlayerInfo findPlayerListEntry(Player player) {
+		Collection<PlayerInfo> playerList = Objects.requireNonNull(Minecraft.getInstance().getConnection()).getOnlinePlayers();
 
-		PlayerListEntry entry = null;
-		for (PlayerListEntry playerListEntry : playerList) {
-			List<Text> siblings = playerListEntry.getDisplayName().getSiblings();
+		PlayerInfo entry = null;
+		for (PlayerInfo playerListEntry : playerList) {
+			List<Component> siblings = playerListEntry.getTabListDisplayName().getSiblings();
 			if (siblings.getFirst().contains(player.getName())) {
 				entry = playerListEntry;
 			}
@@ -28,11 +28,11 @@ public final class Nameplates {
 		return entry;
 	}
 
-	public static MutableText parseDisplayName(PlayerListEntry entry) {
-		List<Text> siblings = Lists.newArrayList(Objects.requireNonNull(entry.getDisplayName()).getSiblings());
+	public static MutableComponent parseDisplayName(PlayerInfo entry) {
+		List<Component> siblings = Lists.newArrayList(Objects.requireNonNull(entry.getTabListDisplayName()).getSiblings());
 
-		MutableText text = Text.empty();
-		for (Text sibling : siblings) {
+		MutableComponent text = Component.empty();
+		for (Component sibling : siblings) {
 			text.append(sibling);
 		}
 

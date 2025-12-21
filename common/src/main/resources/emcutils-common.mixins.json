@@ -5,10 +5,10 @@
 	"compatibilityLevel": "JAVA_21",
 	"client": [
 		"ChatScreenMixin",
-		"ClientPlayNetworkHandlerMixin",
+		"ClientPacketListener",
 		"IdentifierMixin",
-		"PlayerEntityMixin",
-		"PlayerListHudMixin"
+		"PlayerMixin",
+		"PlayerTabOverlayMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

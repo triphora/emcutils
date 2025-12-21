@@ -5,11 +5,8 @@ minecraft = '1.21.11'
 # MC, loaders, and mappings
 minecraft = { module = 'com.mojang:minecraft', version.ref = 'minecraft' }
 # https://fabricmc.net/develop
-yarn = 'net.fabricmc:yarn:1.21.11+build.3'
 fabric_loader = 'net.fabricmc:fabric-loader:0.18.3'
 fabric_api = 'net.fabricmc.fabric-api:fabric-api:0.140.2+1.21.11'
-# https://maven.architectury.dev/dev/architectury/yarn-mappings-patch-neoforge/1.21%2Bbuild.4/
-yarn_patch = "dev.architectury:yarn-mappings-patch-neoforge:1.21+build.6"
 # https://neoforged.net
 neoforge = 'net.neoforged:neoforge:21.11.12-beta'
 
