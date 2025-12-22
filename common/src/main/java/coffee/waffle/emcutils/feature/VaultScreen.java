@@ -31,7 +31,7 @@ import static coffee.waffle.emcutils.Util.id;
 import static coffee.waffle.emcutils.Util.plural;
 
 public class VaultScreen extends AbstractContainerScreen<VaultScreenHandler> implements MenuAccess<VaultScreenHandler> {
-	public static final MenuType<VaultScreenHandler> GENERIC_9X7 = MenuType.register("generic_63", VaultScreenHandler::new);
+	public static MenuType<VaultScreenHandler> GENERIC_9X7;
 	private static final Identifier TEXTURE = id("textures/gui/container/generic_63.png");
 	private final int vaultPage;
 	private final int[] slotOffsets = {8, 26, 44, 62, 80, 98, 116, 134, 152};

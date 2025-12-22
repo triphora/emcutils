@@ -1,19 +1,20 @@
 package coffee.waffle.emcutils.neoforge;
 
-import coffee.waffle.emcutils.feature.UsableItems;
 import coffee.waffle.emcutils.Util;
-import com.mojang.serialization.Codec;
-import net.minecraft.component.ComponentType;
-import net.minecraft.registry.Registries;
+import coffee.waffle.emcutils.feature.UsableItems;
+import coffee.waffle.emcutils.feature.VaultScreen;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
-import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.loading.FMLPaths;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
+import net.neoforged.neoforge.event.ModifyDefaultComponentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -28,12 +29,13 @@ import static coffee.waffle.emcutils.Util.MODID;
 
 @Mod(MODID)
 public class EMCUtilsNeoForge {
-	public static final DeferredRegister<ComponentType<?>> COMPONENTS = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, MODID);
+	public static final DeferredRegister<DataComponentType<?>> COMPONENTS =
+		DeferredRegister.create(BuiltInRegistries.DATA_COMPONENT_TYPE, MODID);
 
-	public static final DeferredHolder<ComponentType<?>, ComponentType<Object>> USABLE_ITEM =
+	public static final DeferredHolder<DataComponentType<?>, DataComponentType<Object>> USABLE_ITEM =
 		COMPONENTS.register("usable_item", () ->
-			ComponentType.builder()
-				.codec(Codec.unit(UsableItems.UsableItem.ITEM))
+			DataComponentType.builder()
+				.persistent(MapCodec.unitCodec(UsableItems.UsableItem.ITEM))
 				.build()
 		);
 
@@ -42,13 +44,7 @@ public class EMCUtilsNeoForge {
 		modBus.addListener(this::registerScreen);
 		modBus.addListener(this::componentEvent);
 
-		var registry = DeferredRegister.create(Registries.SCREEN_HANDLER, MODID);
-		registry.register(modBus);
-		//registry.register("generic_63", () -> VaultScreen.GENERIC_9X7);
-
 		COMPONENTS.register(modBus);
-
-		//EMCDataComponentTypes.init();
 
 		container.registerConfig(ModConfig.Type.CLIENT, ConfigImpl.SPEC);
 
@@ -78,7 +74,7 @@ public class EMCUtilsNeoForge {
 
 	@SubscribeEvent
 	public void registerScreen(RegisterMenuScreensEvent event) {
-		//event.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
+		event.register(VaultScreen.GENERIC_9X7, VaultScreen::new);
 	}
 
 	@SubscribeEvent
@@ -90,7 +86,7 @@ public class EMCUtilsNeoForge {
 	public void componentEvent(ModifyDefaultComponentsEvent event) {
 		event.modifyMatching(
 			x -> true,
-			builder -> builder.add(USABLE_ITEM.get(), UsableItems.UsableItem.ITEM)
+			builder -> builder.set(USABLE_ITEM.get(), UsableItems.UsableItem.ITEM)
 		);
 	}
 }

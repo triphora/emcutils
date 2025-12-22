@@ -6,7 +6,9 @@
 	"client": [
 		"ChatScreenMixin",
 		"ClientPacketListenerMixin",
+		"ConnectScreenMixin",
 		"IdentifierMixin",
+		"MenuTypeMixin",
 		"PlayerMixin",
 		"PlayerTabOverlayMixin"
 	],

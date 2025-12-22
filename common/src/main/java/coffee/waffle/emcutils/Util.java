@@ -21,8 +21,11 @@ public class Util {
 	public static EmpireServer currentServer;
 	public static String onJoinCommand;
 	public static int playerGroupId = 0;
+	public static boolean forceIsOnEMC = false;
 
 	public static boolean isOnEMC() {
+		if (forceIsOnEMC) return true;
+
 		if (Minecraft.getInstance().isLocalServer()) {
 			return false;
 		}
