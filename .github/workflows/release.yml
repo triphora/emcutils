@@ -31,7 +31,7 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: current
-      - run: "gradle fabric:modrinth"
+      - run: "gradle fabric:modrinth neoforge:modrinth"
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
           VERSION_NAME: ${{ inputs.version_name }}
