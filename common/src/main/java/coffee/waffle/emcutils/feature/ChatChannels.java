@@ -6,11 +6,12 @@ import coffee.waffle.emcutils.Util;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
 
 import java.util.Arrays;
 
@@ -24,7 +25,7 @@ public class ChatChannels {
 	private static final LocalPlayer player = Minecraft.getInstance().player;
 	private static final Font textRenderer = Minecraft.getInstance().font;
 
-	public static void handleChatScreenRender(Screen screen, GuiGraphics context) {
+	public static void handleChatScreenRender(Screen screen, GuiGraphicsExtractor context) {
 		if (Util.isOnEMC() && Config.chatButtonsEnabled()) {
 			for (ChatChannel channel : ChatChannel.values()) {
 				if (channel == ChatChannel.SUPPORTER && Util.playerGroupId < 2) break;
@@ -72,7 +73,7 @@ public class ChatChannels {
 		return !(mouseY < screen.height - 32) && !(mouseY >= screen.height - (32 - height - 4));
 	}
 
-	private static void drawButton(Screen screen, GuiGraphics context, ChatChannel channel) {
+	private static void drawButton(Screen screen, GuiGraphicsExtractor context, ChatChannel channel) {
 		int width = textRenderer.width(channel.name);
 		int height = textRenderer.lineHeight;
 
@@ -81,18 +82,18 @@ public class ChatChannels {
 		}
 
 		context.fill(channel.getOffset() + 1, screen.height - 32, channel.getOffset() + width + 4, screen.height - (32 - height - 3), (0xc0 << 24));
-		context.drawString(textRenderer, Component.literal(channel.name), channel.getOffset() + 3, screen.height - 30, (0xff << 24) | channel.color, false);
+		context.text(textRenderer, Component.literal(channel.name), channel.getOffset() + 3, screen.height - 30, (0xff << 24) | channel.color, false);
 	}
 
-	private static void drawPrivateConversation(Screen screen, GuiGraphics context) {
+	private static void drawPrivateConversation(Screen screen, GuiGraphicsExtractor context) {
 		int fullWidth = textRenderer.width("PM with: " + targetUsername);
 		int nameWidth = textRenderer.width(targetUsername);
 		int height = textRenderer.lineHeight;
 
-		context.fill(screen.width - 3, screen.height - 33, screen.width - fullWidth - 8, screen.height - (32 - height - 4), (0xff << 24) | ChatFormatting.LIGHT_PURPLE.getColor());
+		context.fill(screen.width - 3, screen.height - 33, screen.width - fullWidth - 8, screen.height - (32 - height - 4), (0xff << 24) | TextColor.fromLegacyFormat(ChatFormatting.LIGHT_PURPLE).getValue());
 		context.fill(screen.width - 4, screen.height - 32, screen.width - fullWidth - 7, screen.height - (32 - height - 3), (0xc0 << 24));
-		context.drawString(textRenderer, Component.nullToEmpty("PM with: "), screen.width - fullWidth - 5, screen.height - 30, (0xff << 24) | ChatFormatting.WHITE.getColor(), true);
-		context.drawString(textRenderer, Component.nullToEmpty(targetUsername), screen.width - nameWidth - 5, screen.height - 30, (0xff << 24) | groupIdToFormatting(targetGroupId).getColor(), true);
+		context.text(textRenderer, Component.nullToEmpty("PM with: "), screen.width - fullWidth - 5, screen.height - 30, (0xff << 24) | TextColor.fromLegacyFormat(ChatFormatting.WHITE).getValue(), true);
+		context.text(textRenderer, Component.nullToEmpty(targetUsername), screen.width - nameWidth - 5, screen.height - 30, (0xff << 24) | TextColor.fromLegacyFormat(groupIdToFormatting(targetGroupId)).getValue(), true);
 	}
 
 	public static ChatFormatting groupIdToFormatting(int groupId) {
@@ -111,15 +112,15 @@ public class ChatChannels {
 	}
 
 	public enum ChatChannel {
-		COMMUNITY("Community", "cc", ChatFormatting.DARK_GREEN.getColor(), null),
+		COMMUNITY("Community", "cc", TextColor.fromLegacyFormat(ChatFormatting.DARK_GREEN).getValue(), null),
 		DISCORD("Discord", "cd", 0x7087d6, COMMUNITY),
-		MARKET("Market", "cm", ChatFormatting.GOLD.getColor(), DISCORD),
-		SERVER("Server", "cs", ChatFormatting.RED.getColor(), MARKET),
-		LOCAL("Local", "cl", ChatFormatting.YELLOW.getColor(), SERVER),
-		RESIDENCE("Residence", "cr", ChatFormatting.BLUE.getColor(), LOCAL),
-		GROUP("Group", "cg", ChatFormatting.DARK_AQUA.getColor(), RESIDENCE),
+		MARKET("Market", "cm", TextColor.fromLegacyFormat(ChatFormatting.GOLD).getValue(), DISCORD),
+		SERVER("Server", "cs", TextColor.fromLegacyFormat(ChatFormatting.RED).getValue(), MARKET),
+		LOCAL("Local", "cl", TextColor.fromLegacyFormat(ChatFormatting.YELLOW).getValue(), SERVER),
+		RESIDENCE("Residence", "cr", TextColor.fromLegacyFormat(ChatFormatting.BLUE).getValue(), LOCAL),
+		GROUP("Group", "cg", TextColor.fromLegacyFormat(ChatFormatting.DARK_AQUA).getValue(), RESIDENCE),
 		SUPPORTER("Supporter", "cp", 0xfbbf00, GROUP),
-		MODERATOR("Moderator", "cx", ChatFormatting.LIGHT_PURPLE.getColor(), SUPPORTER);
+		MODERATOR("Moderator", "cx", TextColor.fromLegacyFormat(ChatFormatting.LIGHT_PURPLE).getValue(), SUPPORTER);
 
 		private final String name;
 		private final String command;

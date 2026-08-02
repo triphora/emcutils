@@ -84,8 +84,10 @@ public class EMCUtilsNeoForge {
 
 	@SubscribeEvent
 	public void componentEvent(ModifyDefaultComponentsEvent event) {
+		// this is deprecated
 		event.modifyMatching(
-			x -> true,
+	    //x -> true,
+			(item, components) -> true,
 			builder -> builder.set(USABLE_ITEM.get(), UsableItems.UsableItem.ITEM)
 		);
 	}

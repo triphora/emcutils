@@ -7,7 +7,7 @@ String mcVer = libs.versions.minecraft.get()
 architectury.minecraft = mcVer
 
 subprojects {
-	apply plugin: 'dev.architectury.loom'
+	apply plugin: 'dev.architectury.loom-no-remap'
 
 	repositories {
 		[
@@ -35,7 +35,7 @@ subprojects {
 
 	dependencies {
 		minecraft libs.minecraft
-		mappings loom.officialMojangMappings()
+		// mappings loom.officialMojangMappings()
 	}
 
 	loom {
@@ -60,7 +60,7 @@ allprojects {
 
 	tasks.withType(JavaCompile).configureEach {
 		options.encoding = 'UTF-8'
-		options.release.set 21
+		options.release.set 25
 	}
 
 	java.withSourcesJar()
