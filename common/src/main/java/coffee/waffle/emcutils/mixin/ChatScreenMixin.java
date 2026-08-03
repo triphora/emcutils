@@ -1,7 +1,7 @@
 package coffee.waffle.emcutils.mixin;
 
 import coffee.waffle.emcutils.feature.ChatChannels;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.screens.ChatScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.input.MouseButtonEvent;
@@ -18,8 +18,8 @@ abstract class ChatScreenMixin extends Screen {
 		super(title);
 	}
 
-	@Inject(at = @At("HEAD"), method = "render")
-	void emcutils$handleChatScreenRender(GuiGraphics context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+	@Inject(at = @At("HEAD"), method = "extractRenderState")
+	void emcutils$handleChatScreenRender(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
 		ChatChannels.handleChatScreenRender(this, context);
 	}
 

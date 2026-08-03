@@ -6,7 +6,8 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.client.input.MouseButtonEvent;
@@ -24,6 +25,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.ResolvableProfile;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.jspecify.annotations.NonNull;
 
 import java.util.UUID;
 
@@ -38,8 +40,7 @@ public class VaultScreen extends AbstractContainerScreen<VaultScreenHandler> imp
 	private boolean shouldCallClose = true;
 
 	public VaultScreen(VaultScreenHandler handler, Inventory inventory, Component title) {
-		super(handler, inventory, title);
-		this.imageHeight = 114 + 7 * 18;
+		super(handler, inventory, title, 176, 114 + 7 * 18);
 		this.inventoryLabelY = this.imageHeight - 94;
 
 		String page = title.getString().split(" ")[1];
@@ -72,9 +73,9 @@ public class VaultScreen extends AbstractContainerScreen<VaultScreenHandler> imp
 	}
 
 	@Override
-	public void render(GuiGraphics context, int mouseX, int mouseY, float delta) {
-		this.renderBackground(context, mouseX, mouseY, delta);
-		super.render(context, mouseX, mouseY, delta);
+	public void extractRenderState(GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
+		this.extractBackground(context, mouseX, mouseY, delta);
+		super.extractRenderState(context, mouseX, mouseY, delta);
 
 		for (int i = 4; i > 0; i--) {
 			if (vaultPage > i) {
@@ -93,11 +94,11 @@ public class VaultScreen extends AbstractContainerScreen<VaultScreenHandler> imp
 			}
 		}
 
-		this.renderTooltip(context, mouseX, mouseY);
+		this.extractTooltip(context, mouseX, mouseY);
 	}
 
-	private void drawButton(GuiGraphics context, ItemStack button, int mouseX, int mouseY, int buttonX, String amountText) {
-		this.renderFloatingItem(context, button, leftPos + buttonX, topPos + 125, amountText);
+	private void drawButton(GuiGraphicsExtractor context, ItemStack button, int mouseX, int mouseY, int buttonX, String amountText) {
+		renderFloatingItem(context, button, leftPos + buttonX, topPos + 125, amountText);
 
 		if (mouseX >= leftPos + buttonX && mouseX <= leftPos + buttonX + 15) {
 			if (mouseY >= topPos + 126 && mouseY <= topPos + 141) {
@@ -107,8 +108,13 @@ public class VaultScreen extends AbstractContainerScreen<VaultScreenHandler> imp
 		}
 	}
 
+	private void renderFloatingItem(GuiGraphicsExtractor context, ItemStack button, int i, int j, String string) {
+		context.item(button, i, j);
+		context.itemDecorations(this.font, button, i, j, string);
+	}
+
 	@Override
-	protected void renderBg(GuiGraphics context, float delta, int mouseX, int mouseY) {
+	public void extractBackground(@NonNull GuiGraphicsExtractor context, int mouseX, int mouseY, float delta) {
 		int x = (width - imageWidth) / 2;
 		int y = (height - imageHeight) / 2;
 		context.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0, 0, imageWidth, imageHeight, 256, 256);

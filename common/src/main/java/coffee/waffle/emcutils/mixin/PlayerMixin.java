@@ -20,11 +20,17 @@ abstract class PlayerMixin {
 
 		if (Util.isOnEMC()) {
 			Player e = ((Player) (Object) this);
-
 			try {
-				cir.setReturnValue(Caches.namePlateCache.get(e));
-			} catch (ExecutionException ex) {
-				throw new RuntimeException(ex);
+				// added this check because with neoforge this happens before the player is
+				// assigned an id which causes exceptions when the namePlateCache is built/used
+				e.getId();
+				try {
+					cir.setReturnValue(Caches.namePlateCache.get(e));
+				} catch (ExecutionException ex) {
+					throw new RuntimeException(ex);
+				}
+			} catch (IllegalStateException ex) {
+				cir.setReturnValue(Component.empty());
 			}
 		}
 	}

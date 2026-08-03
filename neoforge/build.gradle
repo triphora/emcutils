@@ -5,7 +5,10 @@ plugins {
 
 apply from: '../gradle/loader.gradle'
 
-architectury.neoForge()
+architectury {
+	platformSetupLoomIde()
+	neoForge()
+}
 
 loom {
 	neoForge {
@@ -29,6 +32,6 @@ processResources {
 	}
 }
 
-remapJar {
-	atAccessWideners.add "emcutils.accesswidener"
+jar {
+	//atAccessWideners.add "emcutils.accesswidener"
 }

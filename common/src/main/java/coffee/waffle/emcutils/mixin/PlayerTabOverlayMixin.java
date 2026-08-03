@@ -11,7 +11,7 @@ import java.util.List;
 
 @Mixin(PlayerTabOverlay.class)
 abstract class PlayerTabOverlayMixin {
-	@ModifyVariable(method = "render", at = @At("STORE"), ordinal = 0)
+	@ModifyVariable(method = "extractRenderState", at = @At("STORE"), ordinal = 0)
 	List<PlayerInfo> emcutils$customSortTabList(List<PlayerInfo> original) {
 		return TabListOrganizer.sortPlayers(original);
 	}

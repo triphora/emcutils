@@ -3,10 +3,10 @@ plugins {
 	alias libs.plugins.shadow
 }
 
+architectury.loader 'fabric'
+
 apply from: '../gradle/loader.gradle'
 apply from: '../gradle/fabric-based.gradle'
-
-architectury.loader 'fabric'
 
 File commonAW = project ':common' file 'src/main/resources/emcutils.accesswidener'
 File generatedResources = file 'src/generated/resources'
@@ -16,11 +16,11 @@ configurations {
 }
 
 dependencies {
-	modImplementation libs.fabric.api
-	modImplementation libs.midnightlib
+	implementation libs.fabric.api
+	implementation libs.midnightlib
 	include libs.midnightlib
 
-	modRuntimeOnly libs.modmenu
+	runtimeOnly libs.modmenu
 
 	//include project(':journey')
 	//include project(':xaero')

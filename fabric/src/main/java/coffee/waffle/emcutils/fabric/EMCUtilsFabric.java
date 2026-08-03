@@ -6,7 +6,7 @@ import coffee.waffle.emcutils.feature.UsableItems;
 import coffee.waffle.emcutils.feature.VaultScreen;
 import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.item.v1.ComponentTooltipAppenderRegistry;
+import net.fabricmc.fabric.api.item.v1.ItemComponentTooltipProviderRegistry;
 import net.fabricmc.fabric.api.item.v1.DefaultItemComponentEvents;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.loader.api.FabricLoader;
@@ -33,7 +33,7 @@ public class EMCUtilsFabric implements ClientModInitializer {
 		Util.runResidenceCollector();
 
 		EMCDataComponentTypes.init();
-		ComponentTooltipAppenderRegistry.addLast(EMCDataComponentTypes.USABLE_ITEM);
+		ItemComponentTooltipProviderRegistry.addLast(EMCDataComponentTypes.USABLE_ITEM);
 
 		DefaultItemComponentEvents.MODIFY.register(context -> {
 			context.modify(
